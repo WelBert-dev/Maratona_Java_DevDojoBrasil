@@ -1,0 +1,15 @@
+-- Data 08/11/2022
+-- link: https://www.youtube.com/watch?v=EQhYKOBCozE&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=78
+
+----------> 77 - definições do static
+
+-----> Todos elementos definidos como static, só podem acessar valores do mesmo tipo!!!
+-----> Pois é uma posição fixa em memória, diferente de objetos concretos criados...
+
+-----> Não é possível acessar valores concretos em blocos estáticos pois o objeto pode não estar criado ainda!
+-----> Porém o contrário é possível (acessar valores estáticos em blocos comum) pois é garantido que esse valor vai estar em memória!
+
+-----> Muitas das vezes variaveis estáticas vão estar acompanhadas de final, pois é um tipo de valor que iremos utilizar apenas o "get", 
+então não iremos manipula-lo de uma forma que o altere e possa "quebrar" outros objetos criados e compartilhamos esse mesmo endereço em memória 
+util para economizar espaço, pois a cada criação de um objeto é alocado espaço em memória para cada um, 
+definindo como estático o mesmo será "compartilhado" entre todos os objetos pertencentes a essa classe em questão.

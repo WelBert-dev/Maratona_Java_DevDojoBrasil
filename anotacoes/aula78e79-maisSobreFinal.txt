@@ -1,0 +1,20 @@
+-- Data 08/11/2022
+-- link: https://www.youtube.com/watch?v=PqAZFtNsgn4&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=79
+
+----------> 77 - Tipo referência (Final) 
+
+-----> Em referências "concretas" ou seja, aonde seu valor NÃO PODE ser alterado... é definido como final,
+-----> Exemplo: [carro] <possuí> [COMPRADOR] <- nesta aborgem indicamos que o comprador será constante, ou seja sempre o mesmo! e não podera ser alterado!
+-----> Obs: Essa referencia não pode ser alterada para outros objetos, porém esse objeto referenciado pode ter seus valores alterados!
+
+-----> Dica de estudo: Pattern Sigleton
+
+
+---------> 78 - Classes e Métodos final
+
+-----> Ao definir um método como final, o mesmo não poderá ser sobre-escrito (Override) por classes extends.
+-----> Ao definir uma classe como final, a mesma não podera ser extendida ou seja, a herança acaba ali!
+
+
+
+

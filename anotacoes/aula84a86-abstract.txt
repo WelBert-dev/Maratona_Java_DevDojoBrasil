@@ -1,0 +1,54 @@
+-- Data 16/11/2022
+-- link: 
+https://www.youtube.com/watch?v=ws1NVBGeegs&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=85
+https://www.youtube.com/watch?v=j97OEyzBcKI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=86
+https://www.youtube.com/watch?v=xI0xspht6mA&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=87
+
+Revisando POO
+
+-------> Classes abstratas:
+Servem como interfaces, utilizadas para definir metodos/comportamentos que deveram ser extendidos e não poderam ser instânciadas, 
+metodos esses que seram compartilhados entre os filhos, ou seja, essa classe deve ser o mais genérico possível, e a mesma será criada para ser uma superClasse.
+
+- Obs: Sempre analisar se os comportamentos definidos aqui realmente são genéricos aos futuros herdeiros, 
+pois assim iremos evitar o principio da imutabilidade com Overrides.
+     - Ou seja, para identificar que esses métodos não devem estarem definidos aqui, iremos notar grande número de sobrescritas nos filhos.
+     
+- Todo Objeto é herdeiro da classe mais alta Object, porisso possuímos varios métodos em classes como String por exemplo.
+     toString() é um dos exemplos.
+     
+- Podemos também realizar a sobrescrita de métodos em classes filhos, e mesmo se executado no construtor da super classe, esse método tera seu comportamento alterado.
+
+ ------> Métodos abstratos:
+ Devem ser definidos apenas em classes abstratas, pois esse método deverá ser implementado pelos filhos herdeiros dessa classe, 
+ o mesmo serve para interfaces, porém a definição é implicita/redundante pois já se espera por essa implementação.
+ 
+ - Assim evitamos sobrescritas de métodos de uma maneira "descontrolada", pois daremos essa obrigação obrigatoriamente para as subclasses implementarem,
+ evitando quebrar o princípio de imutabilidade.
+ 
+ - Re-Lembrando: Podemos também definir métodos concretos em classes abstratas, porém esses métodos devem ser o mais GENÉRICO possível, sendo util para todos os futuros filhos.
+ 
+ exemplo de código:
+ 
+ public abstract class Funcionario {
+ 
+   private String _nome;
+   private double _salario;
+   
+   public Funcionario(String nome, double salario) {
+    this._nome = nome;
+    this._salario = salario;
+    calculaBonus(); <-- chamada no construtor da super classe, a execução será do método subrescrito pelo filho.
+   }
+   
+   abstract void calculaBonus(); // <-- assim todos os filhos deveram implementar esse método.
+ }
+ 
+ 
+ ------> subclasses abstratas extendendo de classes abstratas:
+ - Em casos aonde temos métodos definidos como abstratos em superclasses avos e etc (nivel 3 a + de herança), 
+ a implementação deste método tem que ser realizada em alguma dessas subclasses, até no máximo a ultima classe (concreta) que extender, porém apenas uma implementação já é o suficiente.
+ 
+ 
+ 
+ 

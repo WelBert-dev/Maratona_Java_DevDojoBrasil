@@ -1,0 +1,289 @@
+-- Data 29/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=vH7izlkNewI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=109
+
+Assuntos interessantes para futuras pesquisas: String constants pool, String interning
+
+Intermediário: Mais especifico no Java
+
+----------------------------------- // Aula 108 - Introdução as Coleções de Strings e expliações mais a fundo sobre.
+
+---------------------- // Strings no java são IMUTÁVEIS (CONSTANTES), toda String passada como valor vai parar no "String constants pool" ou seja
+pscina de Strings, e ao atribuir valores iguais (passando valor literal) os mesmos apontaram para o mesmo endereço de memória dessa String, em resumo:
+
+String nome = "Wellison"; <- criou-se a String no pool de strings.
+String nome2 = "Wellison" <- aponta para a mesma referência da variável a cima.
+
+- Obs: O nome dado a essa atribuição de valor é "Valor literal".
+
+- Ou seja se utilizarmos: 
+
+(nome == nome2) o retorno desta expressão será TRUE, pois as duas variavéis apontam para o mesmo endereço em memória.
+
+---> Quando re-atribuimos um valor a uma String sobrescrevendo seu valor anterior, a mesma passa a fazer referência a essa nova String criada
+no pool de Strings, NÂO alterando a String anteior em memória, assim quem aponta para a mesma não sente a diferença.
+
+- Ou seja se utilizarmos:
+
+nome = nome.concat(" da Cruz Bertelli");
+
+(nome == nome2) o retorno agora será FALSE, pois ambas apontam para valores diferentes no pool de Strings.
+
+
+---> Ou seja, o operador de comparação com strings irá comparar o endereço em memória não o valor!
+---> Para fazer a mesma operação porém com o valor utilizamos o método string.equals("blabla");
+
+
+- Quando realizamos a mesma operação anterior, porém sem sobrescrever (nome = nome...) a String será criada no pool, porém como não existe 
+nenhuma variável referênciando ela, a mesma será descartada pelo Garbage Collector.
+
+---------------------- // String interning: Conceito em Ciências da computação a onde armazenamos as strings de uma forma imutável (CONSTANTS), 
+para assim apontarmos para a mesma String quando a mesma pode se repetir, assim economizamos espaço de armazenamento, elas são constantes
+para não quebrarmos as utilizações compartilhaads entre as variaveis que apontam passa essa em memória. (Java utiliza essa abordagem).
+
+
+---------------------- // Para que uma String não seja referênciada/criada nesse pool devemos criar um Objeto String com new, assim o operador irá 
+alocar um espaço em memória e irá copiar essa valor do Pool de strings, então essa String não irá mais estar referênciando o pool.
+
+String nome3 = new String("Wellison"); <-- apenas a nível de demonstração, não é uma boa prática e não é muito utilizado.
+
+(nome2 == nome3) o retorno agora será FALSE, pois uma aponta para o pool de strings e a outra para o objeto alocado em memória.
+
+
+- Obs: Para a comparação anterior funcionar novamente nesse cenário, as strings possuem o método .intern(), e o mesmo irá retornar essa referência
+do pool novamente, 
+
+- Ou seja se utilizarmos:
+
+(nome2 == nome3.inter()) o retorno agora será TRUE, pois ambas apontam para o mesmo valor do pool de strings.
+
+
+----------------------------------- // Aula 109 - Métodos mais utilizados no dia a dia:
+
+String personagem = "Luffy";
+
+personagem.charAt(index); <- Retorna o char da posição.
+personagem.replace("este", "por este") <- OBS: DIFERENTE DE JAVASCRIPT QUE SUBSTITUI APENAS A PRIMEIRA OCORRÊNCIA, AQUI SUBSTITUI TODAS!
+personagem.substring(ApartirDestaPosição, atéEsta -1); <- Obs: se passar apenas um argumento considera daquela posição até o fim.
+personagem.trim(); <- Drop spaces inicio e fim.
+personagem.ToUpperCase(); 
+personagem.ToLowerCase();
+
+----------------------------------- // Aula 110 - Métodos visando DESEMPENHO: (Aqui ele demonstra na prática o problema de se trabalhar com Strings neste 
+contexto). (StringBuilder, e StringBuffer)
+
+- Motivos do aumento exponencial de processamento quando se trabalhado com Strings em Loopings e etc: String constants pool.
+
+
+private static void concatString(int tamanho) {
+  String texto = "";
+  
+  for (int i = 0; i < tamanho; i++) {
+    texto += i;
+  }
+}
+
+----------------------------------------------- DESEMPENHO Classe String comum
+--> Chamada do método para verificar != time:
+
+---------// Primeira Interação:
+
+long inicio = System.currentTimeMillis();
+concatString(1000) // primeira interação: 3ms
+long fim = System.currentTimeMillis()
+
+- Tempo: 3ms
+------------------------------------------------
+---------// Segunda Interação:
+
+long inicio = System.currentTimeMillis();
+concatString(10_000) // segunda interação: 186ms
+long fim = System.currentTimeMillis()
+
+- Tempo: 186ms
+------------------------------------------------
+---------// Terceira Interação:
+
+long inicio = System.currentTimeMillis();
+concatString(100_000) // terceira interação: 9855ms
+long fim = System.currentTimeMillis()
+
+- Segunda interação: 9855ms
+
+
+-----------------------------------------------// Solução: Utilizar o StringBuilder ao invés de String simples:
+- Ganho de desempenho, porém a forma de trabalhar é diferente, mesmo método anterior porém trocando pelo Builder:
+- Resumo do ganho: COM Builder: (0.1segundo); SEM Builder: (1segundo) +90% de Desempenho.
+
+private static void concatStringBuilder(int tamanho) {
+  StringBuilder textoSB = new StringBuilder(tamanho); <- tamanho da String que ele vai construir
+  
+  for (int i = 0; i < tamanho; i++) {
+    textoSB.append(i);
+  }
+}
+
+----------------------------------------------- StringBuilder:
+--> Chamada do novo método para verificar != time e ganho de desempenho
+
+---------// Primeira Interação:
+
+// Sem o Builder:
+long inicio = System.currentTimeMillis();
+concatString(30_000) // primeira interação: 1081ms (1segundo)
+long fim = System.currentTimeMillis()
+
+- Tempo sem Builder: 1081ms (1segundo)
+
+
+// COM o Builder:
+inicio = System.currentTimeMillis();
+concatStringBuilder(30_000) // primeira interação: 1ms (0.1segundo)
+fim = System.currentTimeMillis()
+
+- Tempo COM Builder: 1ms (0.1segundo)
+------------------------------------------------
+---------// Segunda Interação:
+
+// Sem o Builder:
+long inicio = System.currentTimeMillis();
+concatString(100_000) // segunda interação: 9855ms (10segundos)
+long fim = System.currentTimeMillis()
+
+- Tempo sem Builder: 1081ms (1segundo)
+
+
+// COM o Builder:
+inicio = System.currentTimeMillis();
+concatStringBuilder(100_000) // segunda interação: 4ms (0.4segundo)
+fim = System.currentTimeMillis()
+
+- Tempo COM Builder: 4ms (0.4segundo)
+------------------------------------------------
+
+-----------------------------------------------// DESEMPENHO StringBuffer: Mesmos métodos que o Builder, porém visando multiplas Threads acessando o mesmo recurso.
+- Obs: Ganho de desempenho PORÉm o StringBuilder ainda é superior, e esse demora o dobro do builder, m
+- Ganho de desempenho, quando multiplas Threads acessam o mesmo recurso.
+- Buffer foi feito para contextos de Threads.
+
+private static void concatStringBuffer(int tamanho) { // Mesmo corpo do Builder apenas mudando a intância pois as assinaturas são as mesmas.
+  StringBuffer textoSBuff = new StringBuffer(tamanho);
+  
+  for (int i = 0; i < tamanho; i++) {
+    textoSBuff.append(i);
+  }
+}
+
+----------------------------------------------- DESEMPENHO StringBuffer (6ms) VS StringBuilder (3ms) (Obs: Ambos foi feito para contextos diferentes).
+
+---------// Primeira Interação:
+
+// Builder:
+long inicio = System.currentTimeMillis();
+concatStringBuilder(100_000) // primeira interação: 3ms
+long fim = System.currentTimeMillis()
+
+- Tempo Builder: 3ms
+
+
+// Buffer:
+inicio = System.currentTimeMillis();
+concatStringBuffer(100_000) // primeira interação: 6ms
+fim = System.currentTimeMillis()
+
+- Tempo Buffer: 6ms
+------------------------------------------------
+
+-----------------------------------------------// Quando utilizar cada tipo de Classe/Objeto String:
+- Quando estamos desenvolvendo um sistema, estamos mapeando as regras de negocio do mudno real em código, e essas regras quem vão ditar qual utilizar.
+- Objetos de dominio que representam as prorpiedades do mundo real sempre teram como atributos Strings comuns.
+- Utilizaremos essas abordagens em contextos aonde queremos otimizar, como algum tipo de processamento em massa e etc..
+
+
+----------------------------------- // Aula 111 - StringBuilder mais a fundo 
+- REFORÇANDO: Ambos possuem as mesmas assinaturas (StringBuilder(3ms) e StringBuffer(6ms)) com a diferença nos contextos.
+  - Ou seja, as mesmas lógicas aqui descritas se aplicam nas duas.
+
+- Não existe o conceito de imutabilidade das Strings, ou seja um objeto deste tipo não vai parar no String constants poo,
+porisso a performance/desempenho aumenta, pois ao concatenar Strings não vai ficar criando duplicatas em memória.
+
+----------------------------------- // Sobrecarga de construtores
+
+- Ao criar um Objeto do tipo StringBuilder ou StringBuffer com o operador new, existem 3 sobrecargas no construtor sendo elas:
+
+  * Sem nada: Default aloca um int com 16 ou seja, um espaço de 16 caracteres em memória.
+    - Caso ultrapassemos esse valor, ele vai dobrando exponencialmente (32, 64, 128...)
+    
+  * Valor int: define o tamanho da String em questão que será alocada.
+  
+  * Alguma coisa:
+  
+  
+----------------------------------- // Concatenando/atribuindo valores a elas:
+  
+  - Para atribuir valores em um objeto destes tipos, ou adicionar mais valores nesse objeto
+    Utilizamos o método .append("blablabla");
+    * Ele é sobrecarregado, podemos passar praticamente todos os tipos primitivos como parâmetro e ele faz o cast,
+      e joga o valor em questão no final da String em memória.
+  
+  
+----------------------------------- // Tipos de retorno do StringBuilder (Obs se atentar a eles)
+- Obs: Ao utilizar métodos desses tipos de Objetos Strings (Builder e Buffer) se atentar sobre o tipo de retorno dele,
+para saber se o método está alterando a String em memória do Objeto em sí, ou se esta apenas aplicando alguma lógica
+e retornando uma String comum. (não alterando assim o valor "real" em memória).
+
+- Para saber isto basta verificar o tipo de retorno deste método em questão, se o retorno for uma String comum, 
+então ele não está aplicando a lógica em cima da String em memória do objeto original (StringBuilder ou Buffer).
+- Agora se ele esta retornando um StringBuilder ou Buffer ele está manipulando a memória em sí, não apenas o retorno.
+
+- Exemplo: 
+objBuilderOrBuffer.reverse(); <- Retorna uma StringBuilder ou seja, altera a String em memória em sí.
+
+- Ou seja o mesmo está mudando o Objeto original em sí na memória..
+
+- Exemplo2 no mesmo contexto:
+objBuilderOrBuffer.delete(inicio, fim -1); <- Retorna uma StringBuilder ou seja, altera a String em memória em sí.
+
+
+- AO CONTRARIO ocorre com o .substring() por exemplo, pois o mesmo retorna uma String comum, logo o objeto real em memória
+permanece intacto, então a logica é aplicada apenas no retorno.
+
+
+----------------------------------- // Porque ganha DESEMPENHO?
+
+
+- Pois como eles manipulam diretamente o espaço único em memória, ao atribuir valores e etc ele faz apenas uma operação,
+diferente quando se trabalha com Strings comuns aonde o mesmo fica re-alocando Strings e duplicando no String constants pool,
+assim não gera essas Strings a +
+
+Exemplo:
+
+String nome = "Wellison";
+nome = nome.concat(" Bertelli");
+
+- Neste exemplo a String "Wellison" vai ser criada no pool de Strings, depois vai ser criado " Bertelli" e depois
+finalmente será criado o "Wellison Bertelli" ou seja 3 operações apenas em 2 linhas, e 3 Strings distintas a + no Strings constants pool.
+
+- O Builder e Buffer não existe isso, ele manipula diretamente a memória alocada inicialmente, então não existe essas duplicatas 
+que acontecem com Strings comuns no pool de Strings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

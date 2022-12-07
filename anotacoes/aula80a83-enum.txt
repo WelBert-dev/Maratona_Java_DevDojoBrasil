@@ -1,0 +1,88 @@
+-- Data 10/11/2022
+-- link: https://www.youtube.com/watch?v=3xzrprPwS2Q&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=81
+
+-- Fonte interessante de como se trabalhar com enums: https://www.wbotelhos.com/controle-de-permissao-com-vraptor-3
+----------> 80 - Enumerações 
+
+-----> Enumerações também possuem construtores, métodos e atributos.
+-----> Podemos definir atributos á elas tambem, porém as mesmas devem vir após a lista de enumeradores.
+
+O construtor geralmente é utilizado para alimentar essa variavel definida, 
+e assim poder fazer um get e saber qual é o enumerador selecionado.
+esse é o uso comum, podendo assim realizar lógicas e guardar no banco esse número identificador unico do enumerador selecionado.
+
+isso serve para abstrair e facilitar na programação, pois no código utilizamos "tipoCliente.PESSOA_JURIDICA" e no banco guardamos "tipoCliente.getValor()"
+ou "tipoCliente.VALOR" se a mesma for public, assim o código fica entendível, e no banco fica otimizado.
+
+o construtor é chamado toda vez que criado um enumerador (Aqueles definidos logo nas primeiras linhas desse enum), 
+e assim podemos passar valores a eles, e assim que criado esses parametros seram passados ao construtor 
+exemplo:
+
+public enum TipoCliente {
+  PESSOA_FISICA(1, "Pessoa Física"),
+  PESSOA_JURIDICA(2, "Pessoa Jurídica");
+  
+  private int _valor; 
+  // ou public final int VALOR (e assim basta utilizar obj.VALOR para pegar qual é o enumerador selecionado da lista)
+  private String _nomeRelatorio;
+  
+  private tipoCliente(int valor, String nomeRelatorio){
+    this._valor = valor;
+    this._nomeRelatorio = nomeRelatorio;
+  }
+  
+  public getValor(){
+    return this._valor;
+  }
+  
+  public getNomeRelatorio(){
+    return this._nomeRelatorio;
+  }
+}
+
+- exemplo de como chamar esse enum: 
+TipoCliente.PESSOA_FISICA;
+
+-- Método pronto para percorrer a lista de enumeradores de um enum e pegar ele:
+
+// TipoCliente tipoCliente = TipoCliente.valuesOf("Pessoa Física"); <-- assim VAI DAR ERRO pois ele pega pelo nome do enumerador em sí, n pelo valor passado como parametro.
+TipoCliente tipoCliente = TipoCliente.valuesOf("PESSOA_FISICA"); <-- assim daria, porém e se quisermos pegar pelo valor dos atributos em sí
+para isto será necessário criar um método estático neste enum, para assim ocupar menos espaço e todos objetos compartilhar deste metodo.
+
+public static TipoCliente tipoClientePorNomeRelatorio(String nomeRelatorio){
+  for (TipoCliente tipoCliente : values()) {
+    if (tipoCliente.getNomeRelatorio().equals(nomeRelatorio)) {
+      return tipoCliente;
+    }
+  }
+  
+  return null;
+}
+
+TipoCliente tipoCliente = TipoCliente.tipoClientePorNomeRelatorio("Pessoa Física"); <-- assim NÂO da ERRO
+
+
+----> Sobrescrita de métodos em enum's: (Assim não é necessário uso de IF's)
+
+public enum TipoPagamento {
+  DEBITO {
+    @Override
+    public double calcularDesconto(double valor){
+      return valor * 0.1;
+    }
+  }, CREDITO {
+    @Override
+    public double calcularDesconto(double valor){
+      return valor * 0.05;
+    }
+  };
+  
+  public double calcularDesconto(double valor){
+    return 0;
+  }
+  
+  // abstract double calcularDesconto(double valor); <-- ou assim, lembrando que se utilzar assim, deve-se implementar com Override
+}
+
+- exemplo de como chamar esse método do enum:
+TipoPagamento.DEBITO.calcularDesconto(100);

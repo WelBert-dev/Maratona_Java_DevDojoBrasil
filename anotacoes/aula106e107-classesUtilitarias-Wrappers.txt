@@ -1,0 +1,92 @@
+-- Data 29/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=F0F0B33Un9M&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=107
+https://www.youtube.com/watch?v=cAqsHzWy2qI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=108
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Wrappers: Classes referentes aos tipos primitivos, ou seja "Empacotar" eles, servem como suporte para tratamentos dos mesmos
+e também para utilizar outros recursos é necessário (Exemplo: Listas pois o List<> Só aceita objetos, ERROR: List<int>; SUCCESS: List<Integer>)
+pois as coleções guarda a referência dos objetos não o valor, porisso não é possível criar listas e etc com tipos primitivos; e também
+para quando queremos utilizar a passagem por referencia, pois toda vez que passamos um tipo primitivo como parâmetro estamos utilizando a passagem
+por valor. (Ou seja se querermos tratar uma variavel que guarda um valor primitivo como um objeto utilizamos essa abordagem empacotando ela.)
+
+---> Tipos primitivos comum:
+
+byte (8bits) 
+short (16bits) - um inteiro com 16 bits, com sinal na representação complementar de dois; de -32.768 a 32.767
+int (32bits) - um inteiro com 32 bits, com sinal na representação complementar de dois; de -2.147.483.648 a 2.147.483.647
+long (64bits)
+double (64bits)
+float (32bits)
+char (16bits)
+boolean (8bits): Era pra ser 1 porém é dificil uma arquitetura disponibilidar a possíbilidade de acesso a apenas 1bit, porisso é 8!
+
+---> Atribuição simples: (Passagem por valor)
+
+byte byteP = 1;
+short shortp = 1;
+int intP = 1;
+long longP = 10L;
+float floatP = 10F;
+double doubleP = 10D;
+char charP = 'W';
+boolean booleanP = false;
+
+
+---> Atribuiçao em Wrappers: (Passagem por referência), utilizado quando queremos tratar algum tipo primitivo como um objeto).
+- Obs: Agora são objetos, e se tentarmos passar um valor diferente do esperado para cada um, não sera possível (Diferentemente do que 
+acontece quando se trabalhando com tipos primitivos comuns), ou seja se tentarmos atribuir 10F em um Double não sera possível. 
+
+- A regra de POLIMORFISMO se aplica neles também!
+
+Byte byteW = 1; (Extends Number) // boxing
+Short shortW= 1; (Extends Number) // boxing
+Integer intW = 1; (Extends Number) // boxing
+Long longW = 10L; (Extends Number) // boxing 
+Float floatW = 10F; (Extends Number) // boxing
+Double doubleW = 10D; (Extends Number) // boxing
+Character charW = 'W'; // boxing
+Boolean booleanW = false; // boxing
+
+
+---------------------- // Conceitos Unboxing e AutoBoxing (ou Boxing): Quando o Java faz a conversão automaticamente de tipos primitivos para Wrapper,
+e vici versa.
+
+---> Unboxing: O Ato de desemcapsular um Wrapper ou seja quando estamos retirando um valor primitivo de um Wrapper e o Java faz a conversão.
+Exemplo:
+
+Integer intW = 10; <- AutoBoxing quando o Java faz a conversão.
+
+
+---> Boxing: Ao contrário do anterior, o ato de emcapsular um valor primitivo em um Wrapper aonde o Java faz a conversão:
+Exemplo:
+
+int intP = intW; <- O java esta desencapsulando.
+
+---------------------- // Não muito utilizado, porém os Wrappers também possuem métodos para essas conversões, sendo possivel assim 
+retornar o valor em outros formatos (exemplo em um Wrapper Integer: intP.byteValue(); <- não estático). por de baixo dos panos o java esta fazendo um cast.
+- Também podemos fazer esse parsing apartir de uma string com o metodo Integer.parseInt("10"); <- estático.
+
+
+---------------------- // Métodos interessantes citados no vídeo:
+
+Character.isLetter('L'); <- Booleano se é ou não uma letra;
+Character.isDigit('L'); <- Booleano se é ou não um digito ou seja um number;
+Character.isLetterOrDigit('!'); <- Booleano se é numero ou letra (para detecção de especial caracters);
+
+---> Classicos:
+
+Character.isUpperCase('A');
+Character.isLowerCase('a');
+
+Character.toUpperCase('a'); <- Ambas iram ignorar se passados valores diferentes de letras.
+Character.toLowerCase('A'); <- Ambas iram ignorar se passados valores diferentes de letras.
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+-- Data 17/11/2022
+-- link: 
+https://www.youtube.com/watch?v=AhVd_DzV3DU&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=88
+https://www.youtube.com/watch?v=QKjFkaagGdk&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=89
+
+
+Revisando POO
+Relembrando UML: Linhas cheias representam extends e as linhas pontilhadas representam implements.
+Fonte adicional: https://www.devmedia.com.br/java-collections-como-utilizar-collections/18450
+https://www.youtube.com/watch?v=zJml-dDGLsI <-- Diferenças entre extends e implements.
+
+- Quando utilizar Interface e quando utilizar herança?
+Quando os filhos serem abrigados a conter aqueles contratos definidos na interface, ou seja quando esse objeto
+que implementar essa interface ser OBRIGADO a conter algum comportamento/atributo.
+
+-------> Interfaces: Definem assinaturas e devem ser implementadas por classes concretas, 
+bastante utilizando em conjunto de injeção de dependências (inversão de controle).
+não só isso, mas também é possível adicionar métodos com corpo implementado, utilizando
+default e assim esses métodos/comportamentos iram ser "herdados" para as classes que realizarem a implementação,
+podendo assim utilizar esse funcionalidade herdada ou sobrescreve-la com Override.
+Ou seja define uma abstração estilo abstract e assim esconde a complexidade por trás dela, 
+bastando conhecer essas assinaturas, deixando o código mais inteligente e facilitando na manutenção.
+
+  - Exemplo de interface famosa no Java aonde foi adicionado esses métodos default: ICollection.removeIf();
+
+- É Possível implementar multiplas interfaces de uma só vez, em uma única classe concreta, basta utilizar virgula após o implements.
+- Em Interfaces tudo é público ou estático.
+
+
+Exemplos:
+
+public interface IDataLoader {
+  public void loader();
+}
+
+public interface IDataRemover {
+  public void remove();
+}
+
+---------------------- // Utilizando banco de dados para a leitura:
+
+public class DataBaseLoader implements IDataLoader, IDataRemover {
+  @Override
+  public void loader(){
+    ...
+  }
+  
+  @Override
+  public void remove(){
+    ...
+  }
+}
+
+---------------------- // Utilizando um arquivo qualquer para leitura:
+
+public class FileLoader implements IDataLoader, IDataRemover {
+  @Override
+  public void loader(){
+    ...
+  }
+  
+  @Override
+  public void remove(){
+    ...
+  }
+}
+
+- Observe que foi utilizado a mesma interface como base para implementação, 
+assim em caso de alterações na leitura dos dados não é necessário alterar métodos e etc ao longo do código, 
+basta mudar a instância na chamada principal do app, pois os métodos possuem sua chamada/assinatura genérica.
+assim com a injeção de dependências, deixamos essa responsabilidade de instânciação ao framework utilizado no desenvolvimento.
+
+-------------------- // Cenários aonde podemos utilizar Interfaces:
+1o - Ao manipular DTO's é interessante utilizar interfaces pois os mesmos vão conter informações especificas para cada cenário, 
+reduzindo ou aumentando essas propriedades, se comparado a Entidade x em questão sem essa mudança.
+  - Exemplo: retornar dados específicos de um cliente para o frontend, escondendo assim alguns atributos desnecessários (id, password.. por exemplo).
+Assim, quando queremos "forçar" informações para gravar em banco de dados por exemplo, podemos utilizar como corpo desse DTO uma interface, 
+pois a mesma irá obrigar essas implementações, garantindo assim esses atributos que seram gravados no banco ou que ira ser trasmitido para outras
+tecnologias.
+
+2o - Quando determinadas classes DEVEM todas possuir aquele comportamento, devendo assim concluir esse contrato.
+
+3o - Quando utilizado essa "mensageria" entre duas tecnologias distintas, e a tecnologia de destino irá "compreender" essa interface,
+pois garante o mesmo comportamento nas duas, facilitando assim essa comunicação. (Http por exemplo..)
+
+-------------------- // Cenários aonde podemos utilizar abstrações (herança):
+1o - Quando esta sendo utilizado padrões de projeto em específico, garantindo assim boas práticas de programação.
+principalmente pensando em re-uso.
+
+------------------- // Resumindo Abstract vs Interface:
+ - É um contrato? ou seja é garantia de que os objetos que implementarem iram conter esse comportamento? utilize interfaces.
+ - É uma abstração? ou seja é uma classe que contém caracteriasticas similiares entre seus filhos? utilize abstract.
+
+------------------- // Modificador default em interfaces:
+Utilizado para garantir a implementação de um método para quem implementar essa interface, caso o mesmo (classe que esta implementando) 
+não o implemente (Assim vai conter esse valor "padrão" porisso o "default"). assim não é necessário implementar esse método, 
+e mesmo assim podera utilizar ele (Estilo herança).
+
+- Exemplo:
+
+public interface IDataLoader {
+  public abstract void loader(); <-- abstract aqui é redundante pois ja é explicito esse comportamento (mas não é errado reforçar).
+  
+  default void checkPermission(){
+    ...
+  }
+}
+
+------------------- // Comportamentos "Padrões" em uma interface (definições de atributos e etc):
+- Todo atributo definido em uma interface caso não alterado o padrão é: public static final
+- Todo método definido em uma interface caso não alterado o padrão: public abstract <- isso quando o mesmo não é default
+
+------------------- // Métodos estáticos em interfaces:
+- Métodos estáticos em interfaces nunca poderam ser sobrescrevidos pois ele é pertencente a classe não ao objeto.
+- Ou seja se definido método como static nessa interface, a classe que concretizar implementando ela poderá 
+definir um método com o mesmo nome e não vai ocorrer erros de sobrescrita, pois ai seram 2 métodos distintos.
+
+- Então na chamada do mesmo devemos utilizar a referência correta Interface.metodoStatic(); ou ClasseQueImplementaInterface.metodoStatic();
+- Lembrando: São dois métodos distintos.
+
+
+
+
+

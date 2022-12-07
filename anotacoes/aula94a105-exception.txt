@@ -1,0 +1,350 @@
+-- Data 18/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
+https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
+https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98 
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99
+
+Relembrando POO
+
+----------------------------------------------- // RESUMO DE TODOS OS VÍDEOS: // ------------------------------------------------------------------------
+
+---------------------- // Estrutura Hierarquica básica das classes Exceptions/Throws:
+
+                                              <Checked>(NEM compila)           <Unchecked> (Compila)
+                          [Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                                                        /\                            /\
+                                                         |                             |
+                                                   [IOException]              [NullPointerException]
+                                                   [SQLException]             [NumberFormatException]
+                                                   [MalformadURLexception]    [ClassCastException]
+                                                                              [IndexOutOfBoundsException]
+ 
+ 
+---------------------- // Tipos CHECKED: Exceptions conhecidas pelo java, e antes mesmo de compilar ele ja identifica elas porisso elas são subClasses de
+ExceptionS diretas, essas exceções devem ser OBRIGATÓRIAMENTE tratadas e se não o fizer nem compilar vai.
+
+---------------------- // Tipos UNCHECKED: Exceptions desconhecidas pelo java, porisso são subClasses de "RuntimeException", ou seja vão ser
+identificadas após compilar, em tempo de execução.. Unchecked pois são cenários em que o Java desconhece. porisso NÃO é obrigatório lançar esse tipo de
+Exception.
+
+
+---------------------- // VANTAGENS de se utilizar TRY CATCH && LANÇAR EXCEPTIONS: Código mais seguro, não vai quebrar na mão do cliente/usuário.
+
+---------------------- // DESVANTAGENS de se utilizar TRY CATCH && LANÇAR EXCEPTIONS: MÁS a pessoa que esta chamando o método perde o controle sobre a
+Exception, pois em caso de lançamentos o próprio código vai tentar tratar e assim não será possível transmitir essa responsabiidade para quem o chama.
+Ou seja, o método que chamar esse outro (que faz tratamento no próprio core de sí), perde a possibilidade de realizar tratamentos sobre (Do jeito
+"dele"), então esse método que faz tratamento sobre sí próprio deve GARANTIR que esta tratando corretamente, pois assim que lançada essa Exception o
+mesmo deverá tratar CORRETAMENTE.
+
+
+---------------------- // Diferenças entre lançar Throws na assinatura do método e/ou no corpo do mesmo:
+---> Ao Assinar um método com "thows <Exception>" faz com que a responsabilidade do tratamento fique para QUEM ESTA CHAMANDO ELE. assim funciona de
+maneira exponencial, ou seja podemos passar essa responsabilidade para outro método sequencialmente que chamou esse outro método (WorkFlow da stack de
+métodos), e assim passar essa responsabilidade de tratamento PARA outros métodos (Péssima prática, vira uma espécie de "prop drilling").
+---> Exceptions do tipo checked (Ou seja conhecidos pelo Java, filhos diretos de Exception) devemos OBRIGATÓRIAMENTE assinar o método com o throw!
+
+- Exemplo: 
+
+public static void createNewFile() throws IOException{ // RESPONSABILIDADE DE TRATAMENTO PARA QUEM CHAMA.
+  File file = new File("arquivo\\teste.txt");                               
+  boolean isCreated = file.createNewFile();
+  ...
+  }
+}
+
+---> Ao inves de assinar um método com "thows <Exception>" se utilizarmos blocos "Try catch" no proprio corpo do método ESTAMOS DEIXANDO ESSA
+RESPONSABILIDADE DE TRATAMENTO PARA ELE MESMO. Ai entra aqueles pontos ditos logo a cima.
+
+- Exemplo: 
+
+public static void createNewFile() { // RESPONSABILIDADE DE TRATAMENTO NO PRÓPRIO MÉTODO.
+   File file = new File("arquivo\\teste.txt");
+   try {
+
+      boolean isCreated = file.createNewFile();
+      ...
+    } catch (IOException ex) { 
+      ...
+      ex.printStackTrace(); // <-- Boa prática para rastrear a origin da Exception.
+    }
+}
+
+---------------------- // Dito isto, QUANDO utilizamos as DUAS abordagens de lançamentos/tratamentos de EXCEPTIONS?
+
+---------------------- // Abordagem com blocos Try Catch: Uma certeza de utilização é quando o método/classe em questão é privado, ou seja
+ninguem além dele vai poder acessa-lo e realizar esse tratamento, ou seja vai depender do NÍVEL de acessibilidade dessa classe em sí (Quanto mais privada
+ela, mais restrito daremos essa responsabilidades aos outros métodos)!
+
+---------------------- // Abordagem com thows nas assinaturas dos métodos: Quanto mais aberto esse NÍVEL de acessibilidade dessa classe, melhor será
+deixar quem chama esse método em questão realizar essa tratativa (public por exemplo), pois como ele é aberto não teremos "Ideia" sobre quem esta
+utilizando dele, então é melhor deixar esse tratamento para eles (Uma vez que não temos ideia das abordagens adotadas por eles), pois assim esse método
+sera muito mais acessado em teoria por outros, então a dica é essa, quanto MAIS ABERTO o nível do MODIFICADOR de acesso do método mais é melhor assina-lo
+com throw e deixar o bloco de tratamento "Try Catch" para quem esta o chamando.
+
+
+
+---------------------- // Quando uma Exception é lançada e utilizamos multiplos catch's no estilo de sobre carga, o Java faz match não apenas na Exception 
+em particular especializada que indicamos, mas também considera a classe "Pai" dessa Exception em casos de a mesma estar definida nessa sobrecarga!
+
+---> Ou seja o Java considera o POLIMORFISMO aqui também!
+
+---> Ele vai execultar o catch da primeira ocorrência que encontrar, seguindo essa regra do POLIMORFISMO! 
+     Exemplo: Seguindo essa hierarquia básica das Exceptions mais famosas, se utilizarmos uma sobre carga de catchs e lançarmos uma 
+     Exception do tipo 'throw new ArrayIndexOutOfBoundsException();' e na sobre carga o primeiro catch é para um
+     'IndexOutOfBoundsException' então esse bloco quem será executado! pois ele é "Pai" da Exception lançada a cima (POLIMORFISMO).
+     
+                                               <Checked>(NEM compila)           <Unchecked> (Compila)
+                          [Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                                                        /\                            /\
+                                                         |                             |
+                                                   [IOException]              [NullPointerException]
+                                                   [SQLException]             [NumberFormatException]
+                                                   [MalformadURLexception]    [ClassCastException]
+                                                                              [IndexOutOfBoundsException]
+                                                                              [ArrayIndexOutOfBoundsException]
+
+---------------------- // Try catch with resources: Utilizado quando uma implementação utilizará o método close():
+---> Regras: Para utilizar esse recurso, aonde o Java se encarrega de fazer esse close e evitamos códigos "Sujos" com lançamentos de Exceptions (Para evitar NullPointerException, IOException, e etc) no catch e etc para esse tratamento, 
+podemos utilizar esse recurso porém deve-se atentar em: Para passar essa responsabilidade para o Java
+essa classe deve-se implementar a interface "Closeable" ou "Autocloseable", muito utilizado quando se fecha conexões SQL e etc...
+
+---> Podemos utilizar esse recurso no mesmo parâmetro para instânciar varios Objetos de uma só vez, desde que os mesmos respeitem as regras ditas a cima, 
+utilizando o delimitador ";".
+
+--> Sintaxe: try(Reader r1 = new Reader();
+                 Leitor2 l2 = new Leitor(); <-- Classe criada por nós, porém seguindo a regra dita anteriormente e implementando uma das classes "Clouseble"
+) {
+  ...
+}
+
+---> A Ordem em que o Java irá executar o método .close() será da última instanciação passada no parâmetro até a primeira...
+Ou seja no exemplo dito a cima a ordem seria: l2.close(); r1.close();
+
+------> Obs: Util essa ordem pois geralmente quando se trabalha com banco de dados deve-se ir fechando a stack do ultimo até o primeiro..
+
+
+---------------------- // Regras de sobrescritas de métodos que lançam Exception na assinatura:
+---> O POLIMORFISMO também se enquadra aqui, ou seja ao sobrescrever um método em uma subClasse e os mesmos lançem exeções do tipo Checked (Herdeiros diretos de Exception, ou seja exeções ja conhecidas pelo Java e ele não compila se não resolver) nesse novo método sobrescrito NÂO é obrigatório
+que o mesmo possua na assinatura as Exceptions lançadas pelo "pai", pois o mesmo pode tratar o problema de maneiras diferentes e 
+assim não é necessário esse lançamento, então esta liberado modificar PORÈM segue uma regra importante:
+
+--> Se tentar sobrescrever o método que lança na assinatura essa Exception (Checked) NÂO podemos sobrescrever com Exceptions mais genéricas,
+ou seja se o pai é uma "FileNotFoundException" e no filho tentarmos sobrescrever com "IOException" NÃO vai ser possível! apenas podemos ou
+sobrescrever com a mesma Exception do pai ou um subtipo mais especializado que ela.
+
+---> Outro PORÉM seguindo a mesma linha: não podemos sobrescrever com exeções do tipo Checked se no pai NÃO está sendo lançada (Exceptions que extends Exception diretamente)!
+
+------------------------------------------- // ANOTAÇÕES DURANTE OS VÍDEOS, COM MAIS DETALHAMENTOS: // --------------------------------------------------
+
+-------> Existem errors e execptions que são possíveis serem tratadas e estão em nosso controle porém existem também exceptions que não estão.
+-------> Neste módulo iremos aprender a como trata-las pois o java oferece bastante recursos para tal.
+-------> Todos os erros são ramos da mesma superClasse.
+-------> PORÉM nem todo erro é uma exceção, ambos são coisas diferentes porém todos são subClasses de Throw!
+
+---------------------- // 95 - Exceções pt 01 - Errors. (Básico, ja sabia e.e sem muitas anotações) 
+https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
+
+-----> StackOverflowError: Quando extoura a pilha (Memória), recursividade sem controle pode causar essa exception.
+
+---------------------- // 96 - Exceções pt 02 - RuntimeException (Aqui são tratadas e é explicado os tipos checked e unchecked)
+https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
+
+---------------------- // Exceptions filhas diretas de Runtime são do tipo Unchecked e não necessita de pré-tratamentos em relação a compilação do código.           
+
+---> Hierarquia básica de uma Exception (Da mais genérica para a mais especializada) Throwable é a mais genérica:
+
+                           <Checked>(NÂO compila)     <Unchecked> (Compila)
+[Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                              /\                            /\
+                               |                             |
+                         [IOException]              [NullPointerException]
+                         [SQLException]             [NumberFormatException]
+                         [MalformadURLexception]    [ClassCastException]
+                                                    [IndexOutOfBoundsException]
+
+---> Dito isto, então devemos tomar melhor abordagem na qual vamos tratando nessa sobrecarga as possíveis Exceptions mais especificas
+possíveis, na ordem, e por ultimos casos deixar o tratamento para Exceptions mais genéricas (SuperClasses como a "RuntimeException"),
+pois em ultimos casos, quando ja estivermos sem recursos para tratamento, em cenários muitos desconhecidos, ainda sim podemos
+tomar alguma abordagem.
+                                                  
+---------------------- // Exception dos tipos Checked(Obrigatório o tratamento, pois o código nem compila) e Unchecked(Não obrigatório):
+
+---> Checked: São filhas diretas da classe Exception, ou seja se lançada sem tratamento nem da pra compilar o código (Acontece em tempo de compilação).
+Exemplos: IOException, SQLException, MalformadURLException.
+Checked pois ja são "Conhecidas" antes mesmo do código compilar, com essa inteligência do Java.
+
+---> Unchecked: Filhas de RuntimeException ou subClasses da mesma (Abaixo deste ramo na árvore)
+Exemplos: NullPointerException, NumberFormatException, ClassCastException, IndexOutOfBoundsException.
+Unchecked pois são desconhecidas ainda, e só seram "descobertas" ou lançadas em tempo de execução (Porisso herdam de Runtime).
+
+---------------------- // RuntimeException: Na maior parte das vezes em que é lançada sem ser implementação criada por você, 
+---------------------- // Lançadas pelo Java de algum lugar, Essa culpa esta no desenvolvedor, que não fez tratamentos correto.
+---------------------- // Também é possível criar subClasses herdando de RuntimeException, assim podemos nós criar nossos tratamento personalizados.
+---------------------- // Geralmente exeções do tipo "Runtime" e suas subClasses não assinamos o método com o Throw.
+
+
+---------------------- // 97 - Exceções pt 03 - Exception. (Aqui trata-se das subClasses diretas de Exception, ou seja dos tipo Checked).
+https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98
+
+---------------------- // Exceptions do tipo Checked pois já são pré-conhecidas pelo Java e ele consegue detectar antes mesmo de compilar o código.
+---------------------- // Porisso temos a OBRIGAÇÃO de tratar esse tipo de Exception.
+---------------------- // Exemplos básicos: IOException, SQLException, MalformadURLexception, dentre outros..
+
+---------------------- // IOException (Exemplo do vídeo sobre Exceptions filhas diretas de Exception, elas necessitam de tratamentos OBRIGATÒRIAMENTE. (Checked).
+---------------------- // Como demonstrativo iremos manipular arquivos simples no Java.
+
+
+public static void createNewFile() {
+  File file = new File("arquivo\\teste.txt"); // O Java identifica os arquivos apartir da raiz do projeto. a barra serve para escapar a outra. 
+  
+  // ERROR file.createNewFile(); // método pronto do java.io <-- Aqui se não lançado um throw IO o Java NÂO vai deixar compilar! 
+                        // Temos duas opções para lançar esse throw, ou com try catch ou na assinatura do método.
+                        // Com try catch o java ainda vai tentar rodar e ai lançar a Exeption.
+                        
+  try { // TRATANDO ELE  // Ou seja, só iremos utilizar em try{}catch(Exceptions){} em subClasses de Runtime, ou na prórpria Exception mais genérica.
+                         // Sempre deixar essa Exception mais genérica no final da sobrecarga dos catchs, para ir "filtrando" das mais especilizadas
+                         // Até o ultimo caso que ai o problema é mais genérico, então finalmente cai nesse bloco
+                         // pois se definir no primeiro catch como a mais genérica SEMPRE vai cair ali, devido a compatibilidade de herança 
+                         // pois todos os ramos subClasses de Exception se enquadram nesse tipo, assim não conseguimos realizar o tratamento dessas 
+                         // subClasses mais especificas por utilizar uma abordagem ruim nesse tratamento.
+                         // Assim deixando na sobrecarga das mais especificas para as mais genéricas conseguimos realizar um melhor tratamento.
+                         
+  
+    boolean isCreated = file.createNewFile();
+    
+  } catch (IOException ex) { // Obs interessante que podemos analisar essa hierarquia e entender melhor sobre subClasses de Runtime (Unchecked)
+                             // e subClasses de Exception (Mais genérica podendo ser tanto Runtime (Unchecked) como outras especializadas Checked)
+                             // se passado no catch uma exception do tipo mais especializado herdeiros de Exception, porém sem ser subtipos de Runtime
+                             // Iremos analizar um erro de compilação, pois essas são do tipo checked e ja são "conhecidas" pelo Java,
+                             // Assim, se tentarmos executar nesse catch passando IOException e não passar nada no try, vai dar ERROR,
+                             // diferentemente quando se passado nesse catch uma Exception (Pois esta é genérica, e pode ser uma Runtime)
+                             // Então o Java não vai alertar erros e vamos poder compilar o código.
+    ...
+    ex.printStackTrace(); // <-- Boa prática para rastrear a origin da Exception.
+  }
+}
+
+
+---------------------- // 98 - Exceções pt 04 - Lançando exceção unchecked. (ou seja SubClasses de Runtime, NÂO OBRIGATÓRIO o tratamento), se comparado a compilação.
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99
+
+Reforçando: Sempre lançar Exceptions mais especializadas possível, para melhorar o entendimento e as possíveis tratativas delas.
+
+Exemplo: Division by zero (Clássica):
+
+private static double division(double a, double b){
+
+  if (a == 0) { // se utilizado assim, não sera necessário o bloco try catch abaixo!
+    throw new IllegalArgumentException("Divisão por zero detectada ;-;");
+  } 
+  return a / b;
+
+  /* CODIGO DEMONSTRATIVO COM USO DE TRY CATCH
+  try {
+    return res = a / b; // Obs: Não é obrigatório o lançamento da exception! 
+  
+  } catch (ArithmeticException ex) { // Podemos utilizar a regra de POLIMORFISMO e utilizar a superClasse mais genérica, porém lembrar dos colaterais:
+                                     // Sempre utilizar sobrecarga de catchs começando a tratative pelas subClasses mais especializadas e por ultimos casos
+                                     // utilizar das mais genéricas até chegar nos ultimos ramos Exception e RuntimeException.
+    ...
+    ex.printStackTrace(); 
+  }
+  
+  return 0; 
+  */
+}
+
+---------------------- // Documentando o código, facilitando para as chamadas:
+---------------------- // Além de assinar os métodos, que ao "chamar" o método recém criado, retorna nas descrições essa possível Exception.
+---------------------- // Também é possível assinar mais informações referente ao método em questão, facilitando assim seu entendimento.
+---------------------- // Para documentar utilizar antes do método:
+
+/**
+ *@param a Dividendo (obs: Não pode ser 0)
+ *@param b Divisor (obs: Não pode ser 0)
+ *@return
+ *@throws IllegalArgumentException caso b seja 0
+ */
+ private static double division(double a, double b){
+
+  if (b == 0 || a == 0) { // se utilizado assim, não sera necessário o bloco try catch abaixo!
+    throw new IllegalArgumentException("Divisão por zero detectada ;-;");
+  } 
+  
+  return a / b;
+}
+ 
+---------------------- // Para visualizar o resultado, antes da chamada do método utilizar CTRL + Q com a seta sobre o método.
+
+
+---------------------- // 99 - Exceções pt 05 - Lançando exceção checked (ou seja SubClasses diretas de Exception, OBRIGATÓRIO o tratamento pois é exceptions conhecidas pelo Java e ele não vai deixar passar).
+https://www.youtube.com/watch?v=Gc5SIWgcsYI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=100
+
+---------------------- // Diferenças entre lançar Throws na assinatura do método e/ou no corpo do mesmo:
+---> Ao Assinar um método com "thows <Exception>" faz com que a responsabilidade do tratamento fique para QUEM ESTA CHAMANDO ELE. assim funciona de maneira exponencial, ou seja podemos passar essa responsabilidade para outro método sequencialmente que chamou esse outro método (WorkFlow da stack de métodos), e assim passar essa responsabilidade de tratamento PARA outros métodos (Péssima prática, vira uma espécie de "prop drilling").
+
+- Exemplo: 
+
+public static void createNewFile() throws IOException{ // RESPONSABILIDADE DE TRATAMENTO PARA QUEM CHAMA.
+  File file = new File("arquivo\\teste.txt");                               
+  boolean isCreated = file.createNewFile();
+  ...
+  }
+}
+
+---> Ao inves de assinar um método com "thows <Exception>" se utilizarmos blocos "Try catch" no proprio corpo do método ESTAMOS DEIXANDO ESSA RESPONSABILIDADE DE TRATAMENTO PARA ELE MESMO. Ai entra aqueles pontos ditos logo a cima.
+
+- Exemplo: 
+
+public static void createNewFile() { // RESPONSABILIDADE DE TRATAMENTO NO PRÓPRIO MÉTODO.
+   File file = new File("arquivo\\teste.txt");
+   try {
+
+      boolean isCreated = file.createNewFile();
+      ...
+    } catch (IOException ex) { 
+      ...
+      ex.printStackTrace(); // <-- Boa prática para rastrear a origin da Exception.
+    }
+}
+
+
+---------------------- // Dito isto, QUANDO utilizamos as DUAS abordagens de lançamentos/tratamentos de EXCEPTIONS?
+
+---------------------- // Abordagem com blocos Try Catch: Uma certeza de utilização é quando o método em questão é privado, ou seja
+ninguem além dele vai poder acessa-lo e realizar esse tratamento, ou seja vai depender do NÍVEL de acessibilidade dessa classe em sí!
+
+
+---------------------------------------------------- // 
+
+---------------------- // Abordagem com blocos Try Catch: Uma certeza de utilização é quando o método em questão é privado, ou seja
+ninguem além dele vai poder acessa-lo e realizar esse tratamento, ou seja vai depender do NÍVEL de acessibilidade dessa classe em sí!
+
+---------------------- // 100 - Exceções pt 06 - Bloco Finally (Ja sabia bastante coisa mas descobri algo interessante):
+- É Possivel utilizar bloco try e finally sem o catch, não é muito comum mas é possível.
+
+https://www.youtube.com/watch?v=QL1Wz5yrlEw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=101
+
+
+----------------------------------------- // 24/11/2022 
+---------------------- // 101 - Exceções pt 07 - Capturando múltiplas exceções (Aqui ele explica sobre a "sobre carga" de catch's) com algumas Obs a 
+mais!!
+
+- Caputurando vários tipos de Exceptions possíveis e tratando elas, no estilo de sobre carga.
+
+https://www.youtube.com/watch?v=QL1Wz5yrlEw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=101
+
+- 
+
+
+
+
+
+
+                                                  
+       
+
+
+

@@ -1,0 +1,258 @@
+-- Data 18/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=TZt_LYjKLiQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=92 <-- Parei em
+
+Relembrando POO
+
+- Obs: polimorfismo é um dos assuntos mais importantes quando se tratado de POO.
+- Assuntos interessantes: Polimorfismo Dinâmico e Estático. (https://groups.google.com/g/ccppbrasil/c/-0mFIVUnhs8)
+
+-------> POLIMORFISMO Capacidade de se adaptar a mudanças ao longo da implementação, com uso de sobrescritas alterando o comportamento,
+fazendo com que as classes que herdarem uma superClasse fiquem especializadas para o contexto delas.
+
+- Existem N formas de utilizar desse ṕrincipio, com os mecanismos da linguagem.. aqui utilizamos Herança em conjunto de Interfaces.
+
+- Vantagens: Utilizar boas práticas de programação POO, definindo classes mais abstratas como "abstract" e colocando nelas
+comportamentos "comuns" ou "genéricos" para subClasses que iram fazer essa herança, evitando assim "Ctrl C + Ctrl V" e 
+deixando o código mais elegante.
+  - PORÉM se atentar, e verificar se nessa classe abstrata possui realmente COMPORTAMENTOS COMUNS entre as subclasses que iram herda-la!!
+  - Para assim evitar sobrescritas descontroladas ao longo do programa.
+
+- Desvantagens: Acoplamento e dificuldade de re-uso.
+  - A melhor forma de resolver um problema é quebrando-o em problemas menores independentes.
+  - É neste ponto que a herança atrapalha, pois o problema se torna dependente de toda a cadeia de classes, da base para as derivadas.
+
+
+---------------------- // Demonstração de POLIMORFISMO utilizando abstrações e interfaces.
+
+// Define o contrato sobre o calculo do imposto para os prudutos concretos ou seja "Computador" ou "Tomate", como é comum entre ambos,
+// iremos passar a implementação para a classe abstrata "Produto" assim quem herdar dele é o responsável por concretizar o contrato.
+
+public interface Taxavel { // as subclasses de "Produto" deveram implementar esse método, pois o imposto é indivídual para cada produto.
+  public abstract double calcularImposto(); 
+}
+
+
+// Define a superClasse "Pai" e implementa a interface, tornando assim o método dela obrigatório para as classes que herdarem,
+// concretizar o contrato.
+
+public abstract class Produto implements Taxavel { // não realizamos a sobrescrita aqui pois essa responsabilidade será da subClasse que herdar
+                                                   // Computador ou Tomate
+  protected String nome;
+  protected double Valor;
+  
+  public Producto (String nome, double valor){ // aqui obriga as subClasses a inicializarem nome e valor.
+    this.nome = nome;
+    this.valor = valor;
+  }
+}
+
+
+// Define as subClasses que finalizaram e concretizaram o contrato da interface implementada pela superClasse.
+
+public class Computador extends Produto {
+  public static final double IMPOSTO_POR_CENTO = 0.21;
+
+  public Computador(String nome, double valor){ // alimenta os atributos obrigatórios definidos na superClasse.
+    super(nome, valor);
+  }
+  
+  @Override 
+  public abstract double calcularImposto(){
+    ...
+    return this.valor * IMPOSTO_POR_CENTO;
+  } 
+}
+
+public class Tomate extends Produto {
+    public static final double IMPOSTO_POR_CENTO = 0.06;
+
+    public Tomate(String nome, double valor){ // alimenta os atributos obrigatórios definidos na superClasse.
+    super(nome, valor);
+  }
+  
+  @Override
+  public abstract double calcularImposto(){
+    ...
+    return this.valor * IMPOSTO_POR_CENTO;
+  } 
+}
+
+
+---------------------- // Separando em camadas MVC (Particionando e separando as regras de negocio, da camada de apresentação e intermediador e banco)
+
+---------------------- // Widening cast: Casting implicito, aonde passamos um valor menor para um maior (que compreende). e o java converte naturalmente
+---------------------- // Exemplo de Widening cast: Produto p1 = new Computador();
+ --------------------- // Exemplo 2 de Widening cast: Produto p2 = new Tomate(); 
+
+[Package Service]: Ficam as regras de negócio.
+
+public class CalculadoraImposto {
+  public void CalcularImposto(Produto produto) { // aqui passamos as subClasses de Produto, se o método for acessar apenas os atributos genéricos
+                                                 // definidos na superClasse Produto. aumentando assim as possíbilidades de extensão
+                                                 // sem precisar ficar copiando e colando códigos, desde que utilizado apenas comportamentos genéricos
+                                                 // entre todos envolvidos. e garantir isso devido ao auto acoplamento entre as classes parentes.
+    double imposto = produto.calcularImposto();
+    
+    System.out.println("-------------------------------");
+    System.out.println("Produto: " + produto.getNome());
+    System.out.println("Valor: " + produto.getValor());
+    System.out.println("Imposto: " + imposto);
+    
+  }
+}
+
+
+---> Obs: Mesmo exemplo de Widening cast porém entre tipos primitivos:
+    int myInt = 9;
+    double myDouble = myInt; // Automatic casting: int to double
+
+    System.out.println(myInt);      // Outputs 9
+    System.out.println(myDouble);   // Outputs 9.0
+
+---------------------- // 93 - Orientação Objetos - Polimorfismo pt 04 - Cast e instanceof
+
+---------------------- // Narrowing Casting: Conversão incompatível, ao contrário de widening cast (Casting Explicíto, devemos indicar ao Java)
+---------------------- // Exemplo de Narrowing Casting: Tomate tomate = produto; // ERROR
+---------------------- // Como garantir que o "produto" passado (superClasse) não é outra ramificação especializada tipo "Computador", ou "Laranja"?
+---------------------- // Solução: Tomate tomate = (Tomate) produto; // SUCCESS aqui estamos garantingo o casting.
+---------------------- // Risco: ClassCastException (Tentar converter um dos ramos de "Produto" especializado sem ser "Tomate".
+---------------------- // Solução 2: Verificar qual o tipo da instância e apartir dai fazer o casting da maneira correta.
+
+---------------------- // Narrowing Casting da maneira correta na prática:
+[Package Service]: Ficam as regras de negócio, intermediando o acesso ao repositório/banco (Repository).
+
+public class CalculadoraImposto {
+  public void CalcularImposto(Produto produto) { // aqui passamos as subClasses de Produto, se o método for acessar apenas os atributos genéricos
+                                                 // definidos na superClasse Produto. aumentando assim as possíbilidades de extensão
+                                                 // sem precisar ficar copiando e colando códigos, desde que utilizado apenas comportamentos genéricos
+                                                 // entre todos envolvidos. e garantir isso devido ao auto acoplamento entre as classes parentes.
+    
+    // Aqui continua genérico para todos ramos de "Produto".
+    
+    double imposto = produto.calcularImposto();
+    System.out.println("-------------------------------");
+    System.out.println("Produto: " + produto.getNome());
+    System.out.println("Valor: " + produto.getValor());
+    System.out.println("Imposto: " + imposto);
+   
+    // Aqui ramifica para poder acessar métodos especializados da subClasse passada no parâmetro.
+    
+    // Para subClasses do tipo especializado "Tomate".
+    
+    if (produto instanceof Tomate) { // Tomate possuí getDataValidade() diferente de "Computador".
+      Tomate tomate = (Tomate) produto; // faz a referência com uma variavel compatível e realiza casting de produto (Narrowing Casting)
+      
+      // Outra forma de fazer o casting economizando linha porém não tão legível:
+      
+      System.out.println("Data validade: " + ((Tomate) produto).getDataValidade());
+      
+      System.out.println("Data validade: " + tomate.getDataValidade());
+    }  
+  }
+}
+
+
+---------------------- // 94 - Orientação Objetos - Polimorfismo pt 05 - Programação orientada a interface
+Conceituando: facilita na programação e re-uso de códigos
+
+
+
+
+[Package Repository]: Ficam as lógicas de acesso ao banco, aqui utilizaremos interfaces com métodos genéricos salvar(), getById()... dentre outros métodos genéricos ao acesso.
+
+- Porque utilizar de interfaces para esses acessos? 
+  - Desacoplamento com a maneira como armazenamos os dados, pois podemos armazenar em arquivos, memória (RAM), banco de dados diversos...
+  - Então assinamos uma interface genérica com métodos que naturalmente seriam implementados, independentes das tecnologias de armazenamentos adotados.
+  - Deixando assim essa responssabilidade de firmar contrato para classes nesse contexto.
+
+
+[Package Repository]
+public interface IRepository {
+  public abstract void save();
+  ṕublic abstract void getById(int id);
+}
+
+
+// Implementação utilizando banco de dados como armazenamento:
+
+[Package Repository]
+public class DataBaseRepository implements IRepository{
+  
+  @Override
+  public abstract void save(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(int id){
+    ...
+  }
+}
+
+
+// Implementação utilizando memória RAM como armazenamento:
+
+[Package Repository]
+public class InMemoryRepository implements IRepository{
+
+  @Override
+  public abstract void save(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(int id){
+    ...
+  }
+}
+
+
+// Implementação utilizando arquivo como armazenamento:
+
+[Package Repository]
+public class FileArchiveRepository implements IRepository{
+
+  @Override
+  public abstract void save(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(int id){
+    ...
+  }
+}
+
+---> Ou seja, independentemente da tecnologia de armazenamento, utilizamos métodos que são genéricos entre os mesmos, assim
+basta na chamada utilizar o método desejado, e as assinaturas são as mesmas, podendo assim realizar manutenções de maneira mais facil
+pois as chamadas é a mesma, apenas mudamos pequenos trechos do código.
+
+---> Então na chamada criamos a variavel de referência como sendo o tipo mais genérico (neste contexto seria o Repository) 
+e ao precisar realizar trocas, basta apenas mudar o "new" para a classe especializada que implementa essa interface.
+sendo assim:
+
+Reposiroty repository = new DataBaseRepository();
+ou
+Reposiroty repository = new InMemoryRepository();
+ou 
+Reposiroty repository = new FileArchiveRepository();
+
+- E para todos serve a mesma chamada dos métodos genéricos, assim não é preciso mudar a implementação toda,
+bastando alterar o objeto referênciado no repository, pois todos as classes que implementou a interface possuí compatibilidade:
+
+reposiroty.save();
+repository.getById(id);
+
+
+
+
+
+
+
+
+
+
+
+

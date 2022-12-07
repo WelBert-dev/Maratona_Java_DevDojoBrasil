@@ -1,0 +1,36 @@
+-- Data 07/11/2022
+-- link: https://www.youtube.com/watch?v=raAHfRdld0Y&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=76
+
+-----> Ordem de precedência de execução quando utilizado Herança, e utilizando blocos de inicialização comum "{}" e estático "static {}":
+
+1o - Sempre a classe mais abstrata (ou seja a classe mais "velha" da arvore, que deu origem a outras). 
+   - Dessa classe mais abstrata sera executado primeiro o bloco de inicialização estático.
+   
+2o - Após esse bloco de inicialização estático da classe mais abstrata, é executado o mesmo bloco estático, porém da classe mais especializada.
+
+3o - Retornando ao pai (ou seja a classe mais "velha" da arvore, que deu origem a outras), é executado então o bloco de inicialização comum {}.
+   - É excutado então o bloco de inicialização comum {}. (Em cascata na ordem em que foram definidos, ainda na classe mais asbtrata "Pai").
+   
+4o - Após essas execuções, por fim é seguido o fluxo já conhecido, sendo executado o construtor em sí da classe mais abstrata (pai).
+
+5o - Após o objeto mais abstrato ser executado e construído, por fim é executado os blocos de inicialização comum da classe especializada {}.
+   - É excutado então o bloco de inicialização comum {}. (Em cascata na ordem em que foram definidos, nessa classe mais especializada "Filho").
+   
+6o - Por fim é excutado o construtor da classe mais especializada, que foi invocada em sí.
+
+
+--- Mesma ordem descrita no vídeo:
+
+1o - Bloco de inicialização estático da superClasse é executado quando a JVM carregar a classe pai (Classe mais abstrata).
+2o - Bloco de inicialização estático da subClasse é executado quando a JVM carregar a classe filho (Classe mais especializada).
+3o - Alocado espaço em memória para o objeto da superClasse (Classe mais abstrata).
+4o - Cada atributo da superClasse é criado e inicializado com valores default ou que for passado (Classe mais abstrata).
+5o - Blocos de inicialização da superClasse são executados na ordem em que aparecem (Classe mais abstrata).
+6o - Construtor é executado da superClasse (Classe mais abstrata).
+7o - Alocado espaço em memória para o objeto da subClasse (Classe mais especializada).
+8o - Cada atributo da subClasse é criado e inicializado com valores default ou que for passado (Classe mais especializada).
+9o - Blocos de inicialização da subClasse são executados na ordem em que aparecem (Classe mais especializada).
+10o - Construtor é executado da subClasse (Classe mais especializada).
+
+
+
