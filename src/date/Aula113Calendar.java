@@ -5,6 +5,7 @@ package date;
 // Então para criar objetos devemos utilizar os métodos estáticos presentes nela.
 // Isto pois é realizado um calculo de acordo com a origem para assim gerar datas corretas
 // de acordo com essa origem.
+// Porém também ja esta se tornando obsoleto igual ao Date();
 
 // Classes que implementam ela no java 17:
 // BuddhistCalendar
@@ -34,11 +35,34 @@ public class Aula113Calendar {
             System.out.println("Domingo é o primeiro dia da semana!");
         }
 
+        // De acordo com a instância de calendar corrente (07/12/2022):
         // Dia da semana:
-        System.out.println(c.get(Calendar.DAY_OF_WEEK)); // 4
+        System.out.println(c.get(Calendar.DAY_OF_WEEK)); // 4 -> quarta
         // Dia do mês:
         System.out.println(c.get(Calendar.DAY_OF_MONTH)); // 7
         // Dia do ano:
-        System.out.println(c.get(Calendar.DAY_OF_YEAR)); // 341
+        System.out.println(c.get(Calendar.DAY_OF_YEAR)); // 341 -> final do ano
+        // Dia da semana no mês
+        System.out.println(c.get(Calendar.DAY_OF_WEEK_IN_MONTH)); // 1 (primeira semana do mês)
+
+        // Acrescentando dias na instância de calendar corrente (07/12/2022):
+        c.add(Calendar.DAY_OF_MONTH, 2); // adiciona 2 dias do mês.
+        Date dPlus2Days = c.getTime();
+        System.out.println(dPlus2Days); // Antes: Wed Dec 07 18:34:14 BRT 2022
+                                        // Depois: Fri Dec 09 18:34:14 BRT 2022
+
+        // Acrescentando horas na instância de calendar corrente (07/12/2022):
+        // (Lembrando: Depois de adicionar 2 dias na mesma instância corrente)
+        c.add(Calendar.HOUR, 2); // adiciona 2 horas
+        Date dPlus2hours = c.getTime();
+        System.out.println(dPlus2hours); // Antes: Fri Dec 09 18:37:32 BRT 2022
+                                         // Depois: Fri Dec 09 20:37:32 BRT 2022
+        // Obs: Em caso de passar valores em que a data corrente mude para outro dia,
+        // a instância respeita a regra e "vira" o dia/mês/ano
+        // Para BURLAR essa regra utilizar o método c.roll()
+        // Faz a mesma coisa que o add, porém quando vira o dia/mês/ano ele retorna ao incio do dia corrente
+
+
+
     }
 }
