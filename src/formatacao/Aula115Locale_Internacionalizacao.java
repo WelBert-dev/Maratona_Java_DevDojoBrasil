@@ -1,4 +1,4 @@
-package date;
+package formatacao;
 
 // Utilizado para Internacionalização, ou seja
 // para melhor se adaptar as datas em diversos paises e etc...
@@ -58,8 +58,7 @@ public class Aula115Locale_Internacionalizacao {
 
         // Para saber como esta configurado o S.O corrente e pegar a ISO:
         // Neste caso, todas as datas e números iram estar no padrão BR
-        System.out.println(Locale.getDefault());
-
+        System.out.println(Locale.getDefault()); // pt_BR
 
         // Para pegar uma lista das ISOS suportadas tanto para lingua quanto para pais:
         String[] isoCountries = Locale.getISOCountries();
