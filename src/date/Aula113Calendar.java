@@ -6,6 +6,7 @@ package date;
 // Isto pois é realizado um calculo de acordo com a origem para assim gerar datas corretas
 // de acordo com essa origem.
 // Porém também ja esta se tornando obsoleto igual ao Date();
+// Também só vai até 1 janeiro de 1970 igual ao Date();
 
 // Classes que implementam ela no java 17:
 // BuddhistCalendar
