@@ -1,12 +1,14 @@
 package formatacao;
 
+// Internacionalização:
+// Formatações de números (de acordo com o Locale passado).
 // Obs: Caso alguns métodos fiquem em vermelho é porque esta disponível
 // Porem devemos configurar a JDK para expandir o languageLevel suportado.
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class Aula116NumberFormat_Locale {
+public class Aula116NumberFormat_Number_Locale {
     public static void main(String[] args) {
         Locale localeUS = new Locale("en", "US");
         Locale localeJapones = Locale.JAPAN;
