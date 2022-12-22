@@ -15,6 +15,7 @@ package date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 public class Aula124Period_IntervalosDate {
     public static void main(String[] args) {
@@ -36,7 +37,7 @@ public class Aula124Period_IntervalosDate {
         // Agora depois de 2 anos e 7 dias
         LocalDate now2 = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
         LocalDate now2After2YearsAnd7Days = LocalDate.now(ZoneId.of("America/Sao_Paulo"))
-                .plusYears(2).plusDays(7);
+                .plusYears(2).plusDays(35);
         Period periodo3 = Period.between(now2, now2After2YearsAnd7Days);
         System.out.println(periodo3); // P2Y7D
 
@@ -49,5 +50,10 @@ public class Aula124Period_IntervalosDate {
         // Parte que explica aonde não possui suporte:
         System.out.println(Period.between(LocalDate.now(), LocalDate.now()
                 .plusDays(periodo3.getDays())).getMonths()); // 0 <- ERROR, Solução: ChronoUnit
+
+        // Solução com LocalDate:
+        System.out.println(now.until(now.plusDays(periodo3.getDays()), ChronoUnit.YEARS)); //
+        System.out.println(periodo3.getDays());
+
     }
 }
