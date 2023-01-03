@@ -8,7 +8,15 @@ package regex;
 // \S: Ao contrário, ou seja retorna tudo que NÂO for espaço em branco.
 // \w: Todas as letras (a-z e A-Z), digítos, e _ (Ou seja, exclui todos caracteres especiais menos o "_").
 // \W Ao contrário, ou seja retorna tudo que NÂO for letras, digitos e "_".
-// Dentre outros...
+
+// Operadores quantificador:
+// ? Zero ou uma
+// * Zero ou mais
+// + Uma ou mais
+// {n-min, n-max} de n-min até n-max
+// () agrupamento
+// | ou/or (exemplo: o(v|c)o ovo ou oco
+// $ fim da linha
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
