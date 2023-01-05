@@ -4,9 +4,9 @@ package io;
 // classe File, pois para utilizar as outras deste pacote é necessário uma instância dela.
 
 // Classes aboradads neste package:
-// File
-// FileWriter
-// FileReader
+// File (Base para outras classes)
+// FileWriter (Low level, não otimizada)
+// FileReader (Low level, não otimizada)
 // BufferedWriter (Em memória, logo == + rápido)
 // BufferedReader (Em memória, logo == + rápido)
 
