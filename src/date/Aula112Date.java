@@ -16,6 +16,7 @@ package date;
 // Por debaixo dos panos o println (toString) converte esse miliseconds em uma data compreensível.
 
 
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Aula112Date {
@@ -28,7 +29,10 @@ public class Aula112Date {
 
         // Sem passar nada ele pega a data corrente do S.O
         Date now = new Date();
+        DateFormat df = DateFormat.getInstance();
+
         System.out.println("Agora é: " + now); // date corrente do S.O em RunTime
+        System.out.println("Valor máximo de um Date: " + df.format(new Date(Long.MAX_VALUE)));
 
     }
 }

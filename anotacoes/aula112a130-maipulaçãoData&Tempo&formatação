@@ -1,0 +1,31 @@
+-- Data 30/11/2022 até 05/01/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Temos que nos atentar sobre as manipulações e a nova API do java em relação ao Tempo.
+pois muitas das classes mais famosas e antigas já estão se tornando obsoletas devido as dificuldades de internacionalização,
+o objetivo do java é torna-lo melhor para vários paises, e isso é a internacionalização (Não apenas com Tempo, como também
+formatos de números (com ponto flutuante ou vírgulas), como também moeda (pontos e símbolos).
+Inicialmente o java não possuía um pacote especializado para este contexto, então as datas eram apenas manipuladas pelos
+java.util.Date, e import java.util.Calendar (Long que representa 01/01/1970 até 17/08/292278994 04:12 valor máximo de um long)e também utiliza-se algumas classes para formatação e internacionalização básica
+no pacote java.text*, com o tempo e evolução da linguagem (Java 8) foi implementado um pacote especifico para datas sendo ele:
+package java.time.* (Long que representa os miliseconds para as datas +999999999-12-31 e -999999999-01-01 pois são 2 variáveis que em conjunto representa esta data)
+
+------> Cronologia de classes para manipulação de Tempo:
+
+---> Date: foi a primeira classe criada para manipulação de datas no java (e muitos sistemas legados a utilizam),
+esta classe é representada por um long cujo primeiro valor é a representação de 01/01/1970, por se tratar de um Long
+é necessário realizar uma formataçaõ com uso da classe java.text.DateFormat para melhorar na visualização humana e/ou
+armazenar em banco de dados no formato correto.
+
+---> Calendar: Após alguns problemas sobre a internacionalização na qual o Date não supria, foi criado a Calendar,
+porém desta vez ela é uma classe abstrata (ou seja não podemos instância-la com new), sendo assim necessário
+utilizar seus métodos estáticos para a criação de objetos corretos (devido a cálculos de acordo com a região/origem)
+para assim gerar datas corretamente. (Corrigindo assim esses problemas de internacionalização)
+- Obs: Ela também utiliza um long para representar as datas (o mesmo de Date sendo 01/01/1970 até 17/08/292278994 04:12 valor máximo de um long).
+- Ao criarmos uma instância com os métodos estáticos devemos informar um Locale (Classe responsável pelas regiões, Canada, Brasil..)
+- Classes que implementam ela no java 17:
+// BuddhistCalendar
+// GregorianCalendar
+// JapaneseImperialCalendar
