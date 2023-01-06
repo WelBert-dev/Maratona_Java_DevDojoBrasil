@@ -14,7 +14,6 @@ public class Aula118SimpleDateFormat {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         System.out.println(sdf.format(new Date())); // 2022.12.07 d.C. ás 22:17:23 BRT
 
-
         String pattern2 = "'Brasil' dd 'de' MMMM 'de' yyyy";
         SimpleDateFormat sdf2 = new SimpleDateFormat(pattern2);
         System.out.println(sdf2.format(new Date())); // Brasil 07 de dezembro de 2022

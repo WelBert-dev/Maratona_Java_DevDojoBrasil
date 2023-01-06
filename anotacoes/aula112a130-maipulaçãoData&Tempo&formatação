@@ -12,12 +12,15 @@ java.util.Date, e import java.util.Calendar (Long que representa 01/01/1970 até
 no pacote java.text*, com o tempo e evolução da linguagem (Java 8) foi implementado um pacote especifico para datas sendo ele:
 package java.time.* (Long que representa os miliseconds para as datas +999999999-12-31 e -999999999-01-01 pois são 2 variáveis que em conjunto representa esta data)
 
-------> Cronologia de classes para manipulação de Tempo:
+------> Cronologia de classes para manipulação de Tempo: Legado (Formas antigas porém com alguns Utils ainda válidos)
 
 ---> Date: foi a primeira classe criada para manipulação de datas no java (e muitos sistemas legados a utilizam),
 esta classe é representada por um long cujo primeiro valor é a representação de 01/01/1970, por se tratar de um Long
 é necessário realizar uma formataçaõ com uso da classe java.text.DateFormat para melhorar na visualização humana e/ou
 armazenar em banco de dados no formato correto.
+
+- Package: java.util.Date;
+- Códigos: src/date/Aula112Date.java
 
 ---> Calendar: Após alguns problemas sobre a internacionalização na qual o Date não supria, foi criado a Calendar,
 porém desta vez ela é uma classe abstrata (ou seja não podemos instância-la com new), sendo assim necessário
@@ -25,7 +28,42 @@ utilizar seus métodos estáticos para a criação de objetos corretos (devido a
 para assim gerar datas corretamente. (Corrigindo assim esses problemas de internacionalização)
 - Obs: Ela também utiliza um long para representar as datas (o mesmo de Date sendo 01/01/1970 até 17/08/292278994 04:12 valor máximo de um long).
 - Ao criarmos uma instância com os métodos estáticos devemos informar um Locale (Classe responsável pelas regiões, Canada, Brasil..)
+
 - Classes que implementam ela no java 17:
 // BuddhistCalendar
 // GregorianCalendar
 // JapaneseImperialCalendar
+
+- Package: java.util.Calendar;
+- Códigos: src/date/Aula113Calendar.java
+
+---> DateFormat (Utils): Após criado as instâncias a cima, podemos utilizar esta classe simples para formatar em alguns
+padrões especifícos com o método sobrecarregado .format(), no qual define a origem na criação do objeto por meio dos métodos estáticos
+podendo assim integrar com um Locale e definir as origens/regiões (ex: DateFormat.getDateInstance(DateFormat.FULL, localeItaly))
+- Obs: Todos os métodos no java que são .format() é para converter um objeto e transformá-lo em uma String,
+  e todos os métodos que são .parse() é para converter uma String em um objeto. (essa regra se aplica para diversas classes).
+
+- Package: java.text.DateFormat;
+- Códigos: src/date/Aula114DateFormat.java | src/formatacao/Aula114DateFormat.java
+
+---> Locale (Utils): Utilizado para Internacionalização, ou seja para melhor adaptar as datas em diversos paises e etc...
+- NÃO só para formatação de datas, como também para linguagem, moedas, números e etc..
+- Baseado na localização da JVM do usuário (corrente) ou passado outras regiões/origens como parâmetro.
+- Baseado na ISO passada no construtor (Basta pesquisar na net as possibilidades).
+- Muito utilizado em conjunto com classes de formatação, representando o Objeto da origem/região do planeta.
+- Neste contexto utilizamos ela em conjunto da classe a cima DateFormat (DateFormat.getDateInstance(DateFormat.FULL, localeItaly))
+
+- Package: java.util.Locale;
+- Códigos: src/formatacao/Aula115Locale_Internacionalizacao.java | src/date/Aula115Locale_Internacionalizacao.java
+
+---> SimpleDateFormat (Utils): Classe com o mesmo contexto da DateFormat porém mais simplificada, e podemos com ela
+definir nosso proprio padrão desejado.
+- Por meio do construtor, passamos uma String que representa esse padrão (ex: "dd 'de' mm 'de' YYYY")
+- Também se aplica a regra do .format() que recebe um objeto e transforma em uma String
+  e .parse() que recebe uma String e converte em um objeto.
+  - Porísso devemos nos atentar as possíveis lançadas de RunExceptions por criar um padrão e na hora de converter
+    passar um padrão diferente deste criado anteriormente.
+
+- Package: java.text.SimpleDateFormat;
+- Códigos: src/formatacao/Aula118SimpleDateFormat.java | src/date/Aula118SimpleDateFormat.java
+

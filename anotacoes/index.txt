@@ -1,0 +1,4 @@
+
+
+- Devendo: Documentar em um arquivo específico para formatações, ou apenas
+para formatação de números e moedas com uso da internacionalização (class java Locale)
