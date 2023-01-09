@@ -84,6 +84,8 @@ public class Aula129DateTimeFormatter_Utils {
 
         LocalDate parseOfCustonPattern = LocalDate.parse("26.Dezember.2022", formatterGR);
         System.out.println(parseOfCustonPattern);
+
+        System.out.println(LocalDate.parse("22/12/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
 

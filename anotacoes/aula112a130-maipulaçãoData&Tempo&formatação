@@ -67,3 +67,153 @@ definir nosso proprio padrão desejado.
 - Package: java.text.SimpleDateFormat;
 - Códigos: src/formatacao/Aula118SimpleDateFormat.java | src/date/Aula118SimpleDateFormat.java
 
+---> LocalDate: Após e apartir do Java 8 esta é a classe indicada para substituição das duas anteriores (Date e Calendar)
+quando se tratado de datas simples (22/12/1999) sem o uso das horas e etc...
+ela veio com a criação (de um BR) na qual o Java importou e utilizou na API criando assim um pacote completo para
+essas manipulações de tempo (java.time.*) porém agora supotando até (+999999999-12-31) e (-999999999-01-01) bem mais doque as
+anteriores que supoprtavam de 01/01/1970 até o número máximo suportado pelo long, mantendo a mesma lógica sobre
+a representação sendo em milliseconds igual as classes anteriores.
+- Com diversos métodos prontos basta pesquisar.
+- São utilizado métodos para a criação/instanciação de classes neste contexto, devido a internacionalização.
+
+- Package: java.time.LocalDate;
+- Códigos: src/date/Aula119LocalDate.java
+
+---> LocalTime: Mesma lógica da anterior porém para se trabalhar especificamente com horas/minutos/segundos/milisegundos.
+- Por isso o máximo suportado é (23:59:59.999999999) e o mínimo é (00:00).
+- Métodos bem similáres as outras classes Local... e bem intuitivos.
+- Também são utilizados métodos para a ciação/instanciação de classes deste contexto, devido a internacionalização.
+
+- Package: java.time.LocalTime;
+- Códigos: src/time/Aula120LocalTime.java | src/date/Aula120LocalTime.java
+
+---> LocalDateTime: Como o proprio nome já sugere, é a junção de Datas e Horas quando se quer trabalhar com ambos.
+- Todos os métodos presentes nas duas classes anteriores ela também os possuí e com o mesmo comportamento.
+- Mais alguns métodos especializados para este novo contexto (manipulação de ambos em conjunto).
+
+- Package: java.time.LocalDateTime;
+- Códigos: src/date/Aula121LocalDateTime.java | src/time/Aula121LocalDateTime.java
+
+---> Instant: Classe especializada em nano segundos, ou seja a menor medida de tempo suportada pelo computador,
+representando um ponto instantâneo dentro de uma linha temporal, Imutável igual a todas as classes relacionadas a
+data e hora, e para alteração devemos re-atribuir o valor.
+- Segue a mesma lógica da classe Date, sobre a representação em um long apartir de 1970.
+- A saída é a mesma que a LocalDateTime, porém com a diferença de um "Z" nela no final, sendo ele a representação do "ZuluTime"
+  Ou seja, essa zona independe da localização sendo a mesma data/hora globalmente. (mesmo horário que o UTC).
+- Assim basta converter esse zulutime com a região/origem/zona desejada para manipulações e/ou salvamento em banco de dados.
+- Dica: Para saber as diferenças de horas entre o zulu time e outras regiões:
+  - Pesquisar no google: zulu time to brazil brasilia: Greenwich Mean Time está 3 horas à frente de Brasília, DF
+- Como a representação do Instant é os nano segundos apartir de 1970,
+  então o limite ultrapassa um Long, assim o Instant utiliza 2 variaveis para representar:
+  - Nano: objInstant.get
+  - EpochSeconds:
+
+- Package: java.time.Instant;
+- Códigos: src/time/Aula122Instant_NanoSeconds.java
+
+---> Duration (Utils): Classe utilitária utilizada para pegar intervalos entre datas e horas,
+NÃO sendo possível trabalhar com classes que representam apenas datas simples (22/12/1999)
+ou seja, suporta dataHora ou Horas (sem suporte apenas para data simples)
+baseada em segundos e nanosegundos ou seja, devemos utilizar retornos "puros" sem o "toString()"
+das classes ditas anteriores nas quais a "essência" em memória é a representação em nanosegundos (long).
+- Exemplo de classes compatíveis: LocalDateTime, LocalTime e Instant.
+- Exemplo de classes não compatíveis: LocalDate (Para ela utiliza-se a classe Period).
+- Para classes especializadas em datas simples (LocalDate) utiliza-se a classe Period descrita abaixo.
+- Possiveis retornos: Horas, minutos e segundos. (podendo ser apenas um deles, ou alguns).
+  - A depender da formatação padrão de cada classe utilizada nesse Duration,
+    (LocalTime, LocalDateTime) a saída será compatível seguindo a mesma convenção (T, H, M, S)
+    - Ex. LocalDateTime: PT17544H0.000200349S
+    - Ex. LocalTime: PT-6H-59M-59.99997496S
+    - Ex. Instant: PT1M0.000002428S
+
+- Mais info: https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html
+
+- Package: java.time.Duration;
+- Códigos: src/time/Aula123Duration_Intervalos.java | src/date/Aula123Duration_Intervalos.java
+
+---> Period (Utils): Mesma lógica da anterior (Duration) porém especializada em datas simples nas quais
+a Duration não oferece suporte (22/12/1999).
+- Exemplo de classes compatíveis: LocalDate.
+- Exemplo de classes não compatíveis:  LocalDateTime, LocalTime e Instant.
+- Obs: os retornos se baseiam em: Ano/Mes/Dia e não retorna SEMANAS!
+  - Para semanas ele converte em dias!
+- Ele não retorna a data normalizada não entendi bem, mas sei que é relacionado ao .getMonths e etc..
+  - Para isto temos a ChronoUnit que resolve PROCURAR mais sobre! (Detalhes no código de treino em src).
+
+- Package: java.time.Period;
+- Códigos: src/date/Aula124Period_IntervalosDate_Utils.java
+
+---> ChronoUnit (Utils/"Type"): Tudo que é co-relacionado a datas, horas, minutos, segundos e nano segundos,
+utiliza ChronoUnit, que seria tipo a "tipagem" desses tempos.
+- Porisso utilizamos ela como parâmetro em classes relacionadas a tempo.
+- Logo ela possuí varios métodos já prontos para trabalhar com elas..
+  - Muito mais simples de se utilizar doque as classes de tempo em sí
+    - Exemplo: periodo entre dias: ChronoUnit.DAY.beetween(tal, tal);
+
+- Package: java.time.temporal.ChronoUnit;
+- Códigos: src/date/Aula125ChronoUnit_Utils.java | src/time/Aula125ChronoUnit_Utils.java
+
+---> TemporalAdjusters (Utils): Classe estática ou seja ela é 100% utilitária, utilizada para ajustes no tempo.
+e retorna TemporalAdjuster em todos os métodos.
+- Classe polimorfica ou seja, sendo possível criar métodos sobrescrevendo o método presente na Interface
+TemporalAdjuster "adjustInto", assim podemos criar métodos personalizados resolvendo alguma regra de negócio
+neste contexto. (Exemplo de implementação presente no src de treinamento).
+
+- Diferanças entre with e plusDays:
+  - with altera sobres-crevendo a data, diferente da plus que faz a adição no tempo (exemplo: 1999-12-22)
+    queremos alterar de 12 para 10, então utilizamos o with:
+
+- Package: java.time.temporal.TemporalAdjusters;
+- Códigos: src/date/Aula126TemporalAdjusters_Utils.java | src/time/Aula126TemporalAdjusters_Utils.java
+
+---> TemporalAdjuster (Interface): Diversas classes relacionadas a ajustes de tempo utiliza esta interface
+como parâmetro, assim graças ao POLIMORFISMO podemos sobre-escrever o método "adjustInto" presente nela
+para assim implementar regras de negócios personalizadas neste contexto.
+
+- Exemplo de possíbilidade utilizando a classe .with() presente em objetos de tempo (LocalDate, LocalDateTime...)
+presente no treinamento em src:
+// Objetivo: Retornar o próximo dia util (em uma semana que só vai até quinta)
+// ou seja, se hoje for quinta/sexta/sabado/domingo, o próximo dia útil será segunda.
+// para outros dias (segunda/terça/quarta) o próximo dia útil será o correspondente (Razão 1).
+
+- Package: java.time.temporal.TemporalAdjuster;
+- Códigos: src/date/Aula127TemporalAdjuster_Impl_ExeComWith.java | src/time/Aula127TemporalAdjuster_Impl_ExeComWith.java
+
+---> Zone (Utils): As "Zonas" são as "regiões/origens" suportadas pelo Java, alterando assim o comportamento
+de classes e utilitários relacionadas ao Tempo em geral.
+- Para saber essas zonas podemos percorrer o Map (Map<String, String> shortIds = ZoneId.SHORT_IDS;).
+
+- Zonas suportadas pelo Java (Saída do MAP dito a cima ZoneId.SHORT_IDS):
+{EAT=Africa/Addis_Ababa, EST=-05:00, PNT=America/Phoenix, PLT=Asia/Karachi, CNT=America/St_Johns,
+IET=America/Indiana/Indianapolis, VST=Asia/Ho_Chi_Minh, JST=Asia/Tokyo, ART=Africa/Cairo,
+PST=America/Los_Angeles, BET=America/Sao_Paulo, MIT=Pacific/Apia, CAT=Africa/Harare,
+AGT=America/Argentina/Buenos_Aires, NET=Asia/Yerevan, CST=America/Chicago, IST=Asia/Kolkata,
+AET=Australia/Sydney, BST=Asia/Dhaka, ACT=Australia/Darwin, HST=-10:00, NST=Pacific/Auckland,
+AST=America/Anchorage, MST=-07:00, SST=Pacific/Guadalcanal, CTT=Asia/Shanghai, PRT=America/Puerto_Rico,
+ECT=Europe/Paris}
+
+- Em resumo o fomato em um toString é: Data/Hora/MiliSeconds/OffSet/Zona (2022-12-26T19:45:19.447985416+09:00[Asia/Tokyo])
+- Portanto temos as seguintes classes que trabalham neste contexto:
+  - ZoneId (Na qual é a representação dos Id's a cima).
+  - ZonedDateTime
+  - ZoneOffset
+  - OffsetDateTime
+  - Dentre outras
+- Mais explicações na src de treinamento.
+
+- Códigos: src/date/Aula128Zone_Utils.java | src/time/Aula128Zone_Utils.java
+
+---> DateTimeFormatter (Utils/Static): Classe utilitária utilizada como parâmetro nos métodos das classes de Data e Hora
+além de outras formatações mais complexas com DateTimeFormatterBuilder, aonde passamos como parâmetro no método
+.format(); para transformar um objeto em uma String formatada de acordo com esse padrão definido em DateTimeFormatter.ALGUM
+e o contrário para o .parse(); no qual transforma uma String em um objeto (se atentar ao padrão definido anteriormente).
+- Obs: Para formatos personalizados definidos por nós, é possível também realizar essas operações
+  com o método estático DateTimeFormatter.ofPattern("dd/MM/yyyy"); e passá-lo no método .format()
+  - Mesma lógica serve para o .parse(); para funcionar basta passar essa mesma instância/padrão dito a cima como segundo parâmetro
+    sendo assim: now.parse("22/12/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+- Mais informações no src de treinamento.
+
+- Package: java.time.format.DateTimeFormatter;
+- Códigos: src/date/Aula129DateTimeFormatter_Utils.java | src/time/Aula129DateTimeFormatter_Utils.java | src/formatacao/Aula129DateTimeFormatter_Utils.java
+

@@ -17,7 +17,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
-public class Aula124Period_IntervalosDate {
+public class Aula124Period_IntervalosDate_Utils {
     public static void main(String[] args) {
 
         // Agora depois de 2 dias

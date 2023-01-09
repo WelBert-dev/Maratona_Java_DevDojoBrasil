@@ -3,9 +3,8 @@ package date;
 // Classe utilitária geralmente utilizada para pegar inetrvalos entre datas e etc...
 // Baseada em segundos e nanoSeconds
 // Ou seja precisamos fornecer segundos ou nano segundos,
-// Exemplo de classe compativel: LocalDate
-// Para datas "puras" classes que não retornam segundos ou nanoSeconds
-// utiliza-se a classe Period.
+// Exemplo de classe compativel: LocalDateTime, LocalTime e Instant.
+// Para datas "simple" (22/12/1999) utiliza-se a classe Period.
 // Possiveis retornos: Horas, minutos e segundos. (podendo ser apenas um deles, ou alguns)
 // Mais info: https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html
 
@@ -15,13 +14,12 @@ package date;
 // Ex. LocalDateTime: PT17544H0.000200349S
 // Ex. LocalTime: PT-6H-59M-59.99997496S
 // Ex. Instant: PT1M0.000002428S
-// NÂO é compatível com a LocalDate!!! pois aqui trabalhamos com Segundos, para ela utiliza-se o Period
+// NÃO é compatível com a LocalDate!!! pois aqui trabalhamos com Segundos, para ela utiliza-se o Period
 
 import java.time.*;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
-public class Aula123Duration_Intervalos {
+public class Aula123Duration_Intervalos_Utils {
     public static void main(String[] args) {
 
         // Analisando diferanças entre anos
