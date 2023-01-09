@@ -1,0 +1,24 @@
+-- Data 30/11/2022 até 05/01/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Formatações e Internacionalização de Números e Moedas de acordo com o Locale (Região/zona/origem).
+Exemplos:
+
+------> Números/Numbers (NumberFormat.getInstance(Locale | default sem nada)):
+Formatações de números (de acordo com o Locale passado), pois em alguns paises a formatação de casas
+decimais é diferente podendo utilizar virgulas "," ou "." como separadores.
+- Obs: Caso alguns métodos fiquem em vermelho é porque esta disponível
+       Porem devemos configurar a JDK para expandir o languageLevel suportado.
+
+- Códigos: src/formatacao/Aula116NumberFormat_Number_Locale.java
+
+---> Moedas/Coins: (NumberFormat.getCurrencyInstance(Locale | default sem nada)):
+Mesma lógica serve para moedas, e podemos utilizar a mesma Classe "NumberFormat" e utilizar o método citado a cima.
+- Para ambas seguimos com a mesma regra sobre os métodos .format(); que transforma um objeto em uma String
+ e .parse(); que transforma uma String em um objeto (também deve-se atentar ao padrão definido inicialmente.
+
+- Códigos: src/formatacao/Aula117NumberFormat_Coin_Locale.java
+
+- Package (Para ambos a mesma classe): java.text.NumberFormat;

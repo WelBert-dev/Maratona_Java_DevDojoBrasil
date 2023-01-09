@@ -1,0 +1,22 @@
+-- Data 30/11/2022 até 05/01/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Recurso muito poderoso do Java podendo assim resolver o problema de tradução/internacionalização neste contexto,
+sendo possível assim traduzir um sistema por completo com espécies de dicionários. (Dentre outras possíbilidades)
+De acordo com o Locale passado no parâmetro, podemos alterar alguns comportamentos baseados em Chave x Valor,
+assim podemos pegar valores diferentes de acordo com esses Locale, com a mesma chave por exemplo..
+
+- Esse dicionário é definido como se fosse um .env na raiz do projeto e com uma nomeclatura especial,
+  sendo +/- essim: messages_en_US.properties, aonde _en_US faz o java entender pelo Locale definido anteriormente.
+  - ResourceBundle.getBundle("messages", new Locale("pt", "BR")).getString("hello");// output: Olá
+  - ResourceBundle.getBundle("messages", new Locale("en", "US")).getString("hello");// output: Hello
+
+- Obs: Definimos também um "messages.properties" assim ele será considerado o mais genérico de todos,
+e em casos aonde não encontrado a chave passado no parâmetro, mesmo sendo outro Locale passado
+ele executa uma sobrecarga nesse ".env" que no caso é .properties em cascata, até encontrar alguma ocorrência válida.
+- Evitando assim Exceptions.
+
+ - Package: java.util.ResourceBundle;
+ - Códigos: src/internacionalizacao/Aula130ResourceBundle_Internacionalizacao_Util.java
