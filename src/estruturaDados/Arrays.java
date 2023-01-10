@@ -52,6 +52,10 @@ public class Arrays {
         System.out.println(vContato.getIndexOfElement(new Contato("Wellison", "(11) 9 4298-9935", "wellison.bertelli@hotmail.com")));
 
 
+        // Com generics  garante o principio de que Arrays referenciam objetos do mesmo tipo,
+        // ao contrário da solução anterior aonde podemos atribuir tipos diferentes no Array
+        // devido a lista ser do tipo Object.
+
         VetorGenericoComGenerics<Contato> vContatoGenerics = new VetorGenericoComGenerics<Contato>(10);
 
         vContatoGenerics.add(contato1);
