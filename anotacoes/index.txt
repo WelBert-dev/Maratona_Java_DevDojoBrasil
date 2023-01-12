@@ -1,4 +1,20 @@
 
 
 - Devendo: Documentar em um arquivo específico para formatações, ou apenas
-para formatação de números e moedas com uso da internacionalização (class java Locale)
+para formatação de números e moedas com uso da internacionalização (class java Locale) - OK
+ 
+- Devendo: Documentar em um arquivo específico as regex no java.
+
+- Devendo: Documentar em um arquivo específico os pacotes para lidar com arquivos simples. (java.io)
+
+- Após documentar as aulas do devdojo, documentar tambeḿ os estudos realizados sobre estrutura de dados da Loiane.
+
+- Intercalar os estudos sobre estrutura de dados da Loiane e as aulas do devdojo.
+
+- Revisar um pouco de frontend (react) ou vendo videos de desenvolvimento ou adicionando novas features no portifolio.
+
+- Finalizar a matricula no ceunsp e verificar a grade currícular sobre as disciplinas (já ir estudando pontos negativos).
+
+- Verificar estagios na Jhon deere e também no ceunsp para saber quais requisitos.
+
+- Estudar mais sobre desenvolvimento pessoal e social.
