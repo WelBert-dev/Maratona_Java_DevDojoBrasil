@@ -36,12 +36,8 @@ public class Aula131PatternAndMatcher {
         // ele irá considerar os retornos: 0 4, pois ele descarta o aba do meio (pois ja fez match)
         // com a primeira ocorrência:
         // abababa
-        // 0 |X|4
-        // ou seja, ele estava percorrendo e encontrou o primeiro "aba",
-        // e ai o "cursor" esta apontando agora para "baba" <- pois o "a"
-        // esta sendo considerado no primeiro match, assim ele continua
-        // executando apartir dali, então a próxima ocorrência de "aba" é depois do "b"
-        // na posição 4.
+         
+         
 
         regex = "aba";
         texto = "abababa";
