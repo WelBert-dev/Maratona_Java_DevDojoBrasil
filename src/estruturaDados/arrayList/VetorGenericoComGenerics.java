@@ -6,6 +6,10 @@ public class VetorGenericoComGenerics<T> {
     private T[] elements;
     private int size;
 
+    public VetorGenericoComGenerics() {
+        this(10);
+    }
+
     public VetorGenericoComGenerics(int capacity) {
         this.elements = (T[]) new Object[capacity]; // mais elegante
         this.size = 0;
