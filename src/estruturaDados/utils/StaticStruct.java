@@ -64,6 +64,10 @@ public abstract class StaticStruct<T> {
         return true;
     }
 
+    public boolean isEmpty(){
+        return this.size == 0;
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();

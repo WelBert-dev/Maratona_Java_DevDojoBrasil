@@ -11,11 +11,26 @@ public class Stack<T> extends StaticStruct<T> {
         super(capacity);
     }
 
-    public boolean add(T element) {
-        return super.add(element);
-    }
-    public boolean add(T element, int index) {
+    public boolean push(T element) { return super.add(element); }
+    public boolean push(T element, int index) {
         return super.add(element, index);
+    }
+
+    public T top() {
+        if (this.isEmpty()) return null;
+
+        return this.elements[size-1];
+    }
+
+    public T pop() {
+        if (this.isEmpty()) return null;
+
+//        T lastElement = this.elements[size - 1];
+//        this.elements[size-1] = null;
+//        this.size--;
+
+
+        return this.elements[--size];
     }
 
 }
