@@ -13,6 +13,7 @@ public class App {
         stackList.push("boli"); // 3
         System.out.println(stackList.isEmpty());
         System.out.println(stackList);
+        System.out.println(stackList.peek());
         //stackList.push("boli", 3);
         System.out.println(stackList.pop());
         System.out.println(stackList.pop());

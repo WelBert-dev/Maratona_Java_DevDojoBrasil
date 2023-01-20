@@ -16,7 +16,7 @@ public class Stack<T> extends StaticStruct<T> {
         return super.add(element, index);
     }
 
-    public T top() {
+    public T peek() {
         if (this.isEmpty()) return null;
 
         return this.elements[size-1];
