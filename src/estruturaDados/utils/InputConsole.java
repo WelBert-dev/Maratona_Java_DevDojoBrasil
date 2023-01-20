@@ -12,7 +12,6 @@ public class InputConsole {
     }
 
     public static int readInformationInt(String msg, Scanner scan) {
-        System.out.print(msg);
         int resp = -1;
         boolean isValid = false;
 
