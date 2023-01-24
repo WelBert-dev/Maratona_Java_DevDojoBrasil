@@ -32,5 +32,8 @@ public class Stack<T> extends StaticStruct<T> {
 
         return this.elements[--size];
     }
+    public T get(int index) {
+        return super.getElement(index);
+    }
 
 }

@@ -63,6 +63,25 @@ public abstract class StaticStruct<T> {
 
         return true;
     }
+    protected T getElement(int indexOf) {
+        if (!(indexOf >= 0 && indexOf < this.size)) {
+            throw new IllegalArgumentException("Posição fora do range possível");
+        }
+
+        return this.elements[indexOf];
+    }
+    public void clear() {
+        // opção 1
+        //this.elements = (T[]) new Object[this.elements.length];
+        // opção 2
+        //this.size = 0;
+        // opção 3
+        for (int i=0; i<this.size; i++) {
+            this.elements[i] = null;
+        }
+        this.size = 0;
+
+    }
 
     public boolean isEmpty(){
         return this.size == 0;
