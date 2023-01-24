@@ -32,6 +32,11 @@ public class Stack<T> extends StaticStruct<T> {
 
         return this.elements[--size];
     }
+    public T pop(int index) {
+        if (this.isEmpty()) return null;
+
+        return super.removeElementByIndex(index);
+    }
     public T get(int index) {
         return super.getElement(index);
     }

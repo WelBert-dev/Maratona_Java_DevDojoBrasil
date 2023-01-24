@@ -11,7 +11,6 @@ public abstract class StaticStruct<T> {
         this.elements = (T[]) new Object[capacity]; // mais elegante
         this.size = 0;
     }
-
     public int getSize() {
         return this.size;
     }
@@ -27,7 +26,6 @@ public abstract class StaticStruct<T> {
             this.elements = elementsNew;
         }
     }
-
     protected boolean add(T element) {
 
         // Duplica a capacidade do array (caso size ultrapasse o length definido inicialmente)
@@ -42,7 +40,6 @@ public abstract class StaticStruct<T> {
 
         return false;
     }
-
     protected boolean add(T element, int index) {
         if (!(index >= 0 && index < this.size)) {
             throw new IllegalArgumentException("Posição fora do range possível");
@@ -69,6 +66,24 @@ public abstract class StaticStruct<T> {
         }
 
         return this.elements[indexOf];
+    }
+    protected T removeElementByIndex(int index) {
+        if (!(index >= 0 && index < this.size)) {
+            throw new IllegalArgumentException("Posição fora do range possível");
+        }
+
+        T element = this.elements[index];
+
+        for (int i = index; i<this.size-1; i++) {
+            // começa no index que será removido, e atribuí o próximo elemento nele (um a um)
+
+            this.elements[i] = this.elements[i+1];
+        }
+
+        // Removeu 1 elemento, logo o tamanho real abaixou (pois sempre trabalhamos com o tamanho real ao invés do tamanho definido na criação do array)
+        this.size = this.size - 1;
+
+        return element;
     }
     public void clear() {
         // opção 1

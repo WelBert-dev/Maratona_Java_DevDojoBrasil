@@ -67,11 +67,11 @@ public class BookModel {
 
     @Override
     public String toString() {
-        return "BookModel{" +
-                "nome='" + nome + '\'' +
-                ", ISBN='" + ISBN + '\'' +
-                ", anoLancamento=" + anoLancamento +
-                ", autor='" + autor + '\'' +
+        return "BookModel{\n" +
+                "\tnome='" + nome + '\'' +
+                "\n\tISBN='" + ISBN + '\'' +
+                "\n\tanoLancamento=" + anoLancamento +
+                "\n\tautor='" + autor + '\n' +
                 '}';
     }
 }
