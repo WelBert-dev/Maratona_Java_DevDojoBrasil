@@ -51,7 +51,6 @@ public class BookModel {
     public void setAutor(String autor) {
         this.autor = autor;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

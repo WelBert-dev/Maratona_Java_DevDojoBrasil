@@ -42,7 +42,7 @@ public abstract class StaticStruct<T> {
     }
     protected boolean add(T element, int index) {
         if (!(index >= 0 && index < this.size)) {
-            throw new IllegalArgumentException("Posição fora do range possível");
+            return false;
         }
 
         // Duplica a capacidade do array (caso size ultrapasse o length definido inicialmente)
@@ -62,7 +62,7 @@ public abstract class StaticStruct<T> {
     }
     protected T getElement(int indexOf) {
         if (!(indexOf >= 0 && indexOf < this.size)) {
-            throw new IllegalArgumentException("Posição fora do range possível");
+            return null;
         }
 
         return this.elements[indexOf];

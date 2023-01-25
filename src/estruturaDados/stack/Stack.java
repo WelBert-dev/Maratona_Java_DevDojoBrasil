@@ -21,6 +21,11 @@ public class Stack<T> extends StaticStruct<T> {
 
         return this.elements[size-1];
     }
+    public T peek(int index) {
+        if (this.isEmpty()) return null;
+
+        return super.getElement(index);
+    }
 
     public T pop() {
         if (this.isEmpty()) return null;

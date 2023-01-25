@@ -28,23 +28,27 @@ public class Exer03 {
                     option = getOptionSelectedFromMenuInt(scan);
 
                     switch (option) {
+                        case 0:
+                            isFinalized = true;
+                            break;
                         case 1:
                             option01AddBookInTheLast(scan, stackBooks);
                             break;
                         case 2: // Adiciona livro em alguma posição da pilha. (push with index)
-                            option02AddBookToIndex(scan, stackBooks);
+                            option02AddBookWithIndex(scan, stackBooks);
                             break;
                         case 3: // Adiciona livro em alguma posição da pilha. (pop)
-                            option03RemoveBookInTheLast(scan, stackBooks);
+                            option03RemoveBook(scan, stackBooks);
+                            break;
+                        case 4: // Adiciona livro em alguma posição da pilha. (pop)
+                            option04GetElement(scan, stackBooks); //option05GetAll
+                            break;
+                        case 5: // Adiciona livro em alguma posição da pilha. (pop)
+                            option05GetAll(scan, stackBooks);
                             break;
                     }
                 }
                 System.out.println("Usuário digitou 0, Programa finalizado! ;-;\n");
-            }
-            resp = InputConsole.readInformation("Deseja continuar a utilizar o programa?[S] - Sim | [N] - Não\n R: ", scan).toUpperCase();
-
-            if (resp.equals("N") || resp.equals("NÃO")) {
-                isFinalized = true;
             }
         }
     }
@@ -70,8 +74,8 @@ public class Exer03 {
             System.out.println("[ Seleciona alguma das seguintes opções: ]");
             System.out.println("[PRESS 1] - Adiciona livro no topo da pilha. (push)");
             System.out.println("[PRESS 2] - Adiciona livro em alguma posição da pilha. (push with index)");
-            System.out.println("[PRESS 3] - Remove livro do final da pilha retornando-o. (pop)");
-            System.out.println("[PRESS 4] - Espia ultimo livro da pilha. (peek)");
+            System.out.println("[PRESS 3] - Remove livro da pilha retornando-o. (pop)");
+            System.out.println("[PRESS 4] - Espia livro da pilha. (peek)");
             System.out.println("[PRESS 5] - Imprimir todos elementos da pilha. (getAll)");
 
             System.out.print("[PRESS 0] - Finalizar programa.\n R: ");
@@ -80,7 +84,7 @@ public class Exer03 {
                 String input = scan.nextLine();
                 option = Integer.parseInt(input);
 
-                if (option >= 0 && option <= 4) {
+                if (option >= 0 && option <= 5) {
                     validInput = true;
                 } else {
                     throw new Exception();
@@ -107,11 +111,9 @@ public class Exer03 {
                 System.out.println("Ocorreu um erro ao tentar adicionar, deseja continuar operações?");
 
             String resp = InputConsole.readInformation("Adicionar mais? [S] - Sim [N] - Não\n R: ", scan);
-
             while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
                 resp = InputConsole.readInformation("Adicionar mais? [S] - Sim [N] - Não\n R: ", scan);
             }
-
             if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
                 isFinalized = true;
 
@@ -123,7 +125,6 @@ public class Exer03 {
                 while(!resp.isEmpty() && !resp.toUpperCase().equals("OK") && !resp.toUpperCase().equals("C")) {
                     resp = InputConsole.readInformation("\n[Operação INVÀLIDA!! ;-;]\n[OK] - Confirmar cadastro.\n[C] - Cancelar operção\n R: ", scan);
                 }
-
                 if (resp.toUpperCase().equals("OK")) {
                     for (int i = 0; i <= newBooks.getSize()-1; i++) {
                         seedBookModelWithParams(book,
@@ -143,7 +144,7 @@ public class Exer03 {
             }
         }
     }
-    public static void option02AddBookToIndex(Scanner scan, Stack<BookModel> stackBooks){
+    public static void option02AddBookWithIndex(Scanner scan, Stack<BookModel> stackBooks){
         boolean isFinalized = false;
         BookModel book = new BookModel();
 
@@ -166,11 +167,9 @@ public class Exer03 {
                 System.out.println("Ocorreu um erro ao tentar adicionar, deseja continuar operações?");
 
             String resp = InputConsole.readInformation("Adicionar mais? [S] - Sim [N] - Não\n R: ", scan);
-
             while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
                 resp = InputConsole.readInformation("Adicionar mais? [S] - Sim [N] - Não\n R: ", scan);
             }
-
             if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
                 isFinalized = true;
 
@@ -211,6 +210,35 @@ public class Exer03 {
         }
         return option;
     }
+    public static int getOptionSelectedFromMenuIntOpt4(Scanner scan) {
+
+        boolean validInput = false;
+        int option = 0;
+
+        while (!validInput) {
+
+            Exe_console_crudContatos.getLinha();
+            System.out.println("[ Seleciona alguma das seguintes operações: ]");
+            System.out.println("[PRESS 1] - Obtém elemento do final");
+            System.out.println("[PRESS 2] - Obtém elemento com index");
+
+            System.out.print("[PRESS 0] - Cancelar.\n R: ");
+
+            try {
+                String input = scan.nextLine();
+                option = Integer.parseInt(input);
+
+                if (option >= 0 && option <= 2) {
+                    validInput = true;
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                System.out.println("Entrada Inválida, digite novamente!\n\n");
+            }
+        }
+        return option;
+    }
     public static void option03RemoveBook(Scanner scan, Stack<BookModel> stackBooks){
         boolean isFinalized = false;
         BookModel book = new BookModel();
@@ -222,7 +250,7 @@ public class Exer03 {
         printElementInConsoleWithStacklist(stackBooks);
         Exe_console_crudContatos.getLinha();
 
-        while(!isFinalized) {
+        while(!isFinalized && !stackBooks.isEmpty()) {
 
             if(!stackBooks.isEmpty()) {
                 int option = 1;
@@ -242,11 +270,9 @@ public class Exer03 {
             }
 
             String resp = InputConsole.readInformation("Remover mais? [S] - Sim [N] - Não\n R: ", scan);
-
             while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
                 resp = InputConsole.readInformation("* Remover mais? [S] - Sim [N] - Não\n R: ", scan);
             }
-
             if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
                 isFinalized = true;
 
@@ -265,15 +291,17 @@ public class Exer03 {
         System.out.println("\n-- [Removendo livros do final da pilha...] --\n");
 
         while(!isFinalized && !stackBooks.isEmpty()) {
+            BookModel element = stackBooks.pop();
+            if (element == null)
+                System.out.println("Ocorreu alguma falha ao tentar remover, tente novamente! ;-;");
 
-            System.out.println(stackBooks.pop());
+            System.out.println("Elemento removido com sucesso! ;D\nAbaixo informações do mesmo!\n");
+            System.out.println(element);
 
             String resp = InputConsole.readInformation("Remover mais do final? [S] - Sim [N] - Não\n R: ", scan);
-
             while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
                 resp = InputConsole.readInformation("* Remover mais do final? [S] - Sim [N] - Não\n R: ", scan);
             }
-
             if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
                 isFinalized = true;
 
@@ -291,18 +319,21 @@ public class Exer03 {
         Exe_console_crudContatos.getLinha();
         System.out.println("\n-- [Removendo livro do index...] --\n");
 
-        while(!isFinalized) {
-
-            // removendo do index
-
+        while(!isFinalized && !stackBooks.isEmpty()) {
             int index =  InputConsole.readInformationInt("Índice: ", scan);
+            BookModel element = stackBooks.pop(index);
+            if (element == null)
+                System.out.println("Ocorreu alguma falha ao tentar remover, tente novamente! ;-;");
 
-            String resp = InputConsole.readInformation("Remover mais do final? [S] - Sim [N] - Não\n R: ", scan);
+            System.out.println("Elemento removido com sucesso! ;D\nAbaixo informações do mesmo!\n");
+            System.out.println(element);
 
+            String resp = InputConsole.readInformation(
+                    "Remover elementos mais do final? [S] - Sim [N] - Não\n R: ", scan);
             while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
-                resp = InputConsole.readInformation("* Remover mais do final? [S] - Sim [N] - Não\n R: ", scan);
+                resp = InputConsole.readInformation(
+                        "* Remover mais elementos do final? [S] - Sim [N] - Não\n R: ", scan);
             }
-
             if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
                 isFinalized = true;
 
@@ -310,6 +341,126 @@ public class Exer03 {
                 System.out.println("Pilha de livros nova:");
                 printElementInConsoleWithStacklist(stackBooks);
                 Exe_console_crudContatos.getLinha();
+            }
+        }
+    }
+    public static void option04GetElement(Scanner scan, Stack<BookModel> stackBooks){
+        boolean isFinalized = false;
+        BookModel book = new BookModel();
+
+        Exe_console_crudContatos.getLinha();
+        System.out.println("\n-- [Obtendo um livro utilizando Peek] --\n");
+
+        System.out.println("---------------- [Pilha atual: ] ------------------");
+        printElementInConsoleWithStacklist(stackBooks);
+        Exe_console_crudContatos.getLinha();
+
+        while(!isFinalized && !stackBooks.isEmpty()) {
+
+            if(!stackBooks.isEmpty()) {
+                int option = 1;
+                while (option != 0) {
+                    option = getOptionSelectedFromMenuIntOpt4(scan);
+
+                    switch (option) {
+                        case 1:
+                            option04GetLastElement(scan, stackBooks);
+                            break;
+                        case 2: // Adiciona livro em alguma posição da pilha. (push with index)
+                            option04GetElementWithIndex(scan, stackBooks);
+                            break;
+                    }
+                }
+                System.out.println("Usuário digitou 0, Operação cancelada!!\n");
+            }
+
+            String resp = InputConsole.readInformation("Remover mais? [S] - Sim [N] - Não\n R: ", scan);
+            while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
+                resp = InputConsole.readInformation("* Remover mais? [S] - Sim [N] - Não\n R: ", scan);
+            }
+            if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
+                isFinalized = true;
+
+                Exe_console_crudContatos.getLinha();
+                System.out.println("Pilha de livros nova:");
+                printElementInConsoleWithStacklist(stackBooks);
+                Exe_console_crudContatos.getLinha();
+            }
+        }
+    }
+    public static void option04GetLastElement(Scanner scan, Stack<BookModel> stackBooks){
+        boolean isFinalized = false;
+        BookModel book = new BookModel();
+
+        Exe_console_crudContatos.getLinha();
+        System.out.println("\n-- [Obtendo livros do final da pilha...] --\n");
+
+        while(!isFinalized && !stackBooks.isEmpty()) {
+            BookModel element = stackBooks.peek();
+            if (element == null)
+                System.out.println("Ocorreu alguma falha ao tentar remover, tente novamente! ;-;");
+
+            System.out.println("Elemento obtido com sucesso! ;D\nAbaixo informações do mesmo!\n");
+            System.out.println(element);
+
+            String resp = InputConsole.readInformation("Obter novamente do final? [S] - Sim [N] - Não\n R: ", scan);
+            while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
+                resp = InputConsole.readInformation("* Remover mais do final? [S] - Sim [N] - Não\n R: ", scan);
+            }
+            if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
+                isFinalized = true;
+            }
+        }
+    }
+    public static void option04GetElementWithIndex(Scanner scan, Stack<BookModel> stackBooks){
+        boolean isFinalized = false;
+        BookModel book = new BookModel();
+
+        Exe_console_crudContatos.getLinha();
+        System.out.println("\n-- [Obtendo livros da pilha com index...] --\n");
+
+        while(!isFinalized && !stackBooks.isEmpty()) {
+            int index =  InputConsole.readInformationInt("Índice: ", scan);
+            BookModel element = stackBooks.peek(index);
+            if (element == null)
+                System.out.println("Ocorreu alguma falha ao tentar obter elemento, tente novamente! ;-;");
+
+            System.out.println("Elemento obtido com sucesso! ;D\nAbaixo informações do mesmo!\n");
+            System.out.println(element);
+
+            String resp = InputConsole.readInformation(
+                    "Obter mais elementos com index? [S] - Sim [N] - Não\n R: ", scan);
+            while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
+                resp = InputConsole.readInformation(
+                        "* Obter mais elementos com index? [S] - Sim [N] - Não\n R: ", scan);
+            }
+            if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
+                isFinalized = true;
+            }
+        }
+    }
+    public static void option05GetAll(Scanner scan, Stack<BookModel> stackBooks){
+        boolean isFinalized = false;
+
+        Exe_console_crudContatos.getLinha();
+        System.out.println("\n--------- [Obtendo TODOS livros da pilha] ---------\n");
+
+        if (stackBooks.isEmpty()) {
+            System.out.println("Pilha vazia, adicione elementos nela e tente novamente!");
+            return;
+        }
+
+        while (!isFinalized && !stackBooks.isEmpty()) {
+            System.out.println("---------------- [Pilha atual: ] ------------------");
+            printElementInConsoleWithStacklist(stackBooks);
+            Exe_console_crudContatos.getLinha();
+
+            String resp = InputConsole.readInformation("Imprimir novamente? [S] - Sim [N] - Não\n R: ", scan);
+            while(!resp.isEmpty() && !resp.toUpperCase().equals("S") && !resp.toUpperCase().equals("N") && !resp.toUpperCase().equals("NÃO") && !resp.toUpperCase().equals("SIM")) {
+                resp = InputConsole.readInformation("* Remover mais? [S] - Sim [N] - Não\n R: ", scan);
+            }
+            if (resp.toUpperCase().equals("N") || resp.toUpperCase().equals("NÃO")) {
+                isFinalized = true;
             }
         }
     }
