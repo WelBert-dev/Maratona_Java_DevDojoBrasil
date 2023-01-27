@@ -15,7 +15,7 @@ public abstract class StaticStruct<T> {
         return this.size;
     }
 
-    private void multiplyCapacity() {
+    protected void multiplyCapacity() {
         if (this.size == this.elements.length) {
             T[] elementsNew = (T[]) new Object[this.elements.length * 2];
 
