@@ -7,6 +7,8 @@ public class Exe07_torreDeHanoi {
         Stack<Integer> dest = new Stack<Integer>();
         Stack<Integer> aux = new Stack<Integer>();
 
+        original.push(5);
+        original.push(4);
         original.push(3);
         original.push(2);
         original.push(1);
