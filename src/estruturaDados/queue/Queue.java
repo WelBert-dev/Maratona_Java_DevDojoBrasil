@@ -1,5 +1,11 @@
 package estruturaDados.queue;
 
+// No java não existe uma Classe "Queue" e sim uma interface,
+// na qual podemos utilizar como tipo de referência para outras classes
+// que implementam ela (LinkedList é um dos exemplos),
+// assim graças ao polimorfismo iremos "enchergar" apenas os métodos
+// definidos na assinatura da interface Queue.
+
 import estruturaDados.utils.StaticStruct;
 
 public class Queue<T> extends StaticStruct<T> {

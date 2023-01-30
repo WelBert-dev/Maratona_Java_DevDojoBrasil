@@ -41,7 +41,8 @@ public abstract class StaticStruct<T> {
         return false;
     }
     protected boolean add(T element, int index) {
-        if (!(index >= 0 && index < this.size)) {
+        if (!(index >= 0) && !(index < this.size)) {
+            System.out.println(this.size);
             return false;
         }
 
