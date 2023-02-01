@@ -10,6 +10,7 @@ package estruturaDados.linkedList;
 
 public class LinkedList<T> {
 
+    java.util.LinkedList<Integer> listatata = null;
     private Node<T> init; // aponta para o primeiro elemento da lista
     private Node<T> last; // aponta para o ultimo elemento da lista
     private int size = 0;
@@ -26,8 +27,38 @@ public class LinkedList<T> {
         this.size++;
     }
 
+//    public void add(T element, int index) { // 1 2
+//        Node<T> celula = new Node<>(element);
+//        if (this.size == 0 ) {
+//            this.init = celula;
+//        } else {
+//           // this.last.setNextNode(celula);
+//            Node<T> currentNode = this.init;
+//            for (int i = 0; i < index; i++) {// 0 1 15
+//                currentNode = currentNode.getNextNode();
+//            }
+//            // ja esta apontando para o index que vai sofrer replace.
+//        }
+//
+//        this.last = celula;
+//        this.size++;
+//    }
+
     public int getSize() {
         return this.size;
+    }
+
+    public void clear() {
+        for (Node<T> currentNode = this.init; currentNode != null;) {
+            Node<T> nextNode = currentNode.getNextNode();
+            currentNode.setElement(null);
+            currentNode.setNextNode(null);
+            currentNode = nextNode;
+        }
+
+        this.init = null;
+        this.last = null;
+        this.size = 0;
     }
 
     @Override
@@ -39,14 +70,15 @@ public class LinkedList<T> {
 
         builder.append("[").append(currentNode.getElement()).append(",");
 
-//        int count = 1;
-//        while (currentNode.getNextNode() != null && count < this.size-1) {
-//            currentNode = currentNode.getNextNode();
-//            builder.append(currentNode.getElement()).append(",");
-//            count++;
-//        }
-//
-//        builder.append(currentNode.getNextNode().getElement()).append("]");
+        int count = 1;
+        while (currentNode.getNextNode() != null && count < this.size-1) {
+            currentNode = currentNode.getNextNode();
+            builder.append(currentNode.getElement()).append(",");
+            count++;
+
+        }
+
+        builder.append(currentNode.getNextNode().getElement()).append("]");
 
 
 
