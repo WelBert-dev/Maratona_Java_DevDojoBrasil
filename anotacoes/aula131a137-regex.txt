@@ -1,0 +1,76 @@
+-- Data 30/11/2022 até 05/01/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+-- Site bom para treinar regex: https://regexr.com/
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Basicamente para se trabalhar com expressões regulares no java temos 2 classes:
+Pattern e Matcher, ambas trabalham em conjunto sendo uma para definição da regex/padrão em si (Pattern)
+e a Matcher responsável por realizar a comparação/matcher em sí da String. o passo a passo básico segue o fluxo:
+
+    Pattern pattern = Pattern.compile(regex); // verifica se a expressão é válida (se ela compila).
+    Matcher matcher = pattern.matcher(texto); // verifica se ocorre algum match com a string (percorre por completo).
+    while(matcher.find()) {
+        // start retorna a primeira posição referênte ao primeiro char do padrão buscado no texto
+        // exemplo: abaaba (ab estão nas posições: 0, 3 pois é aonde inicia a flag/padrão buscado).
+        System.out.print(matcher.start()+" "); // Posições encontradas: 0 3
+    }
+
+- Como podemos observar primeiro utilizamos o método estático da classe Pattern.compile() passando como parâmetro
+a regex ou seja os caracteres especiais contendo a lógica que pretendemos encontrar na String.
+    - Só irá retornar a instância se a regex for válida e compilar normalmente.
+
+-  Após compilado, execultamos o método não estático do Objeto criado pattern.matcher() passando a String do texto
+em sí que queremos realizar a busca.
+    - Colocamos em um looping utilizando o método matcher.find() que verifica e percorre a String.
+    - Realizando o match com os métodos matcher.start() que retorna o primeiro indice da posição dos matchs encontrados
+    - Para retornarmos o grupo de valores que fez match em sí da String utilizamos o método matcher.group()
+
+- Obs:
+
+
+---------------------- // Meta Caracteres: Os meta caracteres são os caracteres especiais de configuração
+para o pattern, existem inumeros e aqui estão os mais utilizados:
+
+    \d: Todos os digítos.
+    \D: Ao contrário, ou seja retorna tudo que NÂO for digito.
+    \s: Todos os espaços em branco (\t, \n, \f, \r).
+    \S: Ao contrário, ou seja retorna tudo que NÂO for espaço em branco.
+    \w: Todas as letras (a-z e A-Z), digítos, e _ (Ou seja, exclui todos caracteres especiais menos o "_").
+    \W Ao contrário, ou seja retorna tudo que NÂO for letras, digitos e "_".
+
+
+---------------------- // Range: São os intervalos de valores que queremos por exemplo de 1 a 5: [1-5]
+Podemos delimitar intervalos de valores possíveis no pattern utilizando "[]" <- exemplo: [a-zA-Z0-9]
+
+- Obs: Porém, desta forma sem nenhum quantificador ele vai considerar apenas 1 char deste range.
+- Portanto para considerar mais valores deste range precisamos de algum operador quantificador!
+
+
+---------------------- // Quantificadores: Utilizamos quantificadores quando desejamos retornar
+vários valores de um range "[]" pois o default é retornar apenas uma ocorrência (a primeira),
+quando queremos continuar a interação sobre esse range e retornar mais valores utilizamos um
+agrupamento "([])" seguido de um dos operadores descritos abaixo "([])*";
+
+// Mais informações: https://www.programacaoprogressiva.net/2012/08/java-expressoes-regulares-regex-em-java_2423.html
+
+    ? Zero ou uma
+    * Zero ou mais
+    + Uma ou mais
+    {n-min, n-max} de n-min até n-max
+    () agrupamento
+    | ou/or (exemplo: o(v|c)o ovo ou oco
+    $ fim da linha
+
+
+---------------------- // Anchor "^" possuí duas utilidades sendo elas:
+- Utilizando ele no começo da expressão fora dos "[]" indicamos que queremos EXATAMENTE a próxima expressão
+isto em referência ao inicio do texto no qual estamos aplicando o match do regex.
+
+- Utilizando ele dentro dos "[^\w]" indicamos que NÂO queremos esse valor, ou seja tudo menos ele.
+
+
+    - Package: java.util.regex.Matcher;
+               import java.util.regex.Pattern;
+
+    - Códigos: src/regex/*
