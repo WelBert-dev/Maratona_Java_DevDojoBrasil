@@ -12,7 +12,5 @@ public class App {
         lista.add(6);
 
         System.out.println(lista);
-
-        lista.add(15, 1);
     }
 }

@@ -1,0 +1,105 @@
+-- Data 30/11/2022 até 05/01/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+
+Intermediário: Mais especifico no Java
+
+// Classes aboradads neste package:
+// File (Base para outras classes)
+// FileWriter (Low level, não otimizada)
+// FileReader (Low level, não otimizada)
+// BufferedWriter (Em memória, logo == + rápido)
+// BufferedReader (Em memória, logo == + rápido)
+
+---------------------- // File (Representação do arquivo em um objeto, nas versões anteriores do Java.)
+- Ainda é utilizado porém é recomendável substituir pelo Patch do novo io (package nio).
+    - Pois é basicamente a localização do arquivo no disco (C:\seila) ou (\home\welbert\seila)
+
+- É apenas isso, para a manipulação dele como escrever ou ler algo precisamos das classes FileWriter e FileReader
+    - passamos como parametro para eles um objeto do tipo File.
+
+- Algumas operações basicas que podemos realizar sobre o Objeto do tipo File:
+
+File file = new File("/home/welbert/Documentos/github/MaratonaJava-DevDojo/file.txt");
+
+if (file.exists()) {
+    // isDeleted = file.delete();
+    file.isFile(); // true
+    file.isDirectory(); // false
+    file.isHidden(); // false
+
+    file.getAbsolutePath(); // /home/welbert/Documentos/github/MaratonaJava-DevDojo/file.txt
+    file.getPath(); // /home/welbert/Documentos/github/MaratonaJava-DevDojo/file.txt
+    file.getParent(); // /home/welbert/Documentos/github/MaratonaJava-DevDojo
+    file.getTotalSpace(); // 318450962432
+    file.getFreeSpace(); // 254839607296
+
+    // Ultima modificação em LocalDateTime:
+    Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
+    // 2023-01-04T21:08:13.624
+}
+
+
+---------------------- // FileWriter (Escrevendo no arquivo em sí)
+Após carregarmos o arquivo em sí no Objeto File, podemos utilizar esta classe para escrever nele.
+porém é um classe bem LowLevel ou seja, não otimizada pois manipula diretamente no HD,
+diferente de outras (BufferedWriter) na qual manipula primeiro em memória, e depois realiza a escrita,
+logo conseguimos mais desempenho (+ otimizada) porém é necessário também além de uma instância de File,
+uma de FileWriter simples LowLevel para sua criação.
+
+- Algumas operações basicas que podemos realizar sobre o Objeto do tipo FileWriter:
+
+- Implementa clouseble então pode utilizar try with resources.
+- Relembrando try with resources: O java mesmo se encarrega de executar o .close();
+
+try (FileWriter fw = new FileWriter(file, true)) {
+    fw.write("Wellsion é lindão, a certificação oracle veeem!!\n");
+    fw.write("Wellsion é lindão, a certificação oracle veeem!!\n");
+    fw.write("Wellsion é lindão, a certificação oracle veeem!!\n");
+    fw.write("Wellsion é lindão, a certificação oracle veeem!!\n");
+    fw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    fw.flush();
+    // libera o buffer pois existe a chance de antes de fechar o arquivo, o java não mandou todos
+    // os dados do buffer para este arquivo, assim é necessário libera-lo e após liberar fechar
+
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+
+---------------------- // FileReader (Lendo um arquivo)
+Após criado a instância do objeto File que representa o arquivo em uestão,
+podemos criar uma instância de FileReader e passa-lo para assim realizar a leitura:
+
+try (FileReader fr = new FileReader(file)){
+        System.out.println(fr.read());
+        // retorna um Int que representa um caractere na tabela ASC (-1 reprersenta o final)
+
+        char[] in = new char[(int)file.length()-1];
+        System.out.println(fr.read(in));
+        // retorna o Int e ja converte em char alimentando o array de char
+        for (char c : in) {
+            System.out.print(c);
+        }
+
+        int i;
+        while ((i = fr.read()) != -1) {
+            //System.out.print(Character.toChars(i));
+           System.out.print((char)i);
+        }
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
+---------------------- // BufferedWriter (Equivalento FileWriter porém otimizado utilizando RAM e depois escreve no HD)
+Após criado a instância do objeto File que representa o arquivo em uestão,
+podemos criar uma instância de FileReader e passa-lo para assim realizar a leitura:
+
+- Obs:
+
+    - Package: java.util.regex.Matcher;
+               import java.util.regex.Pattern;
+
+    - Códigos: src/regex/*
