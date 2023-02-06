@@ -95,7 +95,7 @@ try (FileReader fr = new FileReader(file)){
 
 ---------------------- // BufferedWriter (Equivalento FileWriter porém otimizado utilizando RAM e depois escreve no HD)
 Após criado a instância do objeto File que representa o arquivo em questão,
-criamos uma instância de FileWriter e assim passamos para o BufferedWriter por fim realizar a leitura:
+criamos uma instância de FileWriter e assim passamos para o BufferedWriter por fim realizar a escrita:
 
 
 Obs: Utilizando try with resources aonde o Java se encarrega de execultar o método .close()
@@ -124,6 +124,60 @@ try (FileWriter fw = new FileWriter(file, true);
 
 - Obs: Ao invés de utilizar "\n" para quebras de linha, utilizamos o recurso do BufferedWriter .newLine();
 que se encarrega de verificar o S.O corrente e assim passar o caractere correto que representa a quebra de linha.
+
+
+---------------------- // BufferedReader: (Equivalento FileReader porém otimizado utilizando RAM e depois lê no HD)
+Após criado a instância do objeto File que representa o arquivo em questão,
+criamos uma instância de FileReader e assim passamos para o BufferedReader por fim realizar a leitura:
+
+
+File file = new File("/home/welbert/Documentos/github/MaratonaJava-DevDojo/file.txt");
+
+try (FileReader fr = new FileReader(file);
+     BufferedReader br = new BufferedReader(fr)){
+
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+
+
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+
+- Obs: Ao invés de lermos caractere a caractere como feito anteriormente, ja lemos uma linha
+por completo, assim ganhamos mais performance.
+
+
+---------------------- // File para Diretórios (Pois até então estavamos trabalhando com arquivos).
+Segue o mesmo raciocinio, porém a instância de referência para File agora aponta para um path de diretório pai.
+
+try {
+    File fileDirectory = new File("pasta");
+    boolean isFolderCreated = fileDirectory.mkdir();
+    System.out.println(isFolderCreated);
+
+    File fileArchiveDirectory = new File(fileDirectory, "arquivo.txt");
+    boolean isArchiveCreated = fileArchiveDirectory.createNewFile();
+    System.out.println(isArchiveCreated);
+
+    // renomeando um arquivo:
+    File fileRenamed = new File(fileDirectory, "arquivo_renamedpa.txt"); // sempre passando o caminho correto.
+    boolean isRenamedArchive = fileArchiveDirectory.renameTo(fileRenamed);
+    System.out.println(isRenamedArchive);
+
+    // renomeando um diretório:
+    File fileFolderRenamed = new File("pasta_renamed"); // sempre passando o caminho correto.
+    boolean isRenamedFolder = fileDirectory.renameTo(fileFolderRenamed);
+    System.out.println(isRenamedFolder);
+
+} catch (IOException e) {
+    throw new RuntimeException(e);
+}
+
+
 
     - Package: java.io.*;
 
