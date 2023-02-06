@@ -94,12 +94,37 @@ try (FileReader fr = new FileReader(file)){
 
 
 ---------------------- // BufferedWriter (Equivalento FileWriter porém otimizado utilizando RAM e depois escreve no HD)
-Após criado a instância do objeto File que representa o arquivo em uestão,
-podemos criar uma instância de FileReader e passa-lo para assim realizar a leitura:
+Após criado a instância do objeto File que representa o arquivo em questão,
+criamos uma instância de FileWriter e assim passamos para o BufferedWriter por fim realizar a leitura:
 
-- Obs:
 
-    - Package: java.util.regex.Matcher;
-               import java.util.regex.Pattern;
+Obs: Utilizando try with resources aonde o Java se encarrega de execultar o método .close()
+// classe que implementa clouseble
 
-    - Códigos: src/regex/*
+try (FileWriter fw = new FileWriter(file, true);
+     BufferedWriter bw = new BufferedWriter(fw, 2048)){
+
+    bw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    bw.newLine();
+    bw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    bw.newLine();
+    bw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    bw.newLine();
+    bw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    bw.newLine();
+    bw.write("Wellsion é lindão, a certificação oracle veeem!!");
+    bw.flush();
+    // libera o buffer pois existe a chance de antes de fechar o arquivo, o java não mandou todos
+    // os arquivos do buffer, assim é necessário libera-lo e após liberar fechar
+
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+
+- Obs: Ao invés de utilizar "\n" para quebras de linha, utilizamos o recurso do BufferedWriter .newLine();
+que se encarrega de verificar o S.O corrente e assim passar o caractere correto que representa a quebra de linha.
+
+    - Package: java.io.*;
+
+    - Códigos: src/io/*
