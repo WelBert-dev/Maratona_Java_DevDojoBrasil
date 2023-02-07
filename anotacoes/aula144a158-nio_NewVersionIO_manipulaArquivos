@@ -1,0 +1,19 @@
+-- Data 06/01/2023 até 00/00/2023 (Estudos feitos em .Java e agora documentado)
+-- link:
+-- Mais informações sobre nio (new IO): https://docs.oracle.com/javase/tutorial/essential/io/legacy.html
+
+Intermediário: Mais especifico no Java
+
+
+- Introdução: Nova forma de se trabalhar com o IO, mais otimizado e maior coerência entre classes
+
+
+[Class File] <=====================================> [Interface Path] -> substitui a classe File por Path
+     /\                                                     /\
+     ||                                                     ||
+     ||                                                [Class Paths] -> Utilizada para dar origem a uma interface Path
+     ||
+[Class Util Files] -> Todos os métodos de File foram passados para Files (Estáticos)
+
+
+
