@@ -11,7 +11,7 @@ package nio;
 // Obs: NÃO é possível ir apartir de um absoluto para um relativo
 // pois como é relativo vai depender de onde esta sendo executado
 // assim o Java não tem ideia do caminho até ali.
-// 
+//
 
 
 import java.nio.file.Path;
