@@ -11,6 +11,10 @@ package nio;
 // Obs: Todos possuem apenas as operações básicas de leitura.
 // Para manipulações e setters utilizamos as mesmas interfaces com final View.
 
+// Dica: Trabalhar orientado a interface BasicFileAttribute como referência
+// para manter compatibilidade com diversos Sistemas Operacionais,
+// deixando o trabalho/criação do objeto correto em sí para o Java administrar.
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -55,5 +59,6 @@ public class Aula149BasicFileAttributes {
         System.out.println("É Writeble? "+Files.isWritable(filePath));
         System.out.println("É Executable? "+Files.isExecutable(filePath));
         System.out.println("É Readable? "+Files.isReadable(filePath));
+
     }
 }
