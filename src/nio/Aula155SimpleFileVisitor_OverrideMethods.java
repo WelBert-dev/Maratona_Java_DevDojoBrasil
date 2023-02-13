@@ -14,8 +14,6 @@ package nio;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Aula155SimpleFileVisitor_OverrideMethods {
     public static void main(String[] args) throws IOException {
@@ -27,15 +25,14 @@ public class Aula155SimpleFileVisitor_OverrideMethods {
             if (os.contains("Windows")) {
 
             } else {
-                Files.walkFileTree(rootPath, new ListAllFilesEndsWithJavaOrClass());
+                Files.walkFileTree(rootPath, new ListAllFilesEndsWithJavaOrClassEmpty());
             }
         }
     }
 }
 
-class ListAllFilesEndsWithJavaOrClass extends SimpleFileVisitor<Path> {
+class ListAllFilesEndsWithJavaOrClassEmpty extends SimpleFileVisitor<Path> {
     // Atalho para sobre-escrever métodos: CTRL + O
-
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
         System.out.println("preVisit: "+dir.getFileName());
