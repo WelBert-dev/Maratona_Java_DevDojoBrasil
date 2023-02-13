@@ -3,6 +3,25 @@ package nio;
 // Equivalente da classe DirectoryStream porém para interar de maneira recursiva
 // ou seja toda a arvore hierarquica.
 
+// Primeiro devemos criar uma classe que extends de SimpleFileVisitor<T> (T é Path ou File).
+// Pois precisamos de uma instância compatível com esta classe ("É um") para passarmos
+// Ao método estático Files.walkFileTree(objPathDePartidaInicial, new ClassExtendsSimpleFileVisitor());
+
+// ClassExtendsSimpleFileVisitor() é a classe na qual foi sobreScrevito os métodos a seguir:
+// preVisitDirectory: Executado antes de abrir e apontar o cursor para o novo diretório.
+// visitFile: Executado após abrir e apontar o cursor para o diretório corrente.
+// visitFileFailed: Executado em casos de errors em algum dos passos anteriores.
+// postVisitDirectory: Executado após abrir e apontar o cursor para o diretório corrente retornando.
+// Mais DETALHES desses métodos Override em src/nio/Aula155SimpleFileVisitor_OverrideMethods.java
+
+// Para os retornos dos métodos a cima é necessário utilizar uma das enumerações de FileVisitResult:
+// FileVisitResult é uma enumeração utilizada para definir como vai ser
+// o próximo passo da iteração. A seguir as opções e suas ações:
+// FileVisitResult.CONTINUE: Define que ira continuar a interação, ou seja próximo Path.
+// FileVisitResult.TERMINATE: Define que encontrou o Path desejado e Finaliza.
+// FileVisitResult.SKIP_SUBTREE: Define que é para sair da subpasta corrente.
+// FileVisitResult.SKIP_SIBLINGS Continua interação pulando quem está no mesmo nível da arvore.
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
