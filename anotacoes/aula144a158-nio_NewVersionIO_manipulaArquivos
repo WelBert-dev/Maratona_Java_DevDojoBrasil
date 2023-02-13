@@ -61,6 +61,37 @@ Por exemplo, considere o seguinte caminho: "/usr/../var/log/../log/messages". Ap
 
     System.out.println(p1.normalize()); // /home/welbert/Documentos/arquivo.txt <- resolveu
 
+---> Pontos a se considerar quando se utiliza:
+    1o - Redundâncias: O método normalize() remove redundâncias, como ".." e "." no caminho,
+         para produzir um caminho mais curto e mais fácil de ler.
+
+    2o - Anomalias: O método normalize() corrige anomalias, como "/./" e "//", para produzir
+         um caminho mais preciso e confiável.
+
+    3o - Resultado: O resultado produzido pelo método normalize() é um novo objeto Path que
+         representa o caminho normalizado.
+
+    4o - Consequências: É importante ter em mente que o método normalize() pode alterar o caminho original,
+         e portanto pode afetar o funcionamento de outros componentes da aplicação que dependem do caminho original.
+
+    5o - Segurança: É importante tomar medidas de segurança apropriadas ao trabalhar com caminhos de arquivos,
+         especialmente ao normalizar caminhos que podem conter caracteres especiais ou informações sensíveis.
+
+    6o - Sistemas de arquivos diferentes: É importante levar em consideração as diferenças entre
+         sistemas de arquivos ao usar o método normalize(), pois alguns sistemas de arquivos podem
+         ter convenções diferentes para caminhos de arquivos e podem produzir resultados diferentes.
+
+    7o - Encoding de caracteres: É importante verificar se o encoding de caracteres usado para o caminho
+         é o mesmo usado pelo sistema de arquivos, pois o resultado produzido pelo método normalize()
+         pode ser afetado por diferenças de encoding.
+
+    8o - Permissões de arquivos: É importante verificar se o caminho tem as permissões necessárias para
+         ser normalizado, pois o método normalize() pode falhar se o usuário não tiver permissão para
+         acessar os arquivos no caminho.
+
+    9o - Desempenho: É importante ter em mente que o método normalize() pode ter um impacto no desempenho
+         da aplicação, especialmente quando os caminhos são longos ou complexos. Portanto, é importante
+         testar cuidadosamente a performance antes de usar o método em produção.
 
 ----> objPath.resolve(objPath); Ele toma um caminho relativo como entrada e o combina com o caminho atual para produzir um caminho absoluto.
 Por exemplo, suponha que você tenha o seguinte caminho atual: "/var/log" e que você queira combiná-lo com o caminho
@@ -79,6 +110,42 @@ Obs: Se o caminho ja estiver correto ele desconsidera e retorna sem mudanças e 
     Path resolvedPath = currentPath.resolve(relativePath);
     System.out.println("Path resolvido: " + resolvedPath);
 
+---> Pontos a se considerar quando se utiliza:
+    1o - Finalidade: O método resolve() é usado para combinar dois caminhos de arquivos em um único caminho.
+         É importante compreender a finalidade deste método antes de começar a usá-lo em seu código.
+
+    2o - Tipos de caminho: É importante levar em consideração o tipo de caminho que será usado como entrada
+         para o método resolve(). O método pode aceitar caminhos absolutos ou relativos, e o resultado
+         produzido pode ser diferente dependendo do tipo de caminho usado.
+
+    3o - Caminhos vazios: Se um dos caminhos for vazio, o método resolve() retornará o outro caminho sem
+         modificações. É importante ter isso em mente ao usar o método.
+
+    4o - Caminhos relativos: Se um dos caminhos for relativo, o método resolve() irá combiná-lo com o caminho
+         absoluto fornecido. É importante ter em mente que o resultado pode ser diferente dependendo da ordem
+         em que os caminhos são fornecidos para o método.
+
+    5o - Caminhos absolutos: Se ambos os caminhos forem absolutos, o método resolve() retornará o primeiro
+         caminho sem modificações.
+
+    6o - Sistemas de arquivos diferentes: É importante levar em consideração as diferenças entre sistemas de
+         arquivos ao usar o método resolve(), pois alguns sistemas de arquivos podem ter convenções diferentes
+         para caminhos de arquivos e podem produzir resultados diferentes.
+
+    7o - Encoding de caracteres: É importante verificar se o encoding de caracteres usado para os caminhos
+         é o mesmo usado pelo sistema de arquivos, pois o resultado produzido pelo método resolve()
+         pode ser afetado por diferenças de encoding.
+
+    8o - Permissões de arquivos: É importante verificar se os caminhos têm as permissões necessárias para
+         serem resolvidos, pois o método resolve() pode falhar se o usuário não tiver permissão para
+         acessar os arquivos nos caminhos.
+
+    9o - Desempenho: É importante ter em mente que o método resolve() pode ter um impacto no
+         desempenho da aplicação, especialmente quando os caminhos s
+
+    10o - Tratamento de exceções: É importante tratar as exceções que podem ser lançadas pelo método resolve(),
+          como InvalidPathException ou SecurityException, para garantir a integridade do código e evitar erros.
+
 ----> objPath.relativize(); Usado para calcular o caminho relativo entre dois caminhos.
 Ele leva dois caminhos como entrada e retorna um caminho relativo que represente a diferença entre eles.
 Por exemplo, suponha que você tenha os seguintes caminhos: "/home/user/documents" e "/home/user/pictures".
@@ -93,9 +160,23 @@ Em outras palavras, o método relativize() permite que você determine o caminho
     System.out.println(source.relativize(target)); // ../../welbert/dev
     System.out.println(target.relativize(source)); // ../../irineu/inemEu
 
-- Obs: NÃO é possível ir apartir de um absoluto para um relativo!
-       pois como é relativo vai depender de onde esta sendo executado,
-       assim o Java não tem ideia do caminho até ali.
+---> Pontos a se considerar quando se utiliza:
+    1o - Ambos os caminhos devem ser absolutos ou ambos devem ser relativos.
+    Não é possível calcular o caminho relativo entre um caminho absoluto e um caminho relativo.
+    Se você tentar fazer isso, uma exceção IllegalArgumentException será lançada.
+
+    2o - O método relativize() retorna um caminho relativo que leva do primeiro caminho para o segundo.
+    Se você inverter a ordem dos caminhos, o resultado será diferente.
+
+    3o - O método relativize() não segue links simbólicos. Se você tiver links simbólicos em seu sistema de arquivos,
+    o método relativize() os tratará como se fossem arquivos normais.
+
+    4o - O método relativize() retorna um caminho relativo que é válido no sistema de arquivos atual.
+    Se você mover os caminhos para outro sistema de arquivos, o caminho relativo retornado pode não ser válido.
+
+    5o - O método relativize() retorna um caminho relativo que usa o separador de diretórios padrão do sistema operacional atual.
+    No Windows, o separador de diretórios é "", enquanto no Linux e macOS é "/".
+    Tenha isso em mente se você estiver planejando usar o caminho relativo retornado em outra plataforma.
 
 ---------------------- // Paths: Classe final utilizada principalmente para gerar uma instância de Path
 - Para gerar uma instância de Path utilizamos Paths.get("Caminho", "caminho"...);
