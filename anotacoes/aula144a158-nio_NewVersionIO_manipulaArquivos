@@ -93,5 +93,9 @@ Em outras palavras, o método relativize() permite que você determine o caminho
     System.out.println(source.relativize(target)); // ../../welbert/dev
     System.out.println(target.relativize(source)); // ../../irineu/inemEu
 
+- Obs: NÃO é possível ir apartir de um absoluto para um relativo!
+       pois como é relativo vai depender de onde esta sendo executado,
+       assim o Java não tem ideia do caminho até ali.
+
 ---------------------- // Paths: Classe final utilizada principalmente para gerar uma instância de Path
 - Para gerar uma instância de Path utilizamos Paths.get("Caminho", "caminho"...);
