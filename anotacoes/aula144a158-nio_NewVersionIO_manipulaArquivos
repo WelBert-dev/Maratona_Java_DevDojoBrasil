@@ -5,7 +5,7 @@
 Intermediário: Mais especifico no Java
 
 
-- Introdução: Nova forma de se trabalhar com o IO, mais otimizado e maior coerência entre classes
+- Introdução: Nova forma de se trabalhar com o IO, mais otimizado e maior coerência entre classes.
 
 
 [Class File] <=====================================> [Interface Path] -> substitui a classe File por Path
@@ -15,5 +15,83 @@ Intermediário: Mais especifico no Java
      ||
 [Class Util Files] -> Todos os métodos de File foram passados para Files (Estáticos)
 
+// Classes aboradads neste package:
+// Path (Substitui a class File)
+// Paths (Utilizada principalmente para instânciar um Path)
+// Files (100% Estática ou seja Utils com todas as operações de File) criar, verificar se existe e etc..
+// BasicFileAttributes (Utilizada para manipulações nos atributos de um Path/Arquivo).
+    // Correspondente para settar valores: BasicFileAttributesView
+    // POLIMORFISMO para S.O's:
+        // DosFileAttributes (Winodows) Também possue o correspondente DosFileAttributesView para settar.
+        // PosixFileAttributes (Unix like) Também possue o correspondente PosixFileAttributesView para settar.
+// DirectoryStream (Classe mais básica para interar sobre level 1 da arvore de diretórios).
+// SimpleFileVisitor (Classe que ao EXTENDS podemos interar recursivamente (ALL) abaixo da arvore de diretórios.
+// PathMatcher (Classe utilizada neste contexto para filtrar por um padrão (globExpression)) e selecionar arquivos especificos.
+// ZipOutputStream (Classe utilizada para apartir de uma lista de Paths zipar esses arquivos e salvar em outro Path).
 
 
+---------------------- // Path: Interface devido ao POLIMORFISMO de S.O's compatíveis com o Java
+Ou seja, utilizamos como variável de referência esse genérico para apartir da classe Paths pegar uma instância
+correta de acordo com o S.O e utilizamos desta programação orientada a interface.
+- Substitui a antiga classe File (Ou seja é uma representação do arquivo em Obj na memória).
+- Pegamos uma instância com o método estático Paths.get("Caminho");
+    - Por ser um varargs (...) podemos passar pasta a pasta do caminho utilizando "," Paths.get("C:", "pamonha", "arq.txt");
+
+Extends: Comparable<Path>, Iterable<Path>, Watchable
+ou seja, podemos utilizar o método compareTo() e etc...
+
+- Obs: Não é garantido que o arquivo realmente existe, ou seja não é garantido que o Path é válido!
+- Para saber se é válido devemos utilizar o método estático Files.notExists(filePath);
+- E para criar utilizamos Files.createFile(filePath);
+
+- Com um objeto dele é possível obter todas informações referênte ao arquivo em sí
+  como data de criação, modificação, diretório pai e etc...
+
+--------> Métodos mais importantes para se trabalhar com os objetos Path:
+----> objPath.normalize(); ajusta e deixa o path correto substituindo os caracteres coringa (como ./ por ex)
+Obs: Não garante que realmente esta correto o Path "fisíco" serve apenas ao objeto em memória.
+
+Por exemplo, considere o seguinte caminho: "/usr/../var/log/../log/messages". Após a normalização, esse caminho seria simplificado para "/var/log/messages".
+
+    String projectDirectory = "/home/welbert/Documentos/github/MaratonaJava-DevDojo";
+    String txtArchive = "../../arquivo.txt";
+
+    Path p1 = Paths.get(projectDirectory, txtArchive); //                            \/ n esta resolvendo
+    System.out.println(p1); // /home/welbert/Documentos/github/MaratonaJava-DevDojo/../../arquivo.txt
+
+    System.out.println(p1.normalize()); // /home/welbert/Documentos/arquivo.txt <- resolveu
+
+
+----> objPath.resolve(objPath); Ele toma um caminho relativo como entrada e o combina com o caminho atual para produzir um caminho absoluto.
+Por exemplo, suponha que você tenha o seguinte caminho atual: "/var/log" e que você queira combiná-lo com o caminho
+relativo "messages". O resultado da combinação seria "/var/log/messages".
+
+Em outras palavras, o método resolve() permite que você combine dois caminhos de forma a produzir um único caminho
+absoluto que represente o destino final. É útil quando você precisa criar um caminho completo a partir de um caminho
+relativo e de um caminho absoluto de referência.
+
+Obs: Se o caminho ja estiver correto ele desconsidera e retorna sem mudanças e sem erros.
+     Ele só resolve apartir de um absoluto para o relativo nunca ao contrário.
+
+    Path currentPath = Paths.get("/home/user/documents");
+    Path relativePath = Paths.get("../pictures");
+
+    Path resolvedPath = currentPath.resolve(relativePath);
+    System.out.println("Path resolvido: " + resolvedPath);
+
+----> objPath.relativize(); Usado para calcular o caminho relativo entre dois caminhos.
+Ele leva dois caminhos como entrada e retorna um caminho relativo que represente a diferença entre eles.
+Por exemplo, suponha que você tenha os seguintes caminhos: "/home/user/documents" e "/home/user/pictures".
+O resultado da chamada ao método relativize() seria "../pictures".
+Esse caminho relativo pode ser usado para navegar do diretório "documents" para o diretório "pictures".
+
+Em outras palavras, o método relativize() permite que você determine o caminho relativo entre dois caminhos absolutos.
+É útil quando você precisa determinar como navegar de um diretório para outro.
+
+    Path source = Paths.get("/home/irineu/inemEu"); // origem
+    Path target = Paths.get("/home/welbert/dev "); // destino
+    System.out.println(source.relativize(target)); // ../../welbert/dev
+    System.out.println(target.relativize(source)); // ../../irineu/inemEu
+
+---------------------- // Paths: Classe final utilizada principalmente para gerar uma instância de Path
+- Para gerar uma instância de Path utilizamos Paths.get("Caminho", "caminho"...);
