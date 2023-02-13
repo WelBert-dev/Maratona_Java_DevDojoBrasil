@@ -47,7 +47,38 @@ ou seja, podemos utilizar o método compareTo() e etc...
 - Com um objeto dele é possível obter todas informações referênte ao arquivo em sí
   como data de criação, modificação, diretório pai e etc...
 
---------> Métodos mais importantes para se trabalhar com os objetos Path:
+---> Pontos a se considerar quando se utiliza:
+    1o - Sistema operacional: É importante levar em consideração o sistema operacional em que
+         o código será executado, pois algumas convenções de caminhos de arquivos podem ser
+         diferentes em sistemas operacionais diferentes.
+
+    2o - Permissões de arquivos: É importante verificar as permissões de arquivos e diretórios
+         ao trabalhar com a classe Path, para garantir que o código tenha acesso aos arquivos necessários.
+
+    3o - Nomes de arquivos e diretórios: É importante ter cuidado ao especificar nomes de arquivos e diretórios,
+         pois alguns nomes podem não ser válidos em alguns sistemas operacionais.
+
+    4o - Caminhos absolutos e relativos: É importante entender a diferença entre caminhos absolutos e relativos
+         e como eles são usados pela classe Path.
+
+    5o - Uso de URI: É importante levar em consideração o uso de URI (Uniform Resource Identifier) ao trabalhar
+         com a classe Path, pois alguns métodos da classe Path podem aceitar URI como argumentos.
+
+    6o - Métodos da classe Path: É importante entender os vários métodos da classe Path,
+         como resolve(), normalize() e relativize(), e como eles funcionam para realizar tarefas específicas.
+
+    7o - Tratamento de exceções: É importante tratar as exceções que podem ser lançadas pela classe Path,
+         como InvalidPathException ou SecurityException, para garantir a integridade do código e evitar erros.
+
+    8o - Padrões de projeto: É importante seguir padrões de projeto, como o padrão de projeto Singleton,
+         ao trabalhar com a classe Path para garantir a consistência e a manutenibilidade do código.
+
+    9o - Portabilidade: É importante levar em consideração a portabilidade do código ao usar a classe Path,
+         pois algumas convenções de caminhos de arquivos podem ser diferentes em sistemas operacionais diferentes.
+         É recomendável testar o código em vários sistemas operacionais para garantir que ele funcione
+
+
+--------> MÉTODOS mais importantes para se trabalhar com os objetos Path:
 ----> objPath.normalize(); ajusta e deixa o path correto substituindo os caracteres coringa (como ./ por ex)
 Obs: Não garante que realmente esta correto o Path "fisíco" serve apenas ao objeto em memória.
 
@@ -180,3 +211,22 @@ Em outras palavras, o método relativize() permite que você determine o caminho
 
 ---------------------- // Paths: Classe final utilizada principalmente para gerar uma instância de Path
 - Para gerar uma instância de Path utilizamos Paths.get("Caminho", "caminho"...);
+
+    Path filePath = Paths.get(directoriesPath.toString(),"fileTest.txt");
+    if (Files.notExists(filePath)) {
+        Path filePathCreated = Files.createFile(filePath);
+        System.out.println(filePathCreated);
+    }
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Mesmos pontos levantados em Path.
+
+    2o - Métodos da classe Paths: É importante entender os vários métodos da classe Paths,
+         como get(), of() e getFileSystem(), e como eles funcionam para realizar tarefas específicas.
+
+    3o - Tratamento de exceções: Mesmos pontos levantados em Path.
+
+    4o - Padrões de projeto: É importante seguir padrões de projeto, como o padrão de projeto Factory,
+         ao trabalhar com a classe Paths para garantir a consistência e a manutenibilidade do código.
+
+    5o - Portabilidade: Mesmos pontos levantados em Path.
