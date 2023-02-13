@@ -230,3 +230,61 @@ Em outras palavras, o método relativize() permite que você determine o caminho
          ao trabalhar com a classe Paths para garantir a consistência e a manutenibilidade do código.
 
     5o - Portabilidade: Mesmos pontos levantados em Path.
+
+
+---------------------- // Files: Classe 100% Estática ou seja ela é uma classe Utilitária,
+Contendo todas as operações de File nela, ou seja a criação, escrita e etc em arquivos.
+- Serve como uma Fabrica aonde passamos os paths e utilizamos os métodos com as operações estáticas desejadas.
+
+    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+    Files.createFile(filePath);
+    Files.createDirectories(directoriesPath); // aqui passamos um Path que representa os diretórios e subdiretórios.
+    Files.createDirectory(directoryPath); // equivalente anterior porém para criar um single diretório.
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Permissões de arquivo: é importante lembrar que a classe Files fornece suporte para
+         verificar e modificar as permissões de arquivo do sistema operacional subjacente.
+
+    2o - Manipulação de arquivos: a classe Files fornece vários métodos para
+         criar, ler, escrever, copiar e mover arquivos. É importante verificar
+         se o arquivo que você deseja manipular existe antes de tentar realizar
+         qualquer operação sobre ele.
+
+    3o - Lidar com erros: alguns métodos da classe Files podem gerar exceções,
+         como FileNotFoundException ou IOException. É importante capturar e
+         lidar com essas exceções de maneira adequada em seu código.
+
+    4o - Atributos de arquivo: a classe Files fornece suporte para acessar atributos de arquivo,
+         como tamanho, data de modificação, proprietário, entre outros. É importante verificar
+         se o sistema operacional subjacente suporta esses atributos antes de tentar acessá-los.
+
+    5o - WatchService: a classe Files fornece suporte para o recurso WatchService, que permite
+         a monitoração de alterações em arquivos e pastas. É importante lembrar que esse recurso
+         pode ser limitado em alguns sistemas operacionais.
+
+    6o - Trabalhar com streams: a classe Files fornece vários métodos que trabalham com streams,
+         o que permite a leitura e escrita de dados em arquivos de forma eficiente.
+         É importante compreender o uso de streams em Java antes de usar esses métodos.
+
+    7o - Trabalhar com links simbólicos: a classe Files fornece suporte para criar e manipular
+         links simbólicos em sistemas operacionais que os suportam.
+         É importante lembrar que nem todos os sistemas operacionais suportam links simbólicos
+         e que a criação e manipulação de links simbólicos pode exigir permissões especiais.
+
+    8o - Gerenciamento de recursos: alguns métodos da classe Files trabalham com recursos,
+         como arquivos ou streams, que precisam ser fechados após o uso.
+         É importante garantir que esses recursos sejam fechados corretamente,
+         geralmente usando o bloco try-with-resources.
+
+    9o - Trabalhar com encoding: ao trabalhar com arquivos de texto, é importante compreender
+         a codificação de caracteres utilizada pelo arquivo.
+         A classe Files fornece suporte para ler e escrever arquivos utilizando diferentes
+         codificações de caracteres.
+
+    10o - Performance: ao trabalhar com arquivos grandes ou muitos arquivos,
+          é importante considerar as questões de performance.
+          A classe Files fornece vários métodos que podem ser otimizados para
+          lidar com grandes quantidades de dados.
+          Além disso, é importante considerar o impacto de outros recursos do sistema,
+          como o armazenamento em disco, na performance.
+          
