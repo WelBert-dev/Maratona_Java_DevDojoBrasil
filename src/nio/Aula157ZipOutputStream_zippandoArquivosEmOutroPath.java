@@ -27,7 +27,7 @@ public class Aula157ZipOutputStream_zippandoArquivosEmOutroPath {
 //            archivesPathList.add(Paths.get("src/nio/Aula146NormalizacaoDePaths.java"));
 //            archivesPathList.add(Paths.get("src/nio/Aula147ResolvendoPaths_concatenando.java"));
 
-            // zippando todos arquivos lvl 1 da arvore nio:
+            // zippando todos arquivos com extensão .java (lvl 1 da arvore) nio:
             try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(sourceDirPath, path ->
                     path.toString().endsWith(".java"))) {
                 for (Path path : directoryStream) {
