@@ -28,8 +28,7 @@ public class Aula153DirectoryStream_interacaoLvl1emDirs {
             }else{
 
                 // Para Unix like: PosixFileAttributes
-                try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(filePath, path ->
-                        path.toString().endsWith(".java"))) {
+                try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(filePath, "*.java")) {
                     for (Path path : directoryStream) {
                         System.out.println(path);
                     }

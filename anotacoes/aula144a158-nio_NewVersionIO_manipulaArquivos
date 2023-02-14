@@ -425,3 +425,63 @@ extends de BasicFileAttributes, e também possuí a correspondente PosixFileAttr
     7o - Performance: O acesso aos atributos de um arquivo pode ser custoso em termos de desempenho, especialmente
          em sistemas com muitos arquivos. É importante considerar esta questão ao desenvolver aplicações que
          trabalham com muitos arquivos.
+
+
+---------------------- // DirectoryStream: Classe utilizada para iterar level 1 da árvore em diretórios.
+Para iteração ALL recursiva para todos os nós abaixo da árvore de diretórios utilizamos SimpleFileVisitor
+
+A classe DirectoryStream do Java é usada para representar uma sequência de arquivos em um diretório.
+Ela permite que você faça o loop sobre os arquivos de um diretório de forma fácil e eficiente.
+Além disso, a classe DirectoryStream fornece suporte para filtrar arquivos com base em diferentes critérios,
+como nome do arquivo, tamanho do arquivo, data de modificação e atributos do arquivo.
+
+Por exemplo, você pode usar a classe DirectoryStream para listar todos os arquivos de um diretório que
+tenham uma determinada extensão ou que tenham sido modificados em uma determinada data.
+A classe DirectoryStream é uma ótima opção para tarefas que exigem a manipulação de arquivos em um diretório,
+pois é muito mais eficiente do que fazer o loop sobre os arquivos manualmente.
+
+- O método newDirectoryStream() da classe Files é usado para criar uma instância de DirectoryStream.
+
+Exemplo: Todos os arquivos que acabam com ".java" do diretório src/nio (level 1 da arvore, sem recursividade).
+
+    Path filePath = Paths.get("src/nio");
+    try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(filePath, path ->
+                            path.toString().endsWith(".java"))) { // ou ao invés de utilizar lambda, passar glob "*.java"
+        for (Path path : directoryStream) {
+            System.out.println(path);
+        }
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+- Obs: Como ela implementa a Clouseble ou seja devemos fechar após o uso, utilizamos try-with-resources.
+
+---> Pontos a se considerar quando se utiliza:
+    1o - O objeto DirectoryStream representa um fluxo de arquivos em um diretório.
+
+    2o - Para iterar sobre os arquivos de um diretório, é necessário criar uma instância da classe DirectoryStream.
+
+    3o - A classe DirectoryStream implementa a interface AutoCloseable, o que significa que é necessário fechá-la
+         explicitamente após o uso. (Porisso utilizamos try-with-resources).
+
+    4o - A classe DirectoryStream suporta filtros para listar somente arquivos com determinadas características,
+         como extensão ou prefixo.
+
+    5o - A classe DirectoryStream permite a iteração apenas em um diretório. Não é possível acessar seu conteúdo
+         recursivamente. (Para isto temos a SimpleFileVisitor).
+
+    6o - A classe DirectoryStream é uma alternativa mais eficiente ao uso de File.listFiles() para listar arquivos
+         em um diretório, pois permite usar filtros e evita carregar todos os arquivos em memória de uma só vez.
+
+    7o - A classe DirectoryStream é usada para listar o conteúdo de um diretório. Ela fornece uma maneira de
+         obter o conteúdo de um diretório de forma lazily, o que significa que os arquivos não são carregados
+         em memória até que sejam acessados.
+
+    8o - A classe DirectoryStream não oferece suporte para a adição ou remoção de arquivos do diretório.
+         Se precisar fazer isso, você deve usar outras classes do Java, como Files ou Path.
+
+    9o - A classe DirectoryStream é apropriada para operações de leitura apenas. Se precisar de acesso
+         de escrita ao conteúdo de um diretório, você deve usar outra classe.
+
+    10o - Ao usar a classe DirectoryStream, é importante sempre fechar o fluxo depois de ter terminado de
+          ler o conteúdo do diretório, pois isso libera recursos do sistema. Isso pode ser feito com o
+          método close() da classe DirectoryStream ou com o uso de uma cláusula try-with-resources.
