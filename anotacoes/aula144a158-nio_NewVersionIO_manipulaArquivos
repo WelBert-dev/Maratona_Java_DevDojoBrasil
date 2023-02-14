@@ -287,4 +287,72 @@ Contendo todas as operações de File nela, ou seja a criação, escrita e etc e
           lidar com grandes quantidades de dados.
           Além disso, é importante considerar o impacto de outros recursos do sistema,
           como o armazenamento em disco, na performance.
-          
+
+---------------------- // BasicFileAttributes: Interface mais genérica para representação dos atributos básicos
+de um arquivo ou diretório de um sistema de arquivos, utilizada apenas para obter informações como data de criação,
+data de última modificação, data de último acesso e se o arquivo é um diretório ou arquivo normal.
+(para settar utiliza-se a correspondente BasicFileAttributesView.)
+Ou seja utilizamos programação orientada a interface, e deixamos o objeto concreto como responsabilidade do Java
+pois a depender do Sistema Operacional o objeto instânciado será especializado para tal.
+Por ser a mais genérica, também possuímos Interfaces mais especializadas que extends dela para diferentes S.O's
+sendo elas:
+
+- DosFileAttributes (Windows) correspondente para setter: DosFileAttributesView
+- PosixFileAttributes (Unix like) correspondente para setter: PosixFileAttributesView
+- Dentre outros.
+
+- Por se tratar de uma Interface, é necessário utilizarmos o método estático da classe Files
+para obtermos o objeto concreto especializado para o S.O corrente sendo ele:
+Files.readAttributes(filePath, BasicFileAttributes.class);
+- Podemos observar que o segundo parâmetro se trata de qual objeto concreto queremos,
+neste caso utilizamos o mais genérico, mas se quisermos uma instância para Ubuntu poderiamos
+passar Files.readAttributes(filePath, PosixFileAttributes.class);
+
+    Path filePath = Paths.get("src/nio/home/welbert/dev/arquivo2_path.txt");
+    if (Files.exists(filePath)) {
+        BasicFileAttributes basicFileAttributes = Files.readAttributes(filePath, BasicFileAttributes.class);
+        FileTime creationTime = basicFileAttributes.creationTime();
+        FileTime lastModifiedTime = basicFileAttributes.lastModifiedTime();
+        FileTime lastAccessTime = basicFileAttributes.lastAccessTime();
+        System.out.println("Data de criação: "+creationTime);// 2023-01-30T16:06:57.120342248Z
+        System.out.println("Ultima modificação: "+lastModifiedTime);// 2023-01-30T16:06:57.120342248Z
+        System.out.println("Ultimo acesso: "+lastAccessTime); // 2023-02-09T21:56:24.411474014Z
+    }
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Tipo de atributos: a classe BasicFileAttributes fornece informações básicas sobre um arquivo,
+         como a data de criação, última modificação e acesso. É importante compreender os tipos de
+         atributos fornecidos pela classe para poder usá-los de maneira efetiva.
+
+    2o - Plataforma dependente: alguns atributos fornecidos pela classe BasicFileAttributes podem ser
+         plataforma dependentes. É importante verificar a documentação da classe para saber quais
+         atributos são suportados em cada plataforma.
+
+    3o - Exceções: ao trabalhar com atributos de arquivo, é possível que ocorram exceções, como o
+         arquivo não existir ou o usuário não ter permissão para acessar o arquivo. É importante
+         lidar corretamente com essas exceções.
+
+    4o - Desempenho: ao trabalhar com atributos de arquivo, é importante considerar o impacto no
+         desempenho da aplicação. A classe BasicFileAttributes fornece informações sobre arquivos
+         de forma eficiente, mas é importante levar em conta o número de arquivos acessados e as
+         informações que são realmente necessárias.
+
+    5o - Acesso a atributos avançados: a classe BasicFileAttributes fornece informações básicas sobre
+         um arquivo, mas nem sempre é possível acessar atributos mais avançados como informações sobre
+         propriedade, permissões, etc. É importante verificar a documentação da classe e da plataforma
+         para saber quais atributos adicionais podem ser acessados.
+
+    6o - Compatibilidade com sistemas de arquivos: diferentes sistemas de arquivos podem suportar diferentes
+         atributos, e alguns podem não ser suportados de forma nativa pela classe BasicFileAttributes.
+         É importante verificar a documentação da classe e da plataforma para saber quais atributos são
+         suportados em cada sistema de arquivos.
+
+    7o - Atualização dinâmica: é importante levar em conta que os atributos de arquivo podem mudar dinamicamente,
+         por exemplo, ao ser modificado ou movido. Portanto é necessário atualizar a instância do objeto em memória.
+
+    8o - Caches: a classe BasicFileAttributes pode usar caches internos para acelerar o acesso aos atributos.
+         É importante levar em conta esse comportamento ao trabalhar com atributos dinâmicos, para garantir
+         que as informações retornadas sejam sempre precisas.
+
+    9o - Segurança: ao trabalhar com atributos de arquivo, é importante considerar questões de segurança,
+         como a permissão para acessar arquivos confidenciais.
