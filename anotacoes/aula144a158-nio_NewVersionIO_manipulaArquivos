@@ -356,3 +356,28 @@ passar Files.readAttributes(filePath, PosixFileAttributes.class);
 
     9o - Segurança: ao trabalhar com atributos de arquivo, é importante considerar questões de segurança,
          como a permissão para acessar arquivos confidenciais.
+
+---------------------- // DosFileAttributes: Interface mais especializada para S.O's Windows.
+extends de BasicFileAttributes, e também possuí a correspondente DosFileAttributesView para settar as informações.
+
+- Não consegui utiliza-la por conta do Ubuntu.
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Sistemas de arquivos suportados: A classe DosFileAttributes é específica para sistemas de arquivos
+         baseados no formato DOS, como o FAT e o NTFS. Se você estiver trabalhando com outro tipo de sistema
+         de arquivos, como o UNIX ou o MacOS, deve usar outra classe de atributos de arquivo, como PosixFileAttributes.
+
+    2o - Atributos disponíveis: A classe DosFileAttributes fornece acesso a atributos específicos do formato DOS,
+         como o atributo "arquivo oculto" e o atributo "somente leitura". Se você precisar de acesso a outros
+         tipos de atributos de arquivo, deve usar outra classe de atributos de arquivo.
+
+    3o - Modificação de atributos: É possível modificar os atributos de um arquivo usando a classe DosFileAttributes,
+         mas é importante ter cuidado ao fazer isso, pois essas modificações podem afetar a funcionalidade de outros
+         programas ou sistemas que estejam usando o arquivo. Além disso, certos atributos, como o atributo
+         "somente leitura", podem ser ignorados pelo sistema de arquivos ou pelo sistema operacional.
+
+    4o - Sincronização de arquivos: É importante levar em consideração como a classe DosFileAttributes se integra
+         com as operações de sincronização de arquivos em seu sistema. Por exemplo, se você estiver modificando
+         atributos de arquivos em um sistema distribuído, é importante garantir que as modificações sejam
+         sincronizadas adequadamente em todas as instâncias do arquivo.
+         
