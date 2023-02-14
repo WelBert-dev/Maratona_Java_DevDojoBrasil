@@ -359,6 +359,7 @@ passar Files.readAttributes(filePath, PosixFileAttributes.class);
 
 ---------------------- // DosFileAttributes: Interface mais especializada para S.O's Windows.
 extends de BasicFileAttributes, e também possuí a correspondente DosFileAttributesView para settar as informações.
+- Utilizada para obter informações de arquivos ou diretórios com as convenções DOS.
 
 - Não consegui utiliza-la por conta do Ubuntu.
 
@@ -380,4 +381,47 @@ extends de BasicFileAttributes, e também possuí a correspondente DosFileAttrib
          com as operações de sincronização de arquivos em seu sistema. Por exemplo, se você estiver modificando
          atributos de arquivos em um sistema distribuído, é importante garantir que as modificações sejam
          sincronizadas adequadamente em todas as instâncias do arquivo.
-         
+
+
+---------------------- // PosixFileAttributes: Interface mais especializada para S.O's Unix like (Linux e MacOS).
+extends de BasicFileAttributes, e também possuí a correspondente PosixFileAttributesView para settar as informações.
+- Utilizada para obter informações de arquivos ou diretórios com as convenções Unix Like.
+
+    PosixFileAttributes posixFileAttributes = Files.readAttributes(filePath, PosixFileAttributes.class);
+    System.out.println(posixFileAttributes.permissions());
+
+    // Define permissões como rwxrw-rw-
+    Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-r--r--");
+    Files.setAttribute(filePath, "posix:permissions", permissions);
+
+    // Verifica se as permissões foram aplicadas corretamente
+    Set<PosixFilePermission> newPermissions =
+            (Set<PosixFilePermission>) Files.getAttribute(filePath, "posix:permissions");
+    System.out.println(PosixFilePermissions.toString(newPermissions));
+
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Compatibilidade: A classe PosixFileAttributes fornece acesso a atributos específicos de sistemas de arquivos
+         POSIX, como o proprietário do arquivo, o grupo proprietário e as permissões de acesso. No entanto, esses
+         atributos só estarão disponíveis em sistemas operacionais compatíveis com POSIX, como Linux e macOS.
+
+    2o - Métodos disponíveis: A classe PosixFileAttributes fornece vários métodos úteis para acessar informações
+         sobre o proprietário do arquivo, o grupo proprietário e as permissões de acesso. Por exemplo, você pode
+         usar o método owner() para obter o proprietário do arquivo e o método permissions() para obter as
+         permissões de acesso.
+
+    3o - Atualização de atributos: Se você precisar atualizar os atributos do arquivo, como as permissões de acesso,
+         é necessário usar outras classes, como a classe Files, para fazer isso.
+
+    4o - Limitações: Ao trabalhar com a classe PosixFileAttributes, é importante lembrar que essa classe fornece
+         acesso apenas a atributos específicos de sistemas de arquivos POSIX.
+
+    5o - Permissões: A classe PosixFileAttributes oferece acesso às permissões de um arquivo no sistema operacional.
+         É importante ter cuidado ao modificar as permissões de um arquivo, pois isso pode afetar a segurança do sistema.
+
+    6o - Proprietário e grupo: A classe PosixFileAttributes permite o acesso ao proprietário e ao grupo de um arquivo.
+         É importante ter cuidado ao modificar o proprietário ou o grupo de um arquivo, pois isso pode afetar a segurança do sistema.
+
+    7o - Performance: O acesso aos atributos de um arquivo pode ser custoso em termos de desempenho, especialmente
+         em sistemas com muitos arquivos. É importante considerar esta questão ao desenvolver aplicações que
+         trabalham com muitos arquivos.
