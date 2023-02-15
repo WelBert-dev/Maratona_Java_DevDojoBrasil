@@ -485,3 +485,116 @@ Exemplo: Todos os arquivos que acabam com ".java" do diretório src/nio (level 1
     10o - Ao usar a classe DirectoryStream, é importante sempre fechar o fluxo depois de ter terminado de
           ler o conteúdo do diretório, pois isso libera recursos do sistema. Isso pode ser feito com o
           método close() da classe DirectoryStream ou com o uso de uma cláusula try-with-resources.
+
+
+---------------------- // SimpleFileVisitor: Classe utilizada para iterar level ALL da árvore de diretórios.
+Ou seja, ao contrario da classe anterior () esta trabalha de forma recursiva, para todos os nós abaixo da arvore
+de diretórios.
+
+A classe SimpleFileVisitor é uma classe abstrata fornecida no Java que implementa a interface FileVisitor.
+A classe FileVisitor é usada para percorrer uma hierarquia de diretórios e arquivos, sendo chamada para
+cada diretório ou arquivo encontrado durante a travessia.
+
+A classe SimpleFileVisitor fornece uma implementação simples dos métodos da interface FileVisitor,
+tornando mais fácil para os desenvolvedores personalizar a lógica de processamento de arquivos durante a travessia.
+
+- Os métodos da interface FileVisitor incluem:
+
+    - preVisitDirectory(): é chamado antes de visitar um diretório.
+    - visitFile(): é chamado para cada arquivo encontrado durante a travessia.
+    - visitFileFailed(): é chamado quando a visita a um arquivo falha.
+    - postVisitDirectory(): é chamado após visitar um diretório.
+
+    - O método preVisitDirectory() é chamado antes de visitar os arquivos no diretório especificado.
+      Ele pode ser usado para executar tarefas específicas do diretório, como permissões de leitura ou gravação.
+    - O método visitFile() é chamado para cada arquivo no diretório especificado.
+      Ele pode ser usado para executar tarefas específicas do arquivo, como cálculos de tamanho ou cópia de arquivos.
+    - O método visitFileFailed() é chamado quando ocorre um erro ao tentar visitar um arquivo.
+      Ele pode ser usado para manipular exceções, como quando o arquivo não pode ser lido ou o usuário não tem
+      permissão para acessá-lo.
+    - O método postVisitDirectory() é chamado depois de visitar todos os arquivos no diretório especificado.
+      Ele pode ser usado para executar tarefas específicas de diretório, como atualizar as permissões após a visita.
+
+- As flags/enumeradores utilizadas para retorno dos métodos anteriores e seu comportamento:
+
+    - FileVisitResult.CONTINUE: Define que ira continuar a interação, ou seja próximo Path.
+    - FileVisitResult.TERMINATE: Define que encontrou o Path desejado e Finaliza.
+    - FileVisitResult.SKIP_SUBTREE: Define que é para sair da subpasta corrente.
+    - FileVisitResult.SKIP_SIBLINGS Continua interação pulando quem está no mesmo nível da arvore.
+
+Ao estender a classe SimpleFileVisitor e sobrescrever os métodos desejados, os desenvolvedores podem personalizar
+o comportamento da classe de acordo com as necessidades de sua aplicação. Por exemplo, é possível implementar
+um método visitFile() para processar cada arquivo encontrado durante a travessia e fazer alguma operação,
+como a cópia de arquivos para outra localização ou a criação de um índice de arquivos.
+
+Resumindo, a classe SimpleFileVisitor é uma ferramenta útil para desenvolvedores que precisam percorrer
+arquivos e diretórios em suas aplicações Java e realizar alguma ação específica em cada arquivo ou diretório.
+
+- É importante garantir que a classe SimpleFileVisitor seja usada em conjunto com o método Files.walkFileTree(),
+que inicia a visita. O método Files.walkFileTree() recebe um Path para o diretório raiz a ser visitado e uma
+instância de FileVisitor.
+
+    class ListAllFiles extends SimpleFileVisitor<Path> {
+        // Atalho para sobre-escrever métodos: CTRL + O
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            if (file.toString().endsWith(".java")) {
+                // printa todos os arquivos .java encontrados na iteração.
+
+                // Função equivalente ao comando em bash:
+                // find /home/welbert/Documentos/github/MaratonaJava-DevDojo -name "*.java" -type f;
+
+                // Ou filtra a saída para deixar apenas o nome do arquivo, eliminando o caminho completo:
+                // find /home/welbert/Documentos/github/MaratonaJava-DevDojo -name "*.java" -type f -exec basename {} \;
+
+                System.out.println(file.getFileName());
+
+                // salvando em arquivo .txt a saída ("*.java") e comparando com o equivalente em bash
+                // e depois realiza a comparação dos dois arquivos para validar se ambas correspondem
+                // Saída gerada pelo Java == Saída gerada pelo Bash
+                Path outputPath = Paths.get("src/nio/aula154SimpleFileVisitorSaida.txt");
+                Files.write(outputPath, (file.getFileName().toString()+"\n").getBytes(), StandardOpenOption.APPEND);
+
+            }
+
+            return FileVisitResult.CONTINUE; // continua iteração até o final da arvore. ALL Itens
+        }
+    }
+
+
+    ---> Pontos a se considerar quando se utiliza:
+        1o - A classe SimpleFileVisitor é uma classe abstrata que implementa a interface FileVisitor.
+             Isso significa que, para usá-la, você deve estender a classe e implementar os métodos que você deseja.
+
+        2o - A classe SimpleFileVisitor é uma implementação básica da interface FileVisitor e oferece métodos
+             padrão para lidar com visitas de arquivos e diretórios.
+
+        3o - A classe SimpleFileVisitor fornece quatro métodos que você pode implementar para lidar com
+             diferentes eventos: preVisitDirectory, visitFile, visitFileFailed e postVisitDirectory.
+
+        4o - O método preVisitDirectory é chamado antes que o conteúdo de um diretório seja visitado.
+             Ele recebe um objeto Path que representa o diretório que será visitado e um objeto
+             BasicFileAttributes que contém informações sobre o diretório.
+
+        5o - O método visitFile é chamado para cada arquivo no diretório visitado.
+             Ele recebe um objeto Path que representa o arquivo e um objeto BasicFileAttributes
+             que contém informações sobre o arquivo.
+
+        6o - O método visitFileFailed é chamado se ocorrer um erro ao visitar um arquivo.
+             Ele recebe um objeto Path que representa o arquivo que não pôde ser visitado e
+             uma exceção que descreve o erro.
+
+        7o - O método postVisitDirectory é chamado após todo o conteúdo de um diretório ser visitado.
+             Ele recebe um objeto Path que representa o diretório que foi visitado e uma exceção,
+             caso tenha ocorrido um erro durante a visita.
+
+        8o - A classe SimpleFileVisitor é frequentemente usada em conjunto com as classes Files e Paths
+             para percorrer diretórios e realizar ações em arquivos.
+
+        9o - A classe SimpleFileVisitor é altamente customizável, permitindo que você personalize a
+             maneira como seu código lida com a visita de diretórios e arquivos.
+
+        10o - Ao estender a classe SimpleFileVisitor, lembre-se de que você só precisa implementar
+              os métodos que deseja usar. Se você não precisar lidar com um determinado evento,
+              pode deixar o método vazio em sua implementação.
