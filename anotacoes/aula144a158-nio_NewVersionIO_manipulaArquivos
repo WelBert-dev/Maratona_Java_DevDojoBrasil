@@ -562,39 +562,38 @@ instância de FileVisitor.
         }
     }
 
+---> Pontos a se considerar quando se utiliza:
+    1o - A classe SimpleFileVisitor é uma classe abstrata que implementa a interface FileVisitor.
+         Isso significa que, para usá-la, você deve estender a classe e implementar os métodos que você deseja.
 
-    ---> Pontos a se considerar quando se utiliza:
-        1o - A classe SimpleFileVisitor é uma classe abstrata que implementa a interface FileVisitor.
-             Isso significa que, para usá-la, você deve estender a classe e implementar os métodos que você deseja.
+    2o - A classe SimpleFileVisitor é uma implementação básica da interface FileVisitor e oferece métodos
+         padrão para lidar com visitas de arquivos e diretórios.
 
-        2o - A classe SimpleFileVisitor é uma implementação básica da interface FileVisitor e oferece métodos
-             padrão para lidar com visitas de arquivos e diretórios.
+    3o - A classe SimpleFileVisitor fornece quatro métodos que você pode implementar para lidar com
+         diferentes eventos: preVisitDirectory, visitFile, visitFileFailed e postVisitDirectory.
 
-        3o - A classe SimpleFileVisitor fornece quatro métodos que você pode implementar para lidar com
-             diferentes eventos: preVisitDirectory, visitFile, visitFileFailed e postVisitDirectory.
+    4o - O método preVisitDirectory é chamado antes que o conteúdo de um diretório seja visitado.
+         Ele recebe um objeto Path que representa o diretório que será visitado e um objeto
+         BasicFileAttributes que contém informações sobre o diretório.
 
-        4o - O método preVisitDirectory é chamado antes que o conteúdo de um diretório seja visitado.
-             Ele recebe um objeto Path que representa o diretório que será visitado e um objeto
-             BasicFileAttributes que contém informações sobre o diretório.
+    5o - O método visitFile é chamado para cada arquivo no diretório visitado.
+         Ele recebe um objeto Path que representa o arquivo e um objeto BasicFileAttributes
+         que contém informações sobre o arquivo.
 
-        5o - O método visitFile é chamado para cada arquivo no diretório visitado.
-             Ele recebe um objeto Path que representa o arquivo e um objeto BasicFileAttributes
-             que contém informações sobre o arquivo.
+    6o - O método visitFileFailed é chamado se ocorrer um erro ao visitar um arquivo.
+         Ele recebe um objeto Path que representa o arquivo que não pôde ser visitado e
+         uma exceção que descreve o erro.
 
-        6o - O método visitFileFailed é chamado se ocorrer um erro ao visitar um arquivo.
-             Ele recebe um objeto Path que representa o arquivo que não pôde ser visitado e
-             uma exceção que descreve o erro.
+    7o - O método postVisitDirectory é chamado após todo o conteúdo de um diretório ser visitado.
+         Ele recebe um objeto Path que representa o diretório que foi visitado e uma exceção,
+         caso tenha ocorrido um erro durante a visita.
 
-        7o - O método postVisitDirectory é chamado após todo o conteúdo de um diretório ser visitado.
-             Ele recebe um objeto Path que representa o diretório que foi visitado e uma exceção,
-             caso tenha ocorrido um erro durante a visita.
+    8o - A classe SimpleFileVisitor é frequentemente usada em conjunto com as classes Files e Paths
+         para percorrer diretórios e realizar ações em arquivos.
 
-        8o - A classe SimpleFileVisitor é frequentemente usada em conjunto com as classes Files e Paths
-             para percorrer diretórios e realizar ações em arquivos.
+    9o - A classe SimpleFileVisitor é altamente customizável, permitindo que você personalize a
+         maneira como seu código lida com a visita de diretórios e arquivos.
 
-        9o - A classe SimpleFileVisitor é altamente customizável, permitindo que você personalize a
-             maneira como seu código lida com a visita de diretórios e arquivos.
-
-        10o - Ao estender a classe SimpleFileVisitor, lembre-se de que você só precisa implementar
-              os métodos que deseja usar. Se você não precisar lidar com um determinado evento,
-              pode deixar o método vazio em sua implementação.
+    10o - Ao estender a classe SimpleFileVisitor, lembre-se de que você só precisa implementar
+          os métodos que deseja usar. Se você não precisar lidar com um determinado evento,
+          pode deixar o método vazio em sua implementação.
