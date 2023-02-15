@@ -597,3 +597,48 @@ instância de FileVisitor.
     10o - Ao estender a classe SimpleFileVisitor, lembre-se de que você só precisa implementar
           os métodos que deseja usar. Se você não precisar lidar com um determinado evento,
           pode deixar o método vazio em sua implementação.
+
+
+---------------------- // PathMatcher: Em resumo, a classe PathMatcher é usada para comparar um Path com um
+padrão de correspondência especificado e é usada em conjunto com a classe FileSystem para permitir a busca
+de arquivos em um sistema de arquivos com base em um padrão de correspondência.
+
+A classe PathMatcher no Java é usada para comparar um Path com um padrão de correspondência especificado.
+Ela é usada em conjunto com a classe FileSystem para permitir a busca de arquivos em um sistema de arquivos
+com base em um padrão de correspondência.
+
+A classe PathMatcher é útil em aplicativos que precisam procurar arquivos em um sistema de arquivos com
+base em um padrão de nome de arquivo ou diretório. Por exemplo, um aplicativo de busca de arquivos pode
+usar a classe PathMatcher para procurar arquivos que correspondam a um padrão de nome de arquivo ou
+diretório especificado pelo usuário.
+
+Para usar a classe PathMatcher, você deve primeiro criar uma instância de um FileSystem e, em seguida,
+criar um objeto PathMatcher usando o método FileSystem.getPathMatcher(). O método PathMatcher.matches()
+é usado para comparar um Path com um padrão de correspondência especificado. O método retorna true se
+o Path corresponder ao padrão de correspondência e false caso contrário.
+
+    public class TextFileFinder extends SimpleFileVisitor<Path> {
+
+        private PathMatcher matcher;
+
+        public TextFileFinder() {
+            // cria um padrão de correspondência para encontrar arquivos de texto
+            this.matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.txt");
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            if (matcher.matches(file)) {
+                System.out.println("Arquivo de texto encontrado: " + file);
+            }
+            return FileVisitResult.CONTINUE;
+        }
+
+        public static void main(String[] args) throws IOException {
+            // inicia a busca por arquivos de texto no diretório "C:\exemplo"
+            Path startDir = Paths.get("C:\\exemplo");
+            TextFileFinder finder = new TextFileFinder();
+            Files.walkFileTree(startDir, finder);
+        }
+    }
+
