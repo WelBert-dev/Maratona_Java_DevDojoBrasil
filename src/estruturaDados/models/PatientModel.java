@@ -1,6 +1,6 @@
 package estruturaDados.models;
 
-public class PatientModel implements Comparable{
+public class PatientModel implements Comparable {
 
     private String nome;
     private int priority; // quantom mais baixo mais prioritário ou seja 1 é a maior prioridade.
