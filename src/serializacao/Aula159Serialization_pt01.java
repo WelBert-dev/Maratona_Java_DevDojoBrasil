@@ -43,6 +43,7 @@ package serializacao;
 //  ByteArrayOutputStream                                                                       DeflaterOutputStream
 //   │                                                                                                    │
 //                                                                                             GZIPOutputStream
+import estruturaDados.models.PatientModel;
 import jdk.jshell.execution.Util;
 import serializacao.dominio.ProductModelSerial;
 import serializacao.dominio.ProductModelSerialWithAssociation;
@@ -136,7 +137,7 @@ public class Aula159Serialization_pt01<T> {
         }
     }
 
-    public static <T> T deserializedFileSpecialized(Path pathObjSerialized, Class<T> clazz){
+    public static <T> T deserializedFileSpecialized(Path pathObjSerialized, Class<T> clazz) {
 
         try (FileInputStream fis = new FileInputStream(pathObjSerialized.toFile());
              FileChannel fileChannel = fis.getChannel()) {
@@ -148,16 +149,46 @@ public class Aula159Serialization_pt01<T> {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
             ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
 
-            Object savedProduct = ois.readObject();
-            if (clazz.isInstance(savedProduct)) {
-                return clazz.cast(savedProduct);
-            } else {
-                throw new IllegalArgumentException("The object in the file is not of the expected class.");
+            T savedProduct = clazz.newInstance();
+            if (savedProduct instanceof ProductModelSerialWithAssociation) {
+                ProductModelSerialWithAssociation produto = (ProductModelSerialWithAssociation) savedProduct;
+                produto.setNome(ois.readUTF());
+                produto.setPreco(ois.readDouble());
+                produto.setQuantidade(ois.readInt());
+                PatientModel paciente = new PatientModel(ois.readUTF(), ois.readInt());
+                produto.setPatientModelTransient(paciente);
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        return null;
+            return savedProduct;
+
+        } catch (IOException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
+//    public static <T> T deserializedFileSpecialized(Path pathObjSerialized, Class<T> clazz){
+//
+//        try (FileInputStream fis = new FileInputStream(pathObjSerialized.toFile());
+//             FileChannel fileChannel = fis.getChannel()) {
+//
+//            ByteBuffer buffer = ByteBuffer.allocate((int) fileChannel.size());
+//            fileChannel.read(buffer);
+//            buffer.flip();
+//
+//            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+//            ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+//
+//            Object savedProduct = ois.readObject();
+//            System.out.println(savedProduct);
+//            if (clazz.isInstance(savedProduct)) {
+//                return clazz.cast(savedProduct);
+//            } else {
+//                throw new IllegalArgumentException("The object in the file is not of the expected class.");
+//            }
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

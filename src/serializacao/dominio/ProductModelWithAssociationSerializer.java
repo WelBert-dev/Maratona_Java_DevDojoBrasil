@@ -1,32 +1,47 @@
 package serializacao.dominio;
 
+// Devemos ler atributo por atributo e atualizar a classe original,
+// não podemos utilizar o deafultReadObject nem o defaultWriteObject
+// pois estamos fora da classe original!
+
+// então devemos ler e escrever utilizando os métodos readInt writeInt
+// correspondentes, e na oredem nos quais foram lidos e escritos
+// pois os valores são empilhados na stack
+
 import estruturaDados.models.PatientModel;
 
 import java.io.*;
 
 public class ProductModelWithAssociationSerializer implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 4452595238297229661L;
 
+    @Serial
     public static void writeObject(ObjectOutputStream out, ProductModelSerialWithAssociation produto) throws IOException {
+        // correspondente ao defaultWriteObject porém como esta sendo utilizado está classe auxiliar
+        // devemos escrever atributo por atributo
+        // aqui escreve os atributos básicos sem o objeto de referência transient
         out.writeUTF(produto.getNome());
         out.writeDouble(produto.getPreco());
         out.writeInt(produto.getQuantidade());
 
-        // Apartir daqui devemos escrever atributo por atributo deste objeto referenciado
-        // que desejamos armazenar (a depender dos tipos utilizar o método correspondente
-        // neste caso é apenas uma String então utilizamos o writeUTF()
-        out.writeObject(produto.getPatientModelTransient());
-        System.out.println("Write object correct");
+        // Escrever os atributos do objeto referenciado transient
+        out.writeUTF(produto.getPatientModelTransient().getNome());
+        out.writeInt(produto.getPatientModelTransient().getPriority());
+
+        System.out.println("Write object correct serializer");
     }
 
+    @Serial
     public static void readObject(ObjectInputStream in, ProductModelSerialWithAssociation produto) throws IOException, ClassNotFoundException {
-        produto.setNome(in.readUTF());
-        produto.setPreco(in.readDouble());
-        produto.setQuantidade(in.readInt());
+        System.out.println("raed auxiliar antes da execução");
+        produto = new ProductModelSerialWithAssociation(in.readUTF(),
+                                                        in.readDouble(),
+                                                        in.readInt(),
+                                                        new PatientModel(in.readUTF(),
+                                                                         in.readInt()));
 
-        produto.setPatientModelTransient(new PatientModel(((PatientModel)in.readObject()).getNome(),
-                                                            ((PatientModel)in.readObject()).getPriority()));
-        System.out.println("Read object correct");
+        System.out.println("Read object correct serializer");
     }
 }

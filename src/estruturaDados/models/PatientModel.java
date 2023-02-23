@@ -1,5 +1,7 @@
 package estruturaDados.models;
 
+import java.util.Objects;
+
 public class PatientModel implements Comparable {
 
     private String nome;
@@ -40,6 +42,19 @@ public class PatientModel implements Comparable {
             return -1;
         }
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PatientModel that = (PatientModel) o;
+        return priority == that.priority && Objects.equals(nome, that.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, priority);
     }
 
     @Override

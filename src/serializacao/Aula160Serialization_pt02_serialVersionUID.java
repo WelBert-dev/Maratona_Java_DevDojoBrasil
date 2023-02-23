@@ -34,9 +34,9 @@ public class Aula160Serialization_pt02_serialVersionUID {
         ProductModelSerial serialProduct = new ProductModelSerial("SerializadoComVersion", 10, 100, "vazio");
         Path productSerealizedOutputpath = Paths.get("src/serializacao/product_fileSpecializedGenerics02.ser");
 
-        Aula159Serialization_pt01.serializedFileSpecialized(serialProduct, productSerealizedOutputpath);
-        ProductModelSerial productModelSerial = Aula159Serialization_pt01.deserializedFileSpecialized(productSerealizedOutputpath, ProductModelSerial.class);
-        System.out.println(productModelSerial.getTransientPropriety()); // null (transient propriety)
+//        Aula159Serialization_pt01.serializedFileSpecialized(serialProduct, productSerealizedOutputpath);
+//        ProductModelSerial productModelSerial = Aula159Serialization_pt01.deserializedFileSpecialized(productSerealizedOutputpath, ProductModelSerial.class);
+//        System.out.println(productModelSerial.getTransientPropriety()); // null (transient propriety)
 
 
         PatientModel patientModel = new PatientModel("Irinéia", 1);
@@ -49,7 +49,7 @@ public class Aula160Serialization_pt02_serialVersionUID {
         // serializa:
         Path productWithAssociationSerialPath =
                 Paths.get("src/serializacao/product_fileSpecializedGenericsWithAssociation.ser");
-        Aula159Serialization_pt01.serializedFileSpecialized(new ProductModelWithAssociationSerializer(),
+        Aula159Serialization_pt01.serializedFileSpecialized(productModelSerialWithAssociation,
                                                             productWithAssociationSerialPath);
 
         // deserializa:
@@ -57,6 +57,17 @@ public class Aula160Serialization_pt02_serialVersionUID {
                 Aula159Serialization_pt01.deserializedFileSpecialized(productWithAssociationSerialPath,
                                                                       ProductModelSerialWithAssociation.class);
 
-        System.out.println(productModelSerialWithAssociationDeserializado);
+        System.out.println("Serializado: " + productModelSerialWithAssociation);
+        System.out.println("Deserializado: " + productModelSerialWithAssociationDeserializado);
+
+        // verifica se o objeto deserializado corresponde com o objeto serializado:
+
+        // objeto original antes de serializar:
+        boolean isEquals = productModelSerialWithAssociationDeserializado.equals(productModelSerialWithAssociation);
+        if (isEquals) {
+            System.out.println("Objetos iguais!!");
+        }else {
+            System.out.println("Objetos diferentes! ;-;");
+        }
     }
 }
