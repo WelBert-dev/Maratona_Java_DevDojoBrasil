@@ -10,7 +10,7 @@ package colections;
 
 import java.util.Objects;
 
-public class Aula162Equals_pt02_ImplEqualsToObjModelExemple {
+public class Aula162equals_pt02_ImplEqualsToObjModelExample {
 
     public static void main(String[] args) {
         Smartphone s1 = null;
