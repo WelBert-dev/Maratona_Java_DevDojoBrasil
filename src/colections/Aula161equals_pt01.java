@@ -40,7 +40,7 @@ package colections;
 // ou seja, definimos a regra "personalizada" de ordenação para utilizarmos apenas em pontos especificos do
 // código, assim podemos mudar o critério default de ordenação se preciso. compare(T object1, T object2);
 
-public class Aula161Equals_pt01 {
+public class Aula161equals_pt01 {
     public static void main(String[] args) {
         String nome1 = "Wellison Bertelli";
         String nome2 = "Wellison Bertelli";
