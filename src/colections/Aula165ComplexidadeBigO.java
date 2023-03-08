@@ -115,5 +115,12 @@ import java.util.TreeMap;
 public class Aula165ComplexidadeBigO {
     public static void main(String[] args) {
         TreeMap pamonha;
+
+        // Calculo logaritmico escrito em Java:
+        double x = 10; // número a ser calculado o logaritmo
+        double b = 2; // base do logaritmo
+        double logb = Math.log(x) / Math.log(b); // cálculo do logaritmo na base b de x
+        System.out.println("log" + b + "(" + x + ") = " + logb); // impressão do resultado
+
     }
 }
