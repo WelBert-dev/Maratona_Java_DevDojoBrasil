@@ -26,6 +26,36 @@ package colections;
 //        return nomeCliente1.compareTo(nomeCliente2);
 //    }
 
+// Dica bonus: Caso queira realizar uma operação parecida com a de cima,
+// porém da forma mais simples sem precisar criar classes auxiliares,
+// e essa regra servir apenas para pontos especificos do código
+// e desejamos um atributo em "Level 1" de Objetos aninhados:
+// podemos utilizar a seguinte abordagem:
+/*
+    Comparator<PatientModel> comparador = Comparator.comparing(PatientModel::getPriority);
+            patientModelList.sort(comparador);
+*/
+
+// Dica Bonus ALEM: Quando se tem um cenário parecido com o anterior,
+// porém o atributo flag de comparação para o Comparator<T> for
+// o atributo de um objeto aninhado a outros em "Level ALL",
+// podemos utilizar a mesma sintaxe anterior, porém utilizando expressões lambda:
+/*
+    Comparator<PatientModel> comparador = Comparator.comparing(
+        patient -> patient.getTicketObj().getId() // aqui poderia ser get().get().get()..... ALL
+    );
+    patientModelList.sort(comparador);
+
+ */
+
+// Tipos de Referências de métodos utilizando o Operador "::" apartir do Java 8:
+//    - Referência a um método estático: Classe::métodoEstático
+//    - Referência a um método de instância de um objeto específico: objeto::método
+//    - Referência a um método de instância de um objeto arbitrário de um tipo específico: Tipo::método
+//    - Referência a um construtor: Classe::new
+
+import estruturaDados.models.BookModel;
+
 import java.util.*;
 
 public class Aula170e171SortingLists_pt02e03_ComparableAndComparator {
@@ -52,12 +82,26 @@ public class Aula170e171SortingLists_pt02e03_ComparableAndComparator {
 //        // vamos que aqui eu escolho o atributo no qual pretendo utilizar como flag
 //        // na ordenação ASC.
 
-        Comparator<PatientModel> comparador = Comparator.comparing(PatientModel::getPriority);
-        patientModelList.sort(comparador);
+//        Comparator<PatientModel> comparador = Comparator.comparing(PatientModel::getPriority);
+//        patientModelList.sort(comparador);
 
         // outra sintaxe:
 //        Collections.sort(patientModelList, (p1, p2) -> Double.compare(p1.getPriority(), p2.getPriority()));
 
+
+        // Bonus ALÉM (Melhor abordagem pois é mais flexível e podemos acessar um atributo
+        // para utilizar como flag na comparação do Comparator em nível ALL de objetos
+        // aninhados a outros como atributos:
+
+        Comparator<BookModel> comparador = Comparator.comparing(
+                bookModel -> bookModel.getAnoLancamento().getDayOfWeek() // aqui poderia ser get().get().get()..... ALL
+        );
+        //patientModelList.sort(comparador); <- BASTA alterar o tipo da lista para BookModel para rodar
+
+        // Obs: Sobre utilizar a sintaxe Comparator.comparing(PatientModel::getPriority) ou
+        // Utilizando expressões lambdas, por "debaixo dos panos" o Java vai transformar
+        // a primeira sintaxe "Referência de métodos" e transformar em expressões lambdas
+        // logo em relação a desempenho as duas vão possuir o mesmo.
 
 
         Collections.reverse(patientModelList);
