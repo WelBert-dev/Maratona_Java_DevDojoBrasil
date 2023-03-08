@@ -14,6 +14,18 @@ package colections;
 // - Mas é uma boa escolha de se adotar quando não temos controle do Objeto em ordenação,
 // como códigos terceiros de frameworks e etc...
 
+// Dica: Caso queira utilizar como critério de comparação Objetos internos a outros em aninhamento
+// Como por exemplo ordenar uma lista de pedidos com base no nome dos clientes, ou ir além
+// basta na implementação do Comparator<T> utilizar o get multiplas vezes até encontrar
+// o Objeto do nível correto:
+// Algo como:
+//  @Override
+//    public int compare(Pedido p1, Pedido p2) {
+//        String nomeCliente1 = p1.getCliente().getNome(); // -> Aqui poderia ter get().get().get()...
+//        String nomeCliente2 = p2.getCliente().getNome(); // Até chegar no nível do Objeto desejado.
+//        return nomeCliente1.compareTo(nomeCliente2);
+//    }
+
 import java.util.*;
 
 public class Aula170e171SortingLists_pt02e03_ComparableAndComparator {
