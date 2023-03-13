@@ -11,6 +11,8 @@ package colections;
 // original passado no parâmetro, ou seja cria-se um link entre os dois,
 // então as operações que forem realizadas em um, afeta o outro.
 
+// O asList() é um varargs então podemos utilizar sobrecarregando com virgulas 1, 2 ,3 4, 5, 6...
+
 /*
     É otimizado para criar uma lista de tamanho fixo a partir de um array existente e,
     portanto, é mais eficiente em termos de memória e desempenho. Além disso, o método
@@ -18,6 +20,9 @@ package colections;
     uma nova instância de lista. Em vez disso, é criado um objeto interno que atua como
     uma "janela" para o array subjacente, permitindo que você trabalhe com a lista como
     se fosse uma lista regular.
+
+    SOLUÇÃO: Para quebrar esse vínculo utilizar o array no construtor e criar uma nova instância
+    de List<T>: List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray));
 
 */
 
@@ -57,6 +62,12 @@ public class Aula173ListToArrayConvertion {
 
         System.out.println("List<T>: "+integers.toString()); // List<T>: [1, 2, 4]
         System.out.println("Integer[] - Array: "+Arrays.toString(listToArray)); // Integer[] - Array: [1, 2, 4]
+
+        // Para "quebrar" esse vínculo entre essas coleções é passar ela ao construtor,
+        // com isto sera criado um array do zero e assim podemos realizar as alterações:
+        List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray));
+
+
 
     }
 }
