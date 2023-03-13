@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
-public class Aula177NavigableSet_AndTreeSet_pt02 {
+public class Aula177NavigableSet_AndTreeSet_pt02_metodosUteis {
     public static void main(String[] args) {
         Comparator<PatientModel> patientModelComparador = Comparator.comparing(
                 PatientModel -> PatientModel.getPriority() // aqui poderia ser get().get().get()..... ALL
