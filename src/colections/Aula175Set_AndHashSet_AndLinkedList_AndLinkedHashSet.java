@@ -15,7 +15,7 @@ package colections;
 
 // Resolvendo o problema anterior a LinkedHashSet vem para garantir essa organização,
 // aqui ele mantém a ordem de acordo com a inserção de elementos.
-//
+// Todas as classes que implementam e extends Set utilizam a implementação equals() para ver se os elementos são iguais.
 
 import java.util.*;
 
