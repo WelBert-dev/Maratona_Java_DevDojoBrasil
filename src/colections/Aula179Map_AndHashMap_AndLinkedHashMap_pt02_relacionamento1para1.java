@@ -83,6 +83,11 @@ class Consumidor {
 
     }
 
+    public Consumidor(String nome, Long id) {
+        this.nome = nome;
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Consumidor{" +
