@@ -52,6 +52,9 @@ package colections;
 // Implementação thread-safe: embora o TreeSet não seja thread-safe, você pode usar o método
 // Collections.synchronizedSet para criar uma versão thread-safe do TreeSet.
 
+// Obs: TreeSet falha no contrato de Set pois ele não utiliza o equals() para garantir objetos iguais,
+// ele utiliza o comparaTo() para isso, então o que vai definir objetos iguais
+
 import java.util.Comparator;
 import java.util.NavigableSet;
 import java.util.TreeSet;
