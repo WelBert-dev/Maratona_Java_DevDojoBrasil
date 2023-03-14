@@ -15,6 +15,130 @@ Intermediário: Mais especifico no Java
      ||
 [Class Util Files] -> Todos os métodos de File foram passados para Files (Estáticos)
 
+
+// Hierarquia em árvore do fluxo de herança Stream:
+
+                  +-----+----+
+                  |  Stream  |
+                  +-----+----+
+                        ^
+                        |
+         +--------------+---------------+
+         |              |               |
+   +-----+----+  +------+-------+  +----+-------+
+   |  Input  |  |    Output    |  |  Filter   |
+   | Stream  |  |   Stream     |  |  Stream   |
+   +-----+----+  +------+-------+  +----+-------+
+         ^              |                 |
+         |              |                 |
+   +-----+----+  +------+-------+  +------+--------+
+   |  Reader  |  |     Writer    |  |  FilterReader |
+   |  Stream  |  |    Stream     |  |  FilterWriter|
+   +-----+----+  +------+-------+  +------+--------+
+         ^              |                 |
+         |              |                 |
+  +------+----+  +-----+------+    +------+-------+
+  | InputStream | | OutputStream |   |  CharStream   |
+  +------+----+  +-----+------+    +------+-------+
+                        |                 |
+              +---------+--------+   +----+-------+
+              | DataInputStream  |   |   Writer    |
+              |  DataOutputStream|   |(Abstract)   |
+              +---------+--------+   +------------+
+                        |                 |
+               +--------+--------+  +-----+-------+
+               |   PrintStream   |  |  PrintWriter|
+               +--------+--------+  +-------------+
+                        |                 |
+            +-----------+--------------+----------+
+            |           |                         |
+  +---------+-----+  +--+------+           +------+-------+
+  | FileDescriptor |  | File |           | RandomAccessFile |
+  +---------------+  +------+           +-----------------+
+                        |                            |
+          +-------------+--------------+-------------+--------------+
+          |            |               |             |              |
+   +------+------+  +------+-----+  +------+-----+  +-----+-----+
+   | FileInputStream | FileOutputStream| FileReader | FileWriter|
+   +------+-----+  +------+-----+  +------+-----+  +-----+-----+
+          |            |               |             |              |
+    +-----+----+  +----+------+  +-----+-----+  +-----+------+
+    |   BufferedInputStream  |  | BufferedOutputStream|  | BufferedReader  |
+    |    BufferedOutputStream|  |     (Abstract)      |  |  (Abstract)   |
+    +-----+----+  +------------+  +------------------+  +--------------+
+          |            |                         |              |
+  +-------+------+ +--+------+            +-----+------+   +-------+-------+
+  | ByteArrayInputStream | ByteArrayOutputStream |  | StringReader | StringWriter |
+  +-----------------------+-------------------------+  +--------------+--------------+
+
+// A Árvore completa é muito extensa!
+
+- As classes Stream em Java são usadas para lidar com fluxos de entrada e saída de dados.
+Aqui está uma lista das principais classes Stream e suas aplicações:
+
+    - InputStream: classe abstrata que é a superclasse de todas as classes de fluxo de
+    entrada de dados em Java. Ela define os métodos básicos para ler bytes de dados de
+    uma fonte de entrada, como um arquivo ou uma conexão de rede.
+
+    - OutputStream: classe abstrata que é a superclasse de todas as classes de fluxo de
+    saída de dados em Java. Ela define os métodos básicos para escrever bytes de dados
+    em uma saída, como um arquivo ou uma conexão de rede.
+
+    - FileInputStream: classe que permite ler dados de um arquivo em disco.
+
+    - FileOutputStream: classe que permite escrever dados em um arquivo em disco.
+
+    - ByteArrayInputStream: classe que permite ler dados de um buffer de bytes em memória.
+
+    - ByteArrayOutputStream: classe que permite escrever dados em um buffer de bytes em memória.
+
+    - BufferedInputStream: classe que melhora o desempenho da leitura de dados ao manter um buffer em memória.
+
+    - BufferedOutputStream: classe que melhora o desempenho da escrita de dados ao manter um buffer em memória.
+
+    - DataInputStream: classe que permite ler dados em formato binário primitivos a partir de uma fonte de entrada,
+    como um arquivo ou uma conexão de rede.
+
+    - DataOutputStream: classe que permite escrever dados em formato binário primitivos em uma saída, como um arquivo
+    ou uma conexão de rede.
+
+    - ObjectInputStream: classe que permite ler objetos serializados a partir de uma fonte de entrada, como um arquivo
+    ou uma conexão de rede.
+
+    - ObjectOutputStream: classe que permite escrever objetos serializados em uma saída, como um arquivo ou uma conexão
+    de rede.
+
+    - PipedInputStream: classe que permite ler dados de um pipe.
+
+    - PipedOutputStream: classe que permite escrever dados em um pipe.
+
+    - PrintStream: classe que permite escrever dados formatados em uma saída, como a saída padrão ou um arquivo
+    em disco.
+
+    - PrintWriter: classe que permite escrever dados formatados em uma saída, como a saída padrão ou um arquivo
+    em disco.
+
+    - Reader: classe abstrata que é a superclasse de todas as classes de fluxo de entrada de dados de caracteres
+    em Java.
+
+    - Writer: classe abstrata que é a superclasse de todas as classes de fluxo de saída de dados de caracteres
+    em Java.
+
+    - FileReader: classe que permite ler dados de um arquivo de texto em disco.
+
+    - FileWriter: classe que permite escrever dados em um arquivo de texto em disco.
+
+    - InputStreamReader: classe que permite ler dados de um fluxo de entrada de bytes e convertê-los em caracteres
+     usando um conjunto de caracteres especificado.
+
+    - OutputStreamWriter: classe que permite escrever caracteres em um fluxo de saída de bytes usando um conjunto
+    de caracteres especificado.
+
+- Essas são algumas das classes Stream mais comuns em Java e suas aplicações.
+Existem muitas outras classes disponíveis para lidar com diferentes tipos de
+entrada e saída de dados em Java, mas essas são um bom ponto de partida.
+
+--------------------------------------------------------------------------------------------------------------------
 // Classes aboradads neste package:
 // Path (Substitui a class File)
 // Paths (Utilizada principalmente para instânciar um Path)

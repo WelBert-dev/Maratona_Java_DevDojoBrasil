@@ -1,0 +1,586 @@
+-- Data - (Estudos feitos em Java e agora documentado)
+-- link: -
+-- Mais informações sobre serialização: -
+
+Intermediário: Mais especifico no Java
+
+
+// Hierarquia em árvore do fluxo de herança Stream:
+
+                  +-----+----+
+                  |  Stream  |
+                  +-----+----+
+                        ^
+                        |
+         +--------------+---------------+
+         |              |               |
+   +-----+----+  +------+-------+  +----+-------+
+   |  Input  |  |    Output    |  |  Filter   |
+   | Stream  |  |   Stream     |  |  Stream   |
+   +-----+----+  +------+-------+  +----+-------+
+         ^              |                 |
+         |              |                 |
+   +-----+----+  +------+-------+  +------+--------+
+   |  Reader  |  |     Writer    |  |  FilterReader |
+   |  Stream  |  |    Stream     |  |  FilterWriter|
+   +-----+----+  +------+-------+  +------+--------+
+         ^              |                 |
+         |              |                 |
+  +------+----+  +-----+------+    +------+-------+
+  | InputStream | | OutputStream |   |  CharStream   |
+  +------+----+  +-----+------+    +------+-------+
+                        |                 |
+              +---------+--------+   +----+-------+
+              | DataInputStream  |   |   Writer    |
+              |  DataOutputStream|   |(Abstract)   |
+              +---------+--------+   +------------+
+                        |                 |
+               +--------+--------+  +-----+-------+
+               |   PrintStream   |  |  PrintWriter|
+               +--------+--------+  +-------------+
+                        |                 |
+            +-----------+--------------+----------+
+            |           |                         |
+  +---------+-----+  +--+------+           +------+-------+
+  | FileDescriptor |  | File |           | RandomAccessFile |
+  +---------------+  +------+           +-----------------+
+                        |                            |
+          +-------------+--------------+-------------+--------------+
+          |            |               |             |              |
+   +------+------+  +------+-----+  +------+-----+  +-----+-----+
+   | FileInputStream | FileOutputStream| FileReader | FileWriter|
+   +------+-----+  +------+-----+  +------+-----+  +-----+-----+
+          |            |               |             |              |
+    +-----+----+  +----+------+  +-----+-----+  +-----+------+
+    |   BufferedInputStream  |  | BufferedOutputStream|  | BufferedReader  |
+    |    BufferedOutputStream|  |     (Abstract)      |  |  (Abstract)   |
+    +-----+----+  +------------+  +------------------+  +--------------+
+          |            |                         |              |
+  +-------+------+ +--+------+            +-----+------+   +-------+-------+
+  | ByteArrayInputStream | ByteArrayOutputStream |  | StringReader | StringWriter |
+  +-----------------------+-------------------------+  +--------------+--------------+
+
+// A Árvore completa é muito extensa!
+
+- As classes Stream em Java são usadas para lidar com fluxos de entrada e saída de dados.
+Aqui está uma lista das principais classes Stream e suas aplicações:
+
+    - InputStream: classe abstrata que é a superclasse de todas as classes de fluxo de
+    entrada de dados em Java. Ela define os métodos básicos para ler bytes de dados de
+    uma fonte de entrada, como um arquivo ou uma conexão de rede.
+
+    - OutputStream: classe abstrata que é a superclasse de todas as classes de fluxo de
+    saída de dados em Java. Ela define os métodos básicos para escrever bytes de dados
+    em uma saída, como um arquivo ou uma conexão de rede.
+
+    - FileInputStream: classe que permite ler dados de um arquivo em disco.
+
+    - FileOutputStream: classe que permite escrever dados em um arquivo em disco.
+
+    - ByteArrayInputStream: classe que permite ler dados de um buffer de bytes em memória.
+
+    - ByteArrayOutputStream: classe que permite escrever dados em um buffer de bytes em memória.
+
+    - BufferedInputStream: classe que melhora o desempenho da leitura de dados ao manter um buffer em memória.
+
+    - BufferedOutputStream: classe que melhora o desempenho da escrita de dados ao manter um buffer em memória.
+
+    - DataInputStream: classe que permite ler dados em formato binário primitivos a partir de uma fonte de entrada,
+    como um arquivo ou uma conexão de rede.
+
+    - DataOutputStream: classe que permite escrever dados em formato binário primitivos em uma saída, como um arquivo
+    ou uma conexão de rede.
+
+    - ObjectInputStream: classe que permite ler objetos serializados a partir de uma fonte de entrada, como um arquivo
+    ou uma conexão de rede.
+
+    - ObjectOutputStream: classe que permite escrever objetos serializados em uma saída, como um arquivo ou uma conexão
+    de rede.
+
+    - PipedInputStream: classe que permite ler dados de um pipe.
+
+    - PipedOutputStream: classe que permite escrever dados em um pipe.
+
+    - PrintStream: classe que permite escrever dados formatados em uma saída, como a saída padrão ou um arquivo
+    em disco.
+
+    - PrintWriter: classe que permite escrever dados formatados em uma saída, como a saída padrão ou um arquivo
+    em disco.
+
+    - Reader: classe abstrata que é a superclasse de todas as classes de fluxo de entrada de dados de caracteres
+    em Java.
+
+    - Writer: classe abstrata que é a superclasse de todas as classes de fluxo de saída de dados de caracteres
+    em Java.
+
+    - FileReader: classe que permite ler dados de um arquivo de texto em disco.
+
+    - FileWriter: classe que permite escrever dados em um arquivo de texto em disco.
+
+    - InputStreamReader: classe que permite ler dados de um fluxo de entrada de bytes e convertê-los em caracteres
+     usando um conjunto de caracteres especificado.
+
+    - OutputStreamWriter: classe que permite escrever caracteres em um fluxo de saída de bytes usando um conjunto
+    de caracteres especificado.
+
+- Essas são algumas das classes Stream mais comuns em Java e suas aplicações.
+Existem muitas outras classes disponíveis para lidar com diferentes tipos de
+entrada e saída de dados em Java, mas essas são um bom ponto de partida.
+
+--------------------------------------------------------------------------------------------------------------------
+- Introdução: Em Java, a serialização é o processo de converter um objeto em uma sequência
+de bytes, para que possa ser armazenado em um arquivo, transmitido através de uma rede ou
+armazenado em um banco de dados.
+
+- transient: A palavra-chave transient é usada em Java para indicar que um campo de uma classe
+não deve ser serializado durante o processo de serialização de objetos.
+Quando um objeto é serializado, todos os seus campos são gravados em um fluxo de bytes.
+No entanto, se um campo é declarado como transient, ele não será gravado no fluxo.
+
+    - Existem algumas situações em que você pode querer marcar um campo como transient.
+    Por exemplo:
+
+        - Campos que não devem ser salvos: Se uma classe contém campos que não precisam
+        ser salvos quando um objeto é persistido (por exemplo, um objeto de conexão de
+        banco de dados ou uma referência a um objeto que pode ser reconstruído facilmente),
+        esses campos podem ser declarados como transient.
+
+        - Campos que não podem ser serializados: Alguns tipos de campos não podem ser serializados,
+        como campos de threads ou streams. Se uma classe contém campos desse tipo, eles podem ser
+        declarados como transient.
+
+        - Campos com dados confidenciais: Se uma classe contém campos que contêm informações confidenciais,
+        como senhas ou chaves de criptografia, esses campos podem ser declarados como transient para
+        garantir que não sejam gravados em um fluxo de bytes.
+
+    - Ao marcar um campo como transient, você está indicando que o valor desse campo não precisa ser
+    persistido, e portanto ele será ignorado durante o processo de serialização.
+    É importante lembrar que, quando o objeto é desserializado, o valor do campo transient será
+    inicializado com um valor padrão (por exemplo, null para campos de referência).
+
+
+- Serializar: Para serializar um objeto em Java, siga os seguintes passos:
+
+    - Certifique-se de que a classe do objeto a ser serializado implemente a interface
+    java.io.Serializable. Esta interface não possui nenhum método, mas indica que a
+    classe pode ser serializada.
+
+    - Crie um objeto da classe ObjectOutputStream, que é responsável por escrever o objeto
+    serializado em um fluxo de saída.
+
+    - Chame o método writeObject() do objeto ObjectOutputStream e passe o objeto a ser
+    serializado como parâmetro.
+
+    - Feche o objeto ObjectOutputStream. (Ou utilize try-with-resources).
+
+Aqui está um exemplo básico:
+
+    public class SerializeDemo {
+       public static void main(String[] args) {
+          // Objeto a ser serializado
+          MinhaClasse obj = new MinhaClasse();
+
+          try {
+             // Cria um ObjectOutputStream para escrever no arquivo "object.ser"
+             FileOutputStream fileOut = new FileOutputStream("object.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+             // Serializa o objeto
+             out.writeObject(obj);
+
+             // Fecha o ObjectOutputStream
+             out.close();
+             fileOut.close();
+
+             System.out.println("Objeto serializado em object.ser");
+          } catch(IOException i) {
+             i.printStackTrace();
+          }
+       }
+    }
+
+- Deserializar: Para desserializar o objeto, é necessário seguir os seguintes passos:
+
+    - Crie um objeto da classe ObjectInputStream, que é responsável por ler o objeto
+    serializado de um fluxo de entrada.
+
+    - Chame o método readObject() do objeto ObjectInputStream para ler o objeto serializado.
+
+    - Feche o objeto ObjectInputStream. (Ou utilize try-with-resources).
+
+- Aqui está um exemplo básico:
+
+    public class DeserializeDemo {
+       public static void main(String[] args) {
+          MinhaClasse obj = null;
+
+          try {
+             // Cria um ObjectInputStream para ler o arquivo "object.ser"
+             FileInputStream fileIn = new FileInputStream("object.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn);
+
+             // Desserializa o objeto
+             obj = (MinhaClasse) in.readObject();
+             // se fosse um obj aninhado como atributo
+             // bastava ler ele e apontar a variável de referência do atributo para ele.
+             // exemplo: objAtributo = (MinhaClasse) in.readObject();
+
+             // Fecha o ObjectInputStream
+             in.close();
+             fileIn.close();
+
+          } catch(IOException i) {
+             i.printStackTrace();
+             return;
+          } catch(ClassNotFoundException c) {
+             System.out.println("Classe MinhaClasse não encontrada");
+             c.printStackTrace();
+             return;
+          }
+
+          System.out.println("Objeto desserializado...");
+          System.out.println("Variável x: " + obj.x);
+          System.out.println("Variável y: " + obj.y);
+       }
+    }
+
+- O que fazer quando o objeto a ser serializado não implemente a interface?
+    - Se o objeto a ser serializado não implementar a interface java.io.Serializable,
+    você pode implementar a interface java.io.Externalizable na classe do objeto.
+    A interface Externalizable permite que você controle a serialização e desserialização
+    do objeto, fornecendo métodos para escrever e ler dados do objeto.
+
+    - Para implementar a interface Externalizable, siga estes passos:
+
+        - Implemente a interface Externalizable na classe do objeto.
+
+        - Implemente os métodos writeExternal() e readExternal() da interface Externalizable.
+        O método writeExternal() é chamado durante a serialização do objeto e é responsável
+        por escrever os dados do objeto em um fluxo de saída.
+        O método readExternal() é chamado durante a desserialização do objeto e é responsável
+        por ler os dados do objeto de um fluxo de entrada.
+
+        - Certifique-se de que a classe tenha um construtor padrão público sem argumentos.
+        Isso é necessário para a desserialização do objeto.
+
+        - Obs: Ao serializar e desserializar objetos que implementam a interface Externalizable,
+        você deve usar os métodos writeExternal() e readExternal() em vez dos métodos padrão
+        writeObject() e readObject() do ObjectOutputStream e ObjectInputStream.
+
+    - Aqui está um exemplo básico:
+
+        public class MinhaClasse implements Externalizable {
+            private int x;
+            private String y;
+
+            public MinhaClasse() {}
+
+            public void writeExternal(ObjectOutput out) throws IOException {
+                out.writeInt(x);
+                out.writeObject(y);
+            }
+
+            public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+                x = in.readInt();
+                y = (String) in.readObject();
+            }
+        }
+
+    - Aqui está um exemplo básico de utilização de como serializar e desserializar,
+    um objeto que implementa a interface Externalizable:
+
+        public class SerializeDemo {
+           public static void main(String[] args) {
+              // Objeto a ser serializado
+              MinhaClasse obj = new MinhaClasse();
+
+              try {
+                 // Cria um ObjectOutputStream para escrever no arquivo "object.ser"
+                 FileOutputStream fileOut = new FileOutputStream("object.ser");
+                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+                 // Serializa o objeto
+                 obj.writeExternal(out);
+
+                 // Fecha o ObjectOutputStream
+                 out.close();
+                 fileOut.close();
+
+                 System.out.println("Objeto serializado em object.ser");
+              } catch(IOException i) {
+                 i.printStackTrace();
+              }
+
+              // Desserializa o objeto
+              MinhaClasse obj2 = new MinhaClasse();
+              try {
+                 // Cria um ObjectInputStream para ler o arquivo "object.ser"
+                 FileInputStream fileIn = new FileInputStream("object.ser");
+                 ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                 // Desserializa o objeto
+                 obj2.readExternal(in);
+
+                 // Fecha o ObjectInputStream
+                 in.close();
+                 fileIn.close();
+
+              } catch(IOException i) {
+                 i.printStackTrace();
+                 return;
+              } catch(ClassNotFoundException c) {
+                 System.out.println("Classe MinhaClasse não encontrada");
+                 c.printStackTrace();
+                 return;
+              }
+
+              System.out.println("Objeto desserializado...");
+              System.out.println("Variável x: " + obj2.x);
+              System.out.println("Variável y: " + obj2.y);
+           }
+        }
+
+- E o que fazer quando o objeto a ser serializado não pode nenhuma das abordagens anterior?
+Como classes externas fora de nosso controle (API's de terceiros por exemplo)?
+    - Se o objeto a ser serializado não está sob seu controle, como é o caso de classes
+    de alguma API externa, e essas classes não implementam a interface java.io.Serializable
+    ou java.io.Externalizable, você pode considerar usar uma abordagem de adaptação
+    (ou wrapping) do objeto em uma classe que implementa a interface Serializable ou
+    Externalizable.
+
+    - A abordagem de adaptação envolve a criação de uma nova classe que envolve o objeto
+    a ser serializado e implementa a interface Serializable ou Externalizable.
+    A classe adaptadora é responsável por serializar e desserializar o objeto em nome do
+    objeto original.
+
+    - Por exemplo, suponha que você precise serializar um objeto da classe MyExternalClass
+    que não implementa a interface Serializable ou Externalizable.
+    Você pode criar uma classe adaptadora MyExternalClassAdapter que envolve o objeto
+    MyExternalClass e implementa a interface Serializable ou Externalizable.
+    A classe MyExternalClassAdapter é então usada para serializar e desserializar o
+    objeto MyExternalClass.
+
+    - Aqui está um exemplo de implementação da abordagem de adaptação para a classe
+    MyExternalClass:
+
+        public class MyExternalClassAdapter implements Serializable {
+            private MyExternalClass obj;
+
+            public MyExternalClassAdapter(MyExternalClass obj) {
+                this.obj = obj;
+            }
+
+            private void writeObject(ObjectOutputStream out) throws IOException {
+                // Escreve os dados do objeto MyExternalClass no ObjectOutputStream
+                out.writeUTF(obj.getName());
+                out.writeInt(obj.getAge());
+                // ... escreve outros campos, se houver
+            }
+
+            private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+                // Lê os dados do objeto MyExternalClass do ObjectInputStream
+                String name = in.readUTF();
+                int age = in.readInt();
+                // ... lê outros campos, se houver
+                // Cria um novo objeto MyExternalClass com os dados lidos e atribui à variável obj
+                obj = new MyExternalClass(name, age);
+            }
+
+            public MyExternalClass getObject() {
+                return obj;
+            }
+        }
+
+        - No exemplo acima, a classe MyExternalClassAdapter envolve o objeto MyExternalClass
+        e implementa a interface Serializable. Os métodos writeObject() e readObject() são
+        responsáveis por serializar e desserializar o objeto MyExternalClass, respectivamente.
+         O método getObject() retorna o objeto MyExternalClass original.
+
+        - Para serializar o objeto MyExternalClass, você deve criar uma instância da classe
+        MyExternalClassAdapter e serializar essa instância. Por exemplo:
+
+            MyExternalClass obj = new MyExternalClass("John Doe", 30);
+            MyExternalClassAdapter adapter = new MyExternalClassAdapter(obj);
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("object.ser"));
+            out.writeObject(adapter);
+            out.close();
+
+        - Para desserializar o objeto MyExternalClass, você deve desserializar a instância da
+        classe MyExternalClassAdapter e chamar o método getObject() para obter o objeto
+        MyExternalClass original. Por exemplo:
+
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"));
+            MyExternalClassAdapter adapter = (MyExternalClassAdapter) in.readObject();
+            in.close();
+            MyExternalClass obj = adapter.getObject();
+
+- E o que fazer quando o objeto a ser serializado possuí um objeto aninhado como atributo
+e o mesmo não implementa a interface serializable?
+    - Se o objeto a ser serializado contém um objeto aninhado como atributo e o objeto
+    aninhado não implementa a interface Serializable ou Externalizable, você pode usar
+    a mesma abordagem de adaptação que descrevi anteriormente para adaptar o objeto aninhado.
+
+    - Para fazer isso, você pode criar uma nova classe que envolve o objeto aninhado e
+    implementa a interface Serializable ou Externalizable. A classe adaptadora é responsável
+    por serializar e desserializar o objeto aninhado em nome do objeto original.
+
+    - Por exemplo, suponha que você tenha uma classe Person que contém um objeto Address
+    como atributo, mas a classe Address não implementa a interface Serializable ou
+    Externalizable. Você pode criar uma classe adaptadora AddressAdapter que envolve o
+    objeto Address e implementa a interface Serializable ou Externalizable.
+    A classe AddressAdapter é então usada para serializar e desserializar o objeto Address.
+
+    - Aqui está um exemplo de implementação da abordagem de adaptação para a classe Address:
+
+        public class AddressAdapter implements Serializable {
+            private Address address;
+
+            public AddressAdapter(Address address) {
+                this.address = address;
+            }
+
+            private void writeObject(ObjectOutputStream out) throws IOException {
+                // Escreve os dados do objeto Address no ObjectOutputStream
+                out.writeUTF(address.getStreet());
+                out.writeUTF(address.getCity());
+                out.writeUTF(address.getState());
+                out.writeUTF(address.getZip());
+                // ... escreve outros campos, se houver
+            }
+
+            private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+                // Lê os dados do objeto Address do ObjectInputStream
+                String street = in.readUTF();
+                String city = in.readUTF();
+                String state = in.readUTF();
+                String zip = in.readUTF();
+                // ... lê outros campos, se houver
+                // Cria um novo objeto Address com os dados lidos e atribui à variável address
+                address = new Address(street, city, state, zip);
+            }
+
+            public Address getAddress() {
+                return address;
+            }
+        }
+
+    - Para serializar o objeto Person, você deve criar uma instância da classe AddressAdapter
+    para o objeto Address e serializar essa instância junto com o objeto Person.
+    Por exemplo:
+
+        Person person = new Person("John Doe", new Address("Main Street", "Anytown", "CA", "12345"));
+        AddressAdapter adapter = new AddressAdapter(person.getAddress());
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("object.ser"));
+        out.writeObject(person);
+        out.writeObject(adapter);
+        out.close();
+
+    - Para desserializar o objeto Person, você deve desserializar a instância da classe Person
+    e a instância da classe AddressAdapter separadamente e atribuir o objeto Address adaptado
+    de volta ao objeto Person.
+    Por exemplo:
+
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"));
+        Person person = (Person) in.readObject();
+        AddressAdapter adapter = (AddressAdapter) in.readObject();
+        in.close();
+        person.setAddress(adapter.getAddress());
+
+    - Obs: Lembre-se de que o objeto aninhado adaptado deve ser tratado separadamente do objeto
+    principal durante a serialização e desserialização, e você deve garantir que a ordem de escrita
+    e leitura desses objetos seja consistente para que a desserialização funcione corretamente.
+
+
+---> Pontos a se considerar quando se utiliza:
+    1o - Implementação da interface Serializable: A classe que você deseja serializar precisa implementar
+    a interface Serializable para que o processo de serialização possa ocorrer.
+        - Portanto quando não é possível temos que envolvela em uma class Wrapper que o faz.
+
+    2o - Versão da classe: É importante ter controle sobre a versão da classe serializável, garantindo
+    que os objetos serializados possam ser desserializados com sucesso, mesmo quando ocorrerem alterações
+    na classe. Isso pode ser feito definindo explicitamente um serialVersionUID na classe.
+
+    3o - Segurança: A serialização e desserialização podem apresentar riscos de segurança, como a
+    execução de código malicioso ao desserializar objetos. É importante garantir que os objetos
+    serializados venham de fontes confiáveis.
+
+    4o - Performance: A serialização e desserialização podem ser processos intensivos em recursos,
+    especialmente para objetos grandes ou complexos. É importante considerar o desempenho ao
+    implementar esses processos em suas aplicações.
+
+    5o - Objeto aninhado e transiente: É possível que um objeto serializável contenha objetos não
+    serializáveis, como objetos aninhados ou campos transientes. Nesses casos, é necessário garantir
+    que esses objetos sejam tratados adequadamente durante o processo de serialização e desserialização.
+
+    6o - Personalização da serialização: Às vezes, é necessário personalizar o processo de serialização
+    ou desserialização de objetos. Para isso, é possível sobrescrever os métodos writeObject() e readObject()
+    para controlar o processo de gravação e leitura de campos específicos.
+
+    7o - Integração com bancos de dados: A serialização e desserialização podem ser usadas para armazenar
+    bjetos em bancos de dados como campos BLOB (Binary Large Object). No entanto, é importante considerar
+    a eficiência dessa abordagem e avaliar outras opções de armazenamento de dados em colunas individuais.
+
+    8o - Tipos de objetos: A serialização pode ser usada para armazenar objetos em arquivos ou transferi-los
+    pela rede. No entanto, nem todos os tipos de objetos são adequados para serialização. Por exemplo,
+    objetos que contêm referências a recursos externos, como sockets ou arquivos abertos, não podem ser
+    serializados corretamente.
+
+    9o - Armazenamento em cache: A serialização pode ser usada para armazenar objetos em cache. No entanto,
+    é importante considerar os requisitos de memória e desempenho ao implementar a serialização em cache.
+
+    10o - Teste de deserialização: Ao implementar a desserialização, é importante testar cuidadosamente a
+    aplicação para garantir que a desserialização funcione corretamente e que os objetos serializados possam
+    ser desserializados corretamente em diferentes ambientes.
+
+// Classes aboradads neste package:
+- Paths.get() para indicar o caminho do arquivo origem ou destino da serialização/deserialização.
+- Serializar: Quando não queremos serializar um atributo, utilizamos o token transient.
+    - O Objeto a ser serializado deve Implementar a Interface Serializable.
+    - Quando o Objeto não implementa a interface, devemos "Sobre-escrever"
+    na verdade indicando @Serial os métodos:
+        - @Serial psv writeObject(); // Configura manualmente quais atributos seram serializados.
+        - @Serial psv readObject(); // Deve-se estar consistênte ao writeObject(), mas para a recuperação.
+    - Ou seja quando utilizamos um Objeto como atributo para outro, e esse objeto aninhado
+    não implementa a interface Serializable é lançada uma Exception (),
+    então para resolver utilizamos a palavra reservada transient no atributo objeto
+    da classe em questão que sera serializada, porém ao fazer isso o Java
+    irá desconsiderar esse Objeto aninhado na serialização, portanto deve-se
+    implementar os métodos ditos anteriormente (psv writeObject() e readObject()) para
+    assim configurar manualmente e incluir esse campo na serialização.
+    - Além disto, recomenda-se gerar o Long final serialVersionUID (As IDE's oferecem
+    essa funcionalidade para facilitar nossa vida), e esse serial ira garantir um
+    "versionamento" para o Objeto serializável, pois em casos de modificação
+    na estrutura do mesmo (Dicionário) ao recuperar podemos ter problemas devido
+    a essas possiveis modificações, portanto sempre tomar cuidado.
+
+    - ObjectOutputStream: Mais genérico Utilizado para a escrita do Objeto em arquivo.
+        - new ObjectOutputStream(Files.newOutputStream(productSerealizedOutputpath));
+    - ByteArrayOutputStream: Utilizado para escrever o Objeto em um array podendo assim,
+    transporta-lo por rede ou salvar em um arquivo igual a abordagem anterior.
+    - FileOutputStream: Especializado para escritas em arquivos.
+
+---------------------- // Path: Interface devido ao POLIMORFISMO de S.O's compatíveis com o Java
+Ou seja, utilizamos como variável de referência esse genérico para apartir da classe Paths pegar uma instância
+correta de acordo com o S.O e utilizamos desta programação orientada a interface.
+- Substitui a antiga classe File (Ou seja é uma representação do arquivo em Obj na memória).
+- Pegamos uma instância com o método estático Paths.get("Caminho");
+    - Por ser um varargs (...) podemos passar pasta a pasta do caminho utilizando "," Paths.get("C:", "pamonha", "arq.txt");
+
+Extends: Comparable<Path>, Iterable<Path>, Watchable
+ou seja, podemos utilizar o método compareTo() e etc...
+
+- Obs: Não é garantido que o arquivo realmente existe, ou seja não é garantido que o Path é válido!
+- Para saber se é válido devemos utilizar o método estático Files.notExists(filePath);
+- E para criar utilizamos Files.createFile(filePath);
+
+- Com um objeto dele é possível obter todas informações referênte ao arquivo em sí
+  como data de criação, modificação, diretório pai e etc...
+
+---> Pontos a se considerar quando se utiliza: na documentação sobre nio tem mais informações.
+
+---------------------- //
+
+---> Pontos a se considerar quando se utiliza: na documentação sobre nio tem mais informações.
+
+
+
