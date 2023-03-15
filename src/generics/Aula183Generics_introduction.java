@@ -4,8 +4,11 @@ package generics;
 // Com uso de Objects, mas ela não é uma abordagem robusta e
 // passivel de vários erros, portanto chega o generics para resolver.
 // Generics serve apenas em tempo de desenvolvimento e para o
-// programador em sí, pois ao compilar o java faz "Type Erasure" e
+// programador em sí, pois ao compilar o Java faz "Type Erasure" e
 // simplesmente substituí todos <T> pelo tipo real final.
+// Ele toma essa abordagem para manter compatibilidades em relaçao
+// aos versionamentos anteriores (Antes do generics) das JRE
+// que iram executar o código Java.
 
 /* OverView sobre Generics:
     - Sintaxe: A sintaxe básica para usar Generics é colocar o tipo entre colchetes angulares < >,
