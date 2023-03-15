@@ -136,8 +136,6 @@ public class Aula183Generics_introduction {
         // Uso de reflexão para obter informções de objetos genéricos <T>
         // "apagados" em tempo de compilação com uso de Type Erasure,
         // em tempo de execução:
-
-
         Field field = null;
         try {
 
