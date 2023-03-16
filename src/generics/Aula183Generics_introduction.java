@@ -81,9 +81,65 @@ package generics;
 
 
 // Diamond symbol: <>
-// <T>:
-// <E>:
-// <E extends T>:
+// <T>: Type (ALL)
+// <E>: Type (Colection Element)
+// <? extends T>:
+//
+/* OverView Geral sobre conceitos no contexto Generics:
+
+    - Wildcards: permitem definir tipos genéricos que são desconhecidos ou não especificados.
+    São representados pelo caractere "?", e podem ser utilizados para flexibilizar a definição
+    de tipos genéricos.
+    Existem dois tipos de wildcards em Java sendo eles:
+        - unbounded wildcards: É representado pelo caractere "?" e indica que não há restrição
+        quanto ao tipo que pode ser utilizado no lugar do parâmetro genérico. Por exemplo,
+        a declaração de um método com um parâmetro genérico do tipo List<?> pode receber uma
+        lista de qualquer tipo, como List<Integer> ou List<String>, desde que seja uma lista.
+
+        - bounded wildcards: É uma restrição de tipo aplicada a um wildcard usando as palavras-chave
+        "extends" ou "super". Uma restrição "extends" restringe o tipo genérico para tipos que são
+        subtipos (ou o próprio tipo) de uma classe ou interface especificada.
+        Por exemplo, a declaração de um método com um parâmetro genérico do tipo List<? extends Number> só pode receber uma lista de objetos que são subtipos de Number, como List<Integer> ou List<Double>.
+
+
+
+    - Bounded Type Parameters: permitem definir limites para os tipos genéricos, especificando
+    que o tipo deve ser uma subclasse de um determinado tipo ou implementar uma determinada
+    interface. São definidos utilizando a palavra-chave "extends" ou "implements". // duvidoso sobre implements
+
+    - Type Inference: é um recurso introduzido no Java 7 que permite ao compilador inferir o
+    tipo de um objeto genérico com base no contexto em que é utilizado, evitando a necessidade
+    de especificar o tipo manualmente.
+
+    - Type Bounds Checking: é um mecanismo que verifica os limites de tipo em tempo de compilação,
+    garantindo que os tipos genéricos sejam utilizados corretamente.
+
+    - Generic Collections: são coleções genéricas que permitem armazenar objetos de qualquer tipo
+    genérico. Exemplos de coleções genéricas incluem ArrayList, LinkedList, HashSet e TreeMap.
+
+    - Erasure: é o processo pelo qual as informações sobre o tipo genérico são apagadas em tempo
+    de compilação, e substituidos por Object ou outra classe genérica no contexto da classe
+    especificada em questão, permitindo a compatibilidade com versões anteriores e a utilização
+    de classes genéricas em conjunto com o mecanismo de reflexão.
+
+    - Generic methods and constructors: além de classes genéricas, é possível definir métodos e
+    construtores genéricos em Java, que possuem a mesma sintaxe e restrições de tipo que as
+    classes genéricas.
+
+    - Raw types: permitem que classes genéricas sejam usadas sem a especificação de tipos genéricos,
+    o que pode causar problemas de segurança e compatibilidade.
+
+    - Type bounds: além da restrição de tipo "extends", é possível impor restrições adicionais aos
+    tipos de parâmetros genéricos usando "super" ou "extends &".
+
+    - Type tokens: são objetos que representam informações sobre tipos em tempo de execução, e podem
+    ser utilizados em conjunto com reflexão para lidar com type erasure em Java.
+
+    - Erasure and bridge methods: são mecanismos usados pelo compilador para implementar type erasure
+    em Java e manter a compatibilidade com versões anteriores do código.
+
+*/
+
 
 import serializacao.dominio.ProductModelSerial;
 
