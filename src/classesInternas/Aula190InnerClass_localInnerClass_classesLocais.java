@@ -36,22 +36,155 @@ package classesInternas;
     campos, métodos e construtores, e pode acessar os membros da classe
     externa em que foi definida.
 
-        - Uma classe interna local em Java pode acessar variáveis locais e parâmetros
-        do método ou construtor externo que as contém/encapsula, mas somente se essas
-        variáveis e parâmetros forem ´final´ ou ´efetivamente final´.
-        Isso ocorre porque a classe interna local pode continuar a existir após a
-        conclusão do método ou construtor externo, MAS as variáveis locais e
-        parâmetros desse método ou construtor externo que as encapsula deixam
-        de existir após a conclusão desses métodos ou construtores.
+        - Uma classe interna local em Java pode acessar variáveis locais e
+        parâmetros do método ou construtor externo que as contém/encapsula,
+        mas somente se essas variáveis e parâmetros forem ´final´ ou
+        ´efetivamente final´.
+        Isso ocorre porque a classe interna local pode continuar a existir
+        após a conclusão do método ou construtor externo, MAS as variáveis
+        locais e parâmetros desse método ou construtor externo que as
+        encapsula deixam de existir após a conclusão desses métodos ou
+        construtores.
 
-        - Como resultado, todos os campos definidos em uma classe interna local são
-        implicitamente final, independentemente de serem declarados como final ou não,
-        para que possam ser acessados a partir do método ou construtor externo e sejam
-        imutáveis para garantir a integridade da classe interna.
+        - Como resultado, todos os campos definidos em uma classe interna
+        local são implicitamente final, independentemente de serem declarados
+        como final ou não, para que possam ser acessados a partir do método
+        ou construtor externo e sejam imutáveis para garantir a integridade
+        da classe interna.
 
-        - Em resumo, os atributos definidos no escopo do método que encapsula a classe
-        interna local são ´final´ ou ´efetivamente final´ porque a classe interna local
-        só pode acessar variáveis locais e parâmetros que são final ou efetivamente final.
+        - Em resumo, os atributos definidos no escopo do método que encapsula
+        a classe interna local são ´final´ ou ´efetivamente final´ porque a
+        classe interna local só pode acessar variáveis locais e parâmetros que
+        são final ou efetivamente final.
+
+*/
+
+/* Pontos importantes e atenções a se tomar quando se trabalha com Local Inner Classes:
+
+    - Escopo de visibilidade: Uma Local Inner Class pode acessar membros da
+    classe externa e variáveis locais e parâmetros do método em que está
+    definida, desde que sejam ´final ou ´efetivamente final´.
+    É importante entender o escopo de visibilidade da Local Inner Class para
+    garantir que os membros internos sejam acessados corretamente.
+
+    - Acesso a membros da classe externa: as classes internas locais também podem
+     acessar membros da classe externa, como campos e métodos, mesmo que sejam
+     privados.
+     Isso ocorre porque a classe interna é uma parte da classe externa.
+
+    - Criação de instâncias: uma classe interna local não pode ser instanciada
+    fora do método em que foi definida.
+    Isso ocorre porque a classe interna local é apenas uma classe interna em
+    relação ao método em que foi definida, mas não faz parte da classe externa.
+    Portanto, a classe interna não pode ser usada fora do método em que foi
+    definida, a menos que seja instanciada dentro desse método.
+
+    - Visibilidade da classe: uma classe interna local só é visível dentro do
+    método em que foi definida. Isso significa que outras partes do programa
+    não podem acessá-la diretamente. Se a classe interna local precisar ser
+    usada fora do método, ela pode ser retornado por um método do método que
+    a define.
+
+    - Performance: o uso excessivo de classes internas locais pode afetar
+    negativamente o desempenho do programa.
+    Isso ocorre porque cada classe interna local é compilada separadamente,
+    o que pode aumentar o tamanho do arquivo .class e afetar o tempo de
+    carregamento do programa. Portanto, é importante usar as classes internas
+    locais com moderação e apenas quando necessário.
+
+    - Convenções de Nomenclatura: É uma boa prática seguir as convenções de
+    nomenclatura em Java ao nomear Local Inner Classes. Os nomes de Local Inner
+    Classes geralmente começam com uma letra maiúscula, e os nomes de classe
+    compostos devem usar o padrão camelCase.
+
+    - Tamanho e complexidade do código: O uso excessivo de Local Inner Classes
+    pode levar a um código mais complexo e difícil de entender e manter.
+    É importante avaliar se o uso de Local Inner Classes é realmente necessário
+    e se há outras maneiras de estruturar o código de forma mais clara e concisa.
+    Afetando assim na legibilidade e manutenibilidade do código.
+
+    - Classes Anônimas: Local Inner Classes são semelhantes a classes anônimas, que
+    são definidas no momento da instanciação. As classes anônimas podem ser úteis
+    quando é necessário implementar uma interface ou uma classe abstrata de forma
+    rápida e concisa. No entanto, elas podem tornar o código menos legível e
+    dificultar a depuração.
+
+    - Interfaces funcionais: Local Inner Classes são frequentemente usadas para
+    criar instâncias de interfaces funcionais, como a interface Runnable.
+    Em vez de criar uma nova classe que implementa a interface, pode ser mais
+    conveniente definir uma Local Inner Class para implementar a interface
+    diretamente dentro do método onde ela será usada.
+
+    - Sobrescrita de membros: Local Inner Classes podem sobrescrever membros da
+    classe externa com o mesmo nome.
+    Isso pode levar a comportamentos inesperados, se o código que chama o método
+    não estiver ciente da Local Inner Class e sua sobrescrita.
+
+    - Uso de variáveis estáticas: Local Inner Classes não podem conter variáveis
+    estáticas, apenas variáveis de instância.
+    Isso ocorre porque uma Local Inner Class é criada dentro do escopo de um método
+    e não faz parte da classe externa.
+
+    - Acesso a membros privados: Local Inner Classes podem acessar membros privados
+    da classe externa, como campos e métodos.
+    No entanto, isso pode violar o encapsulamento e tornar o código mais difícil de
+    entender e manter. É importante usar o bom senso ao decidir quais membros devem
+    ser acessados pela Local Inner Class.
+
+    - Herança: Local Inner Classes não podem ser estendidas ou ser uma superclasse,
+    pois elas não podem ser acessadas fora do método em que foram definidas.
+
+    - Modularidade: Local Inner Classes podem ser usadas para modularizar o código
+    e encapsular a implementação de um recurso específico dentro do método em que
+    será usado. No entanto, isso deve ser feito com cuidado para evitar a criação
+    de uma cadeia de dependências complexa.
+
+    - Concorrência: Local Inner Classes podem ser usadas em ambientes concorrentes,
+    mas é importante lembrar que elas compartilham o mesmo estado que a classe
+    externa em que foram definidas.
+    Isso pode levar a problemas de concorrência se não for tratado adequadamente.
+
+    - Polimorfismo: Local Inner Classes podem ser usadas em polimorfismo, como
+    outras classes Java. Isso significa que uma referência de uma classe mais
+    genérica pode ser usada para referenciar uma instância de uma classe mais
+    específica, incluindo uma Local Inner Class.
+
+    - Depreciação: Local Inner Classes estão se tornando obsoletas em favor das
+    expressões lambda, que foram introduzidas no Java 8. As expressões lambda
+    fornecem uma maneira mais concisa e expressiva de definir comportamentos
+    específicos sem a necessidade de criar classes internas separadas.
+
+    - Serialização: Local Inner Classes podem ser serializadas, mas há algumas
+    limitações. A classe externa e quaisquer outras classes internas devem ser
+    serializáveis e a Local Inner Class deve ser marcada como "transient" para
+    evitar problemas de serialização.
+
+    - Debugging: O debugging de Local Inner Classes pode ser complicado, pois
+    elas são definidas dentro do escopo de um método e não podem ser acessadas
+    diretamente fora desse escopo. No entanto, as ferramentas de debugging
+    modernas geralmente permitem que você inspecione o estado de uma Local
+    Inner Class e seus membros.
+
+    - Uso em lambda: Local Inner Classes podem ser usadas como alternativa para
+    expressões lambda em alguns casos. No entanto, as expressões lambda são
+    geralmente mais concisas e expressivas, especialmente para implementações
+    de interfaces funcionais simples.
+
+    - Criação de classes internas em métodos: Local Inner Classes são um tipo de
+     classe interna que é definida dentro de um método. No entanto, também existem
+     outras classes internas que podem ser definidas dentro de outras classes,
+     como classes internas estáticas e classes internas regulares.
+
+    - Exemplo de uso: Um exemplo comum de uso de Local Inner Classes é em classes
+    de eventos, onde a Local Inner Class é usada para implementar o comportamento
+    do evento em resposta a uma ação do usuário. Por exemplo, em um botão de clique,
+    a Local Inner Class seria usada para definir o comportamento do clique do botão.
+
+    - Utilidade em código legado: Local Inner Classes podem ser úteis em código
+    legado ou em situações em que não é possível ou desejável modificar a estrutura
+    do código existente. No entanto, em novos projetos, é recomendável considerar
+    o uso de alternativas mais modernas, como expressões lambda ou outras formas de
+    programação funcional.
 
 */
 
