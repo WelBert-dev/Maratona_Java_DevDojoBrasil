@@ -134,7 +134,7 @@ package classesInternas;
 
 */
 
-public class Aula188InnerClass_sintaxe {
+public class Aula189InnerClass_sintaxe {
 
     public static void main(String[] args) {
         // Lembrando: main é um bloco estático, ou seja não é garantido

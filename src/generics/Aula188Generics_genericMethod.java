@@ -4,9 +4,6 @@ package generics;
 import estruturaDados.models.PatientModel;
 import generics.dominio.CarModel;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 /* 1o - Como declarar métodos genéricos sem precisar tornar a classe genérica como um todo:
@@ -137,11 +134,9 @@ import java.util.List;
     um parâmetro de tipo específico. É importante entender a diferença entre os dois tipos e saber
     quando usar cada um.
 
-    -
-
 */
 
-public class Aula187Generics_genericMethod {
+public class Aula188Generics_genericMethod {
     public static void main(String[] args) {
         // Testando A-) Podemos passar qualquer tipo:
         System.out.println("-------------------------------------[Testando A-) Podemos passar qualquer tipo:]----------------------------------");

@@ -2,7 +2,7 @@
 -- link: -
 -- Mais informações sobre serialização: -
 
-Intermediário: Mais especifico no Java
+Intermediário: Mais específico no Java
 
 
 // Hierarquia em árvore do fluxo de herança Stream:
@@ -62,8 +62,8 @@ Intermediário: Mais especifico no Java
 
 // A Árvore completa é muito extensa!
 
-- As classes Stream em Java são usadas para lidar com fluxos de entrada e saída de dados.
-Aqui está uma lista das principais classes Stream e suas aplicações:
+— As classes Stream em Java são usadas para lidar com fluxos de entrada e saída de dados.
+Aqui está uma lista das principais classes Stream e as suas aplicações:
 
     - InputStream: classe abstrata que é a superclasse de todas as classes de fluxo de
     entrada de dados em Java. Ela define os métodos básicos para ler bytes de dados de
@@ -75,7 +75,7 @@ Aqui está uma lista das principais classes Stream e suas aplicações:
 
     - FileInputStream: classe que permite ler dados de um arquivo em disco.
 
-    - FileOutputStream: classe que permite escrever dados em um arquivo em disco.
+    - FileOutputStream: classe que permite escrever dados num arquivo em disco.
 
     - ByteArrayInputStream: classe que permite ler dados de um buffer de bytes em memória.
 
@@ -115,29 +115,29 @@ Aqui está uma lista das principais classes Stream e suas aplicações:
 
     - FileReader: classe que permite ler dados de um arquivo de texto em disco.
 
-    - FileWriter: classe que permite escrever dados em um arquivo de texto em disco.
+    - FileWriter: classe que permite escrever dados num arquivo de texto em disco.
 
     - InputStreamReader: classe que permite ler dados de um fluxo de entrada de bytes e convertê-los em caracteres
      usando um conjunto de caracteres especificado.
 
-    - OutputStreamWriter: classe que permite escrever caracteres em um fluxo de saída de bytes usando um conjunto
+    - OutputStreamWriter: classe que permite escrever caracteres num fluxo de saída de bytes usando um conjunto
     de caracteres especificado.
 
-- Essas são algumas das classes Stream mais comuns em Java e suas aplicações.
+— Essas são algumas das classes Stream mais comuns em Java e as suas aplicações.
 Existem muitas outras classes disponíveis para lidar com diferentes tipos de
 entrada e saída de dados em Java, mas essas são um bom ponto de partida.
 
 --------------------------------------------------------------------------------------------------------------------
-- Introdução: Em Java, a serialização é o processo de converter um objeto em uma sequência
-de bytes, para que possa ser armazenado em um arquivo, transmitido através de uma rede ou
-armazenado em um banco de dados.
+- Introdução: Em Java, a serialização é o processo de converter um objeto numa sequência
+de bytes, para que possa ser armazenado num arquivo, transmitido através de uma rede ou
+armazenado num banco de dados.
 
 - transient: A palavra-chave transient é usada em Java para indicar que um campo de uma classe
 não deve ser serializado durante o processo de serialização de objetos.
 Quando um objeto é serializado, todos os seus campos são gravados em um fluxo de bytes.
 No entanto, se um campo é declarado como transient, ele não será gravado no fluxo.
 
-    - Existem algumas situações em que você pode querer marcar um campo como transient.
+    — Existem algumas situações em que você pode querer marcar um campo como transient.
     Por exemplo:
 
         - Campos que não devem ser salvos: Se uma classe contém campos que não precisam

@@ -57,7 +57,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class Aula186Generics_genericClass {
+public class Aula186e187Generics_genericClass {
     public static void main(String[] args) {
         // Demonstração: Aluguel de carros (em service), com e sem generics.
 
