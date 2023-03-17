@@ -1,13 +1,41 @@
 package classesInternas;
 
-// Inner Class ou Classes internas são classes dentro de classes,
-// utilizada apenas quando a outerClass realmente precisa separar
-// algum comportamento e garantir a coesão do código e além disto
-// APENAS a outerClass utilize a Inner Class!!!
+// Introdução ao contexto de Classes internas, aqui está explicações sobre a
+// sintaxe e Também sobre Nested Inner Classes.
 
-// Introdução ao contexto de Classes internas, aqui está explicações
-// sobre a sintaxe.
+/* O que são classes aninhadas no escopo de Inner Class? (Nested Inner Classes)
 
+    - Em Java, as classes locais aninhadas (Nested Inner Classes) são classes
+    definidas dentro de outra classe, que podem ser estáticas ou não estáticas.
+    Essas classes são definidas dentro de outra classe para permitir que elas
+    compartilhem o mesmo escopo, e geralmente são usadas para implementar
+    funcionalidades mais complexas ou especializadas que não fazem sentido em
+    outras partes do código.
+
+    - As classes locais aninhadas podem acessar todos os membros da classe externa,
+    incluindo membros privados, e podem ser acessadas apenas por meio de uma
+    instância da classe externa. Se a classe interna for declarada estática, ela
+    pode ser acessada diretamente, sem precisar de uma instância da classe externa.
+
+    - As classes locais aninhadas podem ser divididas em quatro tipos:
+
+        - Static nested class: é uma classe estática que é definida dentro de outra
+        classe. Ela pode ser acessada sem a necessidade de criar uma instância da
+        classe externa.
+
+        - Inner class: é uma classe não estática que é definida dentro de outra
+        classe. Ela tem acesso aos membros não estáticos da classe externa e pode
+        ser instanciada apenas por meio de uma instância da classe externa.
+
+        - Local class: é uma classe definida dentro de um método ou bloco de código.
+        Ela tem acesso aos membros da classe externa e pode ser usada para
+        implementar funcionalidades que são específicas para um método ou bloco.
+
+        - Anonymous class: é uma classe sem nome que é definida e instanciada em uma
+        única etapa. Ela é usada para implementar uma classe que é usada apenas uma
+        vez e não precisa de um nome ou tipo específico.
+
+*/
 
 /* Pontos importantes e atenções a se tomar quando se trabalha com classes internas (Inner Class):
 
@@ -134,7 +162,7 @@ package classesInternas;
 
 */
 
-public class Aula189InnerClass_sintaxe {
+public class Aula189InnerClass_sintaxe_nestedInnerClass_classesAninhadas {
 
     public static void main(String[] args) {
         // Lembrando: main é um bloco estático, ou seja não é garantido
