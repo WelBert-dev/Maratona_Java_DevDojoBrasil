@@ -116,7 +116,7 @@ Intermediário: Mais específico no Java
     requisitos do sistema.
 */
 
-
+-------------------------------------------------------------------------------
 // Classes/métodos aboradados neste package:
 * equals() e hashCode():
     - Utilizado para comparar Objetos, ambos devem ser concistentes entre sí.
@@ -145,6 +145,7 @@ Intermediário: Mais específico no Java
       desde que x != null.
       para x != null, x.equals(null) tem que retorna false;
 
+-------------------------------------------------------------------------------
 * Interface List<T>:
     A interface List é uma das interfaces mais importantes do framework de
     coleções do Java. Ela define um contrato para classes que representam
@@ -154,6 +155,7 @@ Intermediário: Mais específico no Java
     - Programação Orientada a Interface: As coleções no java são bem coesas
     e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
 
+-------------------------------------------------------------------------------
 * Classe que implementa List<T>: ArrayList<T>:
     - A classe ArrayList<T> é uma implementação da interface List<T> que usa
     uma matriz interna para armazenar seus elementos. Ao adicionar um
@@ -184,6 +186,7 @@ Intermediário: Mais específico no Java
     pode ser serializada e desserializada facilmente. Isso pode ser útil ao
     salvar e carregar listas em um arquivo ou enviar listas pela rede.
 
+-------------------------------------------------------------------------------
 * SortingLists:
     - Ordenando listas com o método Collections.sort(): método sobrecarregado,
     podemos passar apenas a coleção que será ordenada, ou também acrescentar
@@ -232,6 +235,151 @@ Intermediário: Mais específico no Java
     - Collections: Classe 100% estática utilizada como Utilitário no contexto
     de coleções no Java.
 
+-------------------------------------------------------------------------------
+* BinarySearch:
+    - É um dos métodos estáticos do Collections.binarySearch(numbersList, 6);
+    Aonde ´numberList´ é a coleção e ´6´ é o index do elemento em search.
+    - Podemos também aplicar esse método em Arrays nativos do Java,
+      porém o mesmo deve garantir a ordenação dos elementos.
+    - Para utilizar é necessário passar uma coleção ordenada (sort()),
+    pois ele utiliza tecnicas de programação que otimizam a performance.
 
+    - REGRA: O retorno será o index do elemento, com algumas convenções sendo
+     elas:
+        - A Diferença dele para um indexOf() é que além de retornar NEGATIVO
+        quando um Objeto não existe na lista retorna também em qual posição
+        o elemento deveria estar para manter a lista ordenada.
 
+        - Quando EXISTE o elemento em busca, retorna um inteiro POSITIVO que
+        representa o index dele.
+
+        - Quando NÃO existe o elemento em busca, retorna um inteiro NEGATIVO
+        que representa o index em que o elemento deve ser inserido para manter
+        a lista ordenada subtraindo 1. (-(ponto de inserção) -1)
+        Aonde "ponto de inserção" == index aonde o elemento deveria estar para
+        manter a lista ordenada.
+            - Subtraí 1 pois se o valor retornado fosse 0 não saberiamos se é
+            o resultado Exists do elemento, ou se é a posição em que o elemento
+            deveria estar, ou seja NotExists.
+                - OU SEJA, ele garante que só irá retornar POSITIVO se o elemento
+                Exists, caso contrario o retorno será sempre NEGATIVO.
+
+                - PORISSO deve se ATENTAR ao criar coleções com valores NEGATIVOS,
+                pois ai iria adicionar mais complexidade nesta lógica,
+                e a matematica que deverá ser aplicada após o processamento,
+                fazendo assim com que a transformação correta do elemento teria
+                que levar em consideração esse fator.
+
+            - FÓRMULA em casos de retorno NEGATIVO indicando que o elemento não
+            exists na lista, sendo necessário assim transformar o index
+            corretamente para obter o index real no qual o elemento deveria estar
+            para manter a lista organizada/sorted:
+
+                  int realIndex = 0;
+                  if (indexOfElementWithBinarySearched < 0){
+                      realIndex = -(indexOfElementWithBinarySearched + 1);
+
+                      ... Aqui podemos realizar a criação e inserção do Objeto na lista,
+                      de uma forma em que mantém a lista organizada na regra definida em Comparable<T>
+
+                  } else { // POSITIVO não é preciso, pois o index vem corretamente.
+                      realIndex = indexOfElementWithBinarySearched;
+                  }
+
+    - Vantagens de se utilizar a busca binária: APENAS e só APENAS se aplica em
+    listas Sorted/Ordenadas!!
+
+         - A vantagem de utilizar o método binarySearch() é a eficiência em
+         encontrar um elemento de uma lista ordenada. A busca binária é um
+         algoritmo eficiente para encontrar um elemento de uma lista ordenada,
+         pois a busca é feita pela metade da lista em cada iteração, reduzindo
+         drasticamente o número de comparações necessárias.
+
+         - Em comparação com uma busca linear, em que cada elemento da lista é
+         verificado um por um até que o elemento procurado seja encontrado, a
+         busca binária é significativamente mais rápida para listas maiores.
+         Isso se deve ao fato de que a BUSCA BINÁRIA corta a lista pela METADE
+         a cada iteração, enquanto a busca LINEAR percorre TODOS os elementos
+         da lista.
+
+    - Desvantagens de se utilizar a busca binária:
+
+        - A lista deve estar ordenada: A busca binária requer que a lista esteja
+        ordenada em ordem crescente ou decrescente antes de executar a busca.
+        Isso significa que, se a lista não estiver ordenada corretamente, será
+        necessário ordená-la antes de realizar a busca, o que pode ser um
+        processo custoso em termos de tempo.
+
+        - Não é adequado para listas pequenas: A busca binária é mais eficiente
+        para listas grandes, pois seu desempenho aumenta exponencialmente à
+        medida que o tamanho da lista aumenta. Para listas pequenas, o desempenho
+        da busca binária pode ser comparável ou até mesmo pior do que outras
+        técnicas de busca, como a busca linear.
+
+        - Não é adequado para listas mutáveis: A busca binária é projetada para
+        ser usada com listas imutáveis, ou seja, listas que não mudam durante a
+        busca. Se a lista estiver sendo modificada enquanto a busca estiver em
+        andamento, pode haver problemas com a ordem dos elementos e o resultado
+        da busca pode ser impreciso.
+
+        - Não é adequado para tipos de dados complexos: A busca binária é melhor
+        usada com tipos de dados simples, como inteiros ou caracteres. Para tipos
+        de dados complexos, como objetos personalizados, pode ser necessário
+        definir uma ordem de classificação personalizada ou sobrescrever o método
+        compareTo() para que a busca binária funcione corretamente.
+
+        - Requer que a lista implemente a interface List: O método binarySearch()
+        do Collections só pode ser usado em listas que implementam a interface
+        List. Se você estiver usando uma lista que não implementa a interface
+        List, será necessário usar uma implementação personalizada da busca binária.
+
+        - Pode retornar resultados imprecisos ou inesperados: Em alguns casos, o
+        método binarySearch() pode retornar resultados imprecisos ou inesperados,
+        especialmente se a lista contiver elementos duplicados. Nesses casos, o
+        método pode retornar qualquer índice correspondente a um elemento
+        encontrado, mas não necessariamente o índice do elemento desejado.
+
+        - Não é adequado para buscas por critérios complexos: A busca binária é
+        adequada para encontrar elementos por valor exato. No entanto, se você
+        precisar procurar por elementos com base em critérios mais complexos,
+        como faixa de valores ou correspondência parcial de strings, a busca
+        binária pode não ser a melhor opção.
+
+        - A complexidade da implementação: Implementar a busca binária requer
+        conhecimento prévio e pode ser um processo complexo, especialmente se
+        você estiver lidando com casos não triviais, como a busca em listas
+        multidimensionais.
+
+        - Pode ser menos eficiente em cenários de memória limitada: A busca
+        binária requer que a lista esteja ordenada em memória antes de executar
+        a busca, o que pode ser um problema em cenários com limitações de memória.
+        Em tais cenários, outras técnicas de busca, como a busca linear ou a busca
+        hash, podem ser mais eficientes.
+
+-------------------------------------------------------------------------------
+* List to Array Convertion: Conversões Array nativo <=> List e vici versa.
+
+    - Transformando uma List<E> em um Array:
+        Object[] objects = inteiros.toArray(); -> sem especificar ele retorna Objects
+        Integer[] listToArray = integersList.toArray(new Integer[0]);
+
+    - Transformando um Array em uma List<E>:
+        List<Integer> integers = Arrays.asList(listToArray); // linka os dois arrays em uma List<T>
+        //integers.add(4); -> Operação inválida pois Arrays não podem ser redimensionados.
+        integers.set(2, 4); // Operação VÀLIDA pois não estemos alterando o dimensionamento do array (size)
+
+        List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray)); // SOLUÇÃO: quebra o link
+
+    - Arrays.asList():
+        - É otimizado para criar uma lista de tamanho fixo a partir de um array
+         existente e, portanto, é mais eficiente em termos de memória e
+         desempenho. Além disso, o método retorna uma visualização da lista,
+         o que significa que não é criada uma nova instância de lista. Em vez
+         disso, é criado um objeto interno que atua como uma "janela" para o
+         array subjacente, permitindo que você trabalhe com a lista como se
+         fosse uma lista regular.
+
+             - SOLUÇÃO: Para quebrar esse vínculo utilizar o array no construtor
+             e criar uma nova instância de List<T>:
+             List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray));
 
