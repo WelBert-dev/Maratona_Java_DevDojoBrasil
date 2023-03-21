@@ -133,7 +133,104 @@ Intermediário: Mais específico no Java
         - Sempre utilizar atributos constantes para gerar os hashs e garantir
         imutabilidade.
 
+    - Regras para a implementação do equals em um Object Model:
 
+      - Reflexivo: x.equals(x) == true para tudo != null;
+      - Simétrico: para x e y != null, se x.equals(y) == true logo y.equals(x)
+      também tem que ser true.
+      - Transitividade: para x, y e z != null,
+      se x.equals(y) && x.equals(z) == true então y.equals(z) tambeḿ tem que
+      ser true.
+      - Consistente: para todas as chamadas, x.equals(x) sempre retorna true
+      desde que x != null.
+      para x != null, x.equals(null) tem que retorna false;
+
+* Interface List<T>:
+    A interface List é uma das interfaces mais importantes do framework de
+    coleções do Java. Ela define um contrato para classes que representam
+    sequências ordenadas de elementos e oferece uma série de métodos para
+    manipulação dessas sequências.
+    - Interface mais genérica utilizada neste contexto.
+    - Programação Orientada a Interface: As coleções no java são bem coesas
+    e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
+
+* Classe que implementa List<T>: ArrayList<T>:
+    - A classe ArrayList<T> é uma implementação da interface List<T> que usa
+    uma matriz interna para armazenar seus elementos. Ao adicionar um
+    elemento a uma ArrayList<T>, a matriz interna pode precisar ser
+    redimensionada, o que pode ser um processo lento se a lista for grande.
+    Portanto, se você precisa adicionar muitos elementos a uma ArrayList<T>,
+    considere usar um LinkedList<T> em vez disso.
+
+    - O método add() da ArrayList<T> adiciona um elemento ao final da lista.
+    Se você precisar adicionar um elemento em uma posição específica, use o
+    método add(int index, T element) em vez disso. No entanto, tenha cuidado
+    ao adicionar elementos em posições intermediárias, pois isso pode exigir
+    que todos os elementos subsequentes sejam movidos para cima na matriz
+    interna.
+
+    - A ArrayList<T> é uma estrutura de dados mutável, o que significa que os
+    elementos podem ser alterados a qualquer momento. Isso pode ser útil em
+    alguns casos, mas também pode tornar seu código mais difícil de entender
+    e depurar. Considere usar coleções imutáveis, como a List<T> fornecida
+    pela classe Collections, sempre que possível.
+
+    - A ArrayList<T> não é sincronizada, o que significa que não é segura para
+    uso em threads concorrentes. Se você precisar compartilhar uma lista entre
+    várias threads, considere usar uma lista sincronizada ou um
+    CopyOnWriteArrayList<T> em vez disso.
+
+    - A ArrayList<T> implementa a interface Serializable, o que significa que
+    pode ser serializada e desserializada facilmente. Isso pode ser útil ao
+    salvar e carregar listas em um arquivo ou enviar listas pela rede.
+
+* SortingLists:
+    - Ordenando listas com o método Collections.sort(): método sobrecarregado,
+    podemos passar apenas a coleção que será ordenada, ou também acrescentar
+    um obj que implemente Comparator<T> no segundo parâmetro.
+
+    - Para ordenar a coleção, o obj em ordenação desta lista precisa implementar
+    Comparable<T> ou então será necessário criar uma instância Comparator<T> e
+    nele definir a regra de ordenação para o método compare().
+    (Oque torna um obj maior>, menor< ou igual== a outro?).
+        - Obs: Mesma regra definida em um obj que implements Comparable<T>.
+
+    - Quando utilizar Comparable<T> ou Comparator<T> ?
+        Implementamos o Comparable<T> num objeto quando queremos definir uma
+        regra "Geral/Natural" de ordenação, essa seria a regra "default" de
+        ordenação, ou seja, válida para o programa como um "tôdo" pois toda
+        vez que o Java precisar comparar dois objetos, ele utilizará essa
+        regra como critério, "chamando" o método compareTo(Object otherObj);
+
+        - Implementamos o Compartor<T> quando queremos alterar por algum
+        motivo essa regra inicial apenas em pontos específicos no programa,
+        alterando assim essa ordenação "Natural/Default" do Objeto em
+        questão.
+            - Também podemos utilizar essa abordagem quando o objeto em
+            ordenação não estiver sob nosso controle, por algum motivo
+            como API's de terceiros ou classes que não conhecemos bem
+            o seu comportamento/uso geral no programa, então para isso
+            criamos ou implementamos um Comparator<T> e definimos a
+            regra, sem afetar a Classe do Objeto em ordenação em sí.
+
+        - Dica: Caso queira utilizar como critério de comparação Objetos
+        internos a outros em aninhamento como por exemplo ordenar uma
+        lista de pedidos com base no nome dos clientes, ou ir além, basta
+        na implementação do Comparator<T> utilizar o get multiplas vezes
+        até encontrar o Objeto do nível correto:
+
+          @Override
+          public int compare(Pedido p1, Pedido p2) {
+              String nomeCliente1 = p1.getCliente().getNome(); // -> Aqui poderia ter get().get().get()...
+              String nomeCliente2 = p2.getCliente().getNome(); // Até chegar no nível do Objeto desejado.
+              return nomeCliente1.compareTo(nomeCliente2);
+          }
+
+    - Além dessa implementação necessária para a ordenação de elementos,
+    também é necessário a implementação correta do equals() e hashCode().
+
+    - Collections: Classe 100% estática utilizada como Utilitário no contexto
+    de coleções no Java.
 
 
 
