@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 /*
  - BinarySearch também funciona para Arrays nativos em java não apenas para coleções.
@@ -72,8 +72,6 @@ package colections;
 */
 
 
-
-import estruturaDados.models.BookModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

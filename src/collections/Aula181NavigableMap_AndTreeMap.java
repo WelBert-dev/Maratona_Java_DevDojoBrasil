@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 // Classe com o mesmo contexto da NavigableSet e TreeSet porém com Maps
 // Mesma regra sobre a utilização de NavigableSet aqui também é necessário

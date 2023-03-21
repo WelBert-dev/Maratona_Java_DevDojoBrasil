@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 // Não é extends de Collections ou seja não é bem uma coleção técnicamente falando,
 // tomar cuidado ao utilizar métodos Polimorficos que esperam implementações de Collection!

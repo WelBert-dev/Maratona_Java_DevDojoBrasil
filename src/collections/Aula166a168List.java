@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 // - List é uma interface que extends de Collection.
 // - Utilizada para se trabalhar orientado a interface.

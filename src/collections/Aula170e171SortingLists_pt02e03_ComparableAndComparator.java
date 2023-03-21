@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 
 // Estudos mais a fundo sobre Compare e Comparator em src/estruturaDados

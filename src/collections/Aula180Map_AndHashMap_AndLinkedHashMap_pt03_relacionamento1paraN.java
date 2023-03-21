@@ -1,8 +1,7 @@
-package colections;
+package collections;
 
 // Relacionamentos 1 para N utilizando maps par armazenar os pares Chave/Valor
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

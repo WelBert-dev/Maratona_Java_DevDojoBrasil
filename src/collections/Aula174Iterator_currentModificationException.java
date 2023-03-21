@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 // Quando desejamos modificar (remover, adicionar..) elementos de uma coleção,
 // e estamos em um Looping iterando sobre essa coleção, não é possível e
@@ -9,7 +9,6 @@ package colections;
 // antes de tomar alguma decisão sobre uma lista.
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Aula174Iterator_currentModificationException {

@@ -1,4 +1,4 @@
-package colections;
+package collections;
 
 // Operação básica porém muito utilizada no dia-a-dia
 // Obs: Ao utilizar 0 como size do array, o java se encarrega
