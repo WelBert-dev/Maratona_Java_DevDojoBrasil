@@ -119,267 +119,387 @@ Intermediário: Mais específico no Java
 -------------------------------------------------------------------------------
 // Classes/métodos aboradados neste package:
 * equals() e hashCode():
-    - Utilizado para comparar Objetos, ambos devem ser concistentes entre sí.
-    - Equals e HashCode são muito utilzados em Listas complexas e com maior
-      performance, como HashSet e HashMap. Pois ao invés de comparar elemento
-      a elemento da lista, eles utilizam o hashCode como index, assim podemos
-      acessar o Objeto da lista diretamente sem precisar realizar a iteração
-      elemento a elemento como algoritmos mais simples fazem.
+- Utilizado para comparar Objetos, ambos devem ser concistentes entre sí.
+- Equals e HashCode são muito utilzados em Listas complexas e com maior
+  performance, como HashSet e HashMap. Pois ao invés de comparar elemento
+  a elemento da lista, eles utilizam o hashCode como index, assim podemos
+  acessar o Objeto da lista diretamente sem precisar realizar a iteração
+  elemento a elemento como algoritmos mais simples fazem.
 
-    - Atenções sobre:
-        CUIDADOS ao trabalhar com Objetos mutáveis e hashCode pois o hash muda,
-        e assim pode gerar possíveis inconcistências ao utilizar métodos de
-        busca e etc!
-        - Sempre utilizar atributos constantes para gerar os hashs e garantir
-        imutabilidade.
+- Atenções sobre:
+    CUIDADOS ao trabalhar com Objetos mutáveis e hashCode pois o hash muda,
+    e assim pode gerar possíveis inconcistências ao utilizar métodos de
+    busca e etc!
+    - Sempre utilizar atributos constantes para gerar os hashs e garantir
+    imutabilidade.
 
-    - Regras para a implementação do equals em um Object Model:
+- Regras para a implementação do equals em um Object Model:
 
-      - Reflexivo: x.equals(x) == true para tudo != null;
-      - Simétrico: para x e y != null, se x.equals(y) == true logo y.equals(x)
-      também tem que ser true.
-      - Transitividade: para x, y e z != null,
-      se x.equals(y) && x.equals(z) == true então y.equals(z) tambeḿ tem que
-      ser true.
-      - Consistente: para todas as chamadas, x.equals(x) sempre retorna true
-      desde que x != null.
-      para x != null, x.equals(null) tem que retorna false;
+  - Reflexivo: x.equals(x) == true para tudo != null;
+  - Simétrico: para x e y != null, se x.equals(y) == true logo y.equals(x)
+  também tem que ser true.
+  - Transitividade: para x, y e z != null,
+  se x.equals(y) && x.equals(z) == true então y.equals(z) tambeḿ tem que
+  ser true.
+  - Consistente: para todas as chamadas, x.equals(x) sempre retorna true
+  desde que x != null.
+  para x != null, x.equals(null) tem que retorna false;
 
 -------------------------------------------------------------------------------
 * Interface List<T>:
-    A interface List é uma das interfaces mais importantes do framework de
-    coleções do Java. Ela define um contrato para classes que representam
-    sequências ordenadas de elementos e oferece uma série de métodos para
-    manipulação dessas sequências.
-    - Interface mais genérica utilizada neste contexto.
-    - Programação Orientada a Interface: As coleções no java são bem coesas
-    e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
+- A interface List é uma das interfaces mais importantes do framework de
+coleções do Java. Ela define um contrato para classes que representam
+sequências ordenadas de elementos e oferece uma série de métodos para
+manipulação dessas sequências.
+- Interface mais genérica utilizada neste contexto.
+- Programação Orientada a Interface: As coleções no java são bem coesas
+e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
 
 -------------------------------------------------------------------------------
 * Classe que implementa List<T>: ArrayList<T>:
-    - A classe ArrayList<T> é uma implementação da interface List<T> que usa
-    uma matriz interna para armazenar seus elementos. Ao adicionar um
-    elemento a uma ArrayList<T>, a matriz interna pode precisar ser
-    redimensionada, o que pode ser um processo lento se a lista for grande.
-    Portanto, se você precisa adicionar muitos elementos a uma ArrayList<T>,
-    considere usar um LinkedList<T> em vez disso.
+- A classe ArrayList<T> é uma implementação da interface List<T> que usa
+uma matriz interna para armazenar seus elementos. Ao adicionar um
+elemento a uma ArrayList<T>, a matriz interna pode precisar ser
+redimensionada, o que pode ser um processo lento se a lista for grande.
+Portanto, se você precisa adicionar muitos elementos a uma ArrayList<T>,
+considere usar um LinkedList<T> em vez disso.
 
-    - O método add() da ArrayList<T> adiciona um elemento ao final da lista.
-    Se você precisar adicionar um elemento em uma posição específica, use o
-    método add(int index, T element) em vez disso. No entanto, tenha cuidado
-    ao adicionar elementos em posições intermediárias, pois isso pode exigir
-    que todos os elementos subsequentes sejam movidos para cima na matriz
-    interna.
+- O método add() da ArrayList<T> adiciona um elemento ao final da lista.
+Se você precisar adicionar um elemento em uma posição específica, use o
+método add(int index, T element) em vez disso. No entanto, tenha cuidado
+ao adicionar elementos em posições intermediárias, pois isso pode exigir
+que todos os elementos subsequentes sejam movidos para cima na matriz
+interna.
 
-    - A ArrayList<T> é uma estrutura de dados mutável, o que significa que os
-    elementos podem ser alterados a qualquer momento. Isso pode ser útil em
-    alguns casos, mas também pode tornar seu código mais difícil de entender
-    e depurar. Considere usar coleções imutáveis, como a List<T> fornecida
-    pela classe Collections, sempre que possível.
+- A ArrayList<T> é uma estrutura de dados mutável, o que significa que os
+elementos podem ser alterados a qualquer momento. Isso pode ser útil em
+alguns casos, mas também pode tornar seu código mais difícil de entender
+e depurar. Considere usar coleções imutáveis, como a List<T> fornecida
+pela classe Collections, sempre que possível.
 
-    - A ArrayList<T> não é sincronizada, o que significa que não é segura para
-    uso em threads concorrentes. Se você precisar compartilhar uma lista entre
-    várias threads, considere usar uma lista sincronizada ou um
-    CopyOnWriteArrayList<T> em vez disso.
+- A ArrayList<T> não é sincronizada, o que significa que não é segura para
+uso em threads concorrentes. Se você precisar compartilhar uma lista entre
+várias threads, considere usar uma lista sincronizada ou um
+CopyOnWriteArrayList<T> em vez disso.
 
-    - A ArrayList<T> implementa a interface Serializable, o que significa que
-    pode ser serializada e desserializada facilmente. Isso pode ser útil ao
-    salvar e carregar listas em um arquivo ou enviar listas pela rede.
+- A ArrayList<T> implementa a interface Serializable, o que significa que
+pode ser serializada e desserializada facilmente. Isso pode ser útil ao
+salvar e carregar listas em um arquivo ou enviar listas pela rede.
 
 -------------------------------------------------------------------------------
 * SortingLists:
-    - Ordenando listas com o método Collections.sort(): método sobrecarregado,
-    podemos passar apenas a coleção que será ordenada, ou também acrescentar
-    um obj que implemente Comparator<T> no segundo parâmetro.
+- Ordenando listas com o método Collections.sort(): método sobrecarregado,
+podemos passar apenas a coleção que será ordenada, ou também acrescentar
+um obj que implemente Comparator<T> no segundo parâmetro.
 
-    - Para ordenar a coleção, o obj em ordenação desta lista precisa implementar
-    Comparable<T> ou então será necessário criar uma instância Comparator<T> e
-    nele definir a regra de ordenação para o método compare().
-    (Oque torna um obj maior>, menor< ou igual== a outro?).
-        - Obs: Mesma regra definida em um obj que implements Comparable<T>.
+- Para ordenar a coleção, o obj em ordenação desta lista precisa implementar
+Comparable<T> ou então será necessário criar uma instância Comparator<T> e
+nele definir a regra de ordenação para o método compare().
+(Oque torna um obj maior>, menor< ou igual== a outro?).
+    - Obs: Mesma regra definida em um obj que implements Comparable<T>.
 
-    - Quando utilizar Comparable<T> ou Comparator<T> ?
-        Implementamos o Comparable<T> num objeto quando queremos definir uma
-        regra "Geral/Natural" de ordenação, essa seria a regra "default" de
-        ordenação, ou seja, válida para o programa como um "tôdo" pois toda
-        vez que o Java precisar comparar dois objetos, ele utilizará essa
-        regra como critério, "chamando" o método compareTo(Object otherObj);
+- Quando utilizar Comparable<T> ou Comparator<T> ?
+    Implementamos o Comparable<T> num objeto quando queremos definir uma
+    regra "Geral/Natural" de ordenação, essa seria a regra "default" de
+    ordenação, ou seja, válida para o programa como um "tôdo" pois toda
+    vez que o Java precisar comparar dois objetos, ele utilizará essa
+    regra como critério, "chamando" o método compareTo(Object otherObj);
 
-        - Implementamos o Compartor<T> quando queremos alterar por algum
-        motivo essa regra inicial apenas em pontos específicos no programa,
-        alterando assim essa ordenação "Natural/Default" do Objeto em
-        questão.
-            - Também podemos utilizar essa abordagem quando o objeto em
-            ordenação não estiver sob nosso controle, por algum motivo
-            como API's de terceiros ou classes que não conhecemos bem
-            o seu comportamento/uso geral no programa, então para isso
-            criamos ou implementamos um Comparator<T> e definimos a
-            regra, sem afetar a Classe do Objeto em ordenação em sí.
+    - Implementamos o Compartor<T> quando queremos alterar por algum
+    motivo essa regra inicial apenas em pontos específicos no programa,
+    alterando assim essa ordenação "Natural/Default" do Objeto em
+    questão.
+        - Também podemos utilizar essa abordagem quando o objeto em
+        ordenação não estiver sob nosso controle, por algum motivo
+        como API's de terceiros ou classes que não conhecemos bem
+        o seu comportamento/uso geral no programa, então para isso
+        criamos ou implementamos um Comparator<T> e definimos a
+        regra, sem afetar a Classe do Objeto em ordenação em sí.
 
-        - Dica: Caso queira utilizar como critério de comparação Objetos
-        internos a outros em aninhamento como por exemplo ordenar uma
-        lista de pedidos com base no nome dos clientes, ou ir além, basta
-        na implementação do Comparator<T> utilizar o get multiplas vezes
-        até encontrar o Objeto do nível correto:
+    - Dica: Caso queira utilizar como critério de comparação Objetos
+    internos a outros em aninhamento como por exemplo ordenar uma
+    lista de pedidos com base no nome dos clientes, ou ir além, basta
+    na implementação do Comparator<T> utilizar o get multiplas vezes
+    até encontrar o Objeto do nível correto:
 
-          @Override
-          public int compare(Pedido p1, Pedido p2) {
-              String nomeCliente1 = p1.getCliente().getNome(); // -> Aqui poderia ter get().get().get()...
-              String nomeCliente2 = p2.getCliente().getNome(); // Até chegar no nível do Objeto desejado.
-              return nomeCliente1.compareTo(nomeCliente2);
-          }
+      @Override
+      public int compare(Pedido p1, Pedido p2) {
+          String nomeCliente1 = p1.getCliente().getNome(); // -> Aqui poderia ter get().get().get()...
+          String nomeCliente2 = p2.getCliente().getNome(); // Até chegar no nível do Objeto desejado.
+          return nomeCliente1.compareTo(nomeCliente2);
+      }
 
-    - Além dessa implementação necessária para a ordenação de elementos,
-    também é necessário a implementação correta do equals() e hashCode().
+- Além dessa implementação necessária para a ordenação de elementos,
+também é necessário a implementação correta do equals() e hashCode().
 
-    - Collections: Classe 100% estática utilizada como Utilitário no contexto
-    de coleções no Java.
+- Collections: Classe 100% estática utilizada como Utilitário no contexto
+de coleções no Java.
 
 -------------------------------------------------------------------------------
-* BinarySearch:
-    - É um dos métodos estáticos do Collections.binarySearch(numbersList, 6);
-    Aonde ´numberList´ é a coleção e ´6´ é o index do elemento em search.
-    - Podemos também aplicar esse método em Arrays nativos do Java,
-      porém o mesmo deve garantir a ordenação dos elementos.
-    - Para utilizar é necessário passar uma coleção ordenada (sort()),
-    pois ele utiliza tecnicas de programação que otimizam a performance.
+* BinarySearch: Método utilitário do Collections.
+- É um dos métodos estáticos do Collections.binarySearch(numbersList, 6);
+Aonde ´numberList´ é a coleção e ´6´ é o index do elemento em search.
+- Podemos também aplicar esse método em Arrays nativos do Java,
+  porém o mesmo deve garantir a ordenação dos elementos.
+- Para utilizar é necessário passar uma coleção ordenada (sort()),
+pois ele utiliza tecnicas de programação que otimizam a performance.
 
-    - REGRA: O retorno será o index do elemento, com algumas convenções sendo
-     elas:
-        - A Diferença dele para um indexOf() é que além de retornar NEGATIVO
-        quando um Objeto não existe na lista retorna também em qual posição
-        o elemento deveria estar para manter a lista ordenada.
+- REGRA: O retorno será o index do elemento, com algumas convenções sendo
+ elas:
+    - A Diferença dele para um indexOf() é que além de retornar NEGATIVO
+    quando um Objeto não existe na lista retorna também em qual posição
+    o elemento deveria estar para manter a lista ordenada.
 
-        - Quando EXISTE o elemento em busca, retorna um inteiro POSITIVO que
-        representa o index dele.
+    - Quando EXISTE o elemento em busca, retorna um inteiro POSITIVO que
+    representa o index dele.
 
-        - Quando NÃO existe o elemento em busca, retorna um inteiro NEGATIVO
-        que representa o index em que o elemento deve ser inserido para manter
-        a lista ordenada subtraindo 1. (-(ponto de inserção) -1)
-        Aonde "ponto de inserção" == index aonde o elemento deveria estar para
-        manter a lista ordenada.
-            - Subtraí 1 pois se o valor retornado fosse 0 não saberiamos se é
-            o resultado Exists do elemento, ou se é a posição em que o elemento
-            deveria estar, ou seja NotExists.
-                - OU SEJA, ele garante que só irá retornar POSITIVO se o elemento
-                Exists, caso contrario o retorno será sempre NEGATIVO.
+    - Quando NÃO existe o elemento em busca, retorna um inteiro NEGATIVO
+    que representa o index em que o elemento deve ser inserido para manter
+    a lista ordenada subtraindo 1. (-(ponto de inserção) -1)
+    Aonde "ponto de inserção" == index aonde o elemento deveria estar para
+    manter a lista ordenada.
+        - Subtraí 1 pois se o valor retornado fosse 0 não saberiamos se é
+        o resultado Exists do elemento, ou se é a posição em que o elemento
+        deveria estar, ou seja NotExists.
+            - OU SEJA, ele garante que só irá retornar POSITIVO se o elemento
+            Exists, caso contrario o retorno será sempre NEGATIVO.
 
-                - PORISSO deve se ATENTAR ao criar coleções com valores NEGATIVOS,
-                pois ai iria adicionar mais complexidade nesta lógica,
-                e a matematica que deverá ser aplicada após o processamento,
-                fazendo assim com que a transformação correta do elemento teria
-                que levar em consideração esse fator.
+            - PORISSO deve se ATENTAR ao criar coleções com valores NEGATIVOS,
+            pois ai iria adicionar mais complexidade nesta lógica,
+            e a matematica que deverá ser aplicada após o processamento,
+            fazendo assim com que a transformação correta do elemento teria
+            que levar em consideração esse fator.
 
-            - FÓRMULA em casos de retorno NEGATIVO indicando que o elemento não
-            exists na lista, sendo necessário assim transformar o index
-            corretamente para obter o index real no qual o elemento deveria estar
-            para manter a lista organizada/sorted:
+        - FÓRMULA em casos de retorno NEGATIVO indicando que o elemento não
+        exists na lista, sendo necessário assim transformar o index
+        corretamente para obter o index real no qual o elemento deveria estar
+        para manter a lista organizada/sorted:
 
-                  int realIndex = 0;
-                  if (indexOfElementWithBinarySearched < 0){
-                      realIndex = -(indexOfElementWithBinarySearched + 1);
+              int realIndex = 0;
+              if (indexOfElementWithBinarySearched < 0){
+                  realIndex = -(indexOfElementWithBinarySearched + 1);
 
-                      ... Aqui podemos realizar a criação e inserção do Objeto na lista,
-                      de uma forma em que mantém a lista organizada na regra definida em Comparable<T>
+                  ... Aqui podemos realizar a criação e inserção do Objeto na lista,
+                  de uma forma em que mantém a lista organizada na regra definida em Comparable<T>
 
-                  } else { // POSITIVO não é preciso, pois o index vem corretamente.
-                      realIndex = indexOfElementWithBinarySearched;
-                  }
+              } else { // POSITIVO não é preciso, pois o index vem corretamente.
+                  realIndex = indexOfElementWithBinarySearched;
+              }
 
-    - Vantagens de se utilizar a busca binária: APENAS e só APENAS se aplica em
-    listas Sorted/Ordenadas!!
+- Vantagens de se utilizar a busca binária: APENAS e só APENAS se aplica em
+listas Sorted/Ordenadas!!
 
-         - A vantagem de utilizar o método binarySearch() é a eficiência em
-         encontrar um elemento de uma lista ordenada. A busca binária é um
-         algoritmo eficiente para encontrar um elemento de uma lista ordenada,
-         pois a busca é feita pela metade da lista em cada iteração, reduzindo
-         drasticamente o número de comparações necessárias.
+     - A vantagem de utilizar o método binarySearch() é a eficiência em
+     encontrar um elemento de uma lista ordenada. A busca binária é um
+     algoritmo eficiente para encontrar um elemento de uma lista ordenada,
+     pois a busca é feita pela metade da lista em cada iteração, reduzindo
+     drasticamente o número de comparações necessárias.
 
-         - Em comparação com uma busca linear, em que cada elemento da lista é
-         verificado um por um até que o elemento procurado seja encontrado, a
-         busca binária é significativamente mais rápida para listas maiores.
-         Isso se deve ao fato de que a BUSCA BINÁRIA corta a lista pela METADE
-         a cada iteração, enquanto a busca LINEAR percorre TODOS os elementos
-         da lista.
+     - Em comparação com uma busca linear, em que cada elemento da lista é
+     verificado um por um até que o elemento procurado seja encontrado, a
+     busca binária é significativamente mais rápida para listas maiores.
+     Isso se deve ao fato de que a BUSCA BINÁRIA corta a lista pela METADE
+     a cada iteração, enquanto a busca LINEAR percorre TODOS os elementos
+     da lista.
 
-    - Desvantagens de se utilizar a busca binária:
+- Desvantagens de se utilizar a busca binária:
 
-        - A lista deve estar ordenada: A busca binária requer que a lista esteja
-        ordenada em ordem crescente ou decrescente antes de executar a busca.
-        Isso significa que, se a lista não estiver ordenada corretamente, será
-        necessário ordená-la antes de realizar a busca, o que pode ser um
-        processo custoso em termos de tempo.
+    - A lista deve estar ordenada: A busca binária requer que a lista esteja
+    ordenada em ordem crescente ou decrescente antes de executar a busca.
+    Isso significa que, se a lista não estiver ordenada corretamente, será
+    necessário ordená-la antes de realizar a busca, o que pode ser um
+    processo custoso em termos de tempo.
 
-        - Não é adequado para listas pequenas: A busca binária é mais eficiente
-        para listas grandes, pois seu desempenho aumenta exponencialmente à
-        medida que o tamanho da lista aumenta. Para listas pequenas, o desempenho
-        da busca binária pode ser comparável ou até mesmo pior do que outras
-        técnicas de busca, como a busca linear.
+    - Não é adequado para listas pequenas: A busca binária é mais eficiente
+    para listas grandes, pois seu desempenho aumenta exponencialmente à
+    medida que o tamanho da lista aumenta. Para listas pequenas, o desempenho
+    da busca binária pode ser comparável ou até mesmo pior do que outras
+    técnicas de busca, como a busca linear.
 
-        - Não é adequado para listas mutáveis: A busca binária é projetada para
-        ser usada com listas imutáveis, ou seja, listas que não mudam durante a
-        busca. Se a lista estiver sendo modificada enquanto a busca estiver em
-        andamento, pode haver problemas com a ordem dos elementos e o resultado
-        da busca pode ser impreciso.
+    - Não é adequado para listas mutáveis: A busca binária é projetada para
+    ser usada com listas imutáveis, ou seja, listas que não mudam durante a
+    busca. Se a lista estiver sendo modificada enquanto a busca estiver em
+    andamento, pode haver problemas com a ordem dos elementos e o resultado
+    da busca pode ser impreciso.
 
-        - Não é adequado para tipos de dados complexos: A busca binária é melhor
-        usada com tipos de dados simples, como inteiros ou caracteres. Para tipos
-        de dados complexos, como objetos personalizados, pode ser necessário
-        definir uma ordem de classificação personalizada ou sobrescrever o método
-        compareTo() para que a busca binária funcione corretamente.
+    - Não é adequado para tipos de dados complexos: A busca binária é melhor
+    usada com tipos de dados simples, como inteiros ou caracteres. Para tipos
+    de dados complexos, como objetos personalizados, pode ser necessário
+    definir uma ordem de classificação personalizada ou sobrescrever o método
+    compareTo() para que a busca binária funcione corretamente.
 
-        - Requer que a lista implemente a interface List: O método binarySearch()
-        do Collections só pode ser usado em listas que implementam a interface
-        List. Se você estiver usando uma lista que não implementa a interface
-        List, será necessário usar uma implementação personalizada da busca binária.
+    - Requer que a lista implemente a interface List: O método binarySearch()
+    do Collections só pode ser usado em listas que implementam a interface
+    List. Se você estiver usando uma lista que não implementa a interface
+    List, será necessário usar uma implementação personalizada da busca binária.
 
-        - Pode retornar resultados imprecisos ou inesperados: Em alguns casos, o
-        método binarySearch() pode retornar resultados imprecisos ou inesperados,
-        especialmente se a lista contiver elementos duplicados. Nesses casos, o
-        método pode retornar qualquer índice correspondente a um elemento
-        encontrado, mas não necessariamente o índice do elemento desejado.
+    - Pode retornar resultados imprecisos ou inesperados: Em alguns casos, o
+    método binarySearch() pode retornar resultados imprecisos ou inesperados,
+    especialmente se a lista contiver elementos duplicados. Nesses casos, o
+    método pode retornar qualquer índice correspondente a um elemento
+    encontrado, mas não necessariamente o índice do elemento desejado.
 
-        - Não é adequado para buscas por critérios complexos: A busca binária é
-        adequada para encontrar elementos por valor exato. No entanto, se você
-        precisar procurar por elementos com base em critérios mais complexos,
-        como faixa de valores ou correspondência parcial de strings, a busca
-        binária pode não ser a melhor opção.
+    - Não é adequado para buscas por critérios complexos: A busca binária é
+    adequada para encontrar elementos por valor exato. No entanto, se você
+    precisar procurar por elementos com base em critérios mais complexos,
+    como faixa de valores ou correspondência parcial de strings, a busca
+    binária pode não ser a melhor opção.
 
-        - A complexidade da implementação: Implementar a busca binária requer
-        conhecimento prévio e pode ser um processo complexo, especialmente se
-        você estiver lidando com casos não triviais, como a busca em listas
-        multidimensionais.
+    - A complexidade da implementação: Implementar a busca binária requer
+    conhecimento prévio e pode ser um processo complexo, especialmente se
+    você estiver lidando com casos não triviais, como a busca em listas
+    multidimensionais.
 
-        - Pode ser menos eficiente em cenários de memória limitada: A busca
-        binária requer que a lista esteja ordenada em memória antes de executar
-        a busca, o que pode ser um problema em cenários com limitações de memória.
-        Em tais cenários, outras técnicas de busca, como a busca linear ou a busca
-        hash, podem ser mais eficientes.
+    - Pode ser menos eficiente em cenários de memória limitada: A busca
+    binária requer que a lista esteja ordenada em memória antes de executar
+    a busca, o que pode ser um problema em cenários com limitações de memória.
+    Em tais cenários, outras técnicas de busca, como a busca linear ou a busca
+    hash, podem ser mais eficientes.
 
 -------------------------------------------------------------------------------
 * List to Array Convertion: Conversões Array nativo <=> List e vici versa.
 
-    - Transformando uma List<E> em um Array:
-        Object[] objects = inteiros.toArray(); -> sem especificar ele retorna Objects
-        Integer[] listToArray = integersList.toArray(new Integer[0]);
+- Transformando uma List<E> em um Array:
+    Object[] objects = inteiros.toArray(); -> sem especificar ele retorna Objects
+    Integer[] listToArray = integersList.toArray(new Integer[0]);
 
-    - Transformando um Array em uma List<E>:
-        List<Integer> integers = Arrays.asList(listToArray); // linka os dois arrays em uma List<T>
-        //integers.add(4); -> Operação inválida pois Arrays não podem ser redimensionados.
-        integers.set(2, 4); // Operação VÀLIDA pois não estemos alterando o dimensionamento do array (size)
+- Transformando um Array em uma List<E>:
+    List<Integer> integers = Arrays.asList(listToArray); // linka os dois arrays em uma List<T>
+    //integers.add(4); -> Operação inválida pois Arrays não podem ser redimensionados.
+    integers.set(2, 4); // Operação VÀLIDA pois não estemos alterando o dimensionamento do array (size)
 
-        List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray)); // SOLUÇÃO: quebra o link
+    List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray)); // SOLUÇÃO: quebra o link
 
-    - Arrays.asList():
-        - É otimizado para criar uma lista de tamanho fixo a partir de um array
-         existente e, portanto, é mais eficiente em termos de memória e
-         desempenho. Além disso, o método retorna uma visualização da lista,
-         o que significa que não é criada uma nova instância de lista. Em vez
-         disso, é criado um objeto interno que atua como uma "janela" para o
-         array subjacente, permitindo que você trabalhe com a lista como se
-         fosse uma lista regular.
+- Arrays.asList():
+    - É otimizado para criar uma lista de tamanho fixo a partir de um array
+     existente e, portanto, é mais eficiente em termos de memória e
+     desempenho. Além disso, o método retorna uma visualização da lista,
+     o que significa que não é criada uma nova instância de lista. Em vez
+     disso, é criado um objeto interno que atua como uma "janela" para o
+     array subjacente, permitindo que você trabalhe com a lista como se
+     fosse uma lista regular.
 
-             - SOLUÇÃO: Para quebrar esse vínculo utilizar o array no construtor
-             e criar uma nova instância de List<T>:
-             List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray));
+         - SOLUÇÃO: Para quebrar esse vínculo utilizar o array no construtor
+         e criar uma nova instância de List<T>:
+         List<Integer> pamonha = new ArrayList<>(Arrays.asList(listToArray));
 
+-------------------------------------------------------------------------------
+* Iterator: Classe utilizada para percorrer listas, neste contexto ela é util
+em casos aonde é preciso realizar alguma verificação antes de tomar alguma
+ação sobre cada elemento da lista, por exemplo quando se quer remover um
+elemento de uma forma segura (safe delete) evitando assim Exceptions como a
+´CurrentModificationException´, pois não é recomendável realizar mudanças
+correntes em coleções que estão sendo percorridas (looping).
+
+- Com Iterator que checa antes de executar uma ação (SEM programação funcional):
+
+        Iterator<PatientModel> patientIterator = patientModelList.iterator();
+        while (patientIterator.hasNext()) {
+            PatientModel patient = patientIterator.next();
+            if(patient.getPriority() == 0){
+                patientIterator.remove();
+            }
+        }
+
+- Alternativa recomendável SEM Iterator, utilizando programação funcional:
+
+    patientModelList.removeIf(patient -> patient.getPriority() == 0);
+
+- Em Java, um Iterator é uma interface que permite percorrer coleções de elementos,
+como List, Set e Map. Ele fornece um conjunto de métodos para acessar e percorrer
+os elementos de uma coleção, sem expor a estrutura interna da coleção.
+
+  - A interface Iterator define três métodos principais:
+
+      hasNext(): retorna true se a coleção contém mais elementos a serem iterados.
+      next(): retorna o próximo elemento na coleção.
+      remove(): remove o elemento atual da coleção.
+
+- O Iterator é útil em situações em que você precisa percorrer uma coleção de
+elementos, mas não sabe quantos elementos ela contém ou não quer expor a
+estrutura interna da coleção. Por exemplo, se você estiver trabalhando com uma
+List grande e quiser iterar apenas sobre alguns elementos específicos, pode
+usar um Iterator em vez de percorrer a lista inteira.
+
+- Outra utilidade do Iterator é permitir a remoção segura de elementos de uma
+coleção enquanto a iteração está em andamento. Ao usar o método remove() do
+Iterator, você pode remover o elemento atual da coleção sem causar problemas
+de concorrência ou exceções do tipo ´ConcurrentModificationException´.
+
+---> Pontos a se considerar quando se utiliza:
+
+    1o - Use o for-each loop sempre que possível: o for-each loop é uma forma
+    mais simples e segura de iterar sobre uma coleção em Java. Ele utiliza um
+    Iterator por baixo dos panos e garante que a iteração será feita
+    corretamente, sem precisar se preocupar com os detalhes do Iterator
+    manualmente.
+
+    2o - Use o try-with-resources para garantir a liberação dos recursos: quando
+    se trabalha com um Iterator, é importante garantir que ele seja liberado
+    corretamente após o uso para evitar possíveis vazamentos de recursos.
+    O try-with-resources é uma forma conveniente de garantir que o Iterator seja
+    fechado automaticamente ao final do bloco de código.
+
+    3o - Prefira usar o `ListIterator` para iterações bidirecionais: se você
+    precisar iterar sobre uma lista em ambas as direções (para frente e para
+    trás), é recomendável usar o `ListIterator` em vez do `Iterator.
+    O `ListIterator` suporta iterações bidirecionais e oferece mais recursos,
+    como a possibilidade de adicionar ou remover elementos durante a iteração.
+
+    4o - Use o `Spliterator` para iterações em paralelo: se você precisar iterar
+    sobre uma coleção em paralelo (em várias threads), é recomendável usar o
+    Spliterator. O Spliterator é projetado para suportar iterações em paralelo
+    de forma segura e eficiente, sem precisar se preocupar com problemas de
+    concorrência.
+
+    5o - Use o método forEachRemaining() para iterações restantes: o método
+    forEachRemaining() é um método do Iterator que itera sobre os elementos
+    restantes na coleção e executa uma ação especificada. Ele é útil quando
+    você precisa executar uma ação em todos os elementos da coleção, mesmo
+    que a iteração tenha sido interrompida prematuramente. Por exemplo, você
+    pode usar o forEachRemaining() para limpar uma coleção depois que ela foi
+    parcialmente iterada.
+
+    6o - Considere usar a classe Iterable para criar suas próprias coleções
+    iteráveis: se você estiver criando suas próprias coleções personalizadas,
+    é recomendável implementar a interface Iterable para permitir que elas
+    sejam iteradas facilmente usando um for-each loop ou um Iterator.
+    A interface Iterable exige a implementação do método iterator(), que deve
+    retornar um objeto Iterator para a coleção.
+        - Para listas personalizadas que seram utilizadas paralelamente,
+        deve-se implementar a interface Spliterator.
+
+    7o - Use o Enumeration para iteração em coleções legadas: se você estiver
+    trabalhando com coleções legadas (anteriores ao Java 2) que não implementam
+    a interface Iterable, pode usar a classe Enumeration para iterar sobre os
+    elementos. A classe Enumeration oferece métodos semelhantes aos do Iterator,
+    mas é menos flexível e menos eficiente.
+
+    8o - Considere usar bibliotecas de iteração externas: se você estiver
+    trabalhando com coleções complexas ou precisar de funcionalidades avançadas
+    de iteração, pode ser útil usar bibliotecas de iteração externas, como o
+    Apache Commons Collections ou o Guava. Essas bibliotecas oferecem recursos
+    avançados de iteração, como iteração baseada em predicado, iteração reversa,
+    iteração filtrada e muito mais.
+
+    9o - Use o StreamSupport para criar um Stream a partir de um Iterator ou
+    Spliterator: se você tiver um objeto Iterator ou Spliterator e desejar
+    convertê-lo em um Stream, pode usar o método StreamSupport.stream() do
+    Java 8. Esse método permite que você crie um Stream a partir de um
+    Iterator ou Spliterator personalizado.
+
+    10o - Use o Optional para evitar exceções de iteração: em algumas situações,
+    pode ser possível que a coleção esteja vazia ou que não haja mais elementos
+    para iterar. Nesses casos, em vez de lançar uma exceção, é recomendável usar
+    a classe Optional para lidar com o valor nulo. O método next() do Iterator
+    retorna um objeto Optional, permitindo que você verifique se há um próximo
+    elemento sem lançar uma exceção.
+
+    11o - Use o método hasNext() com moderação: embora o método hasNext() do
+    Iterator seja útil para verificar se há mais elementos na coleção, seu uso
+    excessivo pode afetar negativamente o desempenho. Isso ocorre porque o método
+    hasNext() geralmente precisa percorrer a coleção para verificar se há mais
+    elementos. Em vez de verificar a cada iteração, é recomendável verificar
+    apenas quando necessário ou usar o for-each loop para iterar sobre a coleção.
+
+-------------------------------------------------------------------------------
