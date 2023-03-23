@@ -504,6 +504,9 @@ de concorrência ou exceções do tipo ´ConcurrentModificationException´.
 
 -------------------------------------------------------------------------------
 * LinkedList: Listas encadeadas/ligadas
+- Melhor Implementação de List para remoção de elementos:
+    Complexidade Big-O remove(): O(1);
+
 LinkedList é uma estrutura de dados em Java que é usada para armazenar uma
 coleção de elementos, onde cada elemento é chamado de nó e contém um valor
 e um ponteiro para o próximo nó na lista. (Estilo "Trem" aonde cada vagão é
@@ -615,3 +618,5 @@ um array ou uma árvore.
     é necessário implementar a ordenação por conta própria.
 
 -------------------------------------------------------------------------------
+* Set & HashSet:
+
