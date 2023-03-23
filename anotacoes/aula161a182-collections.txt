@@ -816,3 +816,168 @@ sobre um HashSet pode ocorrer em qualquer ordem.
     não for bem implementada ou se houver muitas colisões.
 
 -------------------------------------------------------------------------------
+* LinkedHashSet: A classe é uma implementação da interface Set em Java que usa
+uma lista duplamente encadeada para armazenar os elementos na ordem em que foram
+inseridos, além de garantir que não há elementos duplicados no conjunto.
+Ela herda as características da classe HashSet e adiciona a capacidade de manter
+a ordem dos elementos inseridos.
+
+- Resolve problema anterior da classe Hashset, garantindo a ordem de inserção dos
+elementos na ordem em que foram adicionados.
+
+- Algumas aplicações e utilidades da classe LinkedHashSet em Java incluem:
+
+    - Manter a ordem de inserção dos elementos: Como mencionado anteriormente,
+    a classe LinkedHashSet mantém a ordem dos elementos inseridos, o que pode
+    ser útil em muitos casos.
+
+    - Remoção de elementos: Quando você remove um elemento de um LinkedHashSet,
+    ele é removido da lista na ordem em que foi inserido.
+
+    - Eliminação de elementos duplicados: Como qualquer conjunto em Java, um
+    LinkedHashSet garante que não há elementos duplicados no conjunto.
+
+    - Criação de uma cópia ordenada de um conjunto: Se você deseja criar uma
+    cópia ordenada de um conjunto em Java, você pode usar um LinkedHashSet
+    para armazenar os elementos na ordem em que foram inseridos.
+
+    - Implementação de cache: Um LinkedHashSet pode ser usado como uma
+    implementação simples de cache, onde os elementos mais recentemente
+    acessados são mantidos no topo da lista.
+
+    - Implementação de históricos: Um LinkedHashSet pode ser usado para manter
+    um histórico de ações ou eventos em ordem cronológica, onde os elementos
+    mais recentes são adicionados no topo da lista.
+
+    - Desempenho: A classe LinkedHashSet tem um desempenho semelhante ao da
+    classe HashSet em termos de adição, remoção e verificação da presença de
+    elementos. No entanto, o desempenho da iteração é um pouco mais lento,
+    pois a classe LinkedHashSet precisa percorrer a lista duplamente encadeada
+    para manter a ordem dos elementos.
+
+Em resumo, a classe LinkedHashSet é uma excelente escolha quando você precisa
+manter a ordem de inserção dos elementos, remover elementos da lista na ordem
+em que foram inseridos ou garantir que não há elementos duplicados no conjunto.
+
+- Vantagens:
+
+    - Mantém a ordem de inserção dos elementos: Mantém a ordem em que os
+    elementos foram inseridos no conjunto.
+    Isso pode ser útil em várias situações, como quando você precisa exibir os
+    elementos em ordem cronológica.
+
+    - Evita duplicatas: Evita a inserção de elementos duplicados no conjunto.
+    Isso pode ser útil quando você precisa garantir que cada elemento no
+    conjunto seja único.
+
+    - Implementação eficiente: É uma implementação eficiente da interface Set
+    em Java. As operações de adição, remoção e busca de elementos são muito
+    rápidas, pois a classe usa um hash table internamente.
+
+    - Iteração ordenada é garantida: Permite iterar sobre os elementos do conjunto
+    na ordem em que foram inseridos.
+    Isso pode ser útil quando você precisa exibir ou processar os elementos em
+    uma ordem específica.
+
+    - Funcionalidades adicionais: Oferece vários métodos adicionais, como o método
+    clone() para criar uma cópia do conjunto e o método removeAll() para remover
+    vários elementos de uma só vez.
+
+    - Permite a fácil conversão entre tipos de coleções: o LinkedHashSet implementa
+    a interface Set, o que significa que é fácil converter de um LinkedHashSet para
+    outras implementações de Set ou vice-versa, como o HashSet, o TreeSet, etc.
+
+    - É eficiente para remover elementos: a remoção de elementos em um LinkedHashSet
+    é muito eficiente, pois a posição do elemento na lista vinculada é conhecida e,
+    portanto, pode ser removido rapidamente.
+
+    - Permite iterar os elementos em ordem crescente ou decrescente: o LinkedHashSet
+    possui métodos que permitem a iteração dos elementos em ordem crescente ou
+    decrescente, facilitando a implementação de algumas funcionalidades que exigem a
+    ordenação dos elementos.
+
+- Desvantagens:
+
+    - Maior consumo de memória: o LinkedHashSet precisa armazenar os elementos em
+    uma lista vinculada além de manter um mapa hash para realizar as operações de
+    busca.
+    Isso pode resultar em um consumo de memória maior em comparação com outras
+    implementações de Set.
+
+    - Pode ter uma performance pior em comparação com HashSet para algumas operações:
+    embora o LinkedHashSet tenha uma performance similar ao HashSet para adicionar,
+    remover e buscar elementos, ele pode ter uma performance um pouco pior em alguns
+    casos devido à necessidade de manter a ordem dos elementos.
+
+    - Iteração é mais lenta do que em uma lista simples: embora o LinkedHashSet
+    possua uma ordem de inserção dos elementos, a iteração é um pouco mais lenta
+    do que em uma lista simples, devido à necessidade de verificar a tabela hash
+    antes de retornar cada elemento.
+
+    - Não é thread-safe: assim como outras implementações da interface Set, o
+    LinkedHashSet não é thread-safe, ou seja, não é seguro utilizá-lo em ambientes
+    concorrentes sem a devida sincronização.
+
+    - Não é recomendado para elementos grandes: o LinkedHashSet pode ter uma
+    performance ruim para elementos muito grandes, pois o processo de hash para
+    estes elementos pode ser mais lento. Nesse caso, pode ser mais adequado
+    utilizar outras estruturas de dados.
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - A ordem dos elementos é mantida: uma das principais características do
+    LinkedHashSet é a manutenção da ordem de inserção dos elementos. É importante
+    lembrar que a ordem dos elementos pode mudar se um elemento já existente for
+    adicionado novamente.
+
+    2o - Não permite elementos duplicados: o LinkedHashSet não permite a inclusão
+    de elementos duplicados. Ao tentar adicionar um elemento duplicado, a operação
+    de adição falhará silenciosamente e não terá efeito.
+
+    3o - Não é sincronizado: o LinkedHashSet não é thread-safe, portanto, se for
+    usado em um ambiente concorrente, será necessário sincronizar manualmente as
+    operações para evitar condições de corrida.
+
+    4o - Pode ter um consumo de memória maior: como mencionado anteriormente, o
+    LinkedHashSet pode ter um consumo de memória maior do que outras implementações
+    de Set, especialmente se muitos elementos forem adicionados.
+
+    5o - O desempenho pode ser afetado por elementos grandes: a performance do
+    LinkedHashSet pode ser afetada negativamente se muitos elementos grandes forem
+    adicionados, pois o processo de hash para estes elementos pode ser mais lento.
+
+    6o - Iteração pode ser mais lenta do que em uma lista simples: embora a iteração
+    seja ordenada, ela pode ser um pouco mais lenta do que em uma lista simples,
+    devido à necessidade de verificar a tabela hash antes de retornar cada elemento.
+
+    7o - Escolha cuidadosamente a implementação do Set: dependendo da aplicação,
+    outras implementações de Set podem ser mais adequadas do que o LinkedHashSet.
+    Por exemplo, se não for necessário manter a ordem de inserção, o HashSet pode
+    ser uma escolha melhor devido a sua performance mais rápida.
+
+    8o - Pode ser inicializado com uma capacidade e fator de carga: ao criar um
+    LinkedHashSet, é possível especificar a capacidade inicial e o fator de carga.
+    Isso pode ser útil para evitar realocações de memória frequentes e melhorar a
+    performance em casos em que o tamanho do conjunto é conhecido com antecedência.
+
+    9o - Pode ser utilizado em conjunto com outras estruturas de dados: LinkedHashSet
+    pode ser utilizado em conjunto com outras estruturas de dados para resolver
+    problemas mais complexos. Por exemplo, ele pode ser utilizado para remover
+    elementos duplicados de uma lista enquanto mantém a ordem de inserção.
+
+    10o - Pode ser utilizado para implementar algoritmos de cache: o LinkedHashSet
+    pode ser utilizado para implementar algoritmos de cache simples. Ao adicionar
+    um elemento a ele, é possível verificar se o tamanho do conjunto excede um
+    determinado limite e remover o elemento mais antigo se necessário.
+
+    11o - Não é adequado para elementos mutáveis: o LinkedHashSet utiliza o hash do
+    objeto para determinar sua posição na tabela hash. Portanto, se um objeto mutável
+    for utilizado como elemento do LinkedHashSet, seu hash pode mudar e causar
+    problemas de desempenho ou comportamento inesperado.
+
+    12o - As operações de adição, remoção e busca são rápidas: as operações de adição,
+    remoção e busca no LinkedHashSet têm complexidade O(1) em média. No entanto, em
+    casos raros, a complexidade pode ser O(n), dependendo da forma como a tabela hash
+    é construída e dos elementos que estão sendo armazenados.
+
+-------------------------------------------------------------------------------
