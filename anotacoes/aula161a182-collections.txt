@@ -503,3 +503,115 @@ de concorrência ou exceções do tipo ´ConcurrentModificationException´.
     apenas quando necessário ou usar o for-each loop para iterar sobre a coleção.
 
 -------------------------------------------------------------------------------
+* LinkedList: Listas encadeadas/ligadas
+LinkedList é uma estrutura de dados em Java que é usada para armazenar uma
+coleção de elementos, onde cada elemento é chamado de nó e contém um valor
+e um ponteiro para o próximo nó na lista. (Estilo "Trem" aonde cada vagão é
+um Nó que aponta para o anterior e próximo).
+
+Essa estrutura de dados é útil quando precisamos inserir ou excluir elementos
+com frequência, pois ela permite que as operações de inserção e remoção sejam
+realizadas com eficiência, sem a necessidade de realocar memória como ocorre
+em um array.
+
+Além disso, a LinkedList é uma lista duplamente encadeada, o que significa que
+cada nó também possui um ponteiro para o nó anterior na lista, permitindo
+percorrer a lista em ambas as direções.
+
+Na prática, as LinkedLists são usadas em diversas aplicações, como em
+implementações de filas, pilhas, e listas de reprodução de músicas,
+onde é necessário adicionar ou remover elementos com frequência.
+
+- Vantagens:
+
+    - Inserção e remoção eficientes: Uma das principais vantagens das LinkedLists
+    é que a inserção e a remoção de elementos podem ser muito eficientes, pois não
+    requerem deslocamento de outros elementos como ocorre em arrays.
+
+    - Flexibilidade de tamanho: LinkedLists permitem adicionar ou remover elementos
+    dinamicamente, o que significa que você não precisa alocar um tamanho fixo de
+    memória, como acontece em arrays.
+    Isso pode ser útil quando você não sabe de antemão quantos elementos precisa
+    armazenar.
+
+    - Iteração eficiente: Iterar sobre todos os elementos de uma LinkedList pode
+    ser muito eficiente, já que cada elemento contém um ponteiro para o próximo
+    elemento, o que permite percorrer toda a lista sem a necessidade de cálculo
+    de índices.
+
+- Desvantagens:
+
+    - Acesso aleatório ineficiente: Enquanto as LinkedLists são boas para inserir
+    e remover elementos, o acesso aleatório a um elemento específico pode ser
+    ineficiente, pois não há um índice fixo para cada elemento, exigindo uma
+    busca sequencial.
+
+    - Consumo de memória: Cada elemento de uma LinkedList requer uma alocação de
+    memória separada, o que pode tornar as LinkedLists menos eficientes em termos
+    de memória do que arrays, especialmente para listas de tamanho grande.
+
+    - Dificuldades em ordenação: É mais difícil ordenar elementos em uma LinkedList
+    do que em um array, uma vez que os elementos estão distribuídos de forma não
+    contígua na memória.
+    Isso pode levar a algoritmos de classificação menos eficientes em uma LinkedList.
+
+    - Dificuldade de inversão: Inverter uma LinkedList é uma operação relativamente
+    complexa, uma vez que envolve a atualização de ponteiros para cada elemento.
+    Isso pode tornar a inversão menos eficiente do que em outras estruturas de dados.
+
+Em geral, as LinkedLists são úteis quando a eficiência de inserção e remoção é uma
+prioridade e quando o tamanho da lista pode mudar ao longo do tempo. Por outro lado,
+se você precisa de acesso aleatório eficiente a elementos ou se está trabalhando com
+listas muito grandes, pode ser melhor escolher uma estrutura de dados diferente, como
+um array ou uma árvore.
+
+---> Pontos a se considerar quando se utiliza:
+
+    1o - Inserção e remoção de elementos: como mencionado anteriormente, a
+    LinkedList é uma estrutura de dados que permite a inserção e remoção
+    eficiente de elementos. Porém, tenha cuidado ao realizar essas
+    operações em listas grande, pois elas podem ser computacionalmente
+    custosas.
+
+    2o - Acesso aos elementos: a LinkedList não é uma estrutura de dados
+    adequada para acesso aleatório aos elementos, ou seja, acessar um
+    elemento pelo seu índice.
+    Isso porque para acessar um elemento específico, é necessário percorrer
+    a lista a partir do início ou do fim, o que pode ser lento em listas
+    grandes.
+
+    3o - Uso de iterações: o uso de iterações (loops) em LinkedLists é comum
+    para percorrer todos os elementos ou realizar alguma operação em cada
+    elemento. No entanto, tenha cuidado ao modificar a lista durante a
+    iteração, pois isso pode causar comportamentos inesperados ou mesmo erros.
+
+    4o - Uso do Iterator: para percorrer uma LinkedList de forma segura, é
+    recomendado utilizar a classe Iterator do Java, que permite iterar sobre
+    os elementos da lista sem causar modificações inesperadas.
+
+    5o - Uso do método equals: a LinkedList implementa o método equals para
+    comparar duas listas. No entanto, esse método compara os elementos da
+    lista um a um, o que pode ser lento em listas grandes. Portanto, tenha
+    cuidado ao usar o método equals em LinkedLists grandes.
+
+    6o - Uso do método clone: a LinkedList também implementa o método clone
+    para criar uma cópia da lista. No entanto, essa operação pode ser custosa
+    em termos de memória e processamento, especialmente em listas grandes.
+    Portanto, tenha cuidado ao usar o método clone em LinkedLists grandes.
+
+    7o - Uso do método toArray: o método toArray da LinkedList permite criar
+    um array com os elementos da lista. No entanto, esse método cria uma cópia
+    dos elementos da lista, o que pode ser lento em listas grandes. Portanto,
+    tenha cuidado ao usar o método toArray em LinkedLists grandes.
+
+    8o - Uso de memória: a LinkedList consome mais memória do que outras
+    estruturas de dados, como arrays, devido à necessidade de armazenar
+    referências para cada elemento da lista. Portanto, é importante
+    considerar a quantidade de memória disponível e o tamanho da
+    lista ao escolher a implementação adequada.
+
+    9o - Comportamento de ordenação: a LinkedList não é automaticamente
+    ordenada em Java, portanto, se você precisa de uma lista ordenada,
+    é necessário implementar a ordenação por conta própria.
+
+-------------------------------------------------------------------------------
