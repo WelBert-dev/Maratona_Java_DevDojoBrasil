@@ -618,5 +618,201 @@ um array ou uma árvore.
     é necessário implementar a ordenação por conta própria.
 
 -------------------------------------------------------------------------------
-* Set & HashSet:
+* Set: Set é uma interface com o mesmo contexto da List, porém para trabalhar
+com HashSet, LinkedHashSet, NavigableSet e TreeSet.
 
+A interface Set é uma das interfaces de coleções do Java e serve para representar
+um conjunto de elementos únicos e não ordenados. Os elementos de um Set não são
+duplicados e não possuem uma ordem específica.
+
+A interface Set define um conjunto de métodos que permitem a adição, remoção e
+verificação de elementos em um conjunto, bem como a verificação de sua
+cardinalidade e a realização de operações de conjuntos, como união, interseção
+e diferença. Alguns dos principais métodos da interface Set incluem:
+
+    - add(elemento): adiciona um elemento ao conjunto, caso ele ainda não esteja presente;
+    - remove(elemento): remove um elemento do conjunto, caso ele esteja presente;
+    - contains(elemento): verifica se um elemento está presente no conjunto;
+    - size(): retorna o número de elementos do conjunto;
+    - isEmpty(): verifica se o conjunto está vazio;
+    - clear(): remove todos os elementos do conjunto;
+    - iterator(): retorna um objeto Iterator para percorrer os elementos do conjunto.
+
+A interface Set é implementada por diversas classes no Java, incluindo HashSet,
+TreeSet e LinkedHashSet. Cada uma dessas classes implementa a interface Set de
+forma diferente, com características específicas que podem ser mais adequadas
+para diferentes cenários de uso.
+
+Alguns exemplos de uso da interface Set incluem a remoção de elementos duplicados
+de uma lista, a verificação de elementos únicos em um conjunto de dados e a
+realização de operações de conjuntos, como a interseção de dois conjuntos.
+A interface Set é uma ferramenta importante na programação em Java para lidar com
+conjuntos de elementos de forma eficiente e elegante.
+
+É importante lembrar que, como um Set não permite elementos duplicados, a classe
+dos elementos deve implementar os métodos equals() e hashCode() corretamente para
+garantir que os elementos sejam comparados corretamente.
+
+- Algumas implementações comuns da interface Set no Java incluem:
+
+    - HashSet: implementação baseada em tabela hash que fornece acesso rápido aos
+    elementos, mas não mantém a ordem dos elementos.
+
+    - TreeSet: implementação baseada em árvore que mantém os elementos em ordem
+    crescente ou decrescente, mas pode ser mais lenta que o HashSet.
+
+    - LinkedHashSet: implementação que mantém a ordem de inserção dos elementos,
+    mas pode ser mais lenta que o HashSet.
+
+-------------------------------------------------------------------------------
+* HashSet: A classe é uma implementação da interface Set que utiliza uma tabela
+hash para armazenar seus elementos. Ela não mantém uma ordem específica dos
+elementos e não permite a inclusão de elementos duplicados (DISTINCT).
+
+- Não é indexada, ou seja não é possível utilizar index para obter elementos,
+então para operações deste tipo será necessário percorrer a coleção.
+
+- Não mantém a ordem de inserção dos elementos, a coleção se ajustará de acordo
+com o hashCode final gerado, porisso não é possível garantir a ordem dos
+elementos. (LinkedHashSet vem para resolver isso, mantendo a ordem de inserção).
+
+- Algumas das principais aplicações e utilidades da classe HashSet incluem:
+
+    - Remoção de elementos duplicados: ao adicionar todos os elementos de uma
+    coleção a um HashSet, os elementos duplicados serão automaticamente
+    removidos, deixando apenas os elementos únicos.
+
+    - Verificação de pertencimento: o método contains() pode ser usado para
+    verificar se um determinado elemento está presente no HashSet.
+
+    - Armazenamento de objetos complexos: o HashSet pode armazenar objetos
+    complexos, como instâncias de classes personalizadas, desde que a classe
+    desses objetos implemente corretamente os métodos equals() e hashCode().
+
+    - Agilidade na recuperação de elementos: a implementação do HashSet
+    utilizando tabela hash fornece acesso rápido aos elementos, com tempo
+    constante em média para operações como add(), remove() e contains().
+
+    - Cálculo de interseção, união e diferença de conjuntos: o HashSet possui
+    métodos que permitem realizar operações de conjunto, como união, interseção
+    e diferença.
+
+    - Não é sincronizada: a classe HashSet não é thread-safe, o que significa
+    que não é recomendado utilizá-la em ambientes concorrentes sem a devida
+    sincronização.
+
+    - Não aceita elementos duplicados: o HashSet não permite que elementos
+    duplicados sejam adicionados à coleção, o que pode ser útil em muitos casos.
+
+    - A ordem de iteração não é previsível: como o HashSet não mantém uma ordem
+    específica dos elementos, a ordem em que os elementos são iterados pode variar
+    de acordo com a implementação.
+
+    - Aceita elementos nulos: o HashSet aceita elementos nulos, mas é importante
+    lembrar que a comparação de elementos nulos é diferente da comparação de outros
+    elementos.
+
+    - Pode consumir muita memória: como o HashSet é baseado em tabela hash, ele pode
+    consumir uma quantidade significativa de memória em relação a outras estruturas
+    de dados, principalmente quando o fator de carga da tabela é alto.
+
+    - Pode ser utilizado como base para outras implementações: a classe HashSet pode
+    ser utilizada como base para outras implementações de conjuntos, como LinkedHashSet,
+    que mantém a ordem de inserção dos elementos, e EnumSet, que é uma implementação
+    especializada para conjuntos de enumerações.
+
+É importante lembrar que a classe dos objetos armazenados no HashSet deve
+implementar corretamente os métodos equals() e hashCode() para garantir a
+correta comparação dos elementos e o funcionamento correto da tabela hash.
+Além disso, por não manter uma ordem específica dos elementos, a iteração
+sobre um HashSet pode ocorrer em qualquer ordem.
+
+- Vantagens:
+
+    - Eficiência: a classe HashSet é muito eficiente em termos de tempo de
+    busca e inserção de elementos.
+    Isso é devido à sua implementação baseada em hash tables, o que permite
+    um acesso rápido aos elementos.
+
+    - Garante elementos únicos: a classe HashSet garante que não haverá
+    elementos duplicados na coleção, o que pode ser muito útil em algumas
+    situações.
+
+    - Interface simples: a interface da classe HashSet é simples e fácil de usar,
+    permitindo que os desenvolvedores possam trabalhar com ela facilmente.
+
+    - Eficiência na realização de operações de adição, remoção e verificação de
+    pertencimento em relação a outros tipos de conjuntos, especialmente quando
+    a quantidade de elementos é grande.
+
+    - A capacidade de armazenar elementos sem ordem definida, o que pode ser útil
+    em alguns casos.
+
+- Desvantagens:
+
+    - Não mantém ordem: a classe HashSet não mantém a ordem dos elementos
+    inseridos na coleção. Se a ordem dos elementos for importante para o
+    aplicativo, uma classe diferente, como LinkedHashSet, pode ser mais
+    apropriada.
+
+    - Iteração lenta: a iteração sobre os elementos do HashSet pode ser mais
+    lenta do que em outras implementações da interface Set, como TreeSet ou
+    LinkedHashSet, pois não há nenhuma ordem definida.
+
+    - Consumo de memória: a classe HashSet pode consumir mais memória do que
+    outras implementações da interface Set, especialmente quando há muitos
+    elementos na coleção.
+
+    - Possibilidades de sobrecarregar tabela hash: Em algumas circunstâncias,
+    a tabela de hash pode ficar sobrecarregada, resultando em uma diminuição
+    no desempenho das operações de conjunto.
+
+    - Não sincronizada aumentando probabilidade de condição de corrida: A classe
+    não é sincronizada, ou seja, se precisar acessá-la a partir de várias threads,
+    devemos garantir as operações de sincronização manualmente ou usar a classe
+    ConcurrentHashMap.
+
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Não é thread-safe: a classe HashSet não é sincronizada, o que significa
+    que não é segura para uso em ambientes concorrentes sem a devida sincronização.
+
+    2o - Não mantém ordem de inserção: o HashSet não mantém uma ordem específica
+    dos elementos, o que significa que a ordem em que os elementos são inseridos
+    pode não ser a ordem em que são iterados.
+
+    3o - Não permite elementos duplicados: o HashSet não permite elementos
+    duplicados. Se um elemento duplicado for adicionado à coleção, a operação
+    será ignorada.
+
+    4o - Aceita elementos nulos: o HashSet permite a adição de elementos nulos,
+    mas é importante lembrar que a comparação de elementos nulos é diferente da
+    comparação de outros elementos.
+
+    5o - Desempenho pode ser afetado pelo fator de carga: o desempenho da classe
+    HashSet pode ser afetado pelo fator de carga da tabela hash. É recomendado
+    manter o fator de carga abaixo de 0,75 para um desempenho ideal.
+
+    6o - O método equals() é utilizado para comparar elementos: o HashSet utiliza
+    o método equals() para comparar elementos, o que significa que os elementos
+    adicionados devem implementar este método corretamente.
+
+    7o - Hashcode: o HashSet usa o método hashCode() para determinar a posição
+    do elemento na tabela de hash. Certifique-se de que a classe do objeto tenha
+    implementado corretamente este método.
+
+    8o - A classe HashSet pode ser utilizada como base para outras implementações:
+    a classe HashSet pode ser utilizada como base para outras implementações de
+    conjuntos, como LinkedHashSet e TreeSet.
+
+    9o - Adicionar elementos: você pode adicionar elementos ao HashSet usando o
+    método add(). O método retorna true se o elemento foi adicionado com sucesso
+    e false se o elemento já estava presente no conjunto.
+
+    10o - Performance: o HashSet tem um desempenho melhor em operações de adição,
+    remoção e busca do que a maioria das outras estruturas de dados em Java, como
+    o ArrayList. No entanto, o desempenho pode ser afetado se a função hashCode()
+    não for bem implementada ou se houver muitas colisões.
+
+-------------------------------------------------------------------------------
