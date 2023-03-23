@@ -25,7 +25,7 @@ Intermediário: Mais específico no Java
                                        PriorityQueue
  */
 
-/* Tabela de calculos Big-O para as coleções do java:
+---> Tabela de calculos Big-O para as coleções do java:
 (Com gráficos: https://www.bigocheatsheet.com/)
 
 - List implementations:
@@ -65,16 +65,15 @@ Intermediário: Mais específico no Java
  ArrayDeque            O(1)      O(1)  O(1)      O(1)
  LinkedBlockingDeque   O(1)      O(1)  O(1)      O(1)
  ---------------------------------------------------------------------------
-*/
 
-/* Descrições sobre as complexidades:
+---> Descrições sobre as complexidades:
 
-    As notações de complexidade Big-O são usadas para descrever o tempo de
-    execução ou espaço de memória necessários para um algoritmo à medida
-    que o tamanho da entrada aumenta. Essas notações são escritas usando
-    a notação O() e indicam a ordem de crescimento do algoritmo à medida
-    que o tamanho da entrada aumenta. Aqui estão as principais notações
-    de complexidade Big-O e seus significados:
+As notações de complexidade Big-O são usadas para descrever o tempo de
+execução ou espaço de memória necessários para um algoritmo à medida
+que o tamanho da entrada aumenta. Essas notações são escritas usando
+a notação O() e indicam a ordem de crescimento do algoritmo à medida
+que o tamanho da entrada aumenta. Aqui estão as principais notações
+de complexidade Big-O e seus significados:
 
     - O(1): Tempo de execução constante. Isso significa que o algoritmo
     leva a mesma quantidade de tempo, independentemente do tamanho da
@@ -114,10 +113,84 @@ Intermediário: Mais específico no Java
     aumenta. No entanto, em muitos casos, é necessário comprometer entre a
     eficiência do algoritmo e a simplicidade de implementação ou outros
     requisitos do sistema.
-*/
 
 -------------------------------------------------------------------------------
-// Classes/métodos aboradados neste package:
+
+---> Classes/métodos aboradados neste package:
+
+* Métodos equals() e hashCode(): Sempre garantir implementação linear delas.
+    - Garantir que ambas estejam coerentes entre sí.
+    - Essencial para se trabalhar com coleções.
+
+* Interface List<E>: Interface mais básica no contexto de coleções, implementações:
+    * Class ArrayList<E>: Classe mais básica que utiliza Array nativo em LowLevel.
+    * Class LinkedList<E>: Não é para estar aqui na ordem de documentação pois é
+    necessário estudos sobre os pontos destacados abaixo, porisso ela também
+    está descrita abaixo, para não perder a ordem cronológica necessária para
+    melhor entendimento.
+
+* Util Class Collections: Classe 100% Utilitária, para trabalhar com Coleções.
+
+* Operações importantes:
+    - Sorting Lists: Organizando coleções em ordem ASC ou DESC. (Comparable/Comparator).
+    - BinarySearch: Busca binária, utilizada em coleções ordenadas ASC ou DESC.
+
+    - List to Array convertion: Convertendo List<E> em Array e vici versa.
+
+* Interface Iterator<E>: Toda coleção até mesmo Array Nativo utiliza em LowLevel (for).
+    - Interessante para realizar verificações antes de modificar uma coleção.
+    - Evita `CurrentModificationException` por conta do ponto a cima.
+    - Em casos de remove() utilizar programação funcional com removeIf().
+
+* Class LinkedList<E>: Implementação de List não utiliza Array nativo em LowLevel.
+    - Diferentemente de ArrayList que utiliza o Array nativo do java em Lowlevel,
+    ela utiliza o conceito de "lista encadeada" e tem seu tamanho dinâmico sem
+    precisar re-criar arrays e alterar o ponteiro da variável de referência.
+    - Melhor implementação de List<E> para remoção de elementos. (Big-O).
+
+* Interface Set<E>: Interface que serve para representar um conjunto de elementos
+únicos e não ordenados.
+    - Com métodos uteis para operações de conjuntos (união, interseçãoe e diferença).
+    - Verificação de cardinalidade.
+    - Mais performance em alguns casos.
+
+    * Class HashSet<E>:
+        - Implementação baseada em tabela hash;
+        - Não mantém a ordem de inserção dos elementos;
+        - É a mais rápida em termos de operações de adição, remoção e busca;
+        - É adequada para casos em que a ordem dos elementos não importa e a
+        velocidade é uma prioridade.
+
+    * Class LinkedHashSet<E>:
+        - Implementação baseada em tabela hash com lista duplamente ligada para
+        manter a ordem de inserção;
+        - Mantém a ordem de inserção dos elementos;
+        - É um pouco mais lenta do que o HashSet, mas ainda é rápida;
+        - É adequada para casos em que a ordem dos elementos importa
+        e a velocidade é uma prioridade moderada.
+
+    * TreeSet<E>:
+        - Implementação baseada em árvore binária balanceada (Red-Black Tree);
+        - Mantém os elementos em ordem crescente;
+        - É mais lenta do que o HashSet e o LinkedHashSet, mas ainda é rápida;
+        - É adequada para casos em que os elementos precisam ser mantidos em ordem crescente.
+
+    * EnumSet<E>:
+        - Implementação especializada para conjuntos de elementos enum;
+        - Usa um vetor de bits para representar os elementos do conjunto;
+        - É extremamente rápida e eficiente em termos de espaço;
+        - É adequada para casos em que os elementos do conjunto são do tipo enum.
+
+    * CopyOnWriteArraySet<E>:
+        - Implementação baseada em um array que é copiado sempre que o conjunto é modificado;
+        - Mantém os elementos em ordem de inserção;
+        - É mais lenta do que as outras implementações do Set;
+        - É adequada para casos em que a leitura do conjunto é muito mais frequente do que a modificação e a concorrência é um problema.
+
+-------------------------------------------------------------------------------
+
+---> Definições mais a fundo sobre cada um dos tópicos:
+
 * equals() e hashCode():
 - Utilizado para comparar Objetos, ambos devem ser concistentes entre sí.
 - Equals e HashCode são muito utilzados em Listas complexas e com maior
@@ -146,23 +219,26 @@ Intermediário: Mais específico no Java
   para x != null, x.equals(null) tem que retorna false;
 
 -------------------------------------------------------------------------------
-* Interface List<T>:
-- A interface List é uma das interfaces mais importantes do framework de
+* Interface List<E>:É uma das interfaces mais importantes do framework de
 coleções do Java. Ela define um contrato para classes que representam
 sequências ordenadas de elementos e oferece uma série de métodos para
-manipulação dessas sequências.
+manipulação dessas sequências, permitindo a adição, remoção e acesso
+aos elementos por índice.
 - Interface mais genérica utilizada neste contexto.
 - Programação Orientada a Interface: As coleções no java são bem coesas
 e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
 
+
+
+
+
 -------------------------------------------------------------------------------
-* Classe que implementa List<T>: ArrayList<T>:
-- A classe ArrayList<T> é uma implementação da interface List<T> que usa
-uma matriz interna para armazenar seus elementos. Ao adicionar um
-elemento a uma ArrayList<T>, a matriz interna pode precisar ser
-redimensionada, o que pode ser um processo lento se a lista for grande.
-Portanto, se você precisa adicionar muitos elementos a uma ArrayList<T>,
-considere usar um LinkedList<T> em vez disso.
+* ArrayList<E>: É uma implementação da interface List que usa uma matriz
+interna para armazenar seus elementos. Ao adicionar um elemento a uma
+ArrayList, a matriz interna pode precisar ser redimensionada, o que
+pode ser um processo lento se a lista for grande. Portanto, se você
+precisa adicionar muitos elementos a uma ArrayList, considere usar um
+LinkedList em vez disso.
 
 - O método add() da ArrayList<T> adiciona um elemento ao final da lista.
 Se você precisar adicionar um elemento em uma posição específica, use o
@@ -503,7 +579,7 @@ de concorrência ou exceções do tipo ´ConcurrentModificationException´.
     apenas quando necessário ou usar o for-each loop para iterar sobre a coleção.
 
 -------------------------------------------------------------------------------
-* LinkedList: Listas encadeadas/ligadas
+* LinkedList<E>: Listas encadeadas/ligadas
 - Melhor Implementação de List para remoção de elementos:
     Complexidade Big-O remove(): O(1);
 
@@ -618,8 +694,9 @@ um array ou uma árvore.
     é necessário implementar a ordenação por conta própria.
 
 -------------------------------------------------------------------------------
-* Set: Set é uma interface com o mesmo contexto da List, porém para trabalhar
-com HashSet, LinkedHashSet, NavigableSet e TreeSet.
+Fonte interessanta: https://www.devmedia.com.br/diferencas-entre-treeset-hashset-e-linkedhashset-em-java/29077
+* Interface Set<E>: Set é uma interface com o mesmo contexto da List, porém para
+trabalhar com HashSet, LinkedHashSet, NavigableSet e TreeSet.
 
 A interface Set é uma das interfaces de coleções do Java e serve para representar
 um conjunto de elementos únicos e não ordenados. Os elementos de um Set não são
@@ -653,16 +730,151 @@ conjuntos de elementos de forma eficiente e elegante.
 dos elementos deve implementar os métodos equals() e hashCode() corretamente para
 garantir que os elementos sejam comparados corretamente.
 
-- Algumas implementações comuns da interface Set no Java incluem:
+---> Algumas implementações comuns da interface Set no Java incluem:
 
-    - HashSet: implementação baseada em tabela hash que fornece acesso rápido aos
+    * HashSet: implementação baseada em tabela hash que fornece acesso rápido aos
     elementos, mas não mantém a ordem dos elementos.
 
-    - TreeSet: implementação baseada em árvore que mantém os elementos em ordem
+    * TreeSet: implementação baseada em árvore que mantém os elementos em ordem
     crescente ou decrescente, mas pode ser mais lenta que o HashSet.
 
-    - LinkedHashSet: implementação que mantém a ordem de inserção dos elementos,
+    * LinkedHashSet: implementação que mantém a ordem de inserção dos elementos,
     mas pode ser mais lenta que o HashSet.
+
+- Vantagens:
+
+    - Não permitem elementos duplicados, o que pode ajudar a evitar erros em
+    operações com conjuntos de dados.
+
+    - Permitem operações de união, interseção e diferença entre conjuntos,
+    facilitando a manipulação de dados.
+
+    - Fornecem uma variedade de implementações diferentes que podem ser escolhidas
+    com base nas necessidades específicas do problema em questão.
+
+    - Oferecem desempenho rápido para operações de adição, remoção e verificação de
+    pertinência de elementos em relação a outras estruturas de dados.
+
+- Desvantagens:
+
+    - Não permitem acesso a elementos com base em sua posição no conjunto, já que
+    não mantêm uma ordem específica.
+
+    - Algumas implementações podem ser menos eficientes do que outras para
+    determinadas operações, o que pode levar a um desempenho abaixo do esperado.
+
+    - O uso excessivo de conjuntos pode levar a um aumento no uso de memória,
+    especialmente se eles contiverem muitos elementos.
+
+    - As classes que implementam a interface Set são mutáveis, o que significa
+    que elas podem ser modificadas a qualquer momento, tornando difícil prever
+    seu estado atual.
+
+---> Diferenças de uso para cada classe que implementa:
+
+* HashSet:
+    - Implementação baseada em tabela hash;
+    - Não mantém a ordem de inserção dos elementos;
+    - É a mais rápida em termos de operações de adição, remoção e busca de elementos;
+    - É adequada para casos em que a ordem dos elementos não importa e a velocidade é uma prioridade.
+
+* LinkedHashSet:
+    - Implementação baseada em tabela hash com lista duplamente ligada para manter a ordem de inserção;
+    - Mantém a ordem de inserção dos elementos;
+    - É um pouco mais lenta do que o HashSet, mas ainda é rápida;
+    - É adequada para casos em que a ordem dos elementos importa e a velocidade é uma prioridade moderada.
+
+* TreeSet:
+    - Implementação baseada em árvore binária balanceada (Red-Black Tree);
+    - Mantém os elementos em ordem crescente;
+    - É mais lenta do que o HashSet e o LinkedHashSet, mas ainda é rápida;
+    - É adequada para casos em que os elementos precisam ser mantidos em ordem crescente.
+
+* EnumSet:
+    - Implementação especializada para conjuntos de elementos enum;
+    - Usa um vetor de bits para representar os elementos do conjunto;
+    - É extremamente rápida e eficiente em termos de espaço;
+    - É adequada para casos em que os elementos do conjunto são do tipo enum.
+
+* CopyOnWriteArraySet:
+    - Implementação baseada em um array que é copiado sempre que o conjunto é modificado;
+    - Mantém os elementos em ordem de inserção;
+    - É mais lenta do que as outras implementações do Set;
+    - É adequada para casos em que a leitura do conjunto é muito mais frequente do que a modificação e a concorrência é um problema.
+
+---> Pontos importantes e atenções em comum entre elas:
+
+    1o - Evite a adição de elementos duplicados: como as classes que implementam
+    a interface Set não permitem elementos duplicados, é importante garantir que
+    os elementos adicionados sejam únicos. Para isso, é possível sobrescrever o
+    método equals() do objeto que será adicionado ou implementar a interface
+    Comparable para definir uma ordem natural para os elementos.
+
+    2o - Escolha a implementação correta: o Java oferece várias implementações
+    diferentes da interface Set, cada uma com suas próprias características e
+    desempenho. Por exemplo, a classe HashSet é eficiente para operações de
+    adição e busca, mas não mantém uma ordem específica para os elementos.
+    Já a classe TreeSet mantém os elementos em ordem natural ou definida por um
+    Comparator, mas tem um desempenho um pouco mais lento. É importante escolher
+    a implementação correta com base nas necessidades do seu código.
+
+    3o - Fique atento à complexidade de tempo: algumas operações em conjuntos
+    podem ter complexidade de tempo alta, especialmente em conjuntos grandes.
+    Por exemplo, a operação de união entre dois conjuntos grandes pode ser
+    bastante demorada, mesmo em uma implementação eficiente. Portanto, é
+    importante estar ciente dessas limitações e considerar alternativas caso
+    seja necessário trabalhar com conjuntos muito grandes.
+
+    4o - Use métodos específicos: as classes que implementam a interface Set
+    fornecem uma variedade de métodos específicos que podem facilitar a
+    manipulação de conjuntos de dados. Por exemplo, o método addAll() permite
+    adicionar todos os elementos de uma coleção em um conjunto existente,
+    enquanto o método retainAll() permite manter apenas os elementos em comum
+    entre dois conjuntos. É importante explorar esses métodos para obter o
+    máximo de desempenho e facilidade de uso.
+
+    7o - Considere a sincronização: as classes que implementam a interface Set
+    não são thread-safe por padrão, o que significa que não é seguro acessá-las
+    de várias threads simultaneamente. Se você precisar trabalhar com conjuntos
+    em um ambiente concorrente, é importante sincronizar o acesso ao conjunto
+    com as palavras-chave synchronized ou com as classes da biblioteca
+    java.util.concurrent.
+
+    8o - Não altere o conjunto enquanto estiver percorrendo seus elementos: se
+    você estiver percorrendo um conjunto usando um iterador, é importante não
+    alterar o conjunto enquanto estiver percorrendo seus elementos.
+    Isso pode levar a resultados inesperados ou erros de tempo de execução.
+    Em vez disso, use o iterador para percorrer o conjunto e, em seguida,
+    modifique-o após concluir a iteração.
+
+    9o - Garanta a imutabilidade do conjunto quando necessário: em alguns casos,
+    pode ser desejável que um conjunto seja imutável, ou seja, que seus elementos
+    não possam ser adicionados, removidos ou alterados após sua criação. Para isso,
+    o Java oferece a classe Collections.unmodifiableSet(), que cria uma visão
+    imutável de um conjunto existente. É importante lembrar que a visão é apenas
+    de leitura e qualquer tentativa de alteração do conjunto lançará uma exceção.
+
+    10o - Considere a ordem dos elementos: algumas implementações da interface Set,
+    como a TreeSet e a LinkedHashSet, mantêm uma ordem específica para os elementos.
+    É importante considerar essa ordem ao escrever código que utiliza essas
+    implementações. Por exemplo, se você precisar percorrer os elementos de um
+    TreeSet em ordem crescente, pode usar o método iterator() ou o método forEach()
+    com um Comparator apropriado.
+
+    11o - Tenha cuidado ao usar objetos mutáveis como elementos: se você usar
+    objetos mutáveis como elementos de um conjunto, é importante ter cuidado
+    ao modificá-los. Se um objeto for modificado de uma maneira que altere sua
+    posição no conjunto, pode ocorrer um comportamento inesperado. Por exemplo,
+    se você usar uma lista como elemento de um conjunto e remover um elemento
+    da lista, o conjunto poderá ficar em um estado inconsistente.
+
+    12o - Esteja ciente das diferenças entre equals() e hashCode(): para que uma
+    classe possa ser usada como elemento de um conjunto, ela deve sobrescrever os
+    métodos equals() e hashCode(). É importante lembrar que esses métodos têm
+    comportamentos diferentes: equals() é usado para testar a igualdade entre
+    objetos, enquanto hashCode() é usado para calcular a posição do objeto no
+    conjunto. Portanto, é importante garantir que esses métodos sejam consistentes
+    entre si para evitar resultados inesperados.
 
 -------------------------------------------------------------------------------
 * HashSet: A classe é uma implementação da interface Set que utiliza uma tabela
@@ -981,3 +1193,132 @@ em que foram inseridos ou garantir que não há elementos duplicados no conjunto
     é construída e dos elementos que estão sendo armazenados.
 
 -------------------------------------------------------------------------------
+* SortedSet: É uma interface que extends a interface Set e define um conjunto
+ordenado de elementos únicos. Como o nome sugere, um SortedSet mantém os
+elementos em ordem classificada e não permite elementos duplicados.
+A ordem pode ser definida de várias maneiras, dependendo da implementação, como
+a ordem natural dos elementos ou uma ordem definida por um comparador externo.
+
+As classes que implementam essa interface fornecem funcionalidades adicionais em
+relação à interface Set, como acesso aos elementos por posição e subconjuntos
+definidos por um intervalo de elementos.
+
+Em geral, o uso de classes que implementam a interface SortedSet pode ser uma boa
+escolha em aplicações que exigem a ordenação automática de elementos e acesso
+eficiente a subconjuntos de elementos.
+
+- Algumas das principais aplicações e utilidades de um SortedSet são:
+
+    - Ordenação de elementos: um SortedSet pode ser usado para manter os elementos
+    em ordem classificada, o que pode ser útil em várias aplicações, como
+    classificação de dados, exibição de informações em ordem alfabética, filtragem
+    de dados com base em uma ordem definida e assim por diante.
+
+    - Conjunto sem duplicatas: um SortedSet não permite elementos duplicados, o que
+    pode ser útil em muitos casos em que é importante garantir que não haja duplicatas
+    em um conjunto de dados.
+
+    - Eficiência de busca: as implementações de SortedSet usam uma estrutura interna,
+    como uma árvore binária de busca ou uma tabela hash, para manter os elementos em
+    ordem e pesquisar rapidamente um elemento em particular.
+    Isso torna a busca de elementos em um SortedSet muito eficiente em comparação com
+    outras estruturas de dados.
+
+    - Subconjuntos ordenados: um SortedSet permite a criação de subconjuntos ordenados
+    de seus elementos, usando os métodos subSet, headSet e tailSet.
+    Isso pode ser útil em várias aplicações, como busca por um intervalo específico de
+    valores, seleção de uma faixa de dados com base em uma condição de filtro e assim
+    por diante.
+
+Em resumo, um SortedSet é uma estrutura de dados útil para manter um conjunto ordenado
+de elementos únicos. Ele pode ser usado em uma variedade de aplicações que exigem
+eficiência de busca, ordenação de elementos e a garantia de que não haja duplicatas.
+
+---> Principais Classes que Implementam ele:
+
+    * TreeSet: implementa um SortedSet usando uma árvore binária de busca. Os elementos
+    são mantidos em ordem natural ou em uma ordem definida por um Comparator externo.
+    - É útil quando se precisa manter uma coleção de elementos em ordem classificada.
+    Por exemplo, pode ser usado para manter um conjunto de palavras em ordem alfabética
+    ou para classificar e filtrar dados.
+
+    * ConcurrentSkipListSet: implementa um SortedSet usando uma lista ligada de nós,
+    cada um contendo uma chave e um conjunto de nós adjacentes. A lista é ordenada
+    usando a ordem natural dos elementos ou um Comparator externo.
+    - É útil quando é necessário manter uma lista ordenada de elementos em um ambiente
+    multithreaded. Por exemplo, pode ser usado para manter uma lista de threads em
+    execução em ordem de prioridade.
+
+    * EnumSet: implementa um SortedSet para enumerações, mantendo os elementos em
+    ordem natural da enumeração.
+    - É útil para representar conjuntos de enumerações em um programa. Por exemplo,
+    pode ser usado para representar os dias da semana ou os estados de uma máquina
+    de estados finita.
+
+    * CopyOnWriteArraySet: implementa um SortedSet usando um array de objetos.
+    A estrutura interna do array é modificada de forma thread-safe usando uma
+    cópia do array original.
+    É útil quando é necessário manter uma coleção thread-safe de elementos,
+    especialmente em ambientes em que as leituras são muito mais frequentes
+    do que as gravações. Por exemplo, pode ser usado para manter uma lista
+    de assinantes de eventos em um aplicativo.
+
+- Vantagens:
+
+    - Ordenação automática: A principal vantagem de usar uma classe que implementa
+    a interface SortedSet é que os elementos são automaticamente ordenados na ordem
+    definida pela classe.
+    Isso pode economizar tempo e esforço para ordenar os elementos manualmente.
+
+    - Operações mais eficientes: As classes que implementam a interface SortedSet
+    oferecem operações de busca e acesso a elementos mais eficientes do que outras
+    classes de conjunto, como HashSet.
+    Isso é possível graças à ordenação dos elementos.
+
+    - Conjuntos limitados por intervalo: As classes que implementam a interface
+    SortedSet permitem criar subconjuntos com base em um intervalo de elementos.
+    Isso pode ser útil em várias aplicações, como em jogos de cartas ou em
+    visualização de dados.
+
+    - Redução de código: A ordenação automática dos elementos pode reduzir a
+    quantidade de código necessário para realizar tarefas comuns em que a
+    ordenação é necessária, como em algoritmos de pesquisa binária.
+
+- Desvantagens:
+
+    - Desempenho inferior em inserção e remoção: As classes que implementam a
+    interface SortedSet geralmente têm um desempenho inferior em operações de
+    inserção e remoção de elementos em relação a outras classes de conjunto,
+    como HashSet.
+    Isso ocorre porque a ordenação dos elementos precisa ser mantida e
+    atualizada durante essas operações.
+
+    - Complexidade do código: A implementação de classes que usam a interface
+    SortedSet pode ser mais complexa do que a implementação de classes que usam
+    outras interfaces de conjunto, devido à necessidade de manter a ordenação
+    dos elementos.
+
+    - Custo computacional: A ordenação automática dos elementos pode ter um custo
+    computacional mais alto do que outras implementações de conjunto.
+    Isso pode ser um problema em aplicações que requerem desempenho de alto nível
+    e grande volume de dados.
+
+---> Diferenças de uso para cada classe que implementa:
+
+* TreeSet:
+    - Implementação baseada em árvore binária balanceada (Red-Black Tree);
+    - Mantém os elementos em ordem crescente;
+    - Fornece métodos adicionais para trabalhar com elementos em uma posição específica na ordem;
+    - É adequada para casos em que é necessário manter os elementos em ordem crescente.
+
+* ConcurrentSkipListSet:
+    - Implementação baseada em uma estrutura de dados de lista ligada parcialmente ordenada;
+    - Mantém os elementos em ordem crescente;
+    - Permite acesso concorrente seguro aos elementos do conjunto;
+    - É adequada para casos em que há múltiplas threads trabalhando simultaneamente no conjunto.
+
+* ImmutableSortedSet:
+    - Implementação imutável de um conjunto ordenado de elementos;
+    - Mantém os elementos em ordem crescente;
+    - Não permite a adição, remoção ou modificação de elementos após a criação;
+    - É adequada para casos em que os elementos são conhecidos antecipadamente e não serão modificados.
