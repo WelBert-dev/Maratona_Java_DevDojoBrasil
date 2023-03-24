@@ -1438,3 +1438,69 @@ eficiência de busca, ordenação de elementos e a garantia de que não haja dup
     - Mantém os elementos em ordem crescente;
     - Não permite a adição, remoção ou modificação de elementos após a criação;
     - É adequada para casos em que os elementos são conhecidos antecipadamente e não serão modificados.
+
+---> Pontos importantes e atenções em comum entre elas:
+
+    1o - Ordenação: A interface SortedSet define uma ordem total sobre seus elementos,
+    que pode ser definida por meio de um comparador ou pela ordem natural dos elementos.
+    As classes que implementam essa interface devem garantir que os elementos sejam
+    armazenados em ordem crescente ou decrescente, de acordo com a ordem definida.
+
+    2o - Duplicatas: Como a interface Set, a interface SortedSet não permite elementos
+    duplicados. Se um elemento que já existe no conjunto é adicionado, o método add()
+    não tem efeito. (return false);
+
+    3o - Métodos de acesso: Além dos métodos padrão da interface Set, a interface
+    SortedSet possui métodos adicionais para acessar os elementos com base em sua
+    posição na ordem. Esses métodos incluem first(), last(), headSet(), tailSet()
+    e subSet().
+
+    4o - Imutabilidade: A interface SortedSet é imutável, o que significa que seus
+    elementos não podem ser modificados depois de adicionados ao conjunto. Se um
+    elemento precisar ser modificado, ele deve ser removido do conjunto e adicionado
+    novamente com a nova versão.
+
+    5o - Performance: As classes que implementam a interface SortedSet geralmente
+    têm um desempenho melhor do que outras estruturas de dados que suportam a
+    ordenação, como ArrayList ou LinkedList. Isso ocorre porque as implementações
+    SortedSet podem usar árvores de busca balanceadas para armazenar os elementos
+    e manter a ordem.
+
+    6o - Comparador: As classes que implementam a interface SortedSet podem permitir
+    que o programador especifique um comparador personalizado para definir a ordem
+    dos elementos. Se nenhum comparador for especificado, a ordem natural dos elementos
+    será usada.
+
+    7o - Elementos nulos: A interface SortedSet não permite elementos nulos. Se um
+    elemento nulo é adicionado, o método add() lança uma exceção NullPointerException.
+
+    8o - Iteração: A iteração dos elementos em uma SortedSet ocorre na ordem definida
+    pela interface.
+    Isso significa que os elementos são acessados em ordem crescente ou decrescente,
+    dependendo da ordem definida.
+
+    9o - Subconjuntos imutáveis: Além dos métodos de acesso mencionados acima, a
+    interface SortedSet também possui métodos que retornam subconjuntos imutáveis
+    do conjunto original. Esses subconjuntos mantêm a ordem dos elementos e podem
+    ser usados para realizar operações em um subconjunto específico do conjunto
+    original.
+
+    10o - Implementações padrão: O Java fornece duas implementações padrão SortedSet:
+    TreeSet e ConcurrentSkipListSet.
+    O TreeSet armazena os elementos em uma árvore balanceada e é thread-safe, enquanto
+    o ConcurrentSkipListSet usa uma lista vinculada paralela e também é thread-safe.
+
+    11o - Baixa performance de inserção: Embora a interface SortedSet tenha um bom
+    desempenho para acessar os elementos, a inserção pode ser lenta em comparação
+    com outras estruturas de dados, especialmente quando muitos elementos são
+    adicionados.
+    Isso ocorre porque a inserção em uma árvore balanceada requer que a árvore seja
+    reequilibrada para manter sua estrutura.
+
+    12o - Desempenho de busca: A busca em uma árvore balanceada tem uma complexidade
+    de tempo logarítmica, o que significa que o tempo de busca aumenta lentamente à
+    medida que o tamanho do conjunto aumenta.
+    Isso torna as classes que implementam a interface SortedSet uma boa escolha para
+    conjuntos grandes que precisam ser acessados com frequência.
+
+-------------------------------------------------------------------------------
