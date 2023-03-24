@@ -1916,3 +1916,137 @@ ser únicas.
     do Map e escolher a implementação adequada com base nesse fator.
 
 -------------------------------------------------------------------------------
+* Class HashMap: Permite armazenar um conjunto de pares chave-valor, em que cada
+chave é mapeada para um valor correspondente. Ela é usada para armazenar e recuperar
+dados com base em chaves.
+
+A principal utilidade do HashMap é permitir que se possa recuperar um valor a
+partir de uma chave rapidamente. O HashMap é implementado usando uma tabela hash,
+o que significa que os elementos são armazenados em uma matriz e as chaves são
+mapeadas para índices nessa matriz. Essa técnica de mapeamento permite uma busca
+muito rápida, independentemente do tamanho da tabela hash.
+
+- Algumas das aplicações do HashMap incluem:
+
+    - Armazenamento de dados em cache: Ao armazenar dados em cache em um HashMap,
+    as consultas subsequentes podem ser atendidas a partir do cache, em vez de ter
+    que buscar os dados em um banco de dados ou outro local de armazenamento.
+
+    - Processamento de grandes quantidades de dados: Pode ser usado para processar
+    grandes quantidades de dados, como log de eventos, de maneira rápida e eficiente.
+
+    - Mapeamento de propriedades: É frequentemente usado para mapear propriedades,
+    como configurações de aplicativos, de maneira simples e fácil de usar.
+
+Em resumo, é uma estrutura de dados muito útil, que permite armazenar e recuperar
+dados de forma eficiente, com base em chaves. É amplamente utilizada em muitas
+aplicações, desde armazenamento em cache até processamento de grandes quantidades
+de dados, e é uma escolha popular para armazenamento de dados em memória.
+
+- Vantagens:
+
+    - Eficiência: É uma das implementações mais eficientes do Map em nível mais
+    baixo. Ele usa uma tabela hash para armazenar e recuperar elementos, o que
+    torna as operações de busca, inserção e exclusão muito rápidas. Além disso,
+    a implementação do HashMap em nível mais baixo é altamente otimizada,
+    tornando-o uma opção ideal para aplicativos que exigem alto desempenho.
+
+    - Simplicidade: Relativamente simples, pois usa uma tabela hash para armazenar
+    elementos.
+    Isso torna o código fácil de entender e modificar. Além disso, o HashMap é uma
+    das implementações mais comuns do Map em Java, o que significa que é fácil
+    encontrar exemplos e soluções de problemas on-line.
+
+    Flexibilidade: É altamente flexível, pois permite associar qualquer tipo de
+    objeto a qualquer outro objeto, desde que a chave seja única.
+    Isso é muito útil quando precisamos armazenar dados que não se encaixam em
+    uma matriz ou lista simples.
+
+- Desvantagens:
+
+    - Não é thread-safe: O que significa que pode ocorrer problemas de concorrência
+    se vários threads estiverem acessando e modificando o HashMap ao mesmo tempo.
+    Se a sua aplicação precisar de uma implementação thread-safe do Map, você deve
+    usar uma implementação como ConcurrentHashMap.
+
+    - Não garante ordem: Não garante a ordem dos elementos na tabela hash, o que
+    significa que os elementos podem ser retornados em ordem diferente da que foram
+    adicionados. Se a ordem for importante para o seu caso de uso, você deve usar
+    outras implementações do Map, como o TreeMap ou o LinkedHashMap.
+
+    - Requer chaves únicas: Requer que cada chave seja única. Se duas chaves forem
+    iguais, a última chave inserida substituirá a primeira.
+    Isso pode levar a resultados inesperados e bugs difíceis de rastrear se as chaves
+    não forem exclusivas. Se a sua aplicação precisar permitir chaves duplicadas, você
+    deve usar outra implementação do Map, como o MultiMap da biblioteca Apache Commons.
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Performance: Eficiente em termos de desempenho, pois a pesquisa de elementos
+    é feita em tempo constante, em O(1). O desempenho pode diminuir se o fator de carga
+    for muito alto. É importante ajustar o tamanho do HashMap adequadamente para otimizar
+    o desempenho.
+
+    2o - Chaves únicas: As chaves em um HashMap devem ser únicas. Se uma chave já existir
+    no mapa e uma nova entrada com a mesma chave for adicionada, o valor associado à chave
+    será substituído pelo novo valor.
+
+    3o - Hashing: Usa o conceito de hashing para armazenar e pesquisar elementos.
+    Isso significa que as chaves são mapeadas para índices de tabela usando uma
+    função hash. Portanto, é importante que a classe da chave implemente os métodos
+    equals() e hashCode() corretamente para garantir que as chaves sejam armazenadas
+    e pesquisadas corretamente.
+
+    4o - Nulls: Permite que a chave e o valor sejam nulls. No entanto, se você tentar
+    obter o valor associado a uma chave que não existe, o HashMap retornará null.
+    É importante verificar se o valor retornado é null ou se a chave existe no mapa.
+
+    5o - Iteração: Fornece várias maneiras de iterar sobre seus elementos, como keySet(),
+    values(), entrySet(). É importante escolher a melhor opção de iteração com base na
+    sua necessidade.
+
+    6o - Concurrence: Não é thread-safe. Se você precisar usá-lo em um ambiente multithread,
+    deve usar a classe ConcurrentHashMap em vez disso.
+
+    7o - Capacidade: Ao criar um HashMap, você pode especificar a capacidade inicial e o fator
+    de carga. É importante escolher esses valores com base no tamanho esperado do mapa e no
+    desempenho desejado.
+
+    8o - Order: Não garante a ordem dos elementos, pois depende da função hash usada. Se você
+    precisar manter a ordem de inserção dos elementos, pode usar a classe LinkedHashMap.
+
+    9o - Evitar Boxing/Unboxing: Para obter um melhor desempenho, evite usar tipos primitivos
+    como chaves em um HashMap. Isso requer boxing e unboxing, que pode ser um processo lento
+    e desperdiçar recursos. Em vez disso, use as classes correspondentes de objetos, como
+    Integer ou Double.
+
+    10o - Clonagem: Pode ser clonado usando o método clone(). No entanto, o clone resultante será
+    um novo HashMap que compartilha as mesmas referências dos objetos de chave e valor com o
+    original. Se você precisar fazer uma cópia profunda (cópia de objetos aninhados), pode usar
+    a classe DeepCloneableHashMap em vez disso.
+
+    11o - Comparação de HashMaps: Para comparar dois HashMaps, você pode usar o método equals().
+    No entanto, isso compara apenas os elementos dentro dos HashMaps e não leva em consideração
+    a ordem dos elementos ou a referência do objeto do mapa.
+
+    12o - Carga inicial: Ao criar um HashMap, é possível especificar um mapa inicial para preencher
+    o mapa com elementos.
+    Isso pode ser útil para economizar tempo e desempenho, em vez de adicionar os elementos
+    individualmente.
+
+    13o - Substituição de valores: Se você quiser substituir o valor associado a uma chave em um
+    HashMap, pode usar o método put() novamente com a mesma chave.
+    Isso substituirá o valor antigo pelo novo valor. No entanto, é importante observar que a
+    chave deve existir no mapa antes que o novo valor possa ser substituído.
+
+    14o - Java 8 e posterior: A partir do Java 8, o HashMap é compatível com as interfaces Stream
+    API e forEach.
+    Isso torna mais fácil e conveniente iterar sobre os elementos do mapa usando expressões
+    lambda.
+
+    15o - Evitar expansão: Para evitar a expansão frequente do HashMap, que pode ser lenta
+    e consumir recursos, é importante definir o fator de carga para um valor adequado ao
+    criar o mapa. Um valor comum é 0,75, que oferece um bom equilíbrio entre desempenho e
+    uso de memória.
+
+-------------------------------------------------------------------------------
