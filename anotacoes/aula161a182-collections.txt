@@ -2,6 +2,9 @@
 -- link: -
 -- Mais informações sobre serialização: -
 
+- Fonte interessante com OverView:
+https://www.devmedia.com.br/java-collections-como-utilizar-collections/18450
+
 Intermediário: Mais específico no Java
 
 
@@ -1568,5 +1571,134 @@ a classe ConcurrentSkipListSet é uma opção mais adequada.
     reversa, o que pode ser útil em certas situações.
 
 -------------------------------------------------------------------------------
+* Class TreeSet: É uma implementação da interface SortedSet/NavigableSet que usa
+uma árvore binária balanceada para armazenar os elementos em ordem crescente.
+Ela é uma das classes mais utilizadas do Java Collections Framework devido à sua
+eficiência em manter uma coleção ordenada de elementos.
 
+- Algumas das aplicações e utilidades da classe TreeSet no Java incluem:
 
+    - Ordenação: A classe TreeSet é particularmente útil quando você precisa armazenar
+    elementos em ordem crescente ou decrescente.
+    Isso pode ser útil em várias aplicações, como ordenação de dados de entrada ou
+    classificação de resultados.
+
+    - Conjunto de valores exclusivos: Como a classe TreeSet é uma implementação da
+    interface Set, ela garante que cada elemento seja único na coleção.
+    Isso é útil quando você precisa de uma coleção de valores exclusivos, como em um
+    conjunto de palavras-chave ou em um conjunto de nomes de usuários em um sistema
+    de autenticação.
+
+    - Intervalos de valores: Como a classe TreeSet implementa a interface NavigableSet,
+    ela permite que você busque elementos na coleção com base em intervalos de valores,
+    o que pode ser útil em várias aplicações, como buscas por faixas de preços em um
+    sistema de comércio eletrônico.
+
+    - Implementação de Mapas ordenados: A classe TreeSet pode ser usada para implementar
+    um mapa ordenado, em que as chaves são mantidas em ordem. Isso é possível porque a
+    classe TreeSet permite que você armazene pares de chave-valor em um objeto e busque
+    esses pares com base na chave.
+
+    - Implementação de conjuntos thread-safe: A classe ConcurrentSkipListSet é uma
+    implementação da interface NavigableSet que é thread-safe, o que significa que
+    pode ser usada em ambientes concorrentes sem preocupações com sincronização.
+    Isso é útil em várias aplicações em que várias threads podem acessar a mesma
+    coleção simultaneamente.
+
+    - Busca Binária: O TreeSet é uma estrutura de dados comum para implementar
+    algoritmos como a busca binária e a verificação da presença de elementos em
+    uma lista ordenada.
+
+Em resumo, a classe TreeSet é muito útil para armazenar e manipular coleções ordenadas
+e elementos, além de ser eficiente em várias operações de busca e navegação.
+
+- Vantagens:
+
+    - Ordenação automática: Mantém seus elementos automaticamente em ordem classificada,
+    o que pode ser conveniente e útil em muitos casos.
+
+    - Velocidade de acesso: Permite pesquisas eficientes, com complexidade O(log n),
+    o que é importante para aplicações com grande quantidade de dados.
+
+    - Detecção de duplicatas: Não permite elementos duplicados, o que pode ser útil para
+    garantir que uma coleção de elementos não contenha valores repetidos.
+
+    - Flexibilidade: Pode ser usado com qualquer objeto que implemente a interface
+    Comparable ou com um Comparator personalizado, o que permite que ele seja adaptado
+    para diferentes tipos de objetos e requisitos de classificação.
+
+    - Eficiência na obtenção de subconjuntos: Permite a obtenção de subconjuntos da
+    árvore com base em faixas de valores de forma eficiente, usando o método
+    subSet(E fromElement, E toElement), o que pode ser útil em muitos casos.
+
+- Desvantagens:
+
+    - Desempenho: É menos eficiente do que outras estruturas de dados, como o HashSet,
+    em algumas operações, como adicionar e verificar a existência de elementos.
+
+    - Requisito de memória: Pode ser menos eficiente em termos de uso de memória do que
+    outras estruturas de dados, especialmente se for usado com objetos grandes ou se a
+    árvore for muito grande.
+
+    - Dificuldade de alterar a ordem: É uma estrutura de dados imutável, o que significa
+    que uma vez que os elementos são adicionados, sua ordem não pode ser facilmente
+    alterada, o que pode ser um problema em algumas situações.
+
+    - Menor eficiência na adição e remoção de elementos: Pode ser menos eficiente na
+    adição e remoção de elementos do que outras estruturas de dados, como o ArrayList,
+    especialmente para grandes conjuntos de dados.
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Não permite elementos duplicados: É importante lembrar que o TreeSet não permite
+    a inserção de elementos duplicados. Ao tentar adicionar um elemento que já existe na
+    árvore, a operação não terá efeito e o tamanho da árvore não será alterado.
+
+    2o - Implementação do Comparable ou Comparator: Para usar um TreeSet com objetos
+    personalizados, é necessário implementar a interface Comparable ou fornecer um
+    Comparator personalizado. Sem isso, o TreeSet não saberá como comparar os objetos
+    e lançará uma exceção.
+
+    3o - Cuidado ao trabalhar com objetos mutáveis: Ao trabalhar com objetos mutáveis,
+    é importante lembrar que a ordem dos elementos pode ser afetada se o objeto for
+    alterado após ser adicionado ao TreeSet. É recomendado usar objetos imutáveis ou
+    fazer uma cópia do objeto antes de adicioná-lo à árvore.
+
+    4o - Menos Eficiência da inserção e remoção: Pode ser menos eficiente na inserção e
+    remoção de elementos do que outras estruturas de dados, como o ArrayList. Portanto,
+    é importante avaliar cuidadosamente as necessidades do aplicativo e escolher a
+    estrutura de dados apropriada.
+
+    5o - Cuidado ao iterar sobre a árvore: Ao iterar sobre a árvore, é importante lembrar
+    que os elementos serão retornados em ordem classificada. Se a ordem de iteração não
+    for importante, pode ser mais eficiente usar outra estrutura de dados.
+
+    6o - Acesso rápido a elementos com base em valores: Permite o acesso rápido a elementos
+    com base em valores usando o método higher(E e) e lower(E e), que retornam o primeiro
+    elemento maior ou menor que um valor específico. Este recurso pode ser útil em muitos
+    casos.
+
+    7o - Eficiência de busca rápida: É eficiente em busca rápida, com uma complexidade de
+    tempo média de O(log n). Portanto, pode ser uma boa escolha para situações em que a
+    busca rápida é importante.
+
+    8o - Sobrecarga de memória: Pode consumir mais memória do que outras estruturas de dados,
+    especialmente para conjuntos grandes ou para objetos complexos.
+    Isso ocorre porque a árvore interna mantém referências a todos os elementos inseridos, o
+    que pode levar a uma sobrecarga de memória se os objetos forem grandes ou se houver muitos
+    deles.
+
+    9o - Desempenho inferior para operações em massa: Pode ser menos eficiente para operações
+    em massa, como adicionar um grande número de elementos de uma vez ou limpar o conjunto
+    inteiro. Nestes casos, pode ser mais eficiente usar outra estrutura de dados.
+
+    10o - Limitação na busca por índice: Não permite a busca por índice, ou seja, não há um
+    método para acessar um elemento em uma posição específica na árvore. Se a busca por índice
+    for um requisito, pode ser necessário usar outra estrutura de dados, como o ArrayList.
+
+    11o - Desempenho inferior para iteração em ordem inversa: Pode ser menos eficiente para
+    iteração em ordem inversa, pois não suporta um método para iterar em ordem reversa.
+    Para iterar em ordem inversa, pode ser necessário criar uma cópia do conjunto e
+    invertê-lo manualmente.
+
+-------------------------------------------------------------------------------
