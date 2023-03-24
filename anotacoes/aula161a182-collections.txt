@@ -993,7 +993,7 @@ garantir que os elementos sejam comparados corretamente.
     entre si para evitar resultados inesperados.
 
 -------------------------------------------------------------------------------
-* HashSet: A classe é uma implementação da interface Set que utiliza uma tabela
+* Class HashSet: A classe é uma implementação da interface Set que utiliza uma tabela
 hash para armazenar seus elementos. Ela não mantém uma ordem específica dos
 elementos e não permite a inclusão de elementos duplicados (DISTINCT).
 
@@ -1144,7 +1144,7 @@ sobre um HashSet pode ocorrer em qualquer ordem.
     não for bem implementada ou se houver muitas colisões.
 
 -------------------------------------------------------------------------------
-* LinkedHashSet: A classe é uma implementação da interface Set em Java que usa
+* Class LinkedHashSet: A classe é uma implementação da interface Set em Java que usa
 uma lista duplamente encadeada para armazenar os elementos na ordem em que foram
 inseridos, além de garantir que não há elementos duplicados no conjunto.
 Ela herda as características da classe HashSet e adiciona a capacidade de manter
@@ -1309,7 +1309,7 @@ em que foram inseridos ou garantir que não há elementos duplicados no conjunto
     é construída e dos elementos que estão sendo armazenados.
 
 -------------------------------------------------------------------------------
-* SortedSet: É uma interface que extends a interface Set e define um conjunto
+* Interface SortedSet: Ela extends a interface Set e define um conjunto
 ordenado de elementos únicos. Como o nome sugere, um SortedSet mantém os
 elementos em ordem classificada e não permite elementos duplicados.
 A ordem pode ser definida de várias maneiras, dependendo da implementação, como
@@ -1504,3 +1504,69 @@ eficiência de busca, ordenação de elementos e a garantia de que não haja dup
     conjuntos grandes que precisam ser acessados com frequência.
 
 -------------------------------------------------------------------------------
+* Interface NavigableSet: É uma subinterface da interface SortedSet que foi introduzida
+no Java 6. Essa interface extends a interface SortedSet e adiciona vários métodos que
+permitem navegar pelos elementos do conjunto em ordem.
+
+- Alguns dos métodos adicionados pela interface NavigableSet incluem:
+
+    - lower(e): retorna o maior elemento estritamente menor do que o elemento especificado. (<)
+    - floor(e): retorna o maior elemento menor ou igual ao elemento especificado. (<=)
+    - higher(e): retorna o menor elemento estritamente maior do que o elemento especificado. (>)
+    - ceiling(e): retorna o menor elemento maior ou igual ao elemento especificado. (>=)
+    - pollFirst(): remove e retorna o primeiro elemento do conjunto.
+    - pollLast(): remove e retorna o último elemento do conjunto.
+
+A interface NavigableSet é implementada pela classe TreeSet do Java, que é uma das
+implementações mais comuns da interface SortedSet. É importante notar que a interface
+NavigableSet é compatível com as APIs da interface SortedSet e da interface Set, o que
+significa que qualquer código que use essas interfaces pode ser facilmente atualizado
+para usar a interface NavigableSet, se necessário.
+
+---> Principais Classes que Implementam ele:
+
+    * TreeSet: É uma classe que implementa a interface SortedSet e também a interface
+    NavigableSet. Ela mantém seus elementos em ordem, o que é determinado por um
+    comparador. Além dos métodos da interface SortedSet, a classe TreeSet também
+    suporta os métodos adicionais da interface NavigableSet, que permitem uma navegação
+    mais precisa pelos elementos do conjunto em ordem. A classe TreeSet é implementada
+    como uma árvore rubro-negra, o que significa que suas operações são geralmente
+    rápidas e têm um desempenho previsível.
+
+    * ConcurrentSkipListSet: É uma classe que implementa a interface SortedSet e também
+    a interface NavigableSet. Ela é semelhante à classe TreeSet, mas é projetada para uso
+    em ambientes concorrentes, ou seja, em cenários onde vários threads estão acessando e
+    modificando o conjunto simultaneamente. A classe ConcurrentSkipListSet é implementada
+    como uma lista vinculada, o que permite que ela suporte operações de inserção, remoção
+    e acesso rápido em ambientes concorrentes.
+
+Ambas as classes, TreeSet e ConcurrentSkipListSet, são úteis quando se precisa manter uma
+coleção de elementos ordenados e permitir a navegação precisa pelos elementos. A escolha
+entre as duas classes depende principalmente das necessidades de desempenho e concorrência.
+Se a aplicação não precisa suportar operações concorrentes, a classe TreeSet pode ser uma
+opção mais simples e eficiente. Já se a aplicação precisa suportar operações concorrentes,
+a classe ConcurrentSkipListSet é uma opção mais adequada.
+
+---> Pontos importantes e atenções (REMOVENDO pontos especificados nas superInterfaces dele):
+
+    1o - Métodos de navegação: Como mencionado anteriormente, a interface NavigableSet oferece
+    métodos adicionais de navegação, como lower(), floor(), ceiling() e higher(). Esses métodos
+    permitem que você navegue pela coleção com mais precisão e eficiência.
+
+    2o - Subconjuntos navegáveis: Permite criar subconjuntos da coleção com base em faixas
+    de valores e navegar nesses subconjuntos. Essa funcionalidade é especialmente útil para
+    operações de busca e remoção em um determinado intervalo de valores.
+
+    3o - Métodos adicionais de remoção: Oferece métodos adicionais de remoção, como pollFirst()
+    e pollLast(), que permitem remover e retornar o primeiro ou o último elemento da coleção.
+
+    4o - Métodos de deslocamento: Oferece métodos de deslocamento, como lowerKey(), floorKey(),
+    ceilingKey() e higherKey(), que permitem encontrar as chaves correspondentes aos valores
+    retornados pelos métodos de navegação.
+
+    5o - Iteração em ordem reversa: Oferece um método para iterar pelos elementos em ordem
+    reversa, o que pode ser útil em certas situações.
+
+-------------------------------------------------------------------------------
+
+
