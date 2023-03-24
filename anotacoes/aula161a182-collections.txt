@@ -228,9 +228,125 @@ aos elementos por índice.
 - Programação Orientada a Interface: As coleções no java são bem coesas
 e essa abordagem é bastante utilizada pois ajuda na manutenção do cod.
 
+---> Algumas implementações comuns da interface List incluem:
 
+    * ArrayList: Implementa uma matriz dinâmica que cresce automaticamente à
+    medida que novos elementos são adicionados a ela. O ArrayList é adequado
+    para acesso aleatório aos elementos, mas não é tão eficiente para inserção
+    ou remoção de elementos no meio da lista.
 
+    * LinkedList: Implementa uma lista duplamente vinculada, que é mais eficiente
+    do que o ArrayList para a inserção e remoção de elementos, mas menos eficiente
+    para o acesso aleatório aos elementos.
 
+    * Vector: É semelhante ao ArrayList, mas é sincronizada, o que significa que é
+    segura para uso em ambientes multithread. No entanto, o Vector é menos eficiente
+    do que o ArrayList.
+
+    * Stack: É uma subclasse de Vector e implementa uma pilha (LIFO - último a entrar,
+    primeiro a sair). A classe Stack fornece operações push e pop para inserção e
+    remoção de elementos da pilha.
+
+    * CopyOnWriteArrayList: É uma variante do ArrayList que é otimizada para acesso
+    concorrente. Ela usa uma técnica de cópia na gravação para garantir que as
+    operações de leitura sejam rápidas e seguras em ambientes multithread.
+
+    * ImmutableList: É uma subclasse de List que fornece uma lista imutável, ou seja,
+    uma lista cujos elementos não podem ser alterados após a criação. Ela é útil para
+    garantir a integridade de dados em aplicativos que precisam compartilhar dados
+    entre várias threads.
+
+---> Diferenças de uso para cada classe que implementa:
+
+    * ArrayList: Esta é uma das implementações mais comuns e mais usadas da interface
+    List. Internamente usa um array nativo para armazenar os elementos, e pode ser
+    redimensionada automaticamente quando necessário.
+    Isso significa que o acesso aos elementos da lista é muito rápido, já que é
+    possível acessar diretamente um elemento a partir de sua posição no array.
+    No entanto, as operações de inserção e remoção podem ser caras, já que é
+    necessário mover todos os elementos subsequentes no array para abrir espaço
+    para um novo elemento. Por esta razão, a ArrayList é recomendada para aplicações
+    que exigem acesso rápido aos elementos da lista, mas que não realizam muitas
+    operações de inserção e remoção.
+
+    * LinkedList: Ao contrário da ArrayList, a LinkedList usa uma lista duplamente
+    encadeada para armazenar os elementos da lista.
+    Isso torna as operações de inserção e remoção muito mais rápidas do que na
+    ArrayList, pois não é necessário mover elementos no array. No entanto, o acesso
+    aos elementos da lista pode ser mais lento, já que é necessário percorrer a lista
+    a partir do início ou do fim para encontrar um elemento específico. Portanto, a
+    LinkedList é recomendada para aplicações que realizam muitas operações de inserção
+    e remoção, mas que não precisam de acesso rápido aos elementos da lista.
+
+    * Vector: Esta é uma implementação sincronizada de ArrayList, o que significa que
+    é segura para uso em ambientes concorrentes. No entanto, essa sincronização pode
+    tornar a Vector menos eficiente do que a ArrayList em ambientes não concorrentes.
+    Portanto, a Vector é recomendada para aplicações que exigem segurança em ambientes
+    concorrentes. (Multi-threads)
+
+    * Stack: Esta é uma implementação de pilha que é baseada em Vector. A Stack adiciona
+    um método push para inserir elementos na pilha e um método pop para remover o elemento
+    no topo da pilha. A Stack é uma estrutura de dados simples e pode ser usada para
+    implementar algoritmos de processamento de dados que exigem uma pilha.
+
+    * CopyOnWriteArrayList: esta é uma implementação que mantém uma cópia do array interno
+    para cada operação de atualização.
+    Isso significa que a lista é segura para uso em ambientes concorrentes sem a necessidade
+    de sincronização externa. No entanto, essa cópia pode tornar a CopyOnWriteArrayList menos
+    eficiente do que outras implementações para listas grandes ou com atualizações frequentes.
+    Portanto, a CopyOnWriteArrayList é recomendada para aplicações que exigem segurança em
+    ambientes concorrentes e que têm poucas atualizações na lista.
+
+---> Pontos importantes e atenções em comum entre elas:
+
+    1o - Eficiência: é importante escolher a implementação da List correta para as
+    necessidades específicas da aplicação. Por exemplo, se a aplicação precisar realizar
+    muitas operações de inserção e remoção, a LinkedList pode ser mais eficiente do que
+    a ArrayList.
+
+    2o - Sincronização: se a aplicação exigir acesso concorrente à lista, é importante
+    escolher uma implementação que seja segura para uso em ambientes concorrentes, como
+    a Vector ou a CopyOnWriteArrayList.
+
+    3o - Uso de memória: algumas implementações da List, como a ArrayList, podem alocar
+    mais memória do que o necessário para armazenar os elementos da lista. Portanto, é
+    importante monitorar o uso de memória da aplicação e ajustar a implementação da List
+    se necessário.
+
+    4o - Métodos específicos: cada implementação da List pode oferecer métodos específicos
+    que não estão disponíveis em outras implementações. É importante conhecer esses métodos
+    e usá-los se eles atenderem às necessidades da aplicação.
+
+    5o - Ordenação: algumas implementações da List oferecem suporte à ordenação de elementos,
+    como a ArrayList e a LinkedList. É importante conhecer os algoritmos de ordenação
+    disponíveis e escolher o mais apropriado para a aplicação.
+
+    6o - Iteração: todas as implementações da List permitem a iteração sobre seus elementos
+    usando um loop for-each ou um iterador. No entanto, a eficiência da iteração pode variar
+    entre as implementações, dependendo da estrutura interna usada para armazenar os elementos.
+
+    7o - Index: todas as implementações da List permitem acessar seus elementos por meio de um
+    índice inteiro. No entanto, a eficiência do acesso ao elemento pode variar entre as
+    implementações, dependendo da estrutura interna usada para armazenar os elementos.
+
+    8o - Performance: a performance das operações de adição, remoção e busca pode variar
+    significativamente entre as diferentes implementações da List. Por exemplo, a ArrayList
+    é otimizada para acesso aleatório aos elementos, enquanto a LinkedList é otimizada para
+    inserção e remoção em qualquer posição da lista.
+
+    9o - Nulls: as implementações da List permitem que os elementos nulos sejam adicionados
+     à lista, mas é importante estar ciente de que alguns métodos, como o método indexOf()
+     da `ArrayList`, podem retornar resultados inesperados se houver elementos nulos na lista.
+
+    10o - Clonagem: algumas implementações da List oferecem suporte à clonagem, que permite
+    criar uma cópia da lista. No entanto, é importante estar ciente de que a clonagem pode
+    criar uma referência compartilhada aos mesmos objetos armazenados na lista original.
+    Ou seja, um link entre as "duas" listas, que no caso é apenas uma em LowLevel e
+    na verdade seram duas variáveis de referência apontando para o mesmo array em baixo lvl.
+
+    11o - Sublistas: algumas implementações da List permitem criar uma sublista que é uma
+    visão parcial da lista original. No entanto, é importante estar ciente de que as operações
+    na sublista podem afetar a lista original e vice-versa. Ou seja, cria link entre elas.
 
 -------------------------------------------------------------------------------
 * ArrayList<E>: É uma implementação da interface List que usa uma matriz
