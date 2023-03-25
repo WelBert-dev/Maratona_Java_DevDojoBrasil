@@ -2050,3 +2050,171 @@ de dados, e é uma escolha popular para armazenamento de dados em memória.
     uso de memória.
 
 -------------------------------------------------------------------------------
+* Class LinkedHashMap: Mantém a ordem de inserção dos elementos e permite acessá-los
+através de uma chave. Ela é similar a classe HashMap, com a diferença de que a
+LinkedHashMap mantém a ordem de inserção dos elementos, enquanto a HashMap não
+garante a ordem de iteração.
+
+A classe LinkedHashMap é útil em situações em que é importante manter a ordem de
+inserção dos elementos, por exemplo, em um cache de objetos, em que os objetos mais
+recentemente usados devem ser mantidos na frente da lista. Ela também é útil em
+algoritmos de busca ou ordenação que precisam acessar os elementos na ordem em que
+foram inseridos.
+
+Além disso, a LinkedHashMap oferece algumas opções adicionais de construtor que
+permitem criar instâncias da classe com ordem de iteração baseada em ordem de
+acesso (através do parâmetro accessOrder) ou em ordem de inserção e limitar o
+número de elementos mantidos na coleção (através do parâmetro initialCapacity).
+
+Em resumo, a classe LinkedHashMap é uma implementação de mapas que permite manter
+a ordem de inserção dos elementos, o que pode ser útil em diversas aplicações,
+especialmente em casos em que é necessário manter uma ordem específica ou acessar
+os elementos na ordem em que foram inseridos.
+
+- Algumas das aplicações do LinkedHashMap incluem:
+
+    - Cache: Pode ser usada para implementar um cache, em que os objetos mais
+    recentemente usados são mantidos na frente da lista. Como a ordem de inserção
+    dos elementos é mantida, é possível remover facilmente os elementos mais antigos
+    do cache.
+
+    - Algoritmos de busca e ordenação: Algoritmos de busca e ordenação podem se
+    beneficiar do uso da classe LinkedHashMap, especialmente quando a ordem de
+    inserção é importante. Por exemplo, um algoritmo de busca pode percorrer os
+    elementos em ordem de inserção, o que pode levar a uma melhor performance em
+    alguns casos.
+
+    - Manipulação de dados em bancos de dados: Em algumas situações, pode ser útil
+    armazenar dados em um LinkedHashMap para manter a ordem de inserção dos registros
+    e facilitar a manipulação dos dados em um banco de dados.
+
+Em geral, a classe LinkedHashMap é uma opção útil quando a ordem de inserção dos
+elementos é importante e pode ser aplicada em diversas situações em que é necessário
+manter uma ordem específica ou acessar os elementos na ordem em que foram inseridos.
+
+- Vantagens:
+
+    - Mantém a ordem de inserção: A principal vantagem é que ela mantém a ordem de
+    inserção dos elementos.
+    Isso é útil em situações em que é importante manter uma ordem específica, como
+    em caches ou algoritmos de busca.
+
+    - Acesso rápido aos elementos: É implementada como uma tabela de hash, o que
+    significa que o acesso aos elementos é rápido O(1).
+
+    - Flexibilidade: Oferece opções adicionais de construtor para controlar a ordem
+    de iteração e limitar o número de elementos mantidos na coleção.
+
+    - Iteração ordenada por acesso: Além de permitir iterar pelos elementos em ordem
+    de inserção também é possível iterar em ordem de acesso (através do parâmetro
+    accessOrder no construtor), o que pode ser útil em diversas situações.
+
+    - Remoção fácil de elementos antigos: Como a ordem de inserção é mantida, permite
+    remover facilmente os elementos mais antigos da coleção, o que é útil em caches e
+    outras situações em que é necessário limitar o número de elementos.
+
+    - Flexibilidade de ordenação: Oferece diversas opções de ordenação, permitindo que
+    os elementos sejam organizados de acordo com a necessidade do desenvolvedor.
+
+- Desvantagens:
+
+    - Consumo de memória: Usa mais memória do que outras implementações de Map,
+    como HashMap e TreeMap.
+    Isso ocorre porque ela precisa manter a ordem de inserção dos elementos, o que
+    requer espaço adicional na memória.
+
+    - Performance: Embora o acesso aos elementos seja rápido, a performance pode
+    ser afetada pelo tamanho da coleção e pelo número de elementos que precisam ser
+    percorridos.
+    Isso pode levar a uma performance inferior em comparação com outras implementações
+    de Map, especialmente em coleções grandes.
+
+    - Complexidade: É mais complexa do que outras implementações de Map, o que pode
+    tornar sua utilização mais difícil em alguns casos.
+
+    - Reordenação custosa: Se a ordem de iteração for baseada em acesso (através do
+    parâmetro accessOrder no construtor), a classe pode precisar reordenar os elementos
+    internamente, o que pode ter um custo computacional adicional.
+
+    - Performance em grandes coleções: A performance pode ser afetada negativamente em
+    coleções muito grandes, especialmente quando a ordem de inserção é importante.
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Ordem de inserção: A ordem de inserção dos elementos é mantida, o que pode ser útil
+    em diversas situações. É importante lembrar que essa ordem pode ser afetada por
+    operações de adição ou remoção de elementos.
+
+    2o - Iteração dos elementos: A iteração dos elementos é realizada na ordem de inserção,
+    o que pode ser útil em diversas situações. É importante lembrar que a iteração pode
+    ser afetada por operações de adição ou remoção de elementos.
+
+    3o - Performance: A performance pode ser afetada negativamente em coleções muito grandes,
+    especialmente quando a ordem de inserção é importante. É importante considerar
+    cuidadosamente o tamanho da coleção e as necessidades de performance do sistema
+    antes de escolher utilizar essa classe.
+
+    4o - Implementação de interfaces: A classe implementa as interfaces Map e Iterable, o que
+    permite que ela seja utilizada em conjunto com outras classes e interfaces do Java.
+
+    5o - Sub-classes personalizadas: A classe pode ser facilmente estendida para criar
+    sub-classes personalizadas que adicionam comportamentos específicos, como
+    validação de dados, tratamento de exceções, entre outros.
+
+    6o - Uso de memória: A classe pode ocupar mais memória do que outras implementações de
+    Map em algumas situações, especialmente quando a ordem de inserção é importante.
+    É importante considerar cuidadosamente o uso de memória do sistema e otimizar a
+    implementação de acordo.
+
+    7o - Conflitos de hash: Assim como outras implementações de Map baseadas em tabelas de
+    hash, a classe LinkedHashMap pode sofrer de conflitos de hash, o que pode levar a
+    uma performance inferior em alguns casos.
+
+    8o - Requisitos de sincronização: Se a classe for utilizada em um ambiente multi-threaded,
+    podem ser necessárias medidas de sincronização adicionais para garantir a integridade
+    dos dados.
+
+    9o - Comparações de igualdade: A classe utiliza o método equals() para comparar a igualdade
+    dos elementos, o que pode ser afetado pela implementação específica do método para
+    cada elemento. É importante considerar cuidadosamente a implementação desse método
+    para evitar problemas de comparação.
+
+    10o - Sobrescrita de chaves: Quando uma chave é adicionada a uma LinkedHashMap já existente,
+    ela Sobrescreve a entrada anterior com a mesma chave. É importante lembrar que a ordem
+    de inserção da entrada substituída não é afetada.
+
+    11o - Acesso por índice: A classe não permite o acesso por índice direto, o que pode ser um
+    problema em algumas situações em que essa funcionalidade é necessária. No entanto, é possível
+    utilizar a iteração dos elementos em conjunto com uma variável de controle para obter um acesso
+    semelhante.
+
+    12o - Operações de remoção: As operações de remoção em uma LinkedHashMap podem afetar a ordem
+    de inserção dos elementos subsequentes. É importante considerar cuidadosamente o impacto
+    dessas operações na ordem dos elementos antes de utilizá-las.
+
+    13o - Uso em coleções imutáveis: A classe LinkedHashMap não é uma opção adequada para uso em
+    coleções imutáveis, pois a ordem de inserção pode ser afetada por operações de adição ou
+    remoção de elementos.
+
+    14o - Carga do fator: A carga do fator é um parâmetro que afeta a eficiência da classe.
+    É importante escolher um valor adequado para a carga do fator, que pode variar de acordo
+    com o tamanho da coleção e as necessidades de performance do sistema.
+
+    15o - Colisões de hash: A classe pode sofrer de colisões de hash, que podem afetar a
+    performance e a eficiência da classe. É importante considerar cuidadosamente a
+    qualidade da função hash utilizada para evitar colisões de hash.
+
+    16o - Uso em threads: A classe não é thread-safe, o que significa que não é adequada
+    para uso em ambientes multi-threaded sem medidas de sincronização adequadas. É importante
+    considerar cuidadosamente o uso da classe em um ambiente multi-threaded e implementar
+    as medidas de sincronização necessárias para garantir a integridade dos dados.
+
+    17o - Garbage collection: A classe pode afetar o processo de garbage collection do sistema,
+    especialmente quando a coleção é muito grande. É importante considerar cuidadosamente o
+    impacto da classe no processo de garbage collection e otimizar a implementação de acordo.
+
+    18o - Iteração reversa: A classe não suporta a iteração reversa dos elementos de forma
+    direta. No entanto, é possível utilizar uma iteração dos elementos em conjunto com uma
+    pilha ou uma lista para obter um acesso reverso semelhante.
+
+-------------------------------------------------------------------------------
