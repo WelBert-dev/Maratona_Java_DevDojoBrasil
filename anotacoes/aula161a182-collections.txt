@@ -2074,6 +2074,46 @@ de dados, e é uma escolha popular para armazenamento de dados em memória.
         // `foreach`Chave: Consumidor{id=45805, nome='Wellison'} | Valor: Manga{nome='Dragon Ball Z', numEps=300}
 
 -------------------------------------------------------------------------------
+// Os relacionamentos 1 para N utilizando maps para armazenar:
+# Consumidor compra Lista de Manga:
+
+
+        List<Manga> mangasDoConsumidor1 = new ArrayList<>();
+//        mangasDoConsumidor1.addAll(mangaDBZ, mangaOnePiece, mangaTokyoGhoul);
+        mangasDoConsumidor1.add(mangaDBZ);
+        mangasDoConsumidor1.add(mangaOnePiece);
+        mangasDoConsumidor1.add(mangaTokyoGhoul);
+
+        List<Manga> mangasDoConsumidor2 = new ArrayList<>();
+        mangasDoConsumidor2.add(mangaDBZ);
+        mangasDoConsumidor2.add(mangaJujutsu);
+
+        Map<Consumidor, List<Manga>> map1ParaN = new HashMap<>();
+        map1ParaN.putIfAbsent(consumidor1, mangasDoConsumidor1);
+        map1ParaN.putIfAbsent(consumidor2, mangasDoConsumidor2);
+
+        System.out.println("Consumidor 1 "+consumidor1.getNome() +
+                " Possui os mangas: "+ mangasDoConsumidor1);
+
+        System.out.println("Consumidor 2 "+consumidor2.getNome() +
+                " Possui os mangas: "+ mangasDoConsumidor2);
+
+
+        System.out.println("---------------------------------------");
+        for (Map.Entry<Consumidor, List<Manga>> entry : map1ParaN.entrySet()) {
+            System.out.println("------------------------------");
+            System.out.println("Chave: "+ entry.getKey() +
+                    " | Valor: "+ entry.getValue());
+
+            System.out.println("----------------------------");
+            System.out.println("Consumidor " + entry.getKey().getNome());
+            for (Manga manga: entry.getValue()) {
+                System.out.println("Comprou o manga "+ manga);
+            }
+        }
+
+
+-------------------------------------------------------------------------------
 * Class LinkedHashMap: Mantém a ordem de inserção dos elementos e permite acessá-los
 através de uma chave. Ela é similar a classe HashMap, com a diferença de que a
 LinkedHashMap mantém a ordem de inserção dos elementos, enquanto a HashMap não
@@ -2242,3 +2282,4 @@ manter uma ordem específica ou acessar os elementos na ordem em que foram inser
     pilha ou uma lista para obter um acesso reverso semelhante.
 
 -------------------------------------------------------------------------------
+
