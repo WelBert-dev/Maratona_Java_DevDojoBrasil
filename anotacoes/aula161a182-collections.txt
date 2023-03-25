@@ -2049,6 +2049,30 @@ de dados, e é uma escolha popular para armazenamento de dados em memória.
     criar o mapa. Um valor comum é 0,75, que oferece um bom equilíbrio entre desempenho e
     uso de memória.
 
+
+---> Exemplo de implementação utilizando relacionamento 1 para 1:
+# Consumidor compra Manga
+
+// Os relacionamentos 1 para 1 utilizando maps para armazenar:
+
+        // Define o Consumidor e o Manga:
+
+        // Cria um consumidor e seta o ID randomicamente:
+        Consumidor consumidor1 = new Consumidor("Wellison");
+        System.out.println(consumidor1); // Consumidor{id=45805, nome='Wellison'}
+
+        // Cria o produto Manga:
+        Manga mangaDBZ = new Manga("Dragon Ball Z", 300);
+
+        // finalmente faz o relacionamento:
+        Map<Consumidor, Manga> map1Para1 = new HashMap<>();
+        map1Para1.put(consumidor1, mangaDBZ);
+        System.out.println(map1Para1);
+
+        // Saída:
+        // MAPA 1 Para 1: {Consumidor{id=45805, nome='Wellison'}
+        // `foreach`Chave: Consumidor{id=45805, nome='Wellison'} | Valor: Manga{nome='Dragon Ball Z', numEps=300}
+
 -------------------------------------------------------------------------------
 * Class LinkedHashMap: Mantém a ordem de inserção dos elementos e permite acessá-los
 através de uma chave. Ela é similar a classe HashMap, com a diferença de que a
