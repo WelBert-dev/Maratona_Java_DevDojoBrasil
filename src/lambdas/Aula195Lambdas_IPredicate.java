@@ -30,7 +30,7 @@ Por exemplo, um Predicate pode ser usado para filtrar uma lista de objetos
 com base em um critério específico e, em seguida, um Consumer pode ser usado
 para imprimir os objetos filtrados.
 
-- Algumas aplicações comuns do Predicate incluem:
+---> Algumas aplicações comuns do Predicate incluem:
 
     - Filtragem de coleções: O Predicate pode ser usado para filtrar uma coleção
     de objetos com base em um critério específico. Por exemplo, um Predicate pode
@@ -45,7 +45,7 @@ para imprimir os objetos filtrados.
     - Testes unitários: O Predicate pode ser usado em testes unitários para avaliar
     se uma classe ou método está produzindo o resultado esperado.
 
-- Algumas das principais utilidades do Predicate são:
+---> Algumas das principais utilidades do Predicate são:
 
     - Flexibilidade: O Predicate é uma interface funcional genérica que pode ser
     usada em uma ampla variedade de situações.

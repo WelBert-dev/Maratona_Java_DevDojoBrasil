@@ -57,4 +57,13 @@ public class CarModel {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public void printCarInConsoleVOID() {
+        System.out.println("CarModel{" +
+                "nome='" + nome + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                '}');
+    }
 }
