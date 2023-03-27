@@ -40,6 +40,8 @@ public class Aula193e194parametrizandoComportamentos_lambdas_pt01ept02 {
         System.out.println(filterCarByColor(listCars, "red"));
         System.out.println(filterCarByColorAndBrand(listCars, "green", "Audi"));
 
+        listCars.stream().filter(c -> c.getColor().equals("green"));
+
         // Com uso de parametrização, método fica mais GENÉRICO:
         // Porém ainda sem utilizar lambdas!
         System.out.println(filter(listCars, new CarPredicate() {
