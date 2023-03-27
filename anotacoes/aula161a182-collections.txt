@@ -2610,3 +2610,199 @@ com um Comparator definido pelo programador.
     lenta do que em outras estruturas de dados, como o HashMap.
 
 -------------------------------------------------------------------------------
+* Interface Queue: Define um conjunto de métodos para manipular elementos em uma
+estrutura de dados que segue a política de fila, também conhecida como FIFO
+(First-In, First-Out).
+
+A principal utilidade da interface Queue é permitir a implementação de estruturas
+de dados que gerenciam uma coleção de elementos em que o primeiro elemento adicionado
+é o primeiro a ser removido.
+
+- Algumas das principais aplicações da interface Queue são:
+
+    - Processamento de tarefas: A fila é frequentemente usada para gerenciar tarefas
+    em sistemas que processam tarefas em lote. As tarefas são adicionadas à fila em
+    ordem e processadas em ordem, garantindo que cada tarefa seja processada antes da
+    próxima.
+
+    - Comunicação entre threads: A fila pode ser usada para comunicação entre threads
+    em um ambiente de programação concorrente, em que várias threads executam tarefas
+    simultaneamente. Uma thread pode adicionar um objeto à fila e outra thread pode
+    remover o objeto e processá-lo.
+
+    - Navegação em largura: A fila é usada em algoritmos de navegação em largura, que
+    percorrem uma estrutura de dados em níveis. Em cada nível, os elementos são
+    visitados em ordem e adicionados à fila para serem processados no próximo nível.
+
+    - Sistema de cache: Uma Queue pode ser usada como um sistema de cache para armazenar
+    os itens que foram recentemente acessados. Dessa forma, os itens mais antigos podem
+    ser removidos da fila quando ela atinge seu tamanho máximo.
+
+    - Sistemas de gerenciamento de filas: A interface Queue é frequentemente utilizada
+    em sistemas de gerenciamento de filas, como sistemas de atendimento ao cliente ou
+    sistemas de suporte técnico.
+
+A interface Queue é implementada por várias classes na biblioteca padrão do Java,
+incluindo LinkedList, ArrayDeque e PriorityQueue.
+Cada uma dessas classes tem suas próprias características e benefícios, dependendo
+das necessidades específicas do programa.
+
+A interface Queue fornece vários métodos para manipular elementos na fila, como
+offer(), que adiciona um elemento à fila, poll(), que remove e retorna o primeiro
+elemento da fila, e peek(), que retorna o primeiro elemento da fila sem removê-lo.
+Com esses métodos, é possível adicionar, remover e acessar elementos na fila de
+maneira eficiente e segura.
+
+---> Principais Classes que Implementam ele:
+
+    * LinkedList: É uma classe que implementa uma lista duplamente encadeada e,
+    portanto, pode ser usada como uma fila. Ela oferece uma ampla gama de operações
+    para inserir, remover e acessar elementos da fila. Como uma lista encadeada, a
+    LinkedList é uma implementação flexível que permite a inserção e remoção rápida
+    de elementos em qualquer posição da fila. No entanto, ela pode ter um desempenho
+    mais lento do que outras implementações se a fila for grande e as operações de
+    acesso forem frequentes.
+
+    * PriorityQueue: É uma fila de prioridade que armazena seus elementos em ordem de
+    prioridade. Os elementos são recuperados da fila com base em sua prioridade, não
+    na ordem em que foram inseridos. A PriorityQueue permite a inserção de elementos
+    com uma prioridade específica e a recuperação dos elementos na ordem de prioridade,
+    com o elemento de maior prioridade no início da fila.
+    Isso a torna uma boa escolha quando a ordem de processamento é baseada em uma
+    prioridade específica, como por exemplo, em algoritmos de busca de caminho mínimo.
+
+    * ArrayDeque: É uma classe que implementa uma fila de duplo fim. Ela permite a
+    inserção e remoção de elementos tanto na frente quanto no final da fila.
+    Isso a torna uma boa escolha quando você precisa adicionar ou remover elementos
+    com frequência tanto no início quanto no final da fila.
+    A ArrayDeque é implementada como um array redimensionável, o que significa que
+    é mais eficiente do que LinkedList para acessar elementos em índices específicos
+    da fila.
+
+    * ConcurrentLinkedQueue: É uma fila baseada em lista encadeada que é projetada
+    para ser usada em sistemas concorrentes. Ela suporta operações de inserção e
+    remoção simultâneas de vários threads.
+    Isso a torna uma boa escolha quando vários threads precisam acessar a fila ao
+    mesmo tempo. A ConcurrentLinkedQueue é implementada de uma forma que minimiza
+    a contenção entre threads, o que significa que a fila pode ser acessada de
+    forma rápida e eficiente.
+
+    * LinkedBlockingQueue: É uma fila baseada em lista encadeada que suporta operações
+    de bloqueio. Ela permite que as operações de inserção e remoção da fila sejam
+    bloqueadas até que um determinado limite seja atingido.
+    Isso a torna uma boa escolha quando você precisa controlar o fluxo de entrada e
+    saída da fila. A LinkedBlockingQueue é projetada para ser usada em sistemas com
+    alta concorrência e oferece desempenho escalável em sistemas de vários threads.
+
+---> Diferenças de uso para cada classe que implementa:
+
+    * LinkedList: É implementada como uma lista duplamente encadeada e é eficiente
+    para adicionar e remover elementos no início ou no final da lista. No entanto,
+    ela não é eficiente para adicionar ou remover elementos no meio da lista, pois
+    isso exigiria percorrer toda a lista para encontrar o elemento correto.
+    - Uma vantagem da LinkedList é que ela é flexível e pode ser usada como uma lista,
+    pilha ou fila. Além disso, a LinkedList é mais rápida do que outras implementações
+    de lista quando se trata de adicionar ou remover elementos no início ou no final
+    da lista.
+
+    * PriorityQueue: É uma fila que armazena elementos em ordem de prioridade. Ela é
+    implementada como uma heap binária, o que significa que a inserção e a remoção de
+    elementos são eficientes. Além disso, a PriorityQueue permite definir a ordem de
+    prioridade com base na ordem natural dos elementos ou em uma ordem definida pelo
+    programador.
+    - Como a PriorityQueue ordena os elementos, ela não garante que os elementos serão
+    processados na ordem em que foram inseridos.
+
+    * ArrayDeque: É implementada como uma matriz dinâmica e é eficiente tanto para
+    adicionar quanto para remover elementos no início e no final da fila. Além disso,
+    a ArrayDeque permite que você acesse o primeiro e o último elemento da fila de
+    forma eficiente.
+    - Uma vantagem da ArrayDeque é que ela tem um tamanho dinâmico e pode crescer ou
+    diminuir conforme necessário. No entanto, a ArrayDeque não é adequada para adicionar
+    ou remover elementos no meio da fila, pois isso exigiria que todos os elementos
+    subsequentes fossem movidos.
+
+    * ConcurrentLinkedQueue: É uma fila segura para threads, projetada para ser usada
+    em aplicativos que precisam lidar com threads concorrentes que acessam a fila ao
+    mesmo tempo. Ela é implementada como uma lista ligada, que é eficiente para
+    adicionar e remover elementos.
+    - Uma vantagem da ConcurrentLinkedQueue é que ela é segura para threads e permite
+    que vários threads acessem a fila ao mesmo tempo sem causar problemas de
+    concorrência. No entanto, a ConcurrentLinkedQueue não garante a ordem de
+    processamento dos elementos, o que pode ser um problema em alguns casos de uso.
+
+---> Pontos importantes e atenções em comum entre elas:
+
+    1o - Escolha da implementação: É importante escolher a implementação correta da
+    Queue de acordo com o caso de uso. Por exemplo, se você precisa acessar os
+    elementos da fila no início e no fim de forma eficiente, a ArrayDeque é uma boa
+    opção. Se você precisa processar os elementos de acordo com sua prioridade, a
+    PriorityQueue é mais adequada. Se você está lidando com threads concorrentes,
+    a ConcurrentLinkedQueue é a melhor escolha.
+
+    2o - Capacidade da fila: A capacidade da fila pode ser limitada em algumas
+    implementações, como a ArrayBlockingQueue. Certifique-se de definir o tamanho
+    da fila de acordo com as necessidades do seu aplicativo e considere usar uma
+    implementação que possa aumentar ou diminuir dinamicamente a capacidade, se
+    necessário.
+
+    3o - Tratamento de exceções: Algumas operações da Queue podem lançar exceções,
+    como adicionar um elemento a uma fila cheia ou remover um elemento de uma fila
+    vazia. Certifique-se de lidar adequadamente com essas exceções em seu código.
+
+    4o - Ordenação dos elementos: Nem todas as implementações da Queue garantem a
+    ordem de processamento dos elementos. Certifique-se de entender as implicações
+    da ordem dos elementos para o seu aplicativo e escolha a implementação correta
+    para garantir a ordem desejada.
+
+    5o - Segurança da thread: Se você estiver trabalhando com threads concorrentes,
+    certifique-se de usar uma implementação da Queue que seja segura para threads,
+    como a ConcurrentLinkedQueue. Além disso, use métodos apropriados, como offer()
+    e poll(), que são thread-safe.
+
+    6o - Iteração da fila: A iteração da Queue pode ser realizada usando um loop
+    while ou um for-each loop. No entanto, é importante lembrar que a iteração não
+    é thread-safe e pode causar problemas de concorrência. Para evitar problemas,
+    use métodos de iteração seguros para threads, como iterator() em uma
+    ConcurrentLinkedQueue.
+
+    7o - Verificação do estado da fila: Algumas implementações da Queue permitem que
+    você verifique o tamanho da fila ou se ela está vazia ou cheia. Use esses métodos
+    para evitar exceções desnecessárias ao adicionar ou remover elementos da fila.
+
+    8o - Uso adequado de memória: Algumas implementações da Queue, como a PriorityQueue,
+    usam mais memória do que outras. Certifique-se de entender os requisitos de memória
+    de cada implementação e escolha a que melhor atenda às necessidades do seu aplicativo.
+
+    9o - Tratamento de null: Algumas implementações da Queue, como a PriorityQueue, não
+    permitem elementos nulos. Certifique-se de verificar se a implementação da Queue que
+    você está usando permite elementos nulos e, se não, lide adequadamente com esse caso.
+
+    10o - Desempenho: O desempenho pode variar entre as diferentes implementações da Queue.
+    Algumas implementações, como a LinkedList, podem ter um desempenho pior do que outras
+    em determinadas situações. Certifique-se de entender os requisitos de desempenho do seu
+    aplicativo e escolha a implementação da Queue que melhor atenda a essas necessidades.
+
+    11o - Garbage Collection: Algumas implementações da Queue podem gerar mais objetos
+    para serem coletados pelo Garbage Collector do que outras. Isso pode ter um impacto
+    negativo no desempenho do seu aplicativo. Certifique-se de entender como cada
+    implementação da Queue gerencia a alocação e desalocação de objetos e escolha a
+    implementação que melhor atenda às necessidades do seu aplicativo.
+
+    12o - Uso de iteradores: Quando você itera uma Queue usando um iterador, deve ter
+    cuidado para não modificar a fila durante a iteração. Caso contrário, pode ocorrer
+    uma ConcurrentModificationException. Para evitar esse problema, use um iterador
+    seguro para threads, como o que é fornecido pela ConcurrentLinkedQueue.
+
+    13o - Consistência dos elementos: Algumas implementações da Queue podem permitir
+    que os elementos sejam removidos da fila durante a iteração, o que pode levar a
+    resultados inconsistentes. Certifique-se de entender como cada implementação
+    gerencia a consistência dos elementos da fila durante a iteração e escolha a
+    implementação que melhor atenda às necessidades do seu aplicativo.
+
+
+    14o - Tratamento de interrupções: Algumas operações da Queue, como a take() em
+    uma BlockingQueue, podem ser interrompidas por uma exceção InterruptedException.
+    Certifique-se de lidar adequadamente com essas exceções em seu código.
+
+-------------------------------------------------------------------------------
