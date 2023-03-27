@@ -2282,4 +2282,331 @@ manter uma ordem específica ou acessar os elementos na ordem em que foram inser
     pilha ou uma lista para obter um acesso reverso semelhante.
 
 -------------------------------------------------------------------------------
+* Interface NavigableMap: Extends a interface SortedMap, adicionando métodos que
+permitem a navegação pelos elementos da coleção. Essa interface representa um mapa
+que mantém seus elementos ordenados de acordo com a ordem natural dos elementos ou
+uma ordem especificada pelo Comparator.
 
+Oferece vários métodos adicionais em relação à interface SortedMap, que permitem a
+navegação pelos elementos de várias maneiras, como obter o primeiro e o último
+elemento da coleção, encontrar o elemento imediatamente anterior ou posterior
+a um determinado elemento e criar sub-mapas a partir da coleção original.
+
+- Alguns dos métodos adicionais incluem:
+
+    - lowerKey(K key): retorna a maior chave na coleção estritamente menor que a chave fornecida; (<)
+    - floorKey(K key): retorna a maior chave na coleção menor ou igual à chave fornecida; (<=)
+    - higherKey(K key): retorna a menor chave na coleção estritamente maior que a chave fornecida; (>)
+    - ceilingKey(K key): retorna a menor chave na coleção maior ou igual à chave fornecida; (>=)
+
+    - subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive):
+    retorna um NavigableMap contendo as chaves e os valores da coleção original
+    dentro do intervalo especificado pelas chaves fromKey e toKey, com a opção de
+    incluir ou excluir as extremidades da faixa.
+
+As aplicações e utilidades da interface NavigableMap incluem o uso em situações
+em que a navegação pelos elementos é importante, como em algoritmos de busca,
+classificação e indexação.
+Essa interface é útil em aplicações que precisam acessar os elementos de um mapa
+em uma ordem específica, como em sistemas de gerenciamento de dados, análise de
+dados e processamento de informações.
+Além disso, é adequada para implementar algoritmos de busca em coleções grandes,
+onde a navegação pelos elementos é uma tarefa importante para otimizar o tempo de
+processamento.
+
+---> Principais Classes que Implementam ele:
+
+    * TreeMap: é uma implementação de um mapa ordenado baseado em árvore, que implementa
+    a interface NavigableMap. Ele mantém seus elementos ordenados de acordo com a ordem
+    natural dos elementos ou de acordo com um Comparator especificado pelo Comparator.
+    O TreeMap é útil em situações em que os elementos precisam ser mantidos em uma ordem
+    específica, como em algoritmos de classificação e indexação.
+
+    * ConcurrentSkipListMap: é uma implementação de um mapa ordenado baseado em skip list,
+    que também implementa a interface NavigableMap. Ele é otimizado para operações em
+    ambientes multi-threaded e fornece uma boa escalabilidade em ambientes com muitas
+    threads concorrentes.
+    O ConcurrentSkipListMap é adequado para uso em sistemas que exigem alta concorrência,
+    como sistemas de processamento de dados em tempo real.
+
+    * ImmutableSortedMap: é uma implementação de um mapa ordenado imutável que implementa
+    a interface NavigableMap. Ele é útil em situações em que é importante manter uma coleção
+    de elementos ordenados, mas a coleção não deve ser modificada após a criação.
+    O ImmutableSortedMap é adequado para uso em sistemas que precisam garantir a integridade
+    dos dados e evitar problemas de concorrência.
+
+- Vantagens:
+
+    - Navegação eficiente: Oferece métodos para navegar pelos elementos da coleção,
+    tornando a busca e a manipulação dos elementos mais eficientes do que em outras
+    implementações de mapas.
+
+    - Ordenação dos elementos: Mantêm seus elementos ordenados, o que é útil em várias
+    aplicações que exigem acesso aos elementos em uma ordem específica.
+
+    - Escalabilidade: São projetadas para serem escaláveis em relação ao tamanho da
+    coleção e ao número de threads concorrentes.
+    Isso as torna adequadas para aplicações que lidam com grandes quantidades de dados
+    e/ou processos concorrentes.
+
+    - Flexibilidade: Permite que os elementos da coleção sejam ordenados de acordo com
+    a ordem natural dos elementos ou uma ordem especificada pelo Comparator, tornando-a
+    flexível para se adaptar às necessidades do sistema.
+
+- Desvantagens:
+
+    - Consumo de memória: Podem ter um consumo de memória maior do que outras impl de
+    mapas, pois precisam manter os elementos em uma estrutura de dados ordenada.
+
+    - Complexidade: a navegação pelos elementos da coleção pode ser mais complexa do
+    que em outras implementações de mapas, pois envolve a verificação da ordem dos
+    elementos.
+
+    - Desempenho: em comparação com outras implementações de mapas, como HashMap, as
+    classes que implementam a interface NavigableMap podem ter um desempenho
+    ligeiramente inferior em operações que não envolvem a ordenação dos
+    elementos.
+
+---> Diferenças de uso para cada classe que implementa:
+
+    * TreeMap: é a implementação padrão da interface NavigableMap e usa uma árvore
+    rubro-negra para manter a ordem dos elementos. Por ser uma estrutura de dados
+    que mantém a ordem, ela é eficiente para aplicações que exigem a ordenação dos
+    elementos e, portanto, é adequada para uso em algoritmos de classificação.
+    Porém, sua eficiência pode ser afetada pelo tamanho da estrutura de dados e pelo
+    número de operações de inserção e exclusão de elementos.
+
+    * ConcurrentSkipListMap: é uma implementação thread-safe da interface NavigableMap
+    que usa uma lista vinculada parcialmente ordenada. Ela é útil para aplicações que
+    exigem a operação concorrente em uma estrutura de dados que mantém a ordem dos
+    elementos. Além disso, essa implementação fornece a garantia de que as operações
+    ocorrerão em tempo finito e com a devida precisão, permitindo que um número infinito
+    de threads possam acessar simultaneamente a estrutura de dados.
+
+    * ConcurrentNavigableMap: essa subinterface de ConcurrentSkipListMap fornece métodos
+    adicionais para manipular submapas concorrentes. Isso permite que um conjunto de
+    threads possa acessar, simultaneamente, uma subseção da estrutura de dados, sem que
+    ocorra uma exclusão mútua no acesso aos elementos.
+
+    * DescendingMap: todas as classes que implementam a interface NavigableMap fornecem
+    o método descendingMap(), que retorna uma visão reversa da coleção.
+    Isso é útil para aplicações que exigem a navegação reversa dos elementos. Essa visão
+    reversa fornece um novo conjunto de métodos para navegar pela coleção de trás para
+    frente.
+
+---> Pontos importantes e atenções em comum entre elas:
+
+    1o - Complexidade: o uso de uma estrutura de dados complexa, como uma árvore,
+    pode ter um impacto significativo na complexidade da operação. Por exemplo,
+    algumas operações em TreeMap, como inserção, remoção e busca, têm uma
+    complexidade de tempo O(log n), onde n é o número de elementos na coleção.
+
+    2o - Comparator: todas as classes que implementam NavigableMap usam uma ordem
+    natural ou um Comparator para definir a ordem dos elementos. É importante definir
+    o Comparator corretamente para garantir que os elementos sejam ordenados de
+    maneira consistente e eficiente.
+
+    3o - Elementos repetidos: alguns métodos das classes que implementam NavigableMap
+    permitem elementos repetidos na coleção, enquanto outros não. É importante estar
+    ciente dessas diferenças e escolher a classe apropriada para as necessidades do
+    seu programa.
+
+    4o - Iteração: as classes que implementam NavigableMap oferecem vários métodos
+    para iterar sobre os elementos da coleção, incluindo métodos para iterar em
+    ordem crescente, decrescente ou em ordem pré-definida. É importante escolher o
+    método de iteração apropriado para a sua necessidade.
+
+    5o - Desempenho: o desempenho das classes que implementam NavigableMap pode variar
+    dependendo do número de elementos na coleção, do tipo de operação realizada e do
+    Comparator usado. É importante considerar o desempenho ao escolher a classe
+    apropriada para as necessidades do seu programa.
+
+    6o - Concorrência: algumas classes que implementam NavigableMap, como ConcurrentSkipListMap,
+    são projetadas para serem usadas em ambientes concorrentes. É importante escolher a
+    classe apropriada para as necessidades do seu programa em relação à concorrência.
+
+    7o - Uso de memória: o uso de classes que implementam NavigableMap pode ter um impacto
+    significativo no uso de memória do programa. É importante escolher a classe apropriada
+    para as necessidades do seu programa em relação ao uso de memória.
+
+    8o - Tratamento de exceções: ao trabalhar com as classes que implementam NavigableMap,
+    é importante estar ciente das exceções que podem ser lançadas por diferentes métodos
+    e garantir que elas sejam tratadas corretamente em seu código.
+
+-------------------------------------------------------------------------------
+* Class TreeMap: É uma implementação da interface NavigableMap, que é uma
+subinterface de SortedMap. Ela é utilizada para armazenar um conjunto de
+pares chave-valor ordenados de acordo com a ordem natural das chaves ou
+com um Comparator definido pelo programador.
+
+- Algumas das aplicações e utilidades da classe TreeMap são:
+
+    - Ordenação: É especialmente útil quando precisa armazenar dados em uma estrutura
+    de dados ordenada e acessá-los de acordo com a ordem de suas chaves.
+
+    - Busca: Fornece uma maneira eficiente de buscar elementos em uma coleção ordenada.
+    Isso ocorre porque a busca em uma árvore binária é feita em tempo logarítmico.
+
+    - Algoritmos baseados em intervalos: a Fornece métodos que permitem recuperar
+    subconjuntos de elementos com base em intervalos definidos pelas chaves.
+    Isso pode ser útil em algoritmos de processamento de dados que precisam operar
+    em subconjuntos de dados ordenados.
+
+    - Implementação de dicionários: Pode ser utilizado para implementar um dicionário,
+    onde cada chave é associada a um valor. Dicionários são úteis em várias aplicações,
+    como armazenamento de configurações de aplicativos, tabelas de códigos, e assim por
+    diante.
+
+    - Implementação de índices: Uma árvore de pesquisa binária é uma estrutura de dados
+    comum usada para implementar índices em bancos de dados e outras aplicações.
+    A classe TreeMap pode ser usada para implementar um índice em uma tabela de banco
+    de dados, por exemplo.
+
+- Vantagens:
+
+    - Ordem dos elementos: Os elementos são armazenados em ordem crescente ou decrescente
+    de acordo com a implementação do Comparator ou Comparable passado para o construtor da
+    classe, o que permite que os elementos sejam acessados de forma ordenada.
+
+    - Eficiência na busca, inserção e remoção: A árvore binária permite que essas operações
+    sejam realizadas em tempo logarítmico, ou seja, a medida que a quantidade de elementos
+    aumenta, o tempo necessário para realizar essas operações aumenta em um ritmo muito mais
+    lento.
+
+    - Implementação da interface NavigableMap: Fornece métodos adicionais para navegar pelos
+    elementos da coleção, como floorKey, ceilingKey, lowerKey, entre outros.
+
+    - Segurança em cenários de concorrência: a classe é thread-safe, o que significa que ela
+    pode ser utilizada em cenários de concorrência sem que haja problemas de sincronização.
+    Através do uso de bloqueios internos, que são usados para garantir que apenas uma thread
+    por vez possa acessar ou modificar a estrutura de dados.
+    Isso significa que, mesmo que várias threads estejam tentando acessar ou modificar a TreeMap
+    ao mesmo tempo, elas serão bloqueadas e terão que esperar sua vez para realizar a operação
+    desejada.
+    No entanto, é importante destacar que, embora a TreeMap seja thread-safe, a performance da
+    estrutura pode ser prejudicada em cenários de concorrência intensa, já que o uso de
+    bloqueios pode levar a problemas de contenção e overhead de sincronização.
+
+- Desvantagens:
+
+    - Complexidade de implementação: A árvore binária balanceada utilizada por ela é complexa
+    e pode ser difícil de ser entendida e implementada corretamente.
+
+    - Consumo de memória: Utiliza uma estrutura de dados que pode consumir mais memória do que
+    outras estruturas de dados, como HashMap ou LinkedHashMap.
+
+    - Custo de tempo em algumas operações: Apesar da eficiência na busca, inserção e remoção,
+    algumas operações podem ser mais custosas em termos de tempo, como as operações de acesso
+    e remoção dos primeiros e últimos elementos da árvore.
+
+    - Pior desempenho em cenários de poucos elementos: em cenários em que a coleção possui
+    poucos elementos, o desempenho da TreeMap pode ser pior do que outras estruturas de dados,
+    como o HashMap, devido à sobrecarga de manter a árvore binária balanceada.
+
+    - Ineficiente para operações de inserção em massa: em cenários em que é necessário inserir
+    uma grande quantidade de elementos na coleção de uma só vez, a TreeMap pode ser menos
+    eficiente do que outras estruturas de dados, como o ArrayList ou o HashSet.
+    Isso ocorre porque a inserção de novos elementos na TreeMap exige que a árvore seja
+    reequilibrada a cada novo elemento inserido, o que pode ser custoso em termos de
+    desempenho.
+
+    - Não é apropriada para chaves mutáveis: a TreeMap é uma estrutura de dados projetada para
+    chaves imutáveis, ou seja, chaves que não mudam de valor após serem inseridas na coleção.
+    Se as chaves forem mutáveis, ou seja, puderem ser alteradas após serem inseridas na
+    TreeMap, a ordem dos elementos na coleção pode se tornar inconsistente, o que pode levar
+    a problemas de busca e ordenação.
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Especificação do critério de ordenação: a TreeMap ordena os elementos com base
+    nas chaves, portanto, é importante que as chaves tenham uma ordem bem definida. Se as
+    chaves não implementarem a interface Comparable, será necessário fornecer um Comparator
+    ao construtor da TreeMap para especificar o critério de ordenação personalizado.
+
+    2o - Performance: a TreeMap é uma estrutura de dados eficiente para buscar e inserir
+    elementos, especialmente em cenários com muitos elementos. No entanto, a performance
+    pode ser afetada em cenários de poucos elementos ou inserção em massa, já que a
+    inserção de um novo elemento exige que a árvore seja reequilibrada, o que pode ser
+    custoso em termos de desempenho.
+
+    3o - Imutabilidade das chaves: a TreeMap é projetada para chaves imutáveis, ou seja,
+    as chaves não devem ser modificadas após serem inseridas na coleção. Se as chaves
+    forem mutáveis, a ordem dos elementos na coleção pode se tornar inconsistente, o que
+    pode levar a problemas de busca e ordenação.
+
+    4o - Memória: a TreeMap pode consumir mais memória do que outras estruturas de dados,
+    especialmente se houver muitos elementos na coleção.
+    Isso ocorre porque a TreeMap precisa armazenar uma árvore binária para manter os
+    elementos ordenados.
+
+    5o - Navegação na árvore: a navegação na árvore pode ser feita usando os métodos do
+    NavigableMap, como firstKey(), lastKey(), lowerKey(), higherKey(), entre outros.
+    É importante entender como esses métodos funcionam para poder navegar corretamente na
+    árvore.
+
+    6o - Concorrência: embora a TreeMap seja thread-safe, é importante levar em consideração
+    o impacto da concorrência na performance da estrutura de dados. Em cenários de
+    concorrência intensa, outras estruturas de dados, como o ConcurrentHashMap, podem ser
+    mais adequadas.
+
+    7o - Manipulação de valores duplicados: a TreeMap não permite a inserção de chaves
+    duplicadas, mas é possível inserir valores duplicados. No entanto, é importante ter
+    em mente como os valores duplicados são manipulados, pois isso pode afetar a ordem
+    dos elementos na coleção.
+
+    8o - Remoção de elementos: a remoção de elementos da TreeMap é relativamente eficiente
+    e pode ser feita usando o método remove(). No entanto, é importante lembrar que a remoção
+    de elementos pode afetar a ordem dos elementos na coleção e pode ser necessária uma
+    reorganização da árvore.
+
+    9o - Submapas: a TreeMap suporta a criação de submapas usando os métodos subMap(),
+    headMap() e tailMap(). Esses métodos retornam uma nova TreeMap que contém apenas os
+    elementos que satisfazem a condição especificada, o que pode ser útil em algumas
+    situações.
+
+    10o - Uso de Iterators: é possível percorrer a TreeMap usando um Iterator, mas é
+    importante lembrar que a ordem dos elementos é definida pela ordem das chaves.
+    Isso significa que o Iterator retornará os elementos na ordem das chaves, e não
+    na ordem de inserção.
+
+    11o - Cópia de elementos: a TreeMap permite a criação de uma cópia dos elementos
+    usando o método clone(). No entanto, é importante lembrar que a cópia será uma
+    referência aos mesmos objetos da coleção original, o que pode afetar a
+    integridade dos dados.
+
+    12o - Complexidade: a complexidade das operações na TreeMap é O(log n), o que
+    significa que o desempenho é relativamente eficiente mesmo em grandes coleções.
+    No entanto, é importante lembrar que a complexidade pode aumentar em cenários
+    de poucos elementos ou inserção em massa.
+
+    13o - Navegação bidirecional: a TreeMap suporta navegação bidirecional por meio
+    dos métodos descendingKeySet() e descendingMap(). Esses métodos retornam um
+    conjunto de chaves ou uma submapa em ordem decrescente, permitindo a navegação
+    da árvore de trás para frente.
+
+    14o - Sincronização: se a TreeMap for acessada por várias threads, pode ser
+    necessário sincronizar o acesso para garantir que os dados não sejam corrompidos.
+    A sincronização pode ser feita usando a palavra-chave synchronized ou usando a
+    classe Collections.synchronizedSortedMap() para obter uma versão sincronizada da
+    TreeMap.
+
+    15o - Escolha de uma estrutura de dados adequada: embora a TreeMap seja uma estrutura
+    de dados poderosa, não é a solução certa para todos os cenários. Se a ordem não for
+    importante ou se o desempenho for uma preocupação crítica, outras estruturas de dados,
+    como o HashMap ou o ArrayList, podem ser mais adequadas.
+
+    16o - Escolha do tipo de chave: a escolha do tipo de chave pode afetar o desempenho e a
+    usabilidade da TreeMap. As chaves devem ser imutáveis e implementar a interface
+    Comparable ou serem fornecidas com um Comparator. Além disso, é importante escolher
+    um tipo de chave que seja adequado para a aplicação, como String, Integer ou Enum.
+
+    17o - Sobrecarga de memória: a TreeMap pode consumir uma quantidade significativa de
+    memória, especialmente se a coleção contiver muitos elementos. Se a sobrecarga de
+    memória for uma preocupação, pode ser necessário considerar outras estruturas de
+    dados que ocupam menos espaço, como o HashMap.
+
+    18o - Performance de busca: a performance de busca na TreeMap é eficiente, mas depende
+    da complexidade da chave. Se a complexidade da chave for alta, a busca pode ser mais
+    lenta do que em outras estruturas de dados, como o HashMap.
+
+-------------------------------------------------------------------------------
