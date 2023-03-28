@@ -93,7 +93,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Aula201Optional_Working_with_nulls {
+public class Aula201e202Optional_Working_with_nulls {
     public static void main(String[] args) {
 
         // Quando o retorno do método pode ser null:
