@@ -1,5 +1,9 @@
 package optional;
 
+// - Obs: NÃO pode utilizar Optional como parâmetros de entrada!!
+// - Também NÃO pode utilizar Optional como Atributos de classes!! pois ela não é serializer
+// - Indicado apenas para utilizar em retornos de métodos!
+
 /* Definições sobre Optional:
 
 A classe Optional é uma classe que foi introduzida no Java 8 para tratar valores
@@ -82,8 +86,12 @@ valores de forma segura e evitar exceções NullPointerException.
 
 */
 
+import parametrizandoComportamentos.domain.CarModel;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Aula201Optional_Working_with_nulls {
     public static void main(String[] args) {
@@ -112,6 +120,32 @@ public class Aula201Optional_Working_with_nulls {
                         System.out.println("Optional é Vazio!");
                     }
                 });
+
+        // Se existir na lista altera o valor do atributo do objeto da lista:
+
+        List<CarModel> listCars = new ArrayList<>();
+        listCars.add(new CarModel("Audi", "Audi", "A3", "green"));
+        listCars.add(new CarModel("Mustang", "Mustang", "V8", "red"));
+
+        find(listCars, car -> car.getColor().equals("green"))
+                .ifPresent(car -> car.setColor(car.getColor() + " = VERDE")); // color="green = Verde";
+
+        System.out.println(listCars); // Objeto alterado em memória
+
+
+        // Se não existir e queremos lançar uma exception:
+        // Obs: Quando utilizar orElse alguma coisa ele extraí o obj encapsulado!
+        CarModel lamborguini = find(listCars, car -> car.getModel().equals("lamborguini"))
+                .orElseThrow(IllegalArgumentException::new);
+
+
+        // Caso não exista e queremos criar um objeto equivalente:
+        CarModel lamborguiniCreated = find(listCars, car -> car.getModel().equals("lamborguini"))
+                .orElse(new CarModel());
+        // produz o mesmo resultado, porém utilizando um Supplier (Não recebe argumentos e exec .get());
+        CarModel lamborguiniCreatedSupplier = find(listCars, car -> car.getModel().equals("lamborguini"))
+                .orElseGet(() -> new CarModel());
+
     }
 
     // API de terceiros aonde não temos controle sobre o retorno:
@@ -136,5 +170,18 @@ public class Aula201Optional_Working_with_nulls {
         }
 
         return Optional.empty();
+    }
+
+    // Método de busca genérica utilizando lambda com Predicate:
+    public static Optional<CarModel> find(List<CarModel> list, Predicate<CarModel> predicate) {
+        CarModel carFound = null;
+
+        for (CarModel car : list) {
+            if (predicate.test(car)) {
+                carFound = car;
+            }
+        }
+
+        return Optional.ofNullable(carFound);
     }
 }
