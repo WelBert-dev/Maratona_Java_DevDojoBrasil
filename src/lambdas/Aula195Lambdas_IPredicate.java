@@ -4,6 +4,12 @@ package lambdas;
 // Interfaces funcionais possuem apenas UM METODO;
 // porisso é possível utilizar a sintaxe lambda!
 
+// obs: Em casos de precisar verificar duas referências como parâmetro
+// utilizar a BiPredicate, possuí o mesmo comportamento do Predicate
+// porém aceita dois argumentos <T, U>
+// Mais demonstrações de uso em:
+// ../methodReference/Aula199MethodReference_Referencia_a_metodos_nao_estaticos;
+
 // Function descriptor: é o método ÚNICO e sua assinatura.
 
 /* REGRAS quando se utiliza programação funcional c/ Lambdas:

@@ -2,7 +2,7 @@ package methodReference;
 
 // Bastante utilizado em conjunto com lambdas, aonde melhora a sintaxe/coesão
 // A única regra de utilização com lambdas são:
-// Apenas utilizar method reference quando a lambda acessa apenas um método.
+// Apenas utilizar method reference quando a lambda acessar apenas um método.
 
 /* Definições sobre os 4 tipos de method reference:
 
