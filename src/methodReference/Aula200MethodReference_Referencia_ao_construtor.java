@@ -170,6 +170,6 @@ public class Aula200MethodReference_Referencia_ao_construtor {
         // Finalmente instância o objeto com o FourFunction personalizado:
         CarModel objCriado2 = newCarModelWithFourFunction.apply("Audi", "Audi", "A3", "green");
         System.out.println(objCriado2);
-        
+
     }
 }
