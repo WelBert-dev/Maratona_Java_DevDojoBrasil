@@ -93,10 +93,8 @@ nova Stream em um único passo, tornando o código mais conciso e eficiente.
 */
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Aula206e207Streams_flatMap_desaninhando_e_combinando_streams_em_apenas_um_na_saida {
@@ -128,5 +126,60 @@ public class Aula206e207Streams_flatMap_desaninhando_e_combinando_streams_em_ape
                 .flatMap(Collection::stream);
 
         stringStream.forEach(System.out::println);
+
+        // --------------------------------------------------------------------
+        // Problema: Transformar uma lista bidimencional em apenas uma apenas com os chars:
+        // SEM Stream:
+
+        empresa.forEach(setor -> setor
+                .forEach(person ->
+                        System.out.println(Arrays.toString(person.split("")))));
+        // [W, e, l, l, i, s, o, n] person
+        // [P, e, d, r, o]
+        // [G, u, s, t, a, v, o]
+        // [R, a, v, e, l, i]
+        // [C, a, i, o]
+        // [L, e, t, i, c, i, a]
+        // [T, a, i, n, a, r, a]
+        // [M, i, c, a, e, l]
+
+        // --------------------------------------------------------------------
+        for (List<String> setor : empresa) {
+            // Transformando um array em uma stream:
+            //Arrays.stream(String[])
+            List<String> collect = setor.stream()
+                    .map(person -> person.split("")) // Stream<String[]>
+                    .flatMap(Arrays::stream) // Stream<String> (Join em tudo)
+                    .collect(Collectors.toList()); // List<String>
+
+            System.out.println(collect);
+            // [W, e, l, l, i, s, o, n, P, e, d, r, o, G, u, s, t, a, v, o, R, a, v, e, l, i]
+            // [C, a, i, o, L, e, t, i, c, i, a, T, a, i, n, a, r, a, M, i, c, a, e, l]
+        }
+
+        // --------------------------------------------------------------------
+        // Com Listas auxiliares sem uso de stream:
+        List<String> joinLists = new ArrayList<>();
+        empresa.forEach(setor -> setor.forEach(person -> joinLists.add(person)));
+        // [Wellison, Pedro, Gustavo, Raveli, Caio, Leticia, Tainara, Micael]
+
+        List<String> lettersAllJoinList = new ArrayList<>();
+        joinLists.forEach(person -> List.of(person.split(""))
+                .forEach(letter -> lettersAllJoinList.add(letter)));
+        // [W, e, l, l, i, s, o, n, P, e, d, r, o, G, u, s, t, a, v, o, R, a, v, e, l, i, C, a, i, o, L, e, t, i, c, i, a, T, a, i, n, a, r, a, M, i, c, a, e, l]
+        System.out.println(lettersAllJoinList);
+
+        // --------------------------------------------------------------------
+        // COM Stream aonde não necessita de listas auxiliares:
+        // Mapeando uma Lista BiDimencional sem loopings explicitos
+
+        List<String> lettersAllJoinListWithStream = empresa.stream()
+                .flatMap(Collection::stream)
+                .map(person -> person.split(""))
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toList());
+        System.out.println(lettersAllJoinListWithStream);
+        // [W, e, l, l, i, s, o, n, P, e, d, r, o, G, u, s, t, a, v, o, R, a, v, e, l, i, C, a, i, o, L, e, t, i, c, i, a, T, a, i, n, a, r, a, M, i, c, a, e, l]
+
     }
 }
