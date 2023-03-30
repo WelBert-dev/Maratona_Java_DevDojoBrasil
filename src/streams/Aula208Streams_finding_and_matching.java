@@ -1,6 +1,6 @@
 package streams;
 
-/*
+/* Operações de finding e matching na API Streams
 
 A API Streams em Java permite trabalhar com métodos como find e match para encontrar
 elementos em uma sequência de dados.
