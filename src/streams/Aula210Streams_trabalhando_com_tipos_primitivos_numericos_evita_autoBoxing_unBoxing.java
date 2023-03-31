@@ -9,6 +9,12 @@ package streams;
 // DoubleStream
 // LongStream
 
+// Obs: Também é possível converter um Stream personalizado em uma Stream genérica
+// fazendo o boxing da StreamPersonalizada para a stream genérica com o método:
+// boxed(): Retorna uma Stream<Integer> contendo os elementos da stream original
+// como Integer.
+// Util quando alguma operação subjacente espera um objeto Wrapper ao invés de primitivo.
+
 // Para trabalhar com eles em um fluxo basta utilizar mapToInt e ao invés de retornar
 // Stream<Integer> o retorno será um IntStream.
 
@@ -86,7 +92,7 @@ public class Aula210Streams_trabalhando_com_tipos_primitivos_numericos_evita_aut
                 .ifPresent(System.out::println); // 15.8
 
 
-        // ---------------------------------------------------------------------
+        // --------------------------------------------------------------------
 
         // COM Stream personalizada para tipos primitivos:
         // Obs: quando queremos apenas os preços, e vamos discartar o obj!
@@ -96,5 +102,17 @@ public class Aula210Streams_trabalhando_com_tipos_primitivos_numericos_evita_aut
                 .filter(price -> price > 3)
                 .sum();
         System.out.println(sum); // 15.8
+
+        // ---------- [Convertendo DoubleStream para Stream<Double>] ----------
+        // Util quando algum método subjacente espera um Wrapper ao invés de primitivo.
+        // Exemplo: Adicionar os valores numéricos em uma coleção de Double:
+
+        List<Double> listOfPricesGreatThan3 = listOfLightNovels.stream()
+                .mapToDouble(LightNovelModel::getPrice)
+                .filter(price -> price > 3)
+                .boxed()
+                .collect(Collectors.toList());
+
+        listOfPricesGreatThan3.forEach(System.out::println);
     }
 }
