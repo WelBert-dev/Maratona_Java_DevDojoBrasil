@@ -1,8 +1,8 @@
 package streams;
 
-// Ao trabalhar com fluxos de tipos primitivos é interessante utilizar os Streams
-// especializados para eles, evitando assim AutoBoxing e UnBoxing em looping
-// assim ganhamos mais performance!
+// Ao trabalhar com fluxos de tipos primitivos é interessante utilizar Streams
+// especializados para eles, evitando assim overhead, AutoBoxing e UnBoxing
+// em looping assim ganhamos mais performance!
 
 // Todos os tipos primitivos possuem um Stream personalizado, sendo eles:
 // IntStream
@@ -12,7 +12,7 @@ package streams;
 // Para trabalhar com eles em um fluxo basta utilizar mapToInt e ao invés de retornar
 // Stream<Integer> o retorno será um IntStream.
 
-/*
+/* Definições sobre as interfaces especializadas para primitivos numéricos:
 
 Uma das principais utilidades das classes especializadas é que elas evitam a
 necessidade de criar objetos wrapper para tipos primitivos, como Integer ou
@@ -37,6 +37,26 @@ fornecendo métodos especializados para manipulação de dados e operações mat
 Isso pode levar a um código mais limpo e eficiente em termos de desempenho,
 especialmente em cenários onde é necessário lidar com grandes conjuntos de dados
 numéricos.
+
+*/
+
+/* Definições sobre OverHead:
+
+Overhead é um termo utilizado para descrever a quantidade de recursos (como tempo
+de processamento, memória ou largura de banda) que são consumidos por um determinado
+processo, atividade ou operação, além do necessário para realizar sua tarefa principal.
+
+Em outras palavras, overhead é a sobrecarga adicional que é colocada sobre um sistema
+ou processo para realizar tarefas que não são diretamente relacionadas com a sua
+finalidade principal.
+Por exemplo, a sobrecarga de processamento que é colocada sobre um sistema quando
+ele executa um antivírus em segundo plano, enquanto o usuário executa outras tarefas.
+
+O overhead pode ser causado por uma variedade de fatores, como a necessidade de
+realizar verificações de segurança adicionais, a alocação de memória para armazenar
+informações adicionais ou a execução de operações adicionais para manter a integridade
+de um sistema. Ele pode afetar a eficiência e o desempenho de um sistema, bem como o
+consumo de recursos, como espaço em disco ou tempo de processamento.
 
 */
 
