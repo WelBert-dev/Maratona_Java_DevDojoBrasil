@@ -48,5 +48,19 @@ public class Aula216Streams_Collectors_groupingBy_agrupamentoMaisComplexo_outras
         // ADVENTURE=LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE},
         // ECCHI=LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI},
         // DRAMA=LightNovelModel{title='Danielle', price=3.2, category=DRAMA}}
+
+        // --------------------------------------------------------------------
+
+        // Resumo de todos as Operações agregadas com summarizing:
+
+        Map<CategoryEnum, DoubleSummaryStatistics> resumoPriceGruppingByCategory = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.summarizingDouble(LightNovelModel::getPrice)));
+
+        System.out.println(resumoPriceGruppingByCategory);
+        // {FANTASY=DoubleSummaryStatistics{count=2, sum=7,200000, min=2,000000, average=3,600000, max=5,200000},
+        // ADVENTURE=DoubleSummaryStatistics{count=1, sum=4,200000, min=4,200000, average=4,200000, max=4,200000},
+        // ECCHI=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000},
+        // DRAMA=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000}}
     }
 }
