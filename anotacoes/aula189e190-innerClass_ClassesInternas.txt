@@ -1,0 +1,196 @@
+-- Data de Documentação: - (Estudos feitos em Java e agora documentado)
+-- Data de Estudos: -
+
+-- link: -
+
+Intermediário: Mais específico no Java
+
+---> Existem 4 tipos de Classes locais aninhadas (Nested Inner Classes):
+As classes locais aninhadas (Nested Inner Classes) são classes definidas dentro
+de outra classe, que podem ser estáticas ou não estáticas.
+Essas classes são definidas dentro de outra classe para permitir que elas
+compartilhem o mesmo escopo, e geralmente são usadas para implementar
+funcionalidades mais complexas ou especializadas que não fazem sentido em
+outras partes do código.
+
+- As classes locais aninhadas podem acessar todos os membros da classe externa,
+incluindo membros privados, e podem ser acessadas apenas por meio de uma
+instância da classe externa. Se a classe interna for declarada estática, ela
+pode ser acessada diretamente, sem precisar de uma instância da classe externa.
+
+- Inner class: É uma classe não estática que é definida dentro de outra classe.
+Ela tem acesso aos membros não estáticos da classe externa e pode ser instanciada
+apenas por meio de uma instância da classe externa.
+
+- Static nested class: É uma classe estática que é definida dentro de outra classe.
+Ela pode ser acessada sem a necessidade de criar uma instância da classe externa.
+
+- Local class: É uma classe definida dentro de um método ou bloco de código.
+Ela tem acesso aos membros da classe externa e pode ser usada para implementar
+funcionalidades que são específicas para um método ou bloco.
+
+- Anonymous class: É uma classe sem nome que é definida e instanciada em uma
+única etapa. Ela é usada para implementar uma classe que é usada apenas uma
+vez e não precisa de um nome ou tipo específico.
+
+
+--------------------------------------------------------------------------------
+---> Pontos importantes e atenções sobre classes internas (Inner Class):
+
+- Acesso a membros externos: As classes internas têm acesso aos membros da classe
+externa em que são definidas, incluindo membros privados.
+Isso pode ser útil para encapsular a implementação interna de uma classe, mas
+também pode introduzir complexidade e potencialmente violar o encapsulamento.
+
+- Acesso de classes externas a membros de classes internas: classes externas podem
+acessar membros de classes internas usando a sintaxe ´objDaClasseInterna.nomeDoMembro´.
+Ou segue a mesma regra para classes normais aonde membros estáticos podem ser
+acessados ´NomeDaClasse.nomeDoMembro´.
+No entanto, é importante lembrar que os membros privados da classe interna PODEM
+ser acessados por classes externas que o encapsula, para outros contextos NÃO é
+acessível.
+
+- Acesso a membros estáticos: as classes internas podem acessar membros estáticos
+da classe externa diretamente, sem a necessidade de criar uma instância da classe
+externa. No entanto, é importante usar essa funcionalidade com cuidado e manter os
+membros estáticos bem definidos e documentados.
+
+- Tipo de classe interna: Existem quatro tipos de classes internas, sendo elas:
+Classe interna, Estática, Local e Anônima; e cada uma tem suas próprias características
+e usos.
+É importante escolher o tipo de classe interna apropriado para o caso de uso
+específico.
+
+- Classes internas locais: uma classe interna local é uma classe interna definida
+dentro de um método. Isso significa que ela só pode ser acessada dentro desse
+método. As classes internas locais podem ser úteis para implementar lógica de
+método específica que não é necessária em outras partes do código.
+
+- Instanciação da classe interna: Para instanciar uma classe interna, é necessário
+primeiro criar uma instância da classe externa e, em seguida, criar uma instância
+da classe interna usando a instância da classe externa como referência.
+Isso pode ser confuso para desenvolvedores iniciantes e pode levar a erros se não
+for tratado corretamente.
+
+- Ciclo de vida: Uma classe interna pode viver mais tempo que a classe externa,
+o que significa que a instância da classe interna pode permanecer na memória,
+mesmo quando a instância da classe externa já foi destruída.
+Isso pode levar a vazamentos de memória se não for gerenciado corretamente.
+
+- Serialização: Se a classe interna contém membros não serializáveis, a serialização
+da classe externa pode falhar. É importante garantir que todos os membros da classe
+interna sejam serializáveis se a classe externa for serializável.
+
+- Testes unitários: A criação de testes unitários para classes internas pode ser
+mais difícil do que para classes regulares, pois requer a criação de uma instância
+da classe externa e, em seguida, a instância da classe interna para testar o
+comportamento da classe interna.
+
+- Uso em testes unitários: as classes internas também podem ser úteis em testes
+unitários, permitindo criar classes aninhadas que fornecem dados de teste
+específicos para um caso de teste.
+
+- Nomeação: a convenção de nomenclatura para classes internas é usar o nome da
+classe externa seguido do nome da classe interna. Por exemplo, se a classe externa
+se chama "OuterClass", a classe interna pode ser chamada de "OuterClass.InnerClass".
+
+- Aninhamento múltiplo: é possível ter várias classes internas aninhadas dentro de
+uma classe externa.
+
+- Escopo de variáveis: as classes internas têm acesso às variáveis locais e
+parâmetros da classe externa.
+Isso pode ser útil em alguns casos, mas é importante estar ciente de que as
+variáveis locais e parâmetros devem ser final ou efetivamente final para serem
+acessíveis a partir da classe interna.
+
+- Herança: as classes internas podem estender outras classes ou implementar
+interfaces, o que pode ser útil em algumas situações. No entanto, é importante
+ter em mente que a classe interna não pode ser estendida fora da classe externa.
+
+- Referência da classe externa: as classes internas têm uma referência implícita
+à classe externa, o que pode ser útil em alguns casos. No entanto, isso também
+pode causar problemas de vazamento de memória se a classe interna for mantida em
+memória por mais tempo do que a classe externa.
+
+- Legibilidade do código: as classes internas podem melhorar a legibilidade do
+código em alguns casos, mas também podem torná-lo mais complexo e difícil de
+entender em outros. É importante equilibrar os benefícios e as desvantagens e
+escolher o tipo certo de classe interna para a situação.
+
+- Declaração de classes internas: a declaração de uma classe interna é feita
+dentro da classe externa, e pode ser estática ou não estática. As classes internas
+estáticas são declaradas com o modificador de acesso "static" e são usadas
+principalmente para definir classes utilitárias que não dependem do estado da
+classe externa. As classes internas não estáticas são declaradas SEM o modificador
+"static" e são usadas principalmente para representar comportamentos específicos
+da classe externa.
+
+- Uso de classes internas anônimas: as classes internas anônimas são declaradas
+sem nome, e são usadas principalmente para definir comportamentos específicos em
+tempo de execução. Elas são frequentemente usadas em conjunto com interfaces
+funcionais, como a interface Runnable, e permitem criar objetos com comportamentos
+específicos sem a necessidade de criar uma nova classe separada.
+Isso pode ser útil quando se deseja criar objetos em tempo de execução sem a
+necessidade de criar uma classe separada.
+
+- Escopo de visibilidade de classes internas: as classes internas têm escopo de
+visibilidade dentro da classe externa, o que significa que elas não podem ser
+acessadas fora da classe externa. No entanto, as classes internas podem ser
+instanciadas fora da classe externa, desde que sejam acessadas por meio de uma
+instância da classe externa.
+
+- Desempenho: o uso de classes internas pode afetar o desempenho do sistema
+devido à necessidade de criar instâncias adicionais de objetos. No entanto,
+em muitos casos, a diferença de desempenho é insignificante e não deve ser
+uma preocupação principal.
+
+- Encapsulamento: É uma das principais vantagens da programação orientada a
+objetos, e as classes internas podem ajudar a melhorar a encapsulação.
+É importante manter os membros da classe interna privados sempre que possível
+e fornecer métodos de acesso apropriados para eles.
+
+- Uso de referências estáticas: as classes internas podem ser definidas como
+estáticas, permitindo que sejam acessadas diretamente pela classe externa, sem
+a necessidade de criar uma instância da classe interna.
+Isso pode ser útil em alguns casos, mas é importante lembrar que a classe interna
+pode ser mantida em memória por mais tempo do que a classe externa, o que pode
+causar problemas de vazamento de memória.
+
+- Interfaces internas: as classes internas também podem ser usadas para definir
+interfaces internas, permitindo que as classes externas implementem essas
+interfaces sem expor a interface publicamente.
+
+- Inner Classes podem ser usadas para implementar o padrão "Builder":
+Inner Classes podem ser usadas para implementar o padrão "Builder", que é um
+padrão de projeto de software que permite a criação de objetos complexos passo
+a passo. Ao definir uma Inner Class que atua como um construtor, é possível
+fornecer um controle mais granular sobre como um objeto é criado e configurado.
+
+
+-------------------------------------------------------------------------------
+---> Type Erasure:
+É um processo no qual as informações de tipo genérico são removidas (ou "apagadas")
+no momento da compilação, fazendo com que essas informações não sejam mais
+disponíveis em tempo de execução.
+Esse processo é feito para garantir a compatibilidade com versões anteriores do
+Java e para manter a interoperabilidade com código que não usa generics.
+
+- A implementação de Type erasure em generics é feita da seguinte maneira:
+
+    - Quando o código com generics é compilado, as informações de tipo são
+    verificadas em tempo de compilação, mas são removidas do código resultante.
+
+    - Em tempo de execução, as informações de tipo não estão mais disponíveis,
+    e a JVM (Java Virtual Machine) não pode verificar a conformidade dos tipos.
+
+    - Em vez disso, a JVM trata os objetos genéricos como objetos do tipo Object.
+    Isso significa que, em tempo de execução, todas as instâncias de uma classe
+    genérica são tratadas como se fossem da mesma classe.
+
+    - Quando um método é invocado em uma instância genérica, a JVM usa a reflexão
+    para descobrir as informações de tipo que foram removidas e, em seguida, executa
+    o método apropriado.
+        - Obs: O uso da reflexão pode ser uma solução para obter essas informações
+        genéricas apagadas em tempo de execução do "Type Erasure".
+
+--------------------------------------------------------------------------------
