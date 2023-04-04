@@ -1,0 +1,439 @@
+-- Data de Documentação: - (Estudos feitos em Java e agora documentado)
+-- Data de Estudos: -
+
+-- link: -
+
+Intermediário: Mais específico no Java
+
+---> Solução ANTES do Java introduzir Generics (Antes do Java 5):
+- Solução: Polimorfismo utilizando Objects, pois toda classe extends dele
+logo, é possível generalizar comportamentos utilizando tipo Object.
+
+- PORÉM utilizar Objects não é uma boa abordagem pois é passível de vários erros,
+Por exemplo: Listas que armazena Objects, poderiamos passar qaulquer tipo, logo
+estariamos quebrando as regras de tipos únicos em coleções.
+
+- ENTÃO surge o Generics apartir do Java 5, porém deve-se atentar pois generics
+serve apenas em tempo de desenvolvimento, pois ao compilar o Java faz
+"Type Erasure" que substitui os <T> por Object em tempo de compilação.
+- Ele faz isso para manter compatibilidade com as JRE anteriores do Java.
+
+-------------------------------------------------------------------------------
+---> Type Erasure:
+É um processo no qual as informações de tipo genérico são removidas (ou "apagadas")
+no momento da compilação, fazendo com que essas informações não sejam mais
+disponíveis em tempo de execução.
+Esse processo é feito para garantir a compatibilidade com versões anteriores do
+Java e para manter a interoperabilidade com código que não usa generics.
+
+- A implementação de Type erasure em generics é feita da seguinte maneira:
+
+    - Quando o código com generics é compilado, as informações de tipo são
+    verificadas em tempo de compilação, mas são removidas do código resultante.
+
+    - Em tempo de execução, as informações de tipo não estão mais disponíveis,
+    e a JVM (Java Virtual Machine) não pode verificar a conformidade dos tipos.
+
+    - Em vez disso, a JVM trata os objetos genéricos como objetos do tipo Object.
+    Isso significa que, em tempo de execução, todas as instâncias de uma classe
+    genérica são tratadas como se fossem da mesma classe.
+
+    - Quando um método é invocado em uma instância genérica, a JVM usa a reflexão
+    para descobrir as informações de tipo que foram removidas e, em seguida, executa
+    o método apropriado.
+        - Obs: O uso da reflexão pode ser uma solução para obter essas informações
+        genéricas apagadas em tempo de execução do "Type Erasure".
+
+-------------------------------------------------------------------------------
+---> Reflexão:
+Reflexão em Java é a capacidade de um programa Java inspecionar e manipular
+objetos em tempo de execução, sem ter conhecimento prévio de seus tipos ou
+estruturas em tempo de compilação.
+Isso é feito por meio de classes e interfaces fornecidas pelo pacote
+´java.lang.reflect´.
+    - Em outras palavras, a reflexão permite que um programa Java examine a
+    estrutura interna de um objeto em tempo de execução e obtenha informações
+    sobre seus campos, métodos, construtores e tipos.
+    Também permite que o programa chame esses métodos, acesse esses campos e
+    crie instâncias desses objetos, tudo isso em tempo de execução.
+
+    - A reflexão é frequentemente usada em situações em que o tipo de objeto a
+    ser manipulado é desconhecido ou só será conhecido em tempo de execução.
+    Por exemplo, uma biblioteca que manipula objetos de terceiros pode usar a
+    reflexão para inspecionar esses objetos e determinar seus tipos, campos e
+    métodos.
+
+- Usando Reflexão (RunTime) para obter o tipo real do objeto genérico "apagado"
+em tempo de compilação:
+- Exemplo:  Obtendo as informações de tipo de uma lista genérica em tempo de
+execução: List<String>
+- O Retorno será o "caminho" do pacote completo (java.lang.String);
+
+    import java.lang.reflect.Field;
+    import java.lang.reflect.ParameterizedType;
+    import java.util.ArrayList;
+    import java.util.List;
+
+    public class ExemploGenerics {
+        private List<String> lista = new ArrayList<String>();
+
+        public static void main(String[] args) throws Exception {
+            Field field = ExemploGenerics.class.getDeclaredField("lista");
+            ParameterizedType pt = (ParameterizedType) field.getGenericType();
+            Class<?> typeArgument = (Class<?>) pt.getActualTypeArguments()[0];
+            System.out.println("Tipo de elemento da lista: " + typeArgument.getName());
+            // Retorno: Tipo de elemento da lista: java.lang.String
+        }
+    }
+
+-------------------------------------------------------------------------------
+---> Sintaxe:
+A sintaxe básica para usar Generics é colocar o tipo entre colchetes angulares < >,
+conhecidos como "diamond operator". Por exemplo, List<String> list = new ArrayList<>();
+
+-------------------------------------------------------------------------------
+---> Tipo Genérico:
+Ao usar Generics, você pode definir um tipo genérico para uma classe ou interface.
+Por exemplo, public class MinhaClasse<T> { ... }.
+Isso permite que a classe ou interface trabalhe com qualquer tipo de objeto,
+tornando-a mais flexível e reutilizável.
+
+-------------------------------------------------------------------------------
+---> Wildcards:
+É possível usar wildcards para permitir que uma classe ou método trabalhe com
+qualquer tipo, ou um subtipo específico.
+Existem dois tipos de wildcards: ? e ? extends Type.
+Por exemplo, public void meuMetodo(List<? extends Number> lista) { ... }.
+
+Um wildcard é um caractere curinga que pode ser usado em contextos de tipos
+genéricos para indicar que qualquer tipo pode ser usado como argumento.
+O wildcard é representado pelo símbolo de interrogação (?).
+
+- O wildcard é usado quando não sabemos qual tipo exato será usado em um contexto
+genérico ou quando precisamos definir um tipo que seja compatível com vários tipos
+diferentes.
+
+- Existem dois tipos de wildcards sendo eles:
+O wildcard não delimitado(unbounded) e o wildcard delimitado (bounded).
+
+    - unbounded wildcards: É representado pelo caractere "?" e indica que não
+    há restrição quanto ao tipo que pode ser utilizado no lugar do parâmetro
+    genérico.
+    Por exemplo, a declaração de um método com um parâmetro genérico do tipo
+    List<?> pode receber uma lista de qualquer tipo, como List<Integer> ou
+    List<String>, desde que seja uma lista.
+
+    - bounded wildcards: É uma restrição de tipo aplicada a um wildcard usando
+    as palavras-chave "extends" ou "super".
+        - Restrição "extends" restringe o tipo genérico para tipos que são subtipos
+         (ou o próprio tipo) de uma classe ou interface especificada.
+        Por exemplo, a declaração de um método com um parâmetro genérico do tipo
+        List<? extends Number> só pode receber uma lista de objetos que são subtipos
+        de Number, como List<Integer> ou List<Double>.
+        - Restrição "super" restringe o tipo genérico para tipos que são superClasses
+        (ou a próprio tipo) de uma classe ou interface especificada.
+        Por exemplo, a declaração de um método com um parâmetro genérico do tipo
+        List<? super Integer> só pode receber uma lista de objetos que são superclasses
+        de Integer, como List<Number> ou List<Object>.
+
+-------------------------------------------------------------------------------
+--->  Pontos importantes e atenções sobre wildcard bounded EXTENDS:
+
+- A wildcard bounded extends é usada quando queremos restringir um tipo genérico
+para qualquer subtipo de uma determinada classe ou interface.
+Isso significa que a wildcard só pode ser substituída por um tipo que seja subtipo
+da classe ou interface especificada.
+
+- Quando usamos a wildcard bounded extends, a classe ou interface especificada não
+pode ser modificada.
+Isso significa que não podemos adicionar novos métodos ou campos à classe ou
+interface especificada após usá-la para restringir a wildcard.
+
+- A wildcard bounded extends pode ser usada em variáveis, parâmetros de método,
+retornos de método e tipos de retorno de método. Quando usada em um parâmetro de
+método, a wildcard bounded extends permite que o método seja chamado com argumentos
+que sejam do tipo da classe ou interface especificada ou qualquer subtipo dela.
+
+- A wildcard bounded extends pode causar problemas de legibilidade de código se for
+usada em excesso. É importante equilibrar a necessidade de restringir tipos com a
+legibilidade do código.
+
+- Quando usamos a wildcard bounded extends, não podemos adicionar elementos à
+coleção.
+Isso ocorre porque não sabemos exatamente qual é o tipo da coleção em tempo de
+compilação, e a adição de elementos pode causar erros em tempo de execução.
+
+- A wildcard bounded extends pode ser usada em conjunto com outras palavras-chave,
+como super e &, para criar restrições mais complexas.
+Por exemplo, podemos usar <? extends Number & Comparable> para restringir um tipo
+genérico para qualquer subtipo de Number que também implemente a interface
+Comparable.
+
+- Quando você usa um wildcard bounded com extends, você pode chamar métodos que
+retornam o tipo do curinga ou um tipo mais específico.
+Por exemplo, se você tiver uma lista de Fruit e um método que retorne apenas as
+frutas que são Apple, você pode usar um curinga bounded com extends para obter
+apenas as frutas Apple da lista.
+Nesse caso, a lista se tornaria List<? extends Fruit>, e você pode chamar o método
+que retorna apenas as maçãs usando List<? extends Fruit>.getApple().
+    - Exemplo:
+
+        List<Fruit> fruits = new ArrayList<>();
+        fruits.add(new Apple());
+        fruits.add(new Orange());
+        fruits.add(new Banana());
+
+        // Lista de frutas delimitada por <? extends Fruit>
+        List<? extends Fruit> fruitsExtends = fruits;
+
+        // Chama o método getApple() da lista
+        for (Fruit fruit : fruitsExtends) {
+            if (fruit instanceof Apple) {
+                ((Apple) fruit).getApple();
+            }
+        }
+
+- Exemplo de uma iteração neste contexto:
+Obs: Ao passar uma lista que respeite o contrato do wildcard bounded extends,
+não é mais possível dentro deste bloco adicionar mais elementos na lista pois
+o Java deve garantir que o Polimorfismo não ira "burlar" o contrato de que deve
+aceitar apenas elementos que estão abaixo da árvore de "Animal", pois com o uso
+de Polimorfismo seria possível adicionar qualquer classe que "É" um animal, ou
+seja Dog, Cat e Sphynks.
+
+    for (Animal animal : animals) {
+        animal.consulta();
+    }
+
+    //animals.add(new Cat("Irinéia"));
+    // Checked Exeception: 'add(capture<? extends generics.Animal>)' in 'java.util.List' cannot
+
+-------------------------------------------------------------------------------
+---> Pontos importantes e atenções sobre wildcard bounded SUPER:
+
+- A wildcard bounded super é usada para restringir um tipo genérico para qualquer
+superclasse de uma determinada classe ou interface.
+Isso significa que a wildcard só pode ser substituída por um tipo que seja uma
+superclasse da classe ou interface especificada.
+
+- Ao contrário da wildcard bounded extends, a wildcard bounded super permite a
+adição de elementos em uma coleção, mas não permite a leitura de elementos.
+Isso ocorre porque não é possível saber qual é exatamente o tipo concreto dos
+elementos em tempo de compilação.
+
+- Ao utilizar a wildcard bounded super, deve-se ter cuidado para não adicionar
+elementos de tipos que não sejam subtipos da classe ou interface especificada,
+pois isso pode gerar erros em tempo de execução.
+
+- A wildcard bounded super pode ser usada em variáveis, parâmetros de método,
+retornos de método e tipos de retorno de método.
+Quando usada em um parâmetro de método, a wildcard bounded super permite que
+o método seja chamado com argumentos que sejam do tipo da classe ou interface
+especificada ou qualquer superclasse dela.
+
+- A wildcard bounded super pode ser usada em conjunto com outras palavras-chave,
+como extends e &, para criar restrições mais complexas.
+
+- Ao utilizar a wildcard bounded super, é importante lembrar que a classe ou
+interface especificada não pode ser modificada, ou seja, não podemos adicionar
+novos métodos ou campos a ela após usá-la para restringir a wildcard.
+
+- Exemplo de uma iteração neste contexto:
+Obs: A Variável de referência para cada elemento genérico passado pelo filtro
+wildcard bounded super deve ser a ultima classe da hierarquia, ou seja Object.
+
+    for (Object animal : animals) {
+        if (animal instanceof Cat) {
+            Cat cat = (Cat) animal;
+            cat.consulta();
+        }
+    }
+
+-------------------------------------------------------------------------------
+---> Classes Genéricas ´public class MyClass<T extends Number>´:
+
+- Restrições de tipo: você pode impor restrições sobre o tipo de parâmetro
+genérico que uma classe pode receber, utilizando a palavra-chave "extends".
+Por exemplo: public class MinhaClasse<T extends Number> { ... }
+Desta forma, a classe genérica aceitará somente tipos que são subtipos de
+Number.
+
+- O tipo de objeto retornado por um método genérico pode ser inferido pelo
+compilador, se as informações necessárias estiverem disponíveis. No entanto,
+em alguns casos, é preciso especificar o tipo manualmente, utilizando a sintaxe
+"nomeDoMetodo::<tipo>".
+
+- Uma classe genérica pode ter métodos que não são genéricos, assim como métodos
+que são genéricos apenas em alguns parâmetros. É possível utilizar os dois tipos
+de métodos em conjunto sem problemas.
+
+- Quando se trabalha com classes genéricas, é importante considerar as questões
+de compatibilidade com versões anteriores, uma vez que o tipo de parâmetro pode
+ser  alterado na evolução da classe.
+
+- É importante ter cuidado ao utilizar tipos genéricos em conjunto com arrays,
+pois pode haver problemas de compatibilidade e de segurança.
+
+- Alguns cuidados extras devem ser tomados quando se trabalha com tipos genéricos
+em conjunto com herança e polimorfismo, uma vez que esses conceitos podem ter
+impacto  sobre a escolha do tipo correto.
+
+- É importante lembrar que, em tempo de execução, as informações sobre o tipo
+genérico são apagadas, de modo que os tipos genéricos não são reificados.
+Por isso, é preciso ter cuidado ao utilizar operações que dependem do tipo em
+tempo de execução.
+    - Type Erasure, existe uma solução utilizando reflexão para obter essas
+    informações "apagadas" em tempo de compilação.
+
+- Erros de compilação: é comum que erros de compilação envolvendo classes
+genéricas sejam mais difíceis de identificar e corrigir do que erros de
+compilação envolvendo classes não genéricas.
+
+- Uso de tipos genéricos em bibliotecas e APIs: ao utilizar bibliotecas e APIs
+que fazem uso de tipos genéricos, é importante entender como esses tipos são
+utilizados e quais são as restrições e possibilidades de uso.
+
+- Alguns recursos do Java, como a serialização de objetos ou a reflexão, podem
+apresentar desafios adicionais ao trabalhar com classes genéricas.
+É importante entender como esses recursos funcionam com classes genéricas para
+evitar problemas de compatibilidade ou segurança.
+
+-------------------------------------------------------------------------------
+---> Métodos Genéricos ´private static <T> void createArrayWithObject(T t)´:
+
+- Como declarar métodos genéricos sem precisar tornar a classe genérica como um
+tôdo:
+
+    - É preciso informar na assinatura do método o <T> após o modificador de
+    acesso:
+                  Aqui
+                    ⬇️
+    private static <T> void createArrayWithObject(T t) {
+        ...
+    }
+
+    - Mesmo código porém com retorno (exemplo: List<T>):
+
+    private static <T> List<T> createArrayWithObject(T t) {
+        ...
+        return ...
+    }
+
+    - Para delimitar os tipos possíveis de entrada no parâmetro do método:
+    - wildcards with bounded types (extends ou super);
+    Exemplo: Neste exemplo, extamos delimitando as possibilidades de entrada
+    de T t para aceitar apenas classes que implementam "Comparable<T>":
+
+    private static <T extends Comparable> List<T> createArrayWithObject(T t) {
+        ...
+        return ...
+    }
+
+
+- Inferência de tipo: em Java 7, foi introduzida a inferência de tipos em
+construtores e métodos genéricos, o que permite que o tipo de objeto retornado
+ou o tipo de argumentos de entrada sejam inferidos pelo compilador sem a
+necessidade de especificação manual, tornando mais fácil escrever código genérico
+sem precisar especificar os tipos explicitamente.
+Isso pode ser feito usando o operador de diamante <>.
+
+- Bridge methods: em algumas situações, é necessário que o compilador gere métodos
+adicionais, conhecidos como "bridge methods", para garantir a compatibilidade com
+versões anteriores e a correta implementação de classes genéricas.
+
+- Métodos genéricos podem ser sobrecarregados: é possível ter vários métodos
+genéricos com a mesma assinatura, mas tipos genéricos diferentes.
+Isso pode ser útil em situações em que diferentes tipos precisam ser processados
+de maneira diferente.
+
+- Métodos genéricos podem ser usados em conjunto com lambdas: os métodos genéricos
+podem ser usados em conjunto com lambdas para criar funções genéricas que possam
+ser usadas com vários tipos.
+Isso pode tornar o código mais conciso e fácil de ler.
+
+- Wildcards podem ser usados para aumentar a flexibilidade: wildcards podem ser
+usados para permitir que tipos genéricos sejam mais flexíveis.
+Por exemplo, o wildcard ? extends T significa que o tipo deve ser uma subclasse
+de T, enquanto o wildcard ? super T significa que o tipo deve ser uma superclasse
+de T.
+
+- Tipos genéricos raw: (EVITAR uso) Os tipos genéricos raw referem-se a usos de
+tipos genéricos sem especificar o tipo de parâmetro de tipo genérico.
+Por exemplo, em vez de usar List<String>, um programador pode usar simplesmente
+List, que é uma versão raw de List<T>.
+Isso pode ser útil em algumas situações, mas também pode causar problemas se não
+for usado com cuidado.
+
+- Métodos genéricos podem ser usados para evitar código duplicado: em vez de
+escrever vários métodos que fazem a mesma coisa para diferentes tipos, é possível
+escrever um único método genérico que funciona para todos os tipos.
+Isso pode economizar tempo e esforço e tornar o código mais fácil de manter.
+
+- Métodos genéricos podem ser usados em conjunto com interfaces funcionais: os
+métodos genéricos podem ser usados em conjunto com interfaces funcionais para
+criar funções genéricas que possam ser passadas como parâmetros para outros
+métodos.
+Isso pode tornar o código mais flexível e reutilizável.
+
+- Erros de compilação podem ser difíceis de entender: quando ocorrem erros de
+compilação em métodos genéricos, eles podem ser difíceis de entender, pois os
+tipos genéricos são removidos durante a compilação.
+É importante prestar atenção aos erros de compilação e tentar entender qual é
+o problema subjacente.
+
+- O uso de tipos genéricos pode afetar o desempenho: o uso excessivo de tipos
+genéricos pode afetar o desempenho do programa, pois pode levar a autoboxing e
+unboxing desnecessários.
+É importante ser cauteloso ao usar tipos genéricos e tentar minimizar seu uso,
+especialmente em loops ou em código que é executado repetidamente.
+
+- É importante documentar o uso de tipos genéricos: é importante documentar
+claramente o uso de tipos genéricos em métodos, para que outros programadores
+possam entender como o método funciona e quais tipos são permitidos.
+Isso pode facilitar a manutenção do código e evitar erros de compilação no futuro.
+
+- Métodos genéricos podem ser usados em conjunto com a reflexão: é possível usar
+métodos genéricos em conjunto com a reflexão para criar código dinâmico que possa
+trabalhar com diferentes tipos em tempo de execução.
+Isso pode ser útil em situações em que o tipo de dados não é conhecido até o tempo
+de execução.
+
+- Métodos genéricos podem ser usados para criar classes genéricas: embora este
+ponto esteja relacionado à criação de classes genéricas, é importante notar que
+métodos genéricos podem ser usados para criar classes genéricas.
+Isso pode ser útil para criar classes que trabalham com diferentes tipos de dados,
+como listas, árvores e mapas genéricos.
+
+- É importante entender os bounds dos tipos genéricos: é importante entender os
+bounds (limites) dos tipos genéricos em métodos, para que seja possível garantir
+que apenas tipos específicos sejam passados como parâmetros.
+Isso pode evitar erros de compilação e garantir que o código funcione corretamente.
+
+- Métodos genéricos podem ser usados em conjunto com a anotação @SuppressWarnings:
+a anotação @SuppressWarnings pode ser usada para desativar os warnings do compilador
+relacionados ao uso de tipos genéricos. No entanto, é importante usar essa anotação
+com cautela e apenas quando for absolutamente necessário.
+
+- Métodos genéricos podem ser usados em conjunto com a anotação @SafeVarargs: a
+anotação @SafeVarargs pode ser usada para indicar ao compilador que um método
+varargs (que aceita um número variável de argumentos) é seguro para tipos genéricos.
+Isso pode ajudar a evitar warnings do compilador relacionados a tipos genéricos em
+métodos varargs.
+
+- Métodos genéricos podem ser usados para criar APIs flexíveis: os métodos genéricos
+podem ser usados para criar APIs flexíveis que possam ser usadas com diferentes tipos
+de dados.
+Isso pode tornar o código mais reutilizável e fácil de manter.
+
+- É importante ter cuidado ao usar tipos genéricos em métodos assíncronos: ao usar
+tipos genéricos em métodos assíncronos, é importante garantir que o código seja
+seguro para threads e evite condições de corrida.
+É importante usar os recursos apropriados, como o ConcurrentHashMap, para garantir
+a segurança da thread.
+
+- É importante entender a diferença entre tipos genéricos e tipos curinga: tipos
+genéricos são tipos que incluem um parâmetro de tipo, enquanto tipos curinga são
+tipos que não incluem um parâmetro de tipo específico.
+É importante entender a diferença entre os dois tipos e saber quando usar cada um.
+
+-------------------------------------------------------------------------------
