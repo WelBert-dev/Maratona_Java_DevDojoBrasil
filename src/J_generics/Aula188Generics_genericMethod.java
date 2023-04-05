@@ -1,8 +1,8 @@
-package generics;
+package J_generics;
 
 
-import estruturaDados.models.PatientModel;
-import generics.dominio.CarModel;
+import ZA_estruturaDados.models.PatientModel;
+import J_generics.dominio.CarModel;
 
 import java.util.List;
 

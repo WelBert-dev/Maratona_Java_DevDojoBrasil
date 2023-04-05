@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Quando desejamos modificar (remover, adicionar..) elementos de uma coleção,
 // e estamos em um Looping iterando sobre essa coleção, não é possível e

@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Equivalente da classe DirectoryStream porém para interar de maneira recursiva
 // ou seja toda a arvore hierarquica.
@@ -25,12 +25,10 @@ package nio;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 public class Aula154SimpleFileVisitor_interacaoAllRecursivaEmDirs {
     public static void main(String[] args) throws IOException {

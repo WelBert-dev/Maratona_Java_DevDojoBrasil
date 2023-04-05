@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Filas em Java (Mais estudo em src/estruturaDados)
 // FIFO (First in First Out): Primeiro a entrar é o primeiro a sair.

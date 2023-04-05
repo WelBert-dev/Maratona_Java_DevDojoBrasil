@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // Basicamente até aqui existiam duas formas de criar uma instância de Datas:
 // new Date();

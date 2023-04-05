@@ -1,4 +1,4 @@
-package scanner;
+package ZB_scanner;
 
 // A Classe scanner é bem util quando queremos percorrer uma lista de diferentes tipos primitivos
 // e desejamos receber em variáveis do tipo correto, sem ser apenas Strings que seria o "padrão"

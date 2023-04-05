@@ -1,4 +1,4 @@
-package lambdas;
+package M_lambdas;
 
 // Predicate é uma interface funcional,
 // Interfaces funcionais possuem apenas UM METODO;

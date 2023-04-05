@@ -1,4 +1,4 @@
-package classesInternas;
+package K_classesInternas;
 
 public class Aula191InnerClass_anonymousInnerClass_classesAnonimas {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
-import estruturaDados.utils.StaticStruct;
+import ZA_estruturaDados.utils.StaticStruct;
 
 public class Stack<T> extends StaticStruct<T> {
 

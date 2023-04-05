@@ -1,4 +1,4 @@
-package serializacao.dominio;
+package H_serializacao.dominio;
 
 // File -> Settings -> Editor -> Inspections -> Java -> Serialization issues -> Serializable class without 'serialVersionUID' - set flag and click 'OK'.
 // Alt + Enter in class name and select context action "Create constant field..."

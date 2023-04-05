@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // Segue a mesma lógica que a Duration, porém com suporte para datas comums
 // LocalDate é um dos exemplos suportados por ela (Diferente da Duration que não suporta)

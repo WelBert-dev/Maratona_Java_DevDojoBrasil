@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // Escreva um programa utilizando Filas que simule a brincadeira da
 // "Batata quente". A brincadeira consiste de um grupo de crianças
@@ -8,8 +8,6 @@ package estruturaDados.queue;
 // passando a bola de mão em mão até ouvirem a palavra "queimou".
 // Quem estiver com a bola nesse momento sai da roda. Gannha o
 // último que sobrar.
-
-import estruturaDados.models.PatientModel;
 
 import java.util.Random;
 

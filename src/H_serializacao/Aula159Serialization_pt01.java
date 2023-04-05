@@ -1,4 +1,4 @@
-package serializacao;
+package H_serializacao;
 
 // Serialização em Java é o processo de transformar um objeto em uma sequência de bytes
 // que podem ser armazenados ou transmitidos pela rede, e posteriormente reconstruídos
@@ -43,12 +43,11 @@ package serializacao;
 //  ByteArrayOutputStream                                                                       DeflaterOutputStream
 //   │                                                                                                    │
 //                                                                                             GZIPOutputStream
-import estruturaDados.models.PatientModel;
-import jdk.jshell.execution.Util;
-import serializacao.dominio.ProductModelSerial;
-import serializacao.dominio.ProductModelSerialWithAssociation;
-import serializacao.dominio.ProductModelWithAssociationSerializer;
-import serializacao.dominio.ProdutoModel;
+import ZA_estruturaDados.models.PatientModel;
+import H_serializacao.dominio.ProductModelSerial;
+import H_serializacao.dominio.ProductModelSerialWithAssociation;
+import H_serializacao.dominio.ProductModelWithAssociationSerializer;
+import H_serializacao.dominio.ProdutoModel;
 
 import java.io.*;
 import java.nio.ByteBuffer;

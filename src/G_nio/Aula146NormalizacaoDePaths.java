@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // A normalização é a conversão de paths relativos com uso de variáveis de ambiente
 // para a transformação do caminho completo (Mantendo assim um código legível e funcional)

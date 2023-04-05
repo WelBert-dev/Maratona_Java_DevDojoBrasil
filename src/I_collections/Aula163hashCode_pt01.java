@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // hashCode é o hash de um objeto, esse método também
 // vem da classe Object e trabalha em conjunto com o equals()

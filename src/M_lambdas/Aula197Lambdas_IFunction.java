@@ -1,4 +1,4 @@
-package lambdas;
+package M_lambdas;
 
 // Function<T, R> aonde T é oque esta recebendo e R é o retorno;
 

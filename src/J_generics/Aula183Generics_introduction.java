@@ -1,4 +1,4 @@
-package generics;
+package J_generics;
 
 // Aqui está a abordagem necessária antes do uso de generics,
 // Com uso de Objects, mas ela não é uma abordagem robusta e
@@ -140,8 +140,6 @@ package generics;
 
 */
 
-
-import serializacao.dominio.ProductModelSerial;
 
 import java.util.ArrayList;
 import java.util.List;

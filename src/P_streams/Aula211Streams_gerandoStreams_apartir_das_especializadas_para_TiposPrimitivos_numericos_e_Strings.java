@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 // Com as interfaces personalizadas para tipos primitivos numéricos Stream
 // é possível gerar ranges de valores, com dois métodos sendo eles:
@@ -14,7 +14,6 @@ package streams;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

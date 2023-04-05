@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // No java não existe uma Classe "Queue" e sim uma interface,
 // na qual podemos utilizar como tipo de referência para outras classes
@@ -6,7 +6,7 @@ package estruturaDados.queue;
 // assim graças ao polimorfismo iremos "enchergar" apenas os métodos
 // definidos na assinatura da interface Queue.
 
-import estruturaDados.utils.StaticStruct;
+import ZA_estruturaDados.utils.StaticStruct;
 
 public class Queue<T> extends StaticStruct<T> {
     public Queue(){

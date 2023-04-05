@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // Utilize a classe Queue para simular um sistema de senhas de um pronto socorro.
 // Cada pessoa pode ser classificada com 3 códigos:
@@ -12,7 +12,7 @@ package estruturaDados.queue;
 // A Cada 4 segundos uma pessoa chega no pronto socorro com prioridade aleatória.
 // (Crie um código java para definir essa aleatoriedade)
 
-import estruturaDados.models.PatientModel;
+import ZA_estruturaDados.models.PatientModel;
 
 public class Exe03_filaProntoSocorroComPrioridade {
     public static final int GREEN = 2;

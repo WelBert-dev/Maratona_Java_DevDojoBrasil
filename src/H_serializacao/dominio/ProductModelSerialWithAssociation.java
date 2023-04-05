@@ -1,6 +1,6 @@
-package serializacao.dominio;
+package H_serializacao.dominio;
 
-import estruturaDados.models.PatientModel;
+import ZA_estruturaDados.models.PatientModel;
 
 import java.io.*;
 import java.util.Objects;

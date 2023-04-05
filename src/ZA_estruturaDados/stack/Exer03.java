@@ -1,11 +1,11 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
 // loiane groner
 
-import estruturaDados.arrayList.Exe_console_crudContatos;
-import estruturaDados.models.BookModel;
-import estruturaDados.utils.ClearConsole;
-import estruturaDados.utils.InputConsole;
+import ZA_estruturaDados.arrayList.Exe_console_crudContatos;
+import ZA_estruturaDados.models.BookModel;
+import ZA_estruturaDados.utils.ClearConsole;
+import ZA_estruturaDados.utils.InputConsole;
 
 import java.time.LocalDate;
 import java.util.Scanner;

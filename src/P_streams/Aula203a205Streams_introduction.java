@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 /*
 ---> Definições sobre a API Streams no Java 8:
@@ -105,7 +105,7 @@ Este método é útil para converter um Stream em um array.
 
 */
 
-import streams.domain.LightNovelModel;
+import P_streams.domain.LightNovelModel;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 // Obs: Deve ser uma tarefa pré definida, para o java saber lidar e dividir as
 // tarefas.

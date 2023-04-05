@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // Formatação de data mais simplificada que o DateFormat
 // Utilizando um padrão estilo mascara (yyyy.MM.dd)

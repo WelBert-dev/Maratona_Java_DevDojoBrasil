@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Interface genérica para se trabalhar com as operações básicas
 // sem modificações em sí, apenas leitura de atributos

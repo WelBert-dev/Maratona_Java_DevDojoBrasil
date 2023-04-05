@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Utilizado para apartir de um path "ir" para outro
 // Ou seja, como faz para ir de uma path1 para o path2

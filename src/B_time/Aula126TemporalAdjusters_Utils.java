@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Classe estática ou seja ela é 100% utilitária.
 // Utilizada para ajustes no tempo porisso a nomeclatura.

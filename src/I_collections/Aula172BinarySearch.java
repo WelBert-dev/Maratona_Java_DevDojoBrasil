@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 /*
  - BinarySearch também funciona para Arrays nativos em java não apenas para coleções.

@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Resolvendo paths quando temos dois, um representando o diretório
 // e outro representando o arquivo em si.

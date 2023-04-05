@@ -1,4 +1,4 @@
-package estruturaDados.utils;
+package ZA_estruturaDados.utils;
 
 public class ClearConsole {
 

@@ -1,7 +1,7 @@
-package streams;
+package P_streams;
 
-import streams.domain.CategoryEnum;
-import streams.domain.LightNovelModel;
+import P_streams.domain.CategoryEnum;
+import P_streams.domain.LightNovelModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

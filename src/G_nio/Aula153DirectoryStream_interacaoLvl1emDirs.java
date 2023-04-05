@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Classe utilizada para navegar em level 1 nos diretórios
 // ou seja, apenas no primeiro nível da arvore
@@ -10,10 +10,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFileAttributes;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.util.Set;
 
 public class Aula153DirectoryStream_interacaoLvl1emDirs {
     public static void main(String[] args) {

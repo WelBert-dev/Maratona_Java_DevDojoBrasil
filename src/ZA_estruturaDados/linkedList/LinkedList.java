@@ -1,4 +1,4 @@
-package estruturaDados.linkedList;
+package ZA_estruturaDados.linkedList;
 
 // Estrutura de dados dinâmica e não utiliza arrays estáticos.
 // Cada elemento é um Nó ou Célula

@@ -1,4 +1,4 @@
-package classesInternas;
+package K_classesInternas;
 
 /* O que são classes Locais no escopo de Inner Class? (Local Inner Classes)
 
@@ -191,7 +191,6 @@ package classesInternas;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 
 public class Aula190InnerClass_localInnerClass_classesLocais {
 

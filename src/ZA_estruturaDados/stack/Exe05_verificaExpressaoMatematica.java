@@ -1,4 +1,4 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
 // Escreva um programa para verificar se uma expressão matematica
 // tem os parênteses abertos e fechados de forma correta, isto é:

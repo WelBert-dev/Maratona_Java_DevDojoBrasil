@@ -1,6 +1,6 @@
-package estruturaDados.arrayList;
+package ZA_estruturaDados.arrayList;
 
-import estruturaDados.utils.StaticStruct;
+import ZA_estruturaDados.utils.StaticStruct;
 
 public class VetorGenericoComGenerics2<T> extends StaticStruct<T> {
 

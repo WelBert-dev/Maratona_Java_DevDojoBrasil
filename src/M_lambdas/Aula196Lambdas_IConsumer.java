@@ -1,4 +1,4 @@
-package lambdas;
+package M_lambdas;
 
 // Também é uma Interface Funcional do mesmo pacote que Predicate;
 // - Diferença deles: Consumer tem retorno VOID;

@@ -1,4 +1,4 @@
-package methodReference;
+package N_methodReference;
 
 // Comparador do import parametrizandoComportamentos.domain.CarModel;
 

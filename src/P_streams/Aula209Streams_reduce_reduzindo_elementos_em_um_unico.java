@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 /* Método poderoso reduce() que reduz o fluxo de <E> em um único:
 Assinatura do método: Optional<T> reduce(BinaryOperator<T> accumulator);
@@ -133,7 +133,6 @@ que representam operações binárias específicas, como:
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Aula209Streams_reduce_reduzindo_elementos_em_um_unico {
     public static void main(String[] args) {

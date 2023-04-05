@@ -1,6 +1,6 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
-import estruturaDados.models.PatientModel;
+import ZA_estruturaDados.models.PatientModel;
 
 public class PSAtendimentoRunnable implements Runnable{
     private QueueWithPriority<PatientModel> fila;

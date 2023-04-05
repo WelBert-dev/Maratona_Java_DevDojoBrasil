@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // Utilizando a classe fila criada anteriormente,
 // crie uma fila de Documentos que precisam ser impressos.
@@ -9,7 +9,7 @@ package estruturaDados.queue;
 // - E Seguindo a ordem o programa deve imprimir cada documento,
 // desemfileirando da fila,
 
-import estruturaDados.models.DocumentModel;
+import ZA_estruturaDados.models.DocumentModel;
 
 public class Exe01_impressaoDocumentos {
 

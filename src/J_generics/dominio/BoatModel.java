@@ -1,4 +1,4 @@
-package generics.dominio;
+package J_generics.dominio;
 
 public class BoatModel extends VehicleModel implements Comparable{
 

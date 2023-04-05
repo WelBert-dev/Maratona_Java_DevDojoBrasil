@@ -1,8 +1,8 @@
-package streams;
+package P_streams;
 
-import streams.domain.CategoryEnum;
-import streams.domain.LightNovelModel;
-import streams.domain.PromotionEnum;
+import P_streams.domain.CategoryEnum;
+import P_streams.domain.LightNovelModel;
+import P_streams.domain.PromotionEnum;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package methodReference;
+package N_methodReference;
 
 // Bastante utilizado em conjunto com lambdas, aonde melhora a sintaxe/coesão
 // A única regra de utilização com lambdas são:

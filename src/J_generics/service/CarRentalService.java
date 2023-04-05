@@ -1,11 +1,11 @@
-package generics.service;
+package J_generics.service;
 
 // E Se decidirmos alugar barcos tambem?
 // teriamos que duplicar códigos que fazem A MESMA COISA
 // porém apenas mudando o model de CarModel para BoatModel
 // aí entra o generics para facilitar nossa vida.
 
-import generics.dominio.CarModel;
+import J_generics.dominio.CarModel;
 
 import java.util.List;
 import java.util.PriorityQueue;

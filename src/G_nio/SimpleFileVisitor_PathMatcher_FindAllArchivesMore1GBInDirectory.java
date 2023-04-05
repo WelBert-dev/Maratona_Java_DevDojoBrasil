@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Buscando arquivos maiores que 1GB em um diretório de maneira recursiva
 // ou seja level ALL abaixo da arvore de diretórios.

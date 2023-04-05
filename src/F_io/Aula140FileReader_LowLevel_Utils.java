@@ -1,4 +1,4 @@
-package io;
+package F_io;
 
 // LowLevel ou seja não é otimizado, recomendavel utilizar BufferedReader!
 // A leitura básica se da por um looping verificando se o retorno é diferente

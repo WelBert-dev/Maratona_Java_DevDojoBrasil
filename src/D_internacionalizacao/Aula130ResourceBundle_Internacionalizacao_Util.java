@@ -1,4 +1,4 @@
-package internacionalizacao;
+package D_internacionalizacao;
 
 // Utilizada para internacionalização/tradução automṕatica
 // de acordo com a Locale (Localização), baseado em

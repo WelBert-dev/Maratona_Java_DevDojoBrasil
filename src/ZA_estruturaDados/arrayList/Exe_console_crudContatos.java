@@ -1,7 +1,7 @@
-package estruturaDados.arrayList;
+package ZA_estruturaDados.arrayList;
 
-import estruturaDados.models.ContatoModel;
-import estruturaDados.utils.ClearConsole;
+import ZA_estruturaDados.models.ContatoModel;
+import ZA_estruturaDados.utils.ClearConsole;
 
 import java.util.Scanner;
 

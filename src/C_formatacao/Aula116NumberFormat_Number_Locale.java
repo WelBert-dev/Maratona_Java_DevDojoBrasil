@@ -1,4 +1,4 @@
-package formatacao;
+package C_formatacao;
 
 // Internacionalização:
 // Formatações de números (de acordo com o Locale passado).

@@ -1,4 +1,4 @@
-package formatacao;
+package C_formatacao;
 
 // Formatação de data mais simplificada que o DateFormat
 // Utilizando um padrão estilo mascara (yyyy.MM.dd)

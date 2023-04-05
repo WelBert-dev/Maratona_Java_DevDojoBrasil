@@ -1,4 +1,4 @@
-package regex;
+package E_regex;
 
 // Mais informações: https://www.programacaoprogressiva.net/2012/08/java-expressoes-regulares-regex-em-java_2423.html
 // Utilizamos quantificadores quando desejamos retornar vários valores de um range "[]"

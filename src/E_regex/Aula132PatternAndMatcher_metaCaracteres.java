@@ -1,4 +1,4 @@
-package regex;
+package E_regex;
 
 // Os meta caracteres são os caracteres especiais de configuração
 // para o pattern, existem inumeros e aqui estão os mais utilizados

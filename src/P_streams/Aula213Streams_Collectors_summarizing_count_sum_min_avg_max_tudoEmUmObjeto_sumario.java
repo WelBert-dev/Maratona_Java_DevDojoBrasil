@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 // Collectors é um framework bem poderoso como operações finais em Streams.
 
@@ -76,7 +76,7 @@ elementos de um stream em uma coleção ou um valor único.
 */
 
 
-import streams.domain.LightNovelModel;
+import P_streams.domain.LightNovelModel;
 
 import java.util.ArrayList;
 import java.util.Comparator;

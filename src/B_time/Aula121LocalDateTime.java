@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Como o proprio nome ja diz, é a junção dos LocalDate e LocalTime
 // Introduzida no java 8 e imutável!

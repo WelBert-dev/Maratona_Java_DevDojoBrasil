@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // O método equals é definido na classe Object logo todos os Objetos
 // podem implementar com Override, ele é utilizado para comparar valores

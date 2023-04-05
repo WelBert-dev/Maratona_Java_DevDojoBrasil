@@ -1,4 +1,4 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
 public class Exe04_palindromo {
     public static void main(String[] args) {

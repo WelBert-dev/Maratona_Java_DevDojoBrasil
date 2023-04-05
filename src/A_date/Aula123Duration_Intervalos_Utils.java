@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // Classe utilitária geralmente utilizada para pegar inetrvalos entre datas e etc...
 // Baseada em segundos e nanoSeconds

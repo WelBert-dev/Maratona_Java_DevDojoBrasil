@@ -1,4 +1,4 @@
-package serializacao;
+package H_serializacao;
 
 // Todos os objetos serializados possuem um atributo psf long serialVersionUID
 // Que garante o estádo de um objeto, em casos de não explicitar erros
@@ -21,10 +21,9 @@ package serializacao;
 // que faz referência, além disto devemos utilizar o token transient no atributo do Objeto referenciado,
 // e nele setar as informações descritas abaixo. (./dominio/ProductModelSerialWithAssociation.java)
 
-import estruturaDados.models.PatientModel;
-import serializacao.dominio.ProductModelSerial;
-import serializacao.dominio.ProductModelSerialWithAssociation;
-import serializacao.dominio.ProductModelWithAssociationSerializer;
+import ZA_estruturaDados.models.PatientModel;
+import H_serializacao.dominio.ProductModelSerial;
+import H_serializacao.dominio.ProductModelSerialWithAssociation;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

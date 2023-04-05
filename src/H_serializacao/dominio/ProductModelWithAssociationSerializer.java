@@ -1,4 +1,4 @@
-package serializacao.dominio;
+package H_serializacao.dominio;
 
 // Devemos ler atributo por atributo e atualizar a classe original,
 // não podemos utilizar o deafultReadObject nem o defaultWriteObject
@@ -8,7 +8,7 @@ package serializacao.dominio;
 // correspondentes, e na oredem nos quais foram lidos e escritos
 // pois os valores são empilhados na stack
 
-import estruturaDados.models.PatientModel;
+import ZA_estruturaDados.models.PatientModel;
 
 import java.io.*;
 

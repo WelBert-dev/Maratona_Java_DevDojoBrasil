@@ -1,4 +1,4 @@
-package classesInternas;
+package K_classesInternas;
 
 // Introdução ao contexto de Classes internas, aqui está explicações sobre a
 // sintaxe e Também sobre Nested Inner Classes.

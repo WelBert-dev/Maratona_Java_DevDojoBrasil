@@ -1,4 +1,4 @@
-package formatacao;
+package C_formatacao;
 
 // Utilizado para formatações em geral
 

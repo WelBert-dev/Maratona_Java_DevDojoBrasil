@@ -1,7 +1,7 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
-import estruturaDados.arrayList.Exe_console_crudContatos;
-import estruturaDados.utils.InputConsole;
+import ZA_estruturaDados.arrayList.Exe_console_crudContatos;
+import ZA_estruturaDados.utils.InputConsole;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package formatacao;
+package C_formatacao;
 
 // Classe estática ou seja ela é 100% utilitária.
 // Utilizada para ajustes no tempo porisso a nomeclatura.

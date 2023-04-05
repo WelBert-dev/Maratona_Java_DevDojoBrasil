@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // NavigableSet extends de SortedSet e o SortedSet extends de Set
 // Portanto todas seguem as regras sobre não poder inserir elementos iguais

@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Utilizado para trabalhar com Nano segundos,
 // representando um ponto instantâneo dentro de uma linha de tempo.

@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // A classe Date sofreu algumas mudanças ao longo do tempo
 // pois de inicio não supria 100% das necessidades,

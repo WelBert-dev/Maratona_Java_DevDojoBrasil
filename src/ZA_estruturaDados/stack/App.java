@@ -1,4 +1,4 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
 // LIFO: Last in First out (Ultimo a entrar é o primeiro a sair)
 public class App {

@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Regras para a implementação do equals em um Object Model:
 

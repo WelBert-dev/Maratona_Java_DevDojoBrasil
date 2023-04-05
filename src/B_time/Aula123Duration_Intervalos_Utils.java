@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Classe utilitária geralmente utilizada para pegar inetrvalos entre datas e etc...
 // Baseada em segundos e nanoSeconds

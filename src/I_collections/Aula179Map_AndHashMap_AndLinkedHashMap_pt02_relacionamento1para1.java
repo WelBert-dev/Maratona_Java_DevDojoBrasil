@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

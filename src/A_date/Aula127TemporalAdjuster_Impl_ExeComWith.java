@@ -1,4 +1,4 @@
-package date;
+package A_date;
 
 // TemporalAdjuster é uma interface que podemos passar para classes
 // afím de ajustar o tempo, sendo assim é possível implementarmos ela
@@ -11,7 +11,6 @@ package date;
 // ou seja, se hoje for quinta/sexta/sabado/domingo, o próximo dia útil será segunda.
 // para outros dias (segunda/terça/quarta) o próximo dia útil será o correspondente (Razão 1).
 
-import javax.sound.midi.Soundbank;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;

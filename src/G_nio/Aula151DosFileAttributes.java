@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Interface Especializada para ambiente Windows.
 // Extende de BasicFileAtributtes (Igual outros do mesmo contexto).

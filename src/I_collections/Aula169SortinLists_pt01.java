@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Para sortir precisamos do método equals() e hashCode() devidamente implementados.
 // Pois para organizarmos uma lista precisamos desses parâmetros de comparação.

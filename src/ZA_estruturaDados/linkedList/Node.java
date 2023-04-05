@@ -1,4 +1,4 @@
-package estruturaDados.linkedList;
+package ZA_estruturaDados.linkedList;
 
 public class Node<T> {
     private T element;

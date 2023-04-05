@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Obs: Toda fez que temos "Formatter" estamos transformando um objeto em uma String,
 // e toda vez que temos um "Parsing" estamos transformando uma string em um objeto.

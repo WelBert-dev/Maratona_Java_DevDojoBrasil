@@ -1,4 +1,4 @@
-package methodReference;
+package N_methodReference;
 
 /* Definições sobre os 4 tipos de method reference:
 

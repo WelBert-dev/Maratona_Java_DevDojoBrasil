@@ -1,4 +1,4 @@
-package serializacao.dominio;
+package H_serializacao.dominio;
 
 import java.io.Serializable;
 

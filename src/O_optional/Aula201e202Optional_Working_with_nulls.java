@@ -1,4 +1,4 @@
-package optional;
+package O_optional;
 
 // - Obs: NÃO pode utilizar Optional como parâmetros de entrada!!
 // - Também NÃO pode utilizar Optional como Atributos de classes!! pois ela não é serializer

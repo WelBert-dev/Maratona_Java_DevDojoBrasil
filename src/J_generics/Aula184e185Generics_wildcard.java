@@ -1,4 +1,4 @@
-package generics;
+package J_generics;
 
 /* Definições sobre o Wildcard:
 

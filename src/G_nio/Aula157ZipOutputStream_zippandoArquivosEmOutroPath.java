@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Quando uma classe possue "Stream" geralmente é classe LowLevel
 // que trabalha com binários.

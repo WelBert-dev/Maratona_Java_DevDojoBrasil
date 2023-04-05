@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Utilizamos como variavel de referência o tipo mais geral/generico
 // BasicFileAttributes e deixamos que o objeto criado por de baixo dos panos

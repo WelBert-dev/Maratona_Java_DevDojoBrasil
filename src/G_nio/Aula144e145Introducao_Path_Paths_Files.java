@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Introdução ao New IO (Melhorias nas manipulações de arquivos)
 // Maior coesão entre classes e tudo mais.

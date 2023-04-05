@@ -1,4 +1,4 @@
-package estruturaDados.models;
+package ZA_estruturaDados.models;
 
 public class DocumentModel {
 

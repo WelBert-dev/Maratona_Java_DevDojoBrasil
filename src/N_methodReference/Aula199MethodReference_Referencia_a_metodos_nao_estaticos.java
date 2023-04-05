@@ -1,4 +1,4 @@
-package methodReference;
+package N_methodReference;
 
 // Obs: Apenas utilizar method reference quando a lambda
 // acessar APENAS um método, se utilizar mais deve-se

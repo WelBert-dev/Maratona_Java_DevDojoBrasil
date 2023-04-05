@@ -1,4 +1,4 @@
-package streams.domain;
+package P_streams.domain;
 
 public class LightNovelModel {
     private String title;

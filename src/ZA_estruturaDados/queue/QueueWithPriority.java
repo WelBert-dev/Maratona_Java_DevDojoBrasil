@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // Contextualizando, esta classe realiza uma lógica no método de adição
 // e já posiciona os elementos em ordem correta, seguindo essa prioridade,

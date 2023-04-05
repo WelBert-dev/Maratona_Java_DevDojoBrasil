@@ -1,4 +1,4 @@
-package estruturaDados.arrayList;
+package ZA_estruturaDados.arrayList;
 
 import java.lang.reflect.Array;
 

@@ -1,4 +1,4 @@
-package estruturaDados.arrayList;
+package ZA_estruturaDados.arrayList;
 
 public class VetorGenericoComObject {
     private Object[] elements;

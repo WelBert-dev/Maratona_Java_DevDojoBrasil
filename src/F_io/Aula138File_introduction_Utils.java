@@ -1,4 +1,4 @@
-package io;
+package F_io;
 
 // Todas classes especializadas em input e output utilizam como base a
 // classe File, pois para utilizar as outras deste pacote é necessário uma instância dela.

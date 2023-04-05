@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Interação de maneira recursiva em toda a arvere de diretórios
 // Sobre-Escrita de métodos do extends SimpleFileVisitor<T>

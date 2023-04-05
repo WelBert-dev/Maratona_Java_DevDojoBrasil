@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 
 // Estudos mais a fundo sobre Compare e Comparator em src/estruturaDados
@@ -54,7 +54,7 @@ package collections;
 //    - Referência a um método de instância de um objeto arbitrário de um tipo específico: Tipo::método
 //    - Referência a um construtor: Classe::new
 
-import estruturaDados.models.BookModel;
+import ZA_estruturaDados.models.BookModel;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 /* Operações de finding e matching na API Streams
 
@@ -75,7 +75,7 @@ Aqui está um exemplo de como usá-lo:
 
 */
 
-import streams.domain.LightNovelModel;
+import P_streams.domain.LightNovelModel;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package time;
+package B_time;
 
 // Tudo que é co-relacionado a datas, horas, minutos, segundos e nano segundos
 // se utiliza a ChronoUnit que seria tipo a tipagem desses tempos.

@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Quando se trabalha com coleções de dados, essas coleções se enquandram em
 // uma das duas opções: Ordened e Sorted (ordenado e sortido),

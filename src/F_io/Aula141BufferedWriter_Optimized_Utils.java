@@ -1,4 +1,4 @@
-package io;
+package F_io;
 
 // Equivalente da classe FileWriter porém otimizada com maior performance,
 // pois ela trabalha primeiro em Memória RAM e ao final do processamento

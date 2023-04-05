@@ -1,4 +1,4 @@
-package estruturaDados.queue;
+package ZA_estruturaDados.queue;
 
 // Escreva um programa que simule a distribuição de senhas de atendimento,
 // a um grupo de pessoas. Cada pessoa pode receber uma senha prioritária ou
@@ -7,7 +7,7 @@ package estruturaDados.queue;
 // - 1 pessoa com senha normal deve ser atendida a cada 3 pessoas com senha prioritária.
 // - Não havendo prioriodades, as pessoas com senhas normais podem ser atendidas.
 
-import estruturaDados.models.PatientModel;
+import ZA_estruturaDados.models.PatientModel;
 
 public class Exe02_filaDeAtendimentoComPrioridades {
     public static void main(String[] args) {

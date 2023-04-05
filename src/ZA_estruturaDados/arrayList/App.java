@@ -1,6 +1,6 @@
-package estruturaDados.arrayList;
+package ZA_estruturaDados.arrayList;
 
-import estruturaDados.models.ContatoModel;
+import ZA_estruturaDados.models.ContatoModel;
 
 public class App {
     public static void main(String[] args) {

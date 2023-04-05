@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // A implementação do hashCode na superClasse contem o token ´native´ na assinatura
 // isso indica que o código desse método é escrito em outra linguagem nativa,

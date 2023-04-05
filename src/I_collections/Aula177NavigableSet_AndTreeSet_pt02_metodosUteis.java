@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Mais sobre TreeSet e métodos mais uteis desta coleção:
 // - descendingSet(): Percorre a lista de trás para frente DESC

@@ -1,4 +1,4 @@
-package regex;
+package E_regex;
 
 // Existem 2 classes que são utilizadas em conjuntos
 // quando trabalhamos com regex no java sendo elas:

@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // Relacionamentos 1 para N utilizando maps par armazenar os pares Chave/Valor
 

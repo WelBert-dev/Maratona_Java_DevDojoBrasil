@@ -1,4 +1,4 @@
-package regex;
+package E_regex;
 
 // Site bom para treinar regex: https://regexr.com/
 // O Anchor "^" possuí duas utilidades sendo elas:

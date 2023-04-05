@@ -1,6 +1,4 @@
-package generics.service;
-
-import generics.dominio.CarModel;
+package J_generics.service;
 
 import java.util.Queue;
 

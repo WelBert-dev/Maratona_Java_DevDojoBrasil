@@ -1,4 +1,4 @@
-package streams;
+package P_streams;
 
 // Ao trabalhar com fluxos de tipos primitivos é interessante utilizar Streams
 // especializados para eles, evitando assim overhead, AutoBoxing e UnBoxing
@@ -66,11 +66,10 @@ consumo de recursos, como espaço em disco ou tempo de processamento.
 
 */
 
-import streams.domain.LightNovelModel;
+import P_streams.domain.LightNovelModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Aula210Streams_trabalhando_com_tipos_primitivos_numericos_evita_autoBoxing_unBoxing {

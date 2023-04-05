@@ -1,4 +1,4 @@
-package nio;
+package G_nio;
 
 // Aqui um exemplo de como fazer matcher em Paths
 // como por exemplo: Retornar todos os arquivos cuja extensão termine em .java ou .class

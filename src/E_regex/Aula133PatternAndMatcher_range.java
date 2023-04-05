@@ -1,4 +1,4 @@
-package regex;
+package E_regex;
 
 // Podemos delimitar intervalos de valores possíveis no pattern
 // utilizando "[]" <-

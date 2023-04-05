@@ -1,4 +1,4 @@
-package generics;
+package J_generics;
 
 /* Pontos importantes e atenções a se tomar quando se trabalha com Classes Genéricas <T>:
 
@@ -48,10 +48,10 @@ package generics;
 
  */
 
-import generics.dominio.BoatModel;
-import generics.dominio.CarModel;
-import generics.service.CarRentalService;
-import generics.service.RentalService;
+import J_generics.dominio.BoatModel;
+import J_generics.dominio.CarModel;
+import J_generics.service.CarRentalService;
+import J_generics.service.RentalService;
 
 import java.util.List;
 import java.util.PriorityQueue;

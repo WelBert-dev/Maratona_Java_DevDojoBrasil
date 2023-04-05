@@ -1,4 +1,4 @@
-package formatacao;
+package C_formatacao;
 
 // Utilizado para Internacionalização, ou seja
 // para melhor se adaptar as datas em diversos paises e etc...

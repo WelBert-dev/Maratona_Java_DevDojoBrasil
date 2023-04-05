@@ -1,4 +1,4 @@
-package collections;
+package I_collections;
 
 // LinkedList listas ligadas, mais estudos em src/estuturaDados:
 // Basicamente uma lista aonde o elemento corrente aponta para o proximo e o anterior;

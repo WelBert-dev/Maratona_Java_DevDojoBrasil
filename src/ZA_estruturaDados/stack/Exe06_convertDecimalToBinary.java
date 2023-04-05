@@ -1,4 +1,4 @@
-package estruturaDados.stack;
+package ZA_estruturaDados.stack;
 
 public class Exe06_convertDecimalToBinary {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package estruturaDados.linkedList;
+package ZA_estruturaDados.linkedList;
 
 public class App {
     public static void main(String[] args) {
