@@ -62,7 +62,7 @@ válidas e compatíveis com o contexto em que são usadas.
 
 */
 
-import parametrizandoComportamentos.domain.CarModel;
+import L_parametrizandoComportamentos.domain.CarModel;
 
 public class CarComparators_MethodReferenceStaticAndNonStatic {
     public CarComparators_MethodReferenceStaticAndNonStatic() {

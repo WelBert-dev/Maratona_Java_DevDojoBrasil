@@ -1,4 +1,4 @@
-package parametrizandoComportamentos;
+package L_parametrizandoComportamentos;
 
 // Neste package é discutido do porque utilizar lambdas
 // programação funcional torna o código mais coeso e
@@ -24,7 +24,7 @@ package parametrizandoComportamentos;
 
 
 
-import parametrizandoComportamentos.domain.CarModel;
+import L_parametrizandoComportamentos.domain.CarModel;
 
 import java.util.ArrayList;
 import java.util.List;

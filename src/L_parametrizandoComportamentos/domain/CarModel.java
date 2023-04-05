@@ -1,4 +1,4 @@
-package parametrizandoComportamentos.domain;
+package L_parametrizandoComportamentos.domain;
 
 public class CarModel {
     private String nome;
