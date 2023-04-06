@@ -73,8 +73,30 @@ public class Aula220e221Threads_introduction_and_states_of_threads {
         Thread thread = new Thread(new ThreadStatesExample());
 
         // Pegando o Nome da Thread corrente em runtime:
-        System.out.println(Thread.currentThread().getName());
+        // System.out.println(Thread.currentThread().getName()); // main
 
+        ThreadExample t1 = new ThreadExample('A');
+        ThreadExample t2 = new ThreadExample('B');
+        ThreadExample t3 = new ThreadExample('C');
+        ThreadExample t4 = new ThreadExample('D');
+        t1.run(); // Ainda será a Thread main que ira executar,
+        t2.run(); // Não samos nós que chamamos o método run, e sim o proprio Java
+        t3.run(); // O método correto é start()
+        t4.run(); //
+
+        t1.start(); // Correto, porém deve-se saber que não existe ordem na execução
+        t2.start(); // apenas podemos explicitar que desejamos priorizar alguma thread
+        t3.start(); // ainda sim, é o scheduller que irá decidir quando uma thread
+        t4.start(); // irá executar ou mudar seus states durante a execução.
+
+        // A depender da JVM que está executando os valores podem ser diferentes, então
+        // é recomendável utilizar os Enums para garantir valores válidos.
+        t1.setPriority(Thread.MIN_PRIORITY); // 1
+        t2.setPriority(Thread.NORM_PRIORITY); // 5
+        t3.setPriority(Thread.MAX_PRIORITY); // 10
+
+
+        System.out.println();
         // --------------------------------------------------------------------
 
         // States Of Threads:
@@ -105,5 +127,22 @@ class ThreadStatesExample implements Runnable {
     @Override
     public void run() {
         System.out.println("Thread running...");
+    }
+}
+
+class ThreadExample extends Thread {
+    private final char c;
+    public ThreadExample(char c) {
+        this.c = c;
+    }
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName());
+        for (int i = 0; i < 500; i++) {
+            System.out.print(c);
+            if (i % 100 == 0){
+                System.out.println();
+            }
+        }
     }
 }
