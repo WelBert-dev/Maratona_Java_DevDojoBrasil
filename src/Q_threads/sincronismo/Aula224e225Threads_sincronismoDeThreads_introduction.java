@@ -28,13 +28,25 @@ Além disso, synchronized pode ser usado em conjunto com outros mecanismos de
 sincronização, como objetos Lock ou Semaphore, para fornecer uma maior
 flexibilidade e controle na implementação de threads seguras e eficientes.
 
+Obs: Quando bloquear com `synchronized` alguma variável de referência, a mesma deve
+ser `final` ou `efetivamente final` para garantir lock do objeto corretamente,
+pois se o mesmo sofrer mudanças para qual objeto ele refere-se em memória como
+o java vai saber qual objeto esta sendo blockeado?
+
+- Atomic Execution: É quando um bloco esta blocked para outras threads, assim a
+thread corrente executa o bloco de forma atômica até o final, podendo assim
+liberar o lock para outra thread acessar de maneira atômica.
 
 */
 
 import Q_threads.domain.AccountModel;
 
 public class Aula224e225Threads_sincronismoDeThreads_introduction implements Runnable {
-    private AccountModel account = new AccountModel();
+    private final AccountModel account = new AccountModel();
+    // Garante que account sempre se refere ao objeto em questão,
+    // garantindo concistência no uso do `synchronized (account) {...}`
+
+
     public static void main(String[] args) {
         Aula224e225Threads_sincronismoDeThreads_introduction runnable1 = new Aula224e225Threads_sincronismoDeThreads_introduction();
         Thread wellison = new Thread(runnable1, "Wellison");
