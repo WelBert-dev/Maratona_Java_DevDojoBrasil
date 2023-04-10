@@ -23,9 +23,18 @@ usado.
 esperando por uma determinada quantidade de tempo por outra thread. Isso pode
 acontecer, por exemplo, quando uma thread está esperando por uma resposta de
 uma conexão de rede por um tempo determinado.
+    - Ou também Waiting Blocked.
 
 - TERMINATED: Quando uma thread conclui sua execução ou é interrompida, ela passa
 para o estado TERMINATED.
+
+
+                            [Waiting Blocked]<\
+                           /                   \
+                          /                     \
+   [New]----> [Runnable]</ <-------------------> [Running]----> [Dead]
+
+Obs: scheduler que escolhe quando uma Thread pode ser executada, nós apenas deixamos ela "Runnable".
 
 */
 
