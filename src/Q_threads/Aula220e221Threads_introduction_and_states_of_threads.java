@@ -30,9 +30,9 @@ para o estado TERMINATED.
 
 
                             [Waiting Blocked]
-                          /                  ↖
-                        ↙                     \
-   [New]----> [Runnable] <-------------------> [Running]----> [Dead]
+                           /                 ↖
+                          ↙                   \
+     [New]----> [Runnable] <-----------------> [Running]----> [Dead]
 
 Obs: scheduler que escolhe quando uma Thread pode ser executada, nós apenas deixamos ela "Runnable".
 
