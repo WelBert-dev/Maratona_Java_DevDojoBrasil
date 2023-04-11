@@ -14,7 +14,7 @@ package Q_threads.sincronismo;
                 /   \
                /      ↘ (Thread_01 aguardando lock de Thread_02)
     (Thread_02-)-------{->Recurso_02}
-    
+
 */
 public class Aula227Threads_DeadLock_problemaAoSincronizar {
     public static void main(String[] args) {
