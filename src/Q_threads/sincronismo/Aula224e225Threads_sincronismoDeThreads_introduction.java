@@ -39,6 +39,25 @@ liberar o lock para outra thread acessar de maneira atômica.
 
 */
 
+/* Observações sobre `synchronized`!!
+
+- NÃO é uma boa prática sincronizar blocos inteiros pois perdemos as vantagens do
+uso de paralelismo, pois sincronizar é basicamente o que blocos comuns fazem.
+    - Se um bloco/escopo por completo deve ser `synchronized` então quer dizer
+    que na verdade o bloco/escopo não deve utilizar paralelismo para resolver
+    o problema proposto.
+
+- Em casos de concorrência para acessar COLEÇÕES e MAPAS ao invés de `synchronized`
+o bloco ou recurso é mais recomendável utilizar Collections.synchronizedMap() e etc
+para garantir que apenas uma thread irá acessar essa coleção por vez.
+
+- Objetos "burros" lock utilizado em conjunto de `synchronized`:
+    Esses objetos burros servem apenas para bloquear blocos/escopos e garantir o
+    sincronismo neles, porisso "burros", pois são apenas objetos utilizados para
+    tal. Object lock = new Object(); synchronized(lock) {...}
+
+*/
+
 import Q_threads.domain.AccountModel;
 
 public class Aula224e225Threads_sincronismoDeThreads_introduction implements Runnable {
