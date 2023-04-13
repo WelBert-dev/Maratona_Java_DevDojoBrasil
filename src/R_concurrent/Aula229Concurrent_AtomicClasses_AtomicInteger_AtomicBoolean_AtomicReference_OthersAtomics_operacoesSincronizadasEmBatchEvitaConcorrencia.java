@@ -104,7 +104,74 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Aula229Concurrent_AtomicClasses_AtomicInteger_AtomicBoolean_AtomicReference_OthersAtomics_operacoesSincronizadasEmBatchEvitaConcorrencia {
     public static void main(String[] args) {
-        AtomicInteger atomicInteger = new AtomicInteger(-1);
+        CounterNotAtomic_NonThreadSafe counterNotAtomic = new CounterNotAtomic_NonThreadSafe();
+        Runnable r = () -> {
+          for (int i = 0; i < 10000; i++) {
+              counterNotAtomic.increment();
+          }
+        };
+        Thread thread0 = new Thread(r);
+        Thread thread1 = new Thread(r);
+        thread0.start();
+        thread1.start();
+        // System.out.println("Count: "+counterNotAtomic.getCount()); assim printa 0 pois temos que travar a thread main:
+        // Pois a thread main deve esperar a execução das threads criadas por nós, para assim poder printar o count corretamente.
+        try {
 
+            thread0.join();
+            thread1.join();
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        // Porém ainda sim pode ocorrer inconcistências por conta da concorrência: 19524
+        // Isso ocorre pois não sabemos o número de instruções que são transformadas
+        // após compilar o código, aonde o `count++` pode se transformar em mais de
+        // apenas uma operação, como variáveis auxiliares e etc...
+        // com isso a thread pode interromper o processo de outra devido a esse número
+        // elevado de instruções possíveis.
+        System.out.println("Count sem AtomicInteger: "+counterNotAtomic.getCount()); // Count: 19524
+
+
+        // Solução: `AtomicInteger` com `incrementAndGet()` ao invés de `count++`:
+        CounterWithAtomic_ThreadSafe counterWithAtomic = new CounterWithAtomic_ThreadSafe();
+        Runnable r2 = () -> {
+            for (int i = 0; i < 10000; i++) {
+                counterWithAtomic.increment();
+            }
+        };
+        Thread thread2 = new Thread(r2);
+        Thread thread3 = new Thread(r2);
+        thread2.start();
+        thread3.start();
+        try {
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        // Resolve problema e saída sempre será o esperado: 20000 (pois são 2 threads)
+        // Isso ocorre pois as classes atômicas garantem que a instrução gerada após
+        // compilar seram realizadas atômicamente, eliminando essa possibilidade de
+        // as threads se interromperem durante o processo de concorrência.
+        System.out.println("Count com AtomicInteger: "+counterWithAtomic.getCount());
+    }
+}
+class CounterNotAtomic_NonThreadSafe {
+    private int count;
+    void increment() {
+        count++;
+    }
+    public int getCount() {
+        return count;
+    }
+}
+class CounterWithAtomic_ThreadSafe {
+    private AtomicInteger countWithAtomicInteger = new AtomicInteger(0);
+    void increment() {
+        countWithAtomicInteger.getAndIncrement();
+    }
+    public int getCount() {
+        return countWithAtomicInteger.get();
     }
 }
