@@ -139,6 +139,7 @@ de lock.
 */
 
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -170,7 +171,9 @@ class Worker implements Runnable {
     @Override
     public void run() {
         try{
-            lock.lock(); // Apenas a nível de exemplo, NUNCA devemos sincronizar o bloco run por completo
+            // lock.tryLock(3, TimeUnit.SECONDS);
+            lock.lock();
+            // Apenas a nível de exemplo, NUNCA devemos sincronizar o bloco run por completo
             // pois assim estamos perderndo todas as vantagens do paralelismo.
             System.out.printf("A Thread %s entrou em uma sessão crítica%n", name);
             System.out.printf("%d Threads esperando na fila para executar esse bloco%n", lock.getQueueLength());
@@ -182,6 +185,8 @@ class Worker implements Runnable {
             throw new RuntimeException(e);
         } finally {
             // verifica se a thread corrente é quem está segurando o lock
+            // pois se tentar unlock() em threads que não estão lock lançara:
+            // java.lang.IllegalMonitorStateException
             if (lock.isHeldByCurrentThread()) {
                 lock.unlock();
             }
