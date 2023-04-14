@@ -115,7 +115,8 @@ public class Aula229Concurrent_AtomicClasses_AtomicInteger_AtomicBoolean_AtomicR
         thread0.start();
         thread1.start();
         // System.out.println("Count: "+counterNotAtomic.getCount()); assim printa 0 pois temos que travar a thread main:
-        // Pois a thread main deve esperar a execução das threads criadas por nós, para assim poder printar o count corretamente.
+        // Pois a thread main deve esperar a execução das threads criadas por nós (User Thread),
+        // para assim poder printar o count corretamente:
         try {
 
             thread0.join();
@@ -137,7 +138,7 @@ public class Aula229Concurrent_AtomicClasses_AtomicInteger_AtomicBoolean_AtomicR
         CounterWithAtomic_ThreadSafe counterWithAtomic = new CounterWithAtomic_ThreadSafe();
         Runnable r2 = () -> {
             for (int i = 0; i < 10000; i++) {
-                counterWithAtomic.increment();
+                counterWithAtomic.increment(); // mesma chamada, porém utiliza `incrementAndGet`
             }
         };
         Thread thread2 = new Thread(r2);
