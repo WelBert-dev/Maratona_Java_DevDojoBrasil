@@ -30,7 +30,7 @@ public class Aula234Concurrent_ArrayBlockingQueue_threadFicaBloqueadaAguardandoL
             try {
                 Thread.sleep(2000);
                 System.out.printf("%s removed the value, unAwait the main thread again%n", Thread.currentThread().getName());
-                bq.remove();
+                bq.take(); // retorna e remove a cabeça da fila (primeiro elemento)
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
