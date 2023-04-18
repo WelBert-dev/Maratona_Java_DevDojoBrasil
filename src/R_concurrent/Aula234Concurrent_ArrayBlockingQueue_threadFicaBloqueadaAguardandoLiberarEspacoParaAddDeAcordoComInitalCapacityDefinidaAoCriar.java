@@ -10,6 +10,7 @@ elementos sejam realizadas de forma segura e ordenada.
 A principal utilidade do BlockingQueue é permitir a comunicação e coordenação entre
 threads em um ambiente concorrente.
 
+
 ---> Algumas das aplicações mais comuns do BlockingQueue incluem:
 
     - Producer-Consumer: é uma situação em que uma thread produz dados e outra
@@ -29,6 +30,7 @@ threads em um ambiente concorrente.
     - Mensagens: pode ser usada como um canal de comunicação entre componentes do
     sistema. Uma thread pode enviar mensagens para outra thread através da fila,
     permitindo uma comunicação assíncrona e segura.
+
 
 ---> Algumas das implementações mais comuns são:
 
@@ -53,6 +55,7 @@ threads em um ambiente concorrente.
     Ela permite que os elementos sejam ordenados de acordo com o tempo de
     expiração, o que a torna útil em aplicações que exigem a execução de
     tarefas em momentos específicos.
+
 
 ---> Diferenças para cada implementação dela:
 
@@ -113,6 +116,38 @@ específico no futuro.
 
     - É uma boa escolha para aplicações que requerem a execução de tarefas em
     momentos específicos.
+
+
+---> Pontos importantes e atenções em comum para as classes que implementam:
+
+1o - Thread-safe: Todas as classes que implementam a interface BlockingQueue são
+thread-safe, o que significa que podem ser usadas por várias threads simultaneamente
+sem a necessidade de sincronização adicional.
+
+2o - Operações de bloqueio: As operações de bloqueio, como put() e take(), podem
+fazer com que uma thread seja bloqueada até que um elemento esteja disponível na
+fila ou haja espaço suficiente na fila para inserir um novo elemento.
+
+3o - Capacidade limitada: Algumas implementações de BlockingQueue, como
+ArrayBlockingQueue, possuem uma capacidade limitada definida na criação da fila.
+Isso significa que uma thread que tenta inserir um elemento na fila quando ela
+está cheia pode ser bloqueada até que um elemento seja removido da fila.
+
+4o - Métodos adicionais: As classes que implementam a interface BlockingQueue
+podem ter métodos adicionais que são específicos da implementação. Por exemplo,
+a LinkedBlockingQueue tem métodos como drainTo() e offer() que não estão
+disponíveis em outras implementações.
+
+5o - Prioridades: Algumas implementações de BlockingQueue, como PriorityBlockingQueue,
+armazenam elementos ordenados por prioridade, definida por uma implementação da
+interface Comparable ou por um comparador.
+
+6o - Tamanho variável: Algumas implementações de BlockingQueue, como LinkedBlockingQueue,
+possuem um tamanho variável que pode crescer ou diminuir conforme a demanda.
+
+7o - Sincronização: O uso de operações de bloqueio em classes que implementam a interface
+BlockingQueue pode exigir sincronização adicional em outras partes do código para evitar
+deadlocks ou condições de corrida.
 
 */
 
