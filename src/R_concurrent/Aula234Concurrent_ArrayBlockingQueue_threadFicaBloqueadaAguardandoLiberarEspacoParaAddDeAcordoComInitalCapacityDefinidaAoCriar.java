@@ -145,9 +145,28 @@ interface Comparable ou por um comparador.
 6o - Tamanho variável: Algumas implementações de BlockingQueue, como LinkedBlockingQueue,
 possuem um tamanho variável que pode crescer ou diminuir conforme a demanda.
 
-7o - Sincronização: O uso de operações de bloqueio em classes que implementam a interface
-BlockingQueue pode exigir sincronização adicional em outras partes do código para evitar
-deadlocks ou condições de corrida.
+7o - Sincronização: O uso de operações de bloqueio em classes que implementam a
+interface BlockingQueue pode exigir sincronização adicional em outras partes do
+código para evitar deadlocks ou condições de corrida.
+
+8o - Métodos Bloqueantes: Os métodos de remoção (take() e poll()) e de inserção
+(put() e offer()) são métodos bloqueantes, o que significa que eles podem esperar
+por um tempo indeterminado até que a operação possa ser concluída.
+Os métodos offer() e poll() com timeout permitem especificar um tempo limite para
+a espera.
+
+9o - Operações Atômicas: Todas as operações da BlockingQueue são atômicas, o que
+significa que são executadas em uma única operação, sem interferência de outras
+threads.
+
+10o - Cancelamento: É importante definir uma política para lidar com o cancelamento
+das operações de inserção e remoção. Algumas implementações da interface BlockingQueue
+suportam a operação cancel() para cancelar as operações pendentes.
+
+11o - Uso de Condições: A interface BlockingQueue usa objetos Condition para
+implementar a espera condicional em operações de inserção e remoção. É importante
+entender como as condições funcionam e como usá-las corretamente para evitar
+problemas de concorrência.
 
 */
 
