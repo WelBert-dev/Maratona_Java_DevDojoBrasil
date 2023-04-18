@@ -170,6 +170,8 @@ problemas de concorrência.
 
 */
 
+// ----------------------------------------------------------------------------
+
 /* Definições sobre a classe ArrayBlockingQueue:
 
 É uma implementação da interface BlockingQueue, que é utilizada para manipular
