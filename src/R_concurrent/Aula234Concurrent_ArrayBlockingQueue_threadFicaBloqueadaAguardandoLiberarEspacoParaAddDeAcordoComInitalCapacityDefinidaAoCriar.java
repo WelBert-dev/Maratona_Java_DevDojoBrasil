@@ -170,6 +170,44 @@ problemas de concorrência.
 
 */
 
+/* Definições sobre a classe ArrayBlockingQueue:
+
+É uma implementação da interface BlockingQueue, que é utilizada para manipular
+coleções de elementos em ambientes multithreaded. A ArrayBlockingQueue é uma
+fila de tamanho fixo, onde os elementos são armazenados em um array e os acessos
+são bloqueados quando a fila está cheia ou vazia, permitindo que as threads possam
+aguardar até que haja espaço para inserir novos elementos ou até que haja elementos
+disponíveis para remover.
+
+Essa classe é particularmente útil em cenários onde é necessário controlar o número
+máximo de elementos em uma fila, como por exemplo em sistemas de produção e consumo
+de dados, onde um conjunto de threads é responsável por produzir dados que são
+inseridos na fila, enquanto outro conjunto de threads é responsável por consumir
+esses dados da fila e processá-los. A ArrayBlockingQueue garante que a fila não
+ultrapasse o tamanho máximo permitido, evitando assim problemas de memória e de
+performance na aplicação.
+
+
+---> Algumas das principais aplicações da classe ArrayBlockingQueue incluem:
+
+    - Sistema de gerenciamento de threads: Pode ser utilizada para implementar
+    um sistema de gerenciamento de threads em uma aplicação, aonde as threads
+    são colocadas em uma fila e processadas em ordem de chegada.
+
+    - Comunicação entre threads: Pode ser utilizada para permitir a comunicação
+    entre threads em uma aplicação, aonde uma thread insere dados na fila e outra
+    thread consome esses dados.
+
+    - Implementação de algoritmos de processamento de dados: Pode ser utilizada
+    para implementar algoritmos de processamento de dados em tempo real, aonde os
+    dados são inseridos na fila e processados em tempo hábil.
+
+    - Controle de acesso a recursos: Pode ser utilizada para controlar o acesso
+    a recursos em uma aplicação, aonde as threads aguardam em uma fila até que o
+    recurso esteja disponível.
+
+*/
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
