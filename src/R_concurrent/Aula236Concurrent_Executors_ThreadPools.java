@@ -28,7 +28,7 @@ usando várias threads.
     ou em um horário específico.
 
 Além disso, o Executors fornece métodos para interromper a execução de um conjunto
-de tarefas em um executor e métodos para agendar tarefas para execução em um ]
+de tarefas em um executor e métodos para agendar tarefas para execução em um
 horário específico ou com um atraso específico.
 
 
