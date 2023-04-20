@@ -1,5 +1,7 @@
 package R_concurrent;
 
+// Fonte interessante sobre: https://www.devmedia.com.br/trabalhando-com-completablefuture-no-java/32854
+
 // Diferenças do método `get()` e `join()` do CompletableFuture<V>:
 // Ambos fazem a mesma coisa porém o join() não lança exceptions!
 // (pelomenos Checked, porém lança Unchecked em Runtime)
