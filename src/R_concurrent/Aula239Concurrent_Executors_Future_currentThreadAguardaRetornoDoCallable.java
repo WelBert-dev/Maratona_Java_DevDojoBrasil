@@ -5,6 +5,9 @@ package R_concurrent;
 // de algum Callable por muito tempo, lançando a exception e tratando ela
 // adequadamente.
 
+// Obs: Atenção ao se utilizar Future em fluxos Streams! apresenta mesmo problema
+// estudado em Aula241!!
+
 /* Definiçõs sobre a classe Future<V>
 
 É uma interface que representa um valor futuro que pode ou não estar disponível.
