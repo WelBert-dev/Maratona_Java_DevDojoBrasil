@@ -44,5 +44,21 @@ public class Aula241Concurrent_CompletableFuture_atencaoQuandoSeUtilizaComStream
         System.out.printf("Time passed to searchPricesSync with Not Async: %dms%n", end - start);
         // Time passed to searchPricesSync with Not Async: 4036ms
 
+        // - [JEITO CERTO e sem utilizar metodos prontos de outra classe de estudos] -
+        // Obs: Demonstração de como seria a execução de um método sincronizado
+        // porém em paralelo, adicionando uma camada assincrona a cima em fluxos Stream:
+        // Obs: Mesmo exemplo visto anteriormente.
+
+        start = System.currentTimeMillis();
+        List<CompletableFuture<Double>> prices = storesList.stream()
+                .map(s -> CompletableFuture.supplyAsync(() -> StoreService.getPricesSync(s)))
+                .collect(Collectors.toList());
+
+        prices.stream()
+                .map(CompletableFuture::join).collect(Collectors.toList());
+
+        end = System.currentTimeMillis();
+        System.out.printf("Time passed to searchPricesSync with Not Async: %dms%n", end - start);
+        // Time passed to searchPricesSync with Not Async: 4057ms
     }
 }
