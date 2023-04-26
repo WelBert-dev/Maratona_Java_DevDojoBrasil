@@ -1,0 +1,162 @@
+-- Data de Documentação: - (Estudos feitos em Java e agora documentado)
+-- Data de Estudos: -
+
+-- link: -
+
+Intermediário: Mais específico no Java
+
+---> Parametrizando Comportamentos utilizando programação funcional e Lambdas.
+
+- Quando utilizar?
+
+Quando algum método faz comparações que podem ser alteradas de acordo com cenários
+é um sinal de que podemos criar um método mais "genérico" para tal contexto e
+deixamos a regra da comparação/comportamento para a chamada do método, ou seja
+delegamos essa responsabilidade para quem está chamando tal método escolher
+qual é o comportamento desejado, assim evitamos duplicações de códigos e deixamos
+a leitura mais coesa se aplicado da maneira correta.
+
+- Exemplo: Filtragem de carros aonde sempre é alterado o critério dessa filtragem
+(por cor, modelo, marca...) porém o método realiza sempre a mesma função de "filtragem"
+ou seja, apenas é diferente o critério de comparação do `if`, para entender melhor temos
+o seguinte cenário:
+
+    - Filtrar carros por cor `filterCarByColor()`;
+    - Filtrar carros por marca `filterCarByBrand()`;
+    - Filtrar carros por cor e marca `filterCarByColorAndBrand()`;
+
+    - Códigos: Vemos que apenas o if é alterado!
+
+    public static CarModel filterCarByColor(List<CarModel> listCars, String color){
+            for (CarModel car : listCars) {
+                if(car.getColor().equals(color)) { // apenas aqui é alterado para todos
+                    return car;
+                }
+            }
+            return null;
+        }
+    public static CarModel filterCarByColorAndBrand(List<CarModel> listCars, String color, String brand){
+        for (CarModel car : listCars) {
+            if(car.getColor().equals(color) && car.getBrand().equals(brand)) { // apenas aqui é alterado para todos
+                return car;
+            }
+        }
+        return null;
+    }
+
+Esse tipo de nomeclatura é uma dica de que podemos parametrizar o comportamento
+para uso de Lambdas! então criamos um método mais "genérico":
+
+    - Filtrar carros por parâmetro (lambda): `filterCar()`
+
+    - Código: Pronto, aqui utilizamos a Interface Funcional `Predicate` que faz
+    um teste e retorna um boolean.
+
+    public static CarModel filter(List<CarModel> listCars, CarPredicate carPredicate){
+            for (CarModel car : listCars) {
+                if(carPredicate.teste(car)) { // aqui chamamos o teste do predicate.
+                    return car;
+                }
+            }
+            return null;
+        }
+
+- Resumindo: Para utilizarmos Lambdas o tipo do parâmetro deve respeitar algumas
+regras sendo elas:
+
+     - Deve ser uma Interface Funcional, ou seja possuir apenas 1 método pois
+     assim o java sabe qual método estamos se referindo quando utilizamos a
+     lambda.
+
+     - Para cada tipo de corpo da Lambda vai ser uma Interface Funcional diferente,
+     ou seja, o tipo de Objeto de entrada e o tipo de Objeto de retorno se possuir.
+     esse cenário é conhecido como "Target Type" e "Functional Descriptor".
+
+     - Ou caso não utilizado Interface Funcional, ainda sim deve respeitar as
+     regras anteriores (se a Interface/Classe respeite as regras anteriores então
+     pode utilizar Lambdas aqui também). Ou seja, deve respeitar o "Target Type"
+     e "Functional Descriptor".
+
+- Regras para o uso da sintaxe Lambda:
+
+    - A Interface deve definir o contrato para APENAS UM método.
+    - O Function descriptor deve ser respeitado:
+      - Se for apenas um parâmetro pode utilizar `x -> x.blabla`;
+      - Se for mais de um parâmetro: `(param1,param2) -> param1.blabla`;
+      - Se não existir parâmetros utilizar: `() -> blabla`;
+
+-------------------------------------------------------------------------------
+---> O que é um "Target Type" e "Functional Descriptor"?
+
+O target type (tipo alvo) é o tipo de dado esperado em um contexto onde uma
+expressão lambda, uma referência a método ou uma classe anônima são usados.
+O compilador Java usa o tipo alvo para determinar o tipo de interface funcional
+que deve ser usada para validar a expressão lambda ou a referência a método.
+
+Uma interface funcional é uma interface que define um único método abstrato
+(também conhecida como método funcional), e pode ser usada como um tipo de
+dado para expressões lambda, referências a método e classes anônimas.
+Por exemplo, a interface funcional Runnable define um método "run()" sem
+argumentos e sem retorno:
+
+ @FunctionalInterface
+ public interface Runnable {
+     public abstract void run();
+ }
+
+Quando você passa uma expressão lambda para um método que espera um tipo Runnable,
+o compilador usa o tipo alvo (Runnable) para determinar que a expressão lambda
+deve ser validada como uma implementação de Runnable.
+
+O functional descriptor (descritor funcional) é um termo usado para descrever a
+assinatura de um método funcional, ou seja, a lista de argumentos e o tipo de
+retorno do método.
+O descritor funcional é usado pelo compilador Java para garantir que uma expressão
+lambda ou uma referência a método corresponda a um tipo funcional compatível.
+
+Por exemplo, se você tiver uma interface funcional que espera um método com um
+parâmetro inteiro e um retorno booleano:
+
+ @FunctionalInterface
+ public interface MyFunctionalInterface {
+     boolean myMethod(int x);
+ }
+
+Para criar uma expressão lambda ou uma referência a método que corresponda a essa
+interface, você deve fornecer um método com a mesma assinatura
+(um parâmetro inteiro e um retorno booleano).
+Algo parecido com:
+
+ MyFunctionalInterface func = (x) -> x > 0;
+
+Em resumo, o target type e o functional descriptor são conceitos importantes em
+Java para lidar com expressões lambda, referências a método e interfaces
+funcionais, e são usados pelo compilador para garantir que as expressões sejam
+válidas e compatíveis com o contexto em que são usadas.
+
+-------------------------------------------------------------------------------
+---> Interfaces Funcionais mais Utilizadas:
+
+- Predicate: É uma interface que representa um predicado (uma função que recebe
+um argumento e retorna um valor booleano). É comumente usada para filtrar ou
+testar objetos. Em alguns casos quando é necessário aumentar a quantidade de
+argumentos de entrada, pode-se utilizar o BiPredicate, ou ir além e criar
+TriPredicate...
+    - Exemplo: o método `filter()` dos fluxos Stream.
+
+- Consumer:  É uma interface que representa um consumidor, ou seja, uma função
+que recebe um argumento e não retorna nada. É comumente usada para realizar
+operações em objetos.
+    - Exemplo: o método `forEach()` de todas as coleções.
+
+- Function: É uma interface que representa uma função que recebe um argumento e
+retorna um resultado. Pode ser usada para transformar objetos de um tipo em outro.
+Aqui aplica-se a mesma regra anterior quanto a quantidade de argumentos de entrada,
+BiFunction e etc...
+    - Exemplo: o método `map()` dos fluxos Stream.
+
+- Supplier: É uma interface que representa um fornecedor, ou seja, uma função que
+não recebe argumentos e retorna um resultado. É frequentemente usada para gerar
+valores preguiçosamente.
+    - Exemplo: Métodos que retornam Objetos. `Collections.nCopies()`
+-------------------------------------------------------------------------------
