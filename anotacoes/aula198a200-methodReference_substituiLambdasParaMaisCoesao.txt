@@ -1,0 +1,56 @@
+-- Data de Documentação: - (Estudos feitos em Java e agora documentado)
+-- Data de Estudos: -
+
+-- link: -
+
+Intermediário: Mais específico no Java
+
+---> Substituindo Lambdas por Method Reference para ganho de coesão.
+- OBS: NÃO é utilizado apenas em contextos de funções Lambdas!!
+
+- Quando utilizar?
+
+Quando algum contexto espera uma função Lambda e não existem parâmetros de entrada
+pode substituir a sintaxe Lambda por Method Reference, o gasto no processamento
+será o mesmo porém em alguns casos melhora a legibilidade do código deixando mais
+coeso. Embora seja mais comumente usado em contextos de funções lambdas, o Method
+Reference também pode ser usado em outras situações no Java.
+
+O Method Reference é uma funcionalidade introduzida no Java 8 que permite referenciar
+um método existente como uma expressão lambda. Ele é uma forma concisa e clara
+de escrever código que utiliza métodos existentes como argumentos de outros métodos.
+
+A principal vantagem do Method Reference é a redução da complexidade do código, pois
+ele permite que o desenvolvedor escreva menos código, tornando-o mais legível e fácil
+de entender. Além disso, o uso do Method Reference torna o código mais fácil de manter
+e refatorar, pois os métodos referenciados podem ser alterados sem a necessidade de
+modificar o código que utiliza a referência.
+
+- Existem quatro(4) tipos de Method References para cada tipo de cenário, sendo eles:
+
+     - Referência a métodos estáticos: MyClass::staticMethod;
+    Este tipo de referência é usado para referenciar um método estático existente.
+    O nome da classe é usado como prefixo do nome do método estático
+
+    - Referência a métodos de instância em um objeto particular: obj::instanceMethod;
+    Este tipo de referência é usado para referenciar um método de instância em um
+    objeto específico. O objeto é especificado antes do nome do método.
+
+    - Referência a método de instância de um tipo de objeto arbitrário: String::length;
+    Este tipo de referência é usado para referenciar um método de instância em um
+    objeto de um tipo arbitrário. O objeto é passado como o primeiro parâmetro para
+    a expressão lambda, e a sintaxe é ClassName::instanceMethod.
+
+    - Referência a um construtor: ArrayList::new;
+    Este tipo de referência é usado para referenciar um construtor de uma classe.
+    A sintaxe é ClassName::new.
+
+-------------------------------------------------------------------------------
+---> Referência a métodos estáticos: MyClass::staticMethod;
+-------------------------------------------------------------------------------
+---> Referência a métodos de instância em um objeto particular: obj::instanceMethod;
+-------------------------------------------------------------------------------
+---> Referência a método de instância de um tipo de objeto arbitrário: String::length;
+-------------------------------------------------------------------------------
+---> Referência a um construtor: ArrayList::new;
+-------------------------------------------------------------------------------
