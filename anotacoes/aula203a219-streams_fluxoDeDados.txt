@@ -222,3 +222,67 @@ nova Stream em um único passo, tornando o código mais conciso e eficiente.
 
 
 -------------------------------------------------------------------------------
+---> Finding and Matching (Buscando elementos do fluxo de acordo com padrões):
+
+- findFirst(): Retorna o PRIMEIRO elemento da sequência que atende a uma determinada
+condição.
+Se nenhum elemento for encontrado, ele retorna um objeto Optional vazio.
+Aqui está um exemplo de como usá-lo:
+
+    Optional<Integer> firstElement = Stream.of(1, 2, 3, 4, 5)
+        .filter(n -> n % 2 == 0)
+        .findFirst();
+
+    O método filter() é usado para filtrar apenas os números pares da sequência,
+    e o método findFirst() retorna o PRIMEIRO número par encontrado na sequência.
+
+
+- findAny(): Retorna QUALQUER elemento da sequência que atenda a uma determinada
+condição. (Não deterministico, ou seja é random of elements searched)
+Se nenhum elemento for encontrado, ele retorna um objeto Optional vazio.
+Aqui está um exemplo de como usá-lo:
+
+    Optional<Integer> anyElement = Stream.of(1, 2, 3, 4, 5)
+    .filter(n -> n % 2 == 0)
+    .findAny();
+
+    O método filter() é usado para filtrar apenas os números pares da sequência,
+    e o método findAny() retorna QUALQUER número par encontrado na sequência.
+
+
+- anyMatch(): Retorna true se pelo menos um elemento da sequência atende a uma
+determinada condição.
+Caso contrário, ele retorna false.
+Aqui está um exemplo de como usá-lo:
+
+    boolean anyMatch = Stream.of("apple", "banana", "cherry", "date")
+    .anyMatch(fruit -> fruit.startsWith("b"));
+
+    O método anyMatch() verifica se PELO MENOS UM elemento da sequência começa
+    com a letra "b". Como "banana" atende a essa condição, o método retorna true.
+
+
+- allMatch(): Retorna true se todos os elementos da sequência atenderem a uma
+determinada condição.
+Caso contrário, ele retorna false.
+Aqui está um exemplo de como usá-lo:
+
+    boolean allMatch = Stream.of("apple", "banana", "cherry", "date")
+    .allMatch(fruit -> fruit.length() > 3);
+
+    O método allMatch() verifica se TODOS os elementos da sequência têm mais de
+    três caracteres. Como TODOS atendem a condição o método retorna true.
+
+
+- noneMatch(): Retorna true se NENHUM elemento da sequência atender a uma determinada
+condição.
+Caso contrário, ele retorna false.
+Aqui está um exemplo de como usá-lo:
+
+    boolean noneMatch = Stream.of("apple", "banana", "cherry", "date")
+    .noneMatch(fruit -> fruit.startsWith("z"));
+
+    O método noneMatch() verifica se nenhum elemento da sequência começa com a
+    letra "z". Como nenhum elemento atende a essa condição, o método retorna true.
+
+-------------------------------------------------------------------------------
