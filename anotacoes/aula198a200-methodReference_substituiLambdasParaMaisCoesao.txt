@@ -45,12 +45,132 @@ modificar o código que utiliza a referência.
     Este tipo de referência é usado para referenciar um construtor de uma classe.
     A sintaxe é ClassName::new.
 
+
 -------------------------------------------------------------------------------
 ---> Referência a métodos estáticos: MyClass::staticMethod;
+
+As referências a métodos estáticos são uma funcionalidade introduzida no Java 8
+que permite criar facilmente expressões lambda que chamam métodos estáticos.
+Uma referência a método estático é uma expressão que referencia um método
+estático existente, sem chamar explicitamente o método na expressão lambda.
+
+As referências a métodos estáticos são usadas para simplificar a escrita de código
+e torná-lo mais legível, especialmente quando a expressão lambda contém apenas uma
+chamada a um método estático. Elas também ajudam a evitar a duplicação de código,
+uma vez que um método estático pode ser reutilizado em várias expressões lambda.
+
+As referências a métodos estáticos são definidas usando o operador de duplo-colon
+(::) seguido pelo nome do método estático.
+Por exemplo, para criar uma referência a um método estático chamado printMessage na
+classe MyClass, podemos usar a seguinte sintaxe:
+
+    MyClass::printMessage
+
+Podemos então usar essa referência a método estático como argumento para uma
+expressão lambda que espera um tipo de interface funcional que tenha um único
+método abstrato compatível com o método estático.
+Por exemplo, podemos usar a referência a método estático MyClass::printMessage
+como argumento para um objeto do tipo Consumer<String>, que representa uma função
+que aceita um argumento do tipo String e não retorna nenhum valor:
+
+    Consumer<String> messagePrinter = MyClass::printMessage;
+
+Isso é equivalente a escrever uma expressão lambda que chama explicitamente o
+método estático:
+
+    Consumer<String> messagePrinter = message -> MyClass.printMessage(message);
+
+
 -------------------------------------------------------------------------------
+* Esses dois tipos de Method Reference é utilizada para métodos Não-Estáticos:
+
 ---> Referência a métodos de instância em um objeto particular: obj::instanceMethod;
--------------------------------------------------------------------------------
+
+    public class Person {
+        public void sayHello() {
+            System.out.println("Hello!");
+        }
+    }
+
+    public class Main {
+        public static void main(String[] args) {
+            Person person = new Person();
+            Runnable runnable = person::sayHello; // aqui
+            Thread thread = new Thread(runnable);
+            thread.start();
+        }
+    }
+
+
 ---> Referência a método de instância de um tipo de objeto arbitrário: String::length;
+
+    List<String> names = Arrays.asList("João", "Maria", "Pedro", "Miguel");
+
+    names.stream().map(String::toUpperCase).forEach(System.out::println); // aqui
+
+Diferenças entre os dois tipos de referência a métodos non-static:
+
+Em resumo, a diferença é que a referência a um método de instância de um objeto
+particular é criada a partir de um objeto específico instânciado, enquanto a
+referência a um método de instância de um objeto arbitrário de um tipo específico
+é criada a partir do tipo/classe do objeto e não de um objeto específico instânciado.
+Ou seja no primeiro caso o objeto já foi instânciado, no segundo caso o objeto ainda
+não existe, porisso "arbitrário".
+
+
 -------------------------------------------------------------------------------
+* Demonstra utilidade quando construtor Não possuí parâmetros e quando possuí:
+
 ---> Referência a um construtor: ArrayList::new;
+
+Referência a um construtor é uma forma de se referenciar um construtor de uma
+classe em vez de invocá-lo diretamente.
+Ela é utilizada principalmente em programação funcional, onde é comum passar
+métodos e construtores como argumentos para outras funções.
+
+A referência a um construtor é útil em situações em que você precisa passar um
+construtor como argumento para uma função, ou quando você deseja instanciar uma
+classe com um determinado construtor em um momento posterior.
+
+- Quando o construtor não tem parâmetros/argumentos de entrada:
+Utilizamos a interface funcional que respeite o Target Type e Functional descriptor
+neste caso como NÃO possuí parâmetros, utilizamos a interface Supplier...
+
+    public class Exemplo {
+        public Exemplo() {
+           ...
+        }
+    }
+
+    Supplier<Exemplo> newReferenceSupplier = Exemplo::new;
+
+    // Finalmente cria/instância o objeto em memório (momento posterior):
+    Exemplo objExemplo = newReferenceSupplier.get();
+
+
+- Quando o construtor possuí parÂmetros/argumentos de entrada:
+Utilizamos a interface funcional que respeite o Target Type e Functional descriptor
+neste caso como só possuí 1 parâmetro, utilizamos a interface Function, caso fosse
+mais argumentos utilizariamos BiFunction, TriFunction...
+
+    public class Exemplo {
+        public Exemplo(String argumento) {
+           ...
+        }
+    }
+
+    Function<String, Exemplo> newReferenceFunction = Exemplo::new;
+
+    // Vejamos que as assinaturas batem, aonde o tipo de entrada para Function
+    // é String (compatível com o tipo de entrada do construtor)
+    // e o tipo de retorno é um obj do tipo "Exemplo", ou seja o obj que será criado
+    // posteriormente.
+
+    // Finalmente cria/instância o objeto em memório (momento posterior):
+    Exemplo objExemplo = newReferenceFunction.apply("Argumento String");
+
+Neste Exemplo, O método "newReferenceFunction" recebe uma String como argumento e
+retorna um objeto Exemplo criado com o construtor que recebe um argumento do tipo
+String.
+
 -------------------------------------------------------------------------------
