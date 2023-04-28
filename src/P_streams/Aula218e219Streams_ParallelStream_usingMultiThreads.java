@@ -6,7 +6,7 @@ package P_streams;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-public class Aula218Streams_ParallelStream_usingMultiThreads {
+public class Aula218e219Streams_ParallelStream_usingMultiThreads {
     public static void main(String[] args) {
 
         // Verifica quantos cores estão disponíveis em runtime:
