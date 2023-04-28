@@ -405,3 +405,105 @@ um resultado do mesmo tipo.
 
 
 -------------------------------------------------------------------------------
+---> Trabalhando com Tipos primitivos numéricos com Stream personalizados,
+evitando assim overhead, autoBoxing e unBoxing dos Wrappers numéricos em looping
+ganhando mais performance em alguns casos.
+
+- Streams personalizados para:
+    - IntStream;
+    - LongStream;
+    - DoubleStream;
+
+- Obs: Também é possível transformar/converter esses fluxos Streams Personalizados em
+Streams genéricos, fazendo boxing de um para outro caso necessário utilizando o método
+`boxed()`;
+
+Uma das principais utilidades das classes especializadas é que elas evitam a
+necessidade de criar objetos wrapper para tipos primitivos, como Integer ou
+Double, quando se trabalha com coleções de dados.
+Isso é importante porque a criação de objetos pode ser um processo custoso em
+termos de desempenho, especialmente em coleções grandes.
+
+Além disso, as classes especializadas fornecem uma série de métodos especializados
+para operações matemáticas e estatísticas, como média, soma, máximo, mínimo, entre
+outras. Esses métodos são projetados para trabalhar com dados numéricos de forma
+eficiente e são mais expressivos do que a utilização de métodos genéricos em uma
+coleção de objetos.
+
+As classes especializadas também fornecem métodos para converter coleções de dados
+numéricos em outros tipos de dados, como arrays ou outras coleções.
+Isso pode ser útil em muitos cenários, como quando se trabalha com bibliotecas ou
+APIs que esperam determinados tipos de dados.
+
+Em resumo, as classes especializadas para tipos primitivos na API Streams oferecem
+uma maneira mais eficiente e expressiva de trabalhar com coleções de dados numéricos,
+fornecendo métodos especializados para manipulação de dados e operações matemáticas.
+Isso pode levar a um código mais limpo e eficiente em termos de desempenho,
+especialmente em cenários onde é necessário lidar com grandes conjuntos de dados
+numéricos.
+
+---> Como utilizar?
+Para utilizar, basta converter/transformar o fluxo Stream em questão utilizando os
+métodos `mapToInt(Coleção::getAtributInt)` ou `mapToLong(Coleção::getAtributLong)`
+ou `mapToDouble(Coleção::getAtributDouble)`;
+
+- Obs: Isso irá "descartar" o Objeto elemento do fluxo e irá retornar apenas no
+novo Stream Personalizado os valores contidos no `getAtribut..`, pois agora
+não estamos mais trabalhando com o Objeto por completo do fluxo anterior e sim
+mapeando em um novo fluxo algum campo numérico desse Objeto em questão.
+
+- SEM Stream personalizado: NÃO INDICADO! ;-;
+
+    listOfLightNovels.stream()
+            .filter(novel -> novel.getPrice() > 3)
+            .map(LightNovelModel::getPrice) // Stream<Double>
+            .reduce(Double::sum)
+            .ifPresent(System.out::println); // 15.8
+
+    // Observe que utilizando `map()` comum o retorno será Stream<Double>
+    // ou seja, neste contexto vai rolar autoBoxing e unBoxing durante as
+    // operações subsequentes.
+
+
+- COM Stream personalizada: INDICADO! ;D
+
+    double sum = listOfLightNovels.stream()
+            .mapToDouble(LightNovelModel::getPrice) // DoubleStream
+            .filter(price -> price > 3)
+            .sum();
+    System.out.println(sum); // 15.8
+
+
+- Convertendo DoubleStream para Stream<Double>:
+Util quando algum método subjacente espera um Wrapper ao invés de primitivo.
+Exemplo: Adicionar os valores numéricos em uma coleção de Double:
+
+    List<Double> listOfPricesGreatThan3 = listOfLightNovels.stream()
+          .mapToDouble(LightNovelModel::getPrice) // DoubleStream
+          .filter(price -> price > 3)
+          .boxed() // Transforma o fluxo personalizado em genérico DoubleStream <=> Stream<Double>
+          .collect(Collectors.toList()); // Pois o List<> espera um Objeto Wrapper, não tipo primitivo.
+
+    listOfPricesGreatThan3.forEach(System.out::println);
+
+
+---> O que é OverHead?
+
+Overhead é um termo utilizado para descrever a quantidade de recursos (como tempo
+de processamento, memória ou largura de banda) que são consumidos por um determinado
+processo, atividade ou operação, além do necessário para realizar sua tarefa principal.
+
+Em outras palavras, overhead é a sobrecarga adicional que é colocada sobre um sistema
+ou processo para realizar tarefas que não são diretamente relacionadas com a sua
+finalidade principal.
+Por exemplo, a sobrecarga de processamento que é colocada sobre um sistema quando
+ele executa um antivírus em segundo plano, enquanto o usuário executa outras tarefas.
+
+O overhead pode ser causado por uma variedade de fatores, como a necessidade de
+realizar verificações de segurança adicionais, a alocação de memória para armazenar
+informações adicionais ou a execução de operações adicionais para manter a integridade
+de um sistema. Ele pode afetar a eficiência e o desempenho de um sistema, bem como o
+consumo de recursos, como espaço em disco ou tempo de processamento.
+
+
+-------------------------------------------------------------------------------
