@@ -1,0 +1,71 @@
+-- Data de Documentação: - (Estudos feitos em Java e agora documentado)
+-- Data de Estudos: -
+
+-- link: -
+
+Intermediário: Mais específico no Java
+
+---> Classe Wrapper Optional<T> que encapsula objetos e ajuda tratar NullPointer.
+- Bastante utilizado em fluxos Streams pois algumas operações retornam Optional<T>.
+
+A classe Optional é uma classe que foi introduzida no Java 8 para tratar valores
+nulos em um programa de forma mais elegante e segura.
+A classe Optional encapsula um valor e permite verificar se o valor é nulo ou não.
+
+O objetivo da classe Optional é evitar NullPointerExceptions, que são comuns em
+programas Java quando se tenta acessar um objeto nulo.
+A classe Optional ajuda a tornar o código mais legível e mais seguro, uma vez que
+obriga o programador a verificar se o valor é nulo antes de tentar acessá-lo.
+
+Em resumo, a classe Optional é uma ferramenta muito útil para tratar valores nulos
+de forma mais elegante e segura, melhorar a legibilidade do código e simplificar o
+tratamento de valores nulos.
+A classe é amplamente utilizada em APIs Java e é uma parte importante da programação
+Java moderna.
+
+-------------------------------------------------------------------------------
+---> REGRAS IMPORTANTES:
+- NÃO pode utilizar Optional como parâmetros de entrada!!
+- NÃO pode utilizar Optional como Atributos de classes!! pois ela não é serializer.
+- Indicado apenas para utilizar em retornos de métodos!
+
+-------------------------------------------------------------------------------
+---> Métodos mais Uteis do Optional:
+
+- isPresent(): Verifica se o valor encapsulado está presente.
+Retorna true se o valor estiver presente e false caso contrário.
+
+- get(): Retorna o valor encapsulado, se estiver presente.
+Caso contrário, lança uma exceção NoSuchElementException.
+
+- orElse(T other): Retorna o valor encapsulado, se estiver presente.
+Caso contrário, retorna o valor padrão especificado como argumento.
+
+- orElseGet(Supplier<? extends T> other): Retorna o valor encapsulado,
+se estiver presente.
+Caso contrário, retorna o valor gerado pelo objeto Supplier especificado
+como argumento.
+
+- orElseThrow(Supplier<? extends X> exceptionSupplier): Retorna o valor encapsulado,
+se estiver presente.
+Caso contrário, lança a exceção gerada pelo objeto Supplier especificado como argumento.
+
+- map(Function<? super T, ? extends U> mapper): Transforma o valor encapsulado
+usando a função especificada como argumento e retorna um objeto Optional contendo
+o resultado da transformação.
+
+- flatMap(Function<? super T, Optional<U>> mapper): Transforma o valor encapsulado
+usando a função especificada como argumento, que retorna um objeto Optional.
+Retorna um objeto Optional vazio se o valor encapsulado for nulo ou o objeto Optional
+retornado pela função especificada se for vazio.
+
+- filter(Predicate<? super T> predicate): Verifica se o valor encapsulado satisfaz
+a condição especificada pela função Predicate.
+Retorna um objeto Optional contendo o valor encapsulado se ele satisfizer a condição
+especificada, caso contrário, retorna um objeto Optional vazio.
+
+Os métodos acima são apenas alguns exemplos dos métodos disponíveis na classe
+Optional. Eles são úteis para verificar se um valor está presente, manipular
+valores de forma segura e evitar exceções NullPointerException.
+
+-------------------------------------------------------------------------------
