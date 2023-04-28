@@ -285,4 +285,123 @@ Aqui está um exemplo de como usá-lo:
     O método noneMatch() verifica se nenhum elemento da sequência começa com a
     letra "z". Como nenhum elemento atende a essa condição, o método retorna true.
 
+
+-------------------------------------------------------------------------------
+---> `reduce()` Utilizado para unir/reduzir elementos do fluxo em um único valor.
+- Assinatura: Optional<T> reduce(BinaryOperator<T> accumulator);
+
+O método reduce() é um dos métodos mais poderosos da API Streams.
+Ele é usado para reduzir uma sequência de elementos a um único elemento, aplicando
+uma operação associativa aos elementos da sequência.
+
+A operação associativa é uma operação que pode ser aplicada a DOIS elementos
+quaisquer da sequência, e cujo resultado pode ser combinado com o resultado da
+operação aplicada a outros elementos da sequência.
+Por exemplo, a soma e a multiplicação são operações associativas, enquanto a
+subtração e a divisão não são.
+
+
+---> Operação ASSOCIATIVA na matemática:
+(Resumo: Transitividade aonde 2 + 1 é o msm que 1 + 2);
+Ou seja, "A ordem dos fatores não altera o produto";
+Poréeeem, não é bem assim pois strings a ordem altera sim
+    Exemplo: "hellow" e  "word" em operação de concatenação == wordhellow
+
+É uma propriedade matemática que significa que o resultado de uma operação binária
+(isto é, que envolve dois elementos) é o mesmo, independentemente da ordem em que
+os elementos são processados.
+Por exemplo, para uma operação associativa "op", o seguinte é verdadeiro:
+
+    (a op b) op c = a op (b op c) --> (aonde op é +, -, /, *..)
+
+Em outras palavras, se você aplicar a operação "op" aos elementos "a" e "b",
+e depois aplicá-la ao resultado e "c", o resultado final será o mesmo que se
+você aplicasse "op" aos elementos "b" e "c" primeiro, e depois aplicasse "op"
+ao resultado e "a".
+
+- SÃO Operações Associativas:
+A SOMA e a MULTIPLICAÇÃO são operações associativas porque a ordem em que se
+adicionam ou multiplicam números não afeta o resultado final.
+Por exemplo:
+
+    2 + 3 + 4 é o mesmo que 4 + 2 + 3, e 2 * 3 * 4 é o mesmo que 4 * 2 * 3.
+
+- NÃO são Operações Associativas:
+Já a subtração e a divisão não são operações associativas porque a ordem em que
+se subtraem ou dividem números pode afetar o resultado final.
+Por exemplo:
+
+    (10 - 5) - 3 é diferente de 10 - (5 - 3), e (20 / 5) / 2 é diferente de 20 / (5 / 2).
+
+
+- A propriedade de associatividade é importante no contexto do método reduce()
+da API Streams, porque a função binária que é usada como argumento deve ser
+associativa para que o resultado seja o mesmo, independentemente da ordem em que
+os elementos são processados.
+Se a função binária não for associativa, o resultado final do método reduce()
+pode ser diferente, dependendo da ordem em que os elementos são processados.
+
+O método reduce() recebe como argumento uma função binária que implementa a
+operação associativa, e retorna um Optional que contém o resultado da operação.
+O resultado pode ser um objeto de qualquer tipo, desde que a operação seja
+definida para esse tipo.
+
+
+---> Algumas aplicações e utilidades do método reduce() incluem:
+
+    - Somar os elementos de uma sequência de números:
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        int sum = numbers.stream().reduce(0, (x, y) -> x + y);
+        System.out.println(sum); // imprime 15
+
+        ou também podemos utilizar method reference:
+        numbers.stream().reduce(Integer::sum).ifPresent(System.out::println);
+
+
+    - Multiplicar os elementos de uma sequência de números:
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        int product = numbers.stream().reduce(1, (x, y) -> x * y);
+        System.out.println(product); // imprime 120
+
+    - Encontrar o maior elemento de uma sequência:
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        Optional<Integer> max = numbers.stream().reduce(Integer::max);
+        System.out.println(max.get()); // imprime 5
+
+        obs: poderia utilizar o método max() ao invés do reduce.
+
+    - Concatenar os elementos de uma sequência de strings:
+
+        List<String> words = Arrays.asList("foo", "bar", "baz");
+        String concatenated = words.stream().reduce("", (a, b) -> a + b);
+        System.out.println(concatenated); // imprime "foobarbaz"
+
+
+---> O reduce() recebe BinaryOperator<T> accumulator, quais outros tipos?
+
+O Java possui diversos tipos de BinaryOperator, que são interfaces funcionais que
+representam uma operação binária entre dois operandos do mesmo tipo, produzindo
+um resultado do mesmo tipo.
+
+- Obs: Todos são Interfaces Funcionais
+
+- Segue abaixo uma lista dos principais tipos de BinaryOperator:
+
+    - BinaryOperator<T>: É a interface mais genérica de BinaryOperator.
+    Ela representa uma operação binária entre dois operandos do tipo T,
+    produzindo um resultado do tipo T.
+
+    - DoubleBinaryOperator: Representa uma operação binária entre dois valores
+    do tipo double, produzindo um resultado do tipo double.
+
+    - IntBinaryOperator: Representa uma operação binária entre dois valores do
+    tipo int, produzindo um resultado do tipo int.
+
+    - LongBinaryOperator: Representa uma operação binária entre dois valores do
+    tipo long, produzindo um resultado do tipo long.
+
+
 -------------------------------------------------------------------------------
