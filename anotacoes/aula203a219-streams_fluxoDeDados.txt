@@ -507,3 +507,75 @@ consumo de recursos, como espaço em disco ou tempo de processamento.
 
 
 -------------------------------------------------------------------------------
+---> Gerando fluxos Streams apartir das classes Streams Personalizadas e etc:
+- Streams contendo ranges de valores inteiros;
+- Streams contendo ranges do alfabeto;
+- Streams contendo Strings ou qualquer outros Objetos <T>;
+- Gerando Streams Apartir de arrays nativos;
+- Gerando Streams Apartir de arquivos com `Files`;
+
+
+---> Gerando range de valores inteiros:
+Existem dois métodos que geram ranges de valores, sendo eles:
+`range(startInclusive, endExclusive)` e `rangeClosed(startInclusive, endInclusive)`
+
+     IntStream.range(0, 21) // de 0 a 20
+            .filter(n -> n % 2 == 0)
+            .forEach(n -> System.out.print(n + ", "));
+    // 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20,
+
+    - A diferença de um para outro é se vai considerar o valor final do range.
+
+
+---> MACETE para gerar Strings do alfabeto com IntStream que represente ASCII:
+
+        IntStream.range('a', 'z'+1)
+                .mapToObj(Character::toString)
+                .forEach(letra -> System.out.print(letra + ", "));
+        // a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+
+O método range() gera uma sequência de inteiros começando em 'a' e terminando em
+'z' + 1, que corresponde ao código ASCII da letra 'z mais um.
+Em seguida, o método mapToObj() é usado para mapear cada valor inteiro para uma
+String usando o método Character.toString().
+
+
+---> Gerando Streams de String ou qualquer outro Objeto <T>:
+
+   Stream.of("Wellison","wesley", "Irineu", "InemEu")
+            .filter(string -> string.toUpperCase().startsWith("W") && string.length() > 7)
+            .forEach(string -> System.out.print(string + ", "));
+        // Wellison,
+
+
+---> Gerando Streams Apartir de arrays nativos:
+
+    int[] numbersArrayNativo = {1, 2, 3, 4, 5, 6};
+
+    Arrays.stream(numbersArrayNativo)
+            .average()
+            .ifPresent(System.out::println); // 3.5
+
+
+---> Gerando Streams Apartir de Arquivos com `Files`:
+
+    try(Stream<String> lines = Files.lines(Paths.get("src/nio/SimpleFileVisitor_listaArquivosMaioresQue1GB.txt"))) {
+        lines.filter(line -> line.startsWith("R"))
+                .forEach(System.out::println);
+        // Rick and Morty S06E10 WEB-DL 1080p DUAL 5.1.mkv
+        // Rick.and.Morty.S06E09.1080p.WEB-DL.DUAL.5.1.mkv
+        // Rick.and.Morty.S06E08.1080p.WEB-DL.DUAL.5.1.mkv
+        // Rick.and.Morty.S06E07.1080p.WEB-DL.DUAL.mkv
+        // Rick.and.Morty.S06E06.1080p.WEB-DL.DUAL.mkv
+
+
+        // Se contem alguma string em qualquer lugar:
+        lines.filter(line -> line.contains("1080p"))
+                .forEach(System.out::println);
+
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+
+
+-------------------------------------------------------------------------------
