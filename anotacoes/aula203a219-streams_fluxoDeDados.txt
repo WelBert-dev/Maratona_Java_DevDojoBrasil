@@ -614,3 +614,178 @@ Aonde a posição 0 do atual sempre é a posição 1 do anterior:
     // 782, 837, 295, 485, 233, 281, 251, 728, 310, 112,
 
 -------------------------------------------------------------------------------
+---> Operações finais com Collectors: Operações Agregadas com `Summarizing`:
+- COUNT: Conta número de ocorrências/elementos do fluxo (Rows);
+- SUM: Soma todos elementos do fluxo;
+- MIN: Retorna o menor< elemento (de acordo com Comparator) do fluxo;
+- AVG: Retorna a média dos elementos;
+- MAX: Retorna o maior> elemento (de acordo com Comparator) do fluxo;
+
+- Summarizing (Sumário contendo um resumo com todas operações anteriores em um);
+
+
+---> Para que serve a classe Collectors?
+
+É uma classe utilitária que fornece vários métodos estáticos para coletar
+elementos de um stream em uma coleção ou um valor único.
+
+Os métodos da classe Collectors são usados para criar uma instância de Collector,
+que define como os elementos de um stream devem ser coletados. Um Collector
+especifica uma operação de redução, que pode ser usada para combinar todos os
+elementos de um stream em uma coleção ou um valor único.
+
+---> Métodos mais Uteis do Collectors:
+
+- toList(): Retorna uma lista que contém todos os elementos do stream.
+
+- toSet(): Retorna um conjunto que contém todos os elementos do stream,
+sem duplicatas.
+
+- toMap(): Retorna um mapa que contém pares chave-valor dos elementos do
+stream, onde a chave e o valor são especificados por funções de mapeamento.
+
+- joining(): Retorna uma string contendo a concatenação de todos os elementos
+do stream, separados por um delimitador especificado.
+
+- counting(): Retorna o número de elementos no stream como um valor long.
+
+- minBy(): Retorna o menor elemento do stream com base em um comparador
+especificado.
+
+- maxBy(): Retorna o maior elemento do stream com base em um comparador
+especificado.
+
+- averagingInt(), averagingDouble(), averagingLong(): Retorna a média dos
+valores inteiros, de ponto flutuante ou longos do stream.
+
+- summingInt(), summingDouble(), summingLong(): Retorna a soma dos valores
+inteiros, de ponto flutuante ou longos do stream.
+
+- partitioningBy(): Retorna um mapa que contém as partições dos elementos
+do stream de acordo com um predicado especificado.
+
+- groupingBy(): Retorna um mapa que contém os elementos do stream agrupados
+de acordo com uma função de agrupamento especificada.
+
+- reducing(): Retorna um coletor que executa uma redução sequencial dos
+elementos do stream, com base em uma operação binária especificada.
+
+- mapping(): Retorna um coletor que aplica uma função de mapeamento aos
+elementos do stream antes de coletá-los.
+
+- teeing(): Retorna um coletor que permite agrupar resultados de dois coletores
+independentes em um terceiro resultado.
+
+- toCollection(): Retorna uma coleção especificada pelo usuário que contém todos
+os elementos do stream.
+
+- toConcurrentMap(): Retorna um mapa que contém pares chave-valor dos elementos
+do stream, onde a chave e o valor são especificados por funções de mapeamento,
+e que pode ser usado com segurança em threads concorrentes.
+
+- toUnmodifiableList(), toUnmodifiableSet(), toUnmodifiableMap(): Retorna uma
+lista, conjunto ou mapa que contém os elementos do stream, mas que não pode
+ser modificado.
+
+- summarizingInt(), summarizingDouble(), summarizingLong(): Retorna um objeto
+de resumo que contém estatísticas como a soma, média, mínimo e máximo dos
+valores inteiros, de ponto flutuante ou longos do stream.
+
+- filtering(): Retorna um coletor que aplica um filtro a elementos do stream
+antes de coletá-los.
+
+
+---> COUNT (Contando quantidade de ocorrências/elementos):
+
+    // Trabalhando com primitivo:
+    long count = listOfLightNovels.stream()
+            .count();
+
+    // Trabalhando com Wrapper:
+    Long countWithCollectors = listOfLightNovels.stream()
+            .collect(Collectors.counting());
+
+    - Output: 5
+
+
+---> SUM (Somando todos elementos do fluxo):
+- Obs: Evitando autoBoxing e unBoxing com mapToDouble:
+
+    // Trabalhando com primitivo:
+    double sum = listOfLightNovels.stream()
+            .mapToDouble(LightNovelModel::getPrice)
+            .sum();
+
+    // Trabalhando com Wrapper:
+    Double sumWithCollectors = listOfLightNovels.stream()
+            .collect(Collectors.summingDouble(LightNovelModel::getPrice));
+
+    - Outpout: 17.8
+
+
+---> MIN (Retornando o menor< elemento do fluxo de acordo com Comparator):
+Obs: returns Optional:
+
+    listOfLightNovels.stream()
+            .min(Comparator.comparing(LightNovelModel::getPrice))
+            .ifPresent(System.out::println);
+
+    listOfLightNovels.stream()
+            .collect(Collectors.minBy(Comparator.comparing(LightNovelModel::getPrice)))
+            .ifPresent(System.out::println);
+
+    - Output: LightNovelModel{title='Tokyo Ghoul', price=2.0}
+
+
+---> AVARAGE (Retornando a média dos elementos do fluxo):
+
+    listOfLightNovels.stream()
+            .mapToDouble(LightNovelModel::getPrice)
+            .average()
+            .ifPresent(System.out::println);
+
+    Double avgWithCollectors = listOfLightNovels.stream()
+            .collect(Collectors.averagingDouble(LightNovelModel::getPrice));
+
+    - Output: 3.56
+
+
+---> MAX (Retornando o maior> elemento do fluxo de acordo com Comparator):
+Obs: returns Optional:
+
+    listOfLightNovels.stream()
+            .max(Comparator.comparing(LightNovelModel::getPrice))
+            .ifPresent(System.out::println);
+
+    listOfLightNovels.stream()
+            .collect(Collectors.maxBy(Comparator.comparing(LightNovelModel::getPrice)))
+            .ifPresent(System.out::println);
+
+    - Output: LightNovelModel{title='Dragon Ball', price=5.2}
+
+
+---> Summarizing (Todas operações anteriores em apenas uma):
+Obs: Sumário/resumo, com todas essas operações agregadas em apenas um Objeto/operação:
+Porém ele trás apenas os valores, ou seja não é possível analisar o Objeto no qual é
+referente! exemplo: minimo é o LightNovelModel{title='Tokyo Ghoul', price=2.0}
+porém ele trás apenas o valor 2.0, não faz referência ao objeto por completo.
+
+    DoubleSummaryStatistics sumario = listOfLightNovels.stream()
+            .collect(Collectors.summarizingDouble(LightNovelModel::getPrice));
+
+    - Output: DoubleSummaryStatistics{count=5, sum=17,800000, min=2,000000, average=3,560000, max=5,200000}
+
+
+---> Concatenando Strings:
+Obs: Não coloca o delimitador no último elemento, detalhe que se fosse implementar
+na unha teriamos que fazer verificações se chegou no último elemento para assim
+não colocar nele a ", " por exemplo.
+
+    String concatStringWithCollectors = listOfLightNovels.stream()
+            .map(LightNovelModel::getTitle)
+            .collect(Collectors.joining(", "));
+
+    - Output: Tokyo Ghoul, KissXKiss, Dragon Ball, Danielle, Welzika
+
+
+-------------------------------------------------------------------------------

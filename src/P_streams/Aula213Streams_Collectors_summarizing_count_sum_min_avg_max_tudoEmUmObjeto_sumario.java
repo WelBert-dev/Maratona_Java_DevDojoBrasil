@@ -152,6 +152,8 @@ public class Aula213Streams_Collectors_summarizing_count_sum_min_avg_max_tudoEmU
         String concatStringWithCollectors = listOfLightNovels.stream()
                 .map(LightNovelModel::getTitle)
                 .collect(Collectors.joining(", "));
+
+        System.out.println(concatStringWithCollectors);
         // Output: Tokyo Ghoul, KissXKiss, Dragon Ball, Danielle, Welzika
     }
 }
