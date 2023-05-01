@@ -62,5 +62,52 @@ public class Aula216Streams_Collectors_groupingBy_agrupamentoMaisComplexo_outras
         // ADVENTURE=DoubleSummaryStatistics{count=1, sum=4,200000, min=4,200000, average=4,200000, max=4,200000},
         // ECCHI=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000},
         // DRAMA=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000}}
+
+
+        // --------------------------------------------------------------------
+        // SUM: Agrupando pela categoria e somando todos os preços dela (Total value):
+
+        Map<CategoryEnum, Double> sumPricesGruppingByCategory = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.summingDouble(LightNovelModel::getPrice)));
+        System.out.println(sumPricesGruppingByCategory);
+        // {DRAMA=3.2, FANTASY=7.2, ECCHI=3.2, ADVENTURE=4.2}
+
+        // --------------------------------------------------------------------
+        // AVG: Agrupando pela categoria e somando todos os preços dela (Total value):
+
+        Map<CategoryEnum, Double> avgPricesGruppingByCategory = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.averagingDouble(LightNovelModel::getPrice)));
+
+        System.out.println(avgPricesGruppingByCategory);
+        // {DRAMA=3.2, FANTASY=3.6, ECCHI=3.2, ADVENTURE=4.2}
+
+        // --------------------------------------------------------------------
+        // MIN: Agrupando pela categoria e retornando o menor preço por categoria:
+
+        Map<CategoryEnum, Optional<LightNovelModel>> minPriceGruppingByCategory = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.minBy(Comparator.comparing(LightNovelModel::getPrice))));
+
+        System.out.println(minPriceGruppingByCategory);
+        // {DRAMA=Optional[LightNovelModel{title='Danielle', price=3.2, category=DRAMA}],
+        // ANTASY=Optional[LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY}],
+        // ECCHI=Optional[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}],
+        // ADVENTURE=Optional[LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}]}
+
+        // Mesmo agrupamento porém ao invés de return Optional<LightNovelModel> ja returns o
+        // Objeto sem encapsular: (Coleta e faz algo, neste caso executa o get do Optional e
+        // retorna o Objeto interno: Igual ao anterior:
+        Map<CategoryEnum, LightNovelModel> minPriceGruppingByCategoryNotOptional = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(LightNovelModel::getPrice)),
+                                Optional::get)));
+
+        System.out.println(minPriceGruppingByCategoryNotOptional);
+        // {DRAMA=LightNovelModel{title='Danielle', price=3.2, category=DRAMA},
+        // FANTASY=LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY},
+        // ECCHI=LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI},
+        // ADVENTURE=LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}}
     }
 }

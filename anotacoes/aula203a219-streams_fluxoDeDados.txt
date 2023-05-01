@@ -789,3 +789,236 @@ não colocar nele a ", " por exemplo.
 
 
 -------------------------------------------------------------------------------
+---> Collectors Agrupando elementos em Maps com `gruppingBy()`:
+Mesmo conceito do banco de dados, aonde indicamos qual atributo getter queremos
+utilizar como critério de agrupamento, a chave vai ser esse atributo e o valor
+vai conter a coleção de elementos que possuem o mesmo atributo.
+Como exemplo, agrupamos os listOfLightNovels de acordo com o Enum Category:
+
+     Map<CategoryEnum, List<LightNovelModel>> categoryLightNovelMapWithCollectors =
+                    listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory));
+
+    - Output: {ADVENTURE=[LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}],
+                FANTASY=[LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY}, LightNovelModel{title='Dragon Ball', price=5.2, category=FANTASY}],
+                ECCHI=[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}],
+                DRAMA=[LightNovelModel{title='Danielle', price=3.2, category=DRAMA}]}
+
+
+Outro exemplo utilizando Lambdas ao invés de method reference:
+- Se price < 3.0 então PromotionEnum.UNDER_PROMOTION, se não PromotionEnum.NORMAL_PRICE;
+- result: Map<PromotionEnum, List<LightNovelModel>>
+
+    Map<PromotionEnum, List<LightNovelModel>> promotionOrNot = listOfLightNovels.stream()
+            .collect(Collectors.groupingBy(novel ->
+                    novel.getPrice() < 3 ?
+                            PromotionEnum.UNDER_PROMOTION : PromotionEnum.NORMAL_PRICE));
+
+    - Output: {UNDER_PROMOTION=[LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY}],
+                NORMAL_PRICE=[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}, LightNovelModel{title='Dragon Ball', price=5.2, category=FANTASY}, LightNovelModel{title='Danielle', price=3.2, category=DRAMA}, LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}]}
+
+
+---> Podemos ir além e criar agrupamentos mais complexos com gruppingBy aninhados:
+
+- Mesma regra anterior, porém com a chave do mapa sendo Category, ou seja,
+Um mapa com a chave sendo a categoria e o valor é outro mapa cuja chave é o Enum
+PromotionEnum.UNDER_PROMOTION ou PromotionEnum.NORMAL_PRICE e o valor desse mapa
+interno é uma coleção de lightNovelModels.
+
+- result: Map<CategoryEnum, Map<PromotionEnum, List<LightNovelModel>>>
+
+    Map<CategoryEnum, Map<PromotionEnum, List<LightNovelModel>>> promotionOrNotWithKeyCategory = listOfLightNovels.stream()
+            .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                    Collectors.groupingBy(novel ->
+                            novel.getPrice() < 3 ?
+                                    PromotionEnum.UNDER_PROMOTION : PromotionEnum.NORMAL_PRICE)));
+
+    - Output: {FANTASY={UNDER_PROMOTION=[LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY}], NORMAL_PRICE=[LightNovelModel{title='Dragon Ball', price=5.2, category=FANTASY}]},
+                DRAMA={NORMAL_PRICE=[LightNovelModel{title='Danielle', price=3.2, category=DRAMA}]},
+                ECCHI={NORMAL_PRICE=[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}]},
+                ADVENTURE={NORMAL_PRICE=[LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}]}}
+
+
+-------------------------------------------------------------------------------
+---> Operações Agregadas em conjunto com agrupamentos:
+
+- COUNT (Contando quantidade de ocorrências): Agrupando pelo Enum Category e
+contando quantidade lightNovelModels por categoria:
+
+    Map<CategoryEnum, Long> operadorAgregadoCount = listOfLightNovels.stream()
+                .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                        Collectors.counting()));
+
+    - Output: {FANTASY=2, ADVENTURE=1, ECCHI=1, DRAMA=1}
+
+
+- SUM (Somando valores de algum campo em especifico): Agrupando pelo Enum Category
+e somando valor dos preços, ou seja, qual o valor total de lightNovelModels por categoria:
+
+    Map<CategoryEnum, Double> sumPricesGruppingByCategory = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.summingDouble(LightNovelModel::getPrice)));
+
+    - Output: {DRAMA=3.2, FANTASY=7.2, ECCHI=3.2, ADVENTURE=4.2}
+
+
+- MIN (Retornando o menor< elemento do fluxo de acordo com Comparator): Agrupando
+pelo Enum Category apenas o novel de maior valor para cada categoria:
+
+Obs: Como o retorno é um Optional<E> então o retorno fica da seguinte forma:
+
+     Map<CategoryEnum, Optional<LightNovelModel>> minPriceGruppingByCategory = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.minBy(Comparator.comparing(LightNovelModel::getPrice))));
+
+    - Output: {DRAMA=Optional[LightNovelModel{title='Danielle', price=3.2, category=DRAMA}],
+               FANTASY=Optional[LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY}],
+               ECCHI=Optional[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}],
+               ADVENTURE=Optional[LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}]}
+
+Podemos contornar o problema e já retornar ao Map o Objeto real, desencapsulando
+do Optional<E> da seguinte forma: Coleta e faz algo, neste caso executa o get do
+Optional:
+
+    Map<CategoryEnum, LightNovelModel> minPriceGruppingByCategoryNotOptional = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(LightNovelModel::getPrice)),
+                                    Optional::get)));
+
+    - Output: {DRAMA=LightNovelModel{title='Danielle', price=3.2, category=DRAMA},
+               FANTASY=LightNovelModel{title='Tokyo Ghoul', price=2.0, category=FANTASY},
+               ECCHI=LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI},
+               ADVENTURE=LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}}
+
+
+- AVARAGE (Retornando a média dos elementos do fluxo): Agrupando pelo Enum Category
+e realizando a média dos preços por categoria:
+
+    Map<CategoryEnum, Double> avgPricesGruppingByCategory = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.averagingDouble(LightNovelModel::getPrice)));
+
+    - Output: {DRAMA=3.2, FANTASY=3.6, ECCHI=3.2, ADVENTURE=4.2}
+
+
+- MAX (Retornando o maior> elemento do fluxo de acordo com Comparator): Agrupando
+pelo Enum Category apenas o novel de maior valor para cada categoria:
+
+Obs: Como o retorno é um Optional<E> então o retorno fica da seguinte forma:
+
+     Map<CategoryEnum, Optional<LightNovelModel>> maxPriceGruppingByCategory = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.maxBy(Comparator.comparing(LightNovelModel::getPrice))));
+
+    - Output: {FANTASY=Optional[LightNovelModel{title='Dragon Ball', price=5.2, category=FANTASY}],
+               ADVENTURE=Optional[LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE}],
+               ECCHI=Optional[LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI}],
+               DRAMA=Optional[LightNovelModel{title='Danielle', price=3.2, category=DRAMA}]}
+
+Podemos contornar o problema e já retornar ao Map o Objeto real, desencapsulando
+do Optional<E> da seguinte forma: Coleta e faz algo, neste caso executa o get do
+Optional:
+
+    Map<CategoryEnum, LightNovelModel> maxPriceGruppingByCategoryNotOptional = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(LightNovelModel::getPrice)),
+                                    Optional::get)));
+
+    - Output: {FANTASY=LightNovelModel{title='Dragon Ball', price=5.2, category=FANTASY},
+               ADVENTURE=LightNovelModel{title='Welzika', price=4.2, category=ADVENTURE},
+               ECCHI=LightNovelModel{title='KissXKiss', price=3.2, category=ECCHI},
+               DRAMA=LightNovelModel{title='Danielle', price=3.2, category=DRAMA}}
+
+
+- Summarizing (Todas operações anteriores em apenas uma): Agrupando pelo Enum
+Category e realizando o resumo de todas operações agregadas por categoria, ou seja,
+estatisticas de preço:
+
+    Map<CategoryEnum, DoubleSummaryStatistics> resumoPriceGruppingByCategory = listOfLightNovels.stream()
+            .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                    Collectors.summarizingDouble(LightNovelModel::getPrice)));
+
+    - Output: {FANTASY=DoubleSummaryStatistics{count=2, sum=7,200000, min=2,000000, average=3,600000, max=5,200000},
+               ADVENTURE=DoubleSummaryStatistics{count=1, sum=4,200000, min=4,200000, average=4,200000, max=4,200000},
+               ECCHI=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000},
+               DRAMA=DoubleSummaryStatistics{count=1, sum=3,200000, min=3,200000, average=3,200000, max=3,200000}}
+
+
+-------------------------------------------------------------------------------
+---> Agrupamentos com coleções aninhadas ao invés de outros Maps:
+Em algumas situações, podemos ao invés de Aninhar mapas, trabalhar com outros
+tipos de coleções, para isto devemos utilizar o `mapping` ao invés de utilizar
+o `groupingBy`.
+
+- Exemplo: Agrupando pelo Enum Category a lista de promoções disponíveis por
+categoria, ou seja, quais promoções cada categoria possuí:
+
+     Map<CategoryEnum, List<PromotionEnum>> collect1 = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.mapping(novel -> novel.getPrice() < 3 ?
+                                            PromotionEnum.UNDER_PROMOTION : PromotionEnum.NORMAL_PRICE,
+                                    Collectors.toList())));
+
+     - Output: {DRAMA=[NORMAL_PRICE],
+                FANTASY=[UNDER_PROMOTION, NORMAL_PRICE, NORMAL_PRICE],
+                ADVENTURE=[NORMAL_PRICE], ECCHI=[NORMAL_PRICE]}
+
+
+- Podemos retornar qualquer outro tipo de coleção, para isto basta alterar o
+parametro Collectors.toList() para Collectors.toCollection(Collection::new)
+
+- Neste exemplo estamos retornando um Set que EVITA DUPLICATAS: DISTINCT
+E NÃO garante posição de inserção: ou seja, Agrupando pelo Enum Category a lista
+de promoções disponíveis por categoria, SEM DUPLICAR e SEM GARANTIR POSIÇÃO DE
+INSERÇÃO:
+
+    Map<CategoryEnum, Set<PromotionEnum>> collect2 = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.mapping(novel -> novel.getPrice() < 3 ?
+                                            PromotionEnum.UNDER_PROMOTION : PromotionEnum.NORMAL_PRICE,
+                                    Collectors.toSet())));
+
+    - Output: {DRAMA=[NORMAL_PRICE],
+               FANTASY=[NORMAL_PRICE, UNDER_PROMOTION],
+               ADVENTURE=[NORMAL_PRICE],
+               ECCHI=[NORMAL_PRICE]}
+
+
+- MESMA operação anterior porém mantendo a posição de inserção com LinkedHashSet
+e também SEM DUPLICAR (DISTINCT):
+
+     Map<CategoryEnum, LinkedHashSet<PromotionEnum>> collect3 = listOfLightNovels.stream()
+                    .collect(Collectors.groupingBy(LightNovelModel::getCategory,
+                            Collectors.mapping(novel -> novel.getPrice() < 3 ?
+                                            PromotionEnum.UNDER_PROMOTION : PromotionEnum.NORMAL_PRICE,
+                                    Collectors.toCollection(LinkedHashSet::new))));
+
+     - Output: {DRAMA=[NORMAL_PRICE],
+                FANTASY=[UNDER_PROMOTION, NORMAL_PRICE],
+                ADVENTURE=[NORMAL_PRICE],
+                ECCHI=[NORMAL_PRICE]}
+
+
+-------------------------------------------------------------------------------
+---> Utilizando MultiThreads em conjunto com as operações em fluxos Streams:
+Basta utilizar o método `parallel()` em qualquer ponto do fluxo Stream, isso irá
+flaggar e indicar ao Java para utilizar do paralelismo e dividir o fluxo de tarefas.
+
+- PORÉM só irá funcionar em fluxos aonde o Java consiga determinar o Inicio e Fim
+de cada operação, isso acontece pois o Java precisa saber como lidar com a tarefa
+em paralelo, então ele deve saber tintin por tintin da operação em questão.
+
+- Exemplo: No exemplo utilizamos iterações em um looping for, e várias threads
+printam cada valor, neste caso é preciso utilizar os Streams especializados para
+manipulação de números (IntStream) pois o mesmo possuí o método `range` e
+`rangeClosed` que indica ao Java o incio e fim da iteração, assim o mesmo consegue
+distribuir as tarefas corretamente devido ao ponto dito anteriormente:
+
+    long result = LongStream.rangeClosed(1L, num).parallel().reduce(0, Long::sum);
+
+- Obs: O For nativo ainda tem mais performance pois ele é mais LowLevel em relação
+a iterações, logo a JVM faz otimizações nele para ganhar performance (mesmo utilizando
+ele sem paralelismo ainda consegue ser mais performatico para este contexto).
+
+
+-------------------------------------------------------------------------------
