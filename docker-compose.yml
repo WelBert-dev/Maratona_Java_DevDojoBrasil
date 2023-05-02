@@ -1,0 +1,15 @@
+version: '2.4'
+services:
+  db:
+    image: mysql
+    # restart: always // Restart toda vez que o mysql fechar
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306" # "CONTAINER_PORT:HOST_PORT" mapeia o listener de uma porta para outra, ou seja, pointer
+    volumes:
+      - maratona_data:/var/lib/mysql # Mapeia dados que seriam apagados após desligar o container para o host
+
+volumes:
+  maratona_data:
