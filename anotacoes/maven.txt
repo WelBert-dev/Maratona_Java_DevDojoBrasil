@@ -1,0 +1,19 @@
+- Adicionando o gerenciador de dependencias Maven no projeto corrente pois é
+preciso para não precisar configurar manualmente os connectores/drivers mysql
+ao projeto (aulas sobre JDBC);
+
+1o - Baixar o Maven: Após instalar o path aonde são instaladas as dependencias é no ~/
+
+    - Step 1: Download the Maven with apt:
+    $ sudo apt install maven
+    $ mvn -v
+
+2o - Configurar as variáveis de ambiente PATH:
+
+    - Pelo APT já faz automaticamente;
+    - maven home: /usr/share/maven
+
+3o - Adicionando framework no projeto pelo IntelliJ (no caso o Maven):
+    1o - click direito na raiz do projeto (~/Documentos/github/MaratonaJava-DevDojo);
+    2o - "Add Framework Support" > Selected checkbox "Maven" > "OK";
+    3o - Os diretórios do projeto vão alterar pois o maven segue uma convensão.
