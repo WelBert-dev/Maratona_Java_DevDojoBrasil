@@ -23,4 +23,8 @@ public class AircraftSingletonEager {
     public static AircraftSingletonEager getINSTANCE() {
         return INSTANCE;
     }
+
+    public String getName() {
+        return name;
+    }
 }
