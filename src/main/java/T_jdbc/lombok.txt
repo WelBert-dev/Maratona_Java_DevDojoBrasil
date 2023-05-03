@@ -1,0 +1,24 @@
+[Aula258 - Adicionando Lombok e Log4j2 ao projeto]:
+
+---> Anotações:
+
+- @Value: Torna a classe imutável, ou seja gera os atributos como `final`:
+          - Gera getters;
+          - Gera equals & hashcode;
+          - Gera toString();
+
+          - Obs: NÃO Gera setters pois a classe é imutável;
+
+- @Builder: Gera builder para o Objeto automáticamente;
+
+- @Log4j2: Recurso do Lombok que gera uma abstração no uso de logs do pacote `org.apache.logging.log4j`;
+           - Porisso é necessário adicionar também a dependência do `org.apache.logging.log4j`;
+           - Obs: Também é necessario o arquivo de configuração `log4j.xml` em `raiz/resources`;
+
+           - Para cada status de log existe uma forma de formatar diferente:
+             - log.info(): Entrou no método, executando ação tal.. (mais utilizado).
+             - log.debug(): Não recomendável utilizar em produção pois contém informações sensitivas.
+             - log.warn(): Alerta, ficar esperto com tal coisa.
+             - log.error()
+             - log.trace()
+           - Podemos configurar um arquivo de log `log4j2.xml` para cada cenário (produção, homologação, produção).

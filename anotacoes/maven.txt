@@ -38,3 +38,12 @@ ao projeto (aulas sobre JDBC);
 3o - Verificando se as dependências foram baixadas com sucesso: Ir na raiz > `External Libraries`;
 
 4o - Após adicionar as dependências do mysql ao projeto, iremos criar a lógica de connection.
+
+-------------------------------------------------------------------------------
+[Aula258 - Adicionando Lombok e Log4j2 no projeto]:
+
+1o - Add pom.xml dependencies:
+
+2o - Habilita annotations processors:
+    `File` > `Settings` > `Build, Execution, Deployment` > `Compiler` > `Annotations Processors`
+    > `[x] Enable annotation processing` // checked this ckeckbox
