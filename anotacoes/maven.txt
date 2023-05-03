@@ -1,3 +1,4 @@
+Aula255 - Instalando o Maven no projeto.
 - Adicionando o gerenciador de dependencias Maven no projeto corrente pois é
 preciso para não precisar configurar manualmente os connectores/drivers mysql
 ao projeto (aulas sobre JDBC);
