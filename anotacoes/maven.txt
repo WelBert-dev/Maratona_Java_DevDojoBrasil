@@ -1,5 +1,6 @@
-Aula255 - Instalando o Maven no projeto.
-- Adicionando o gerenciador de dependencias Maven no projeto corrente pois é
+[Aula255 - Instalando o Maven no projeto.]
+
+---> Adicionando o gerenciador de dependencias Maven no projeto corrente pois é
 preciso para não precisar configurar manualmente os connectores/drivers mysql
 ao projeto (aulas sobre JDBC);
 
@@ -18,3 +19,22 @@ ao projeto (aulas sobre JDBC);
     1o - click direito na raiz do projeto (~/Documentos/github/MaratonaJava-DevDojo);
     2o - "Add Framework Support" > Selected checkbox "Maven" > "OK";
     3o - Os diretórios do projeto vão alterar pois o maven segue uma convensão.
+
+-------------------------------------------------------------------------------
+[Aula256 - Adicionando os pacotes do Mysql Connector ao projeto (Maven).]
+
+---> Adicionando dependências no projeto: pom.xml (Mysql v8.0.33)
+
+1o - https://mvnrepository.com/artifact/mysql/mysql-connector-java > Mysql v8.0.33 Connector Java;
+
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
+    </dependency>
+
+2o - Reload Maven para baixar a dependencia adicionada acima (CTRL + SHIFT + O);
+
+3o - Verificando se as dependências foram baixadas com sucesso: Ir na raiz > `External Libraries`;
+
+4o - Após adicionar as dependências do mysql ao projeto, iremos criar a lógica de connection.

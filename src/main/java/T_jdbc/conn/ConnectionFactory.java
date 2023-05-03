@@ -1,5 +1,7 @@
 package T_jdbc.conn;
 
+// Aula 256 - Adicionando as depêndencias do Mysql Connector no pom, e criando a lógica de conn;
+
 /* API para manipulação de db: java.sql
 
 - Principais classes e interfaces:
@@ -19,8 +21,25 @@ como o Maven (para facilitar a nossa vida).
 
 */
 
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionFactory {
+    private ConnectionFactory() {
+    }
+    public static Connection getConnection() {
+        String url = "jdbc:mysql://localhost:3306/db_anime_store";
+        String username = "root";
+        String password = "root";
 
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            System.out.println(connection);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
