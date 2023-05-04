@@ -42,6 +42,7 @@ enviem instruções SQL para um banco de dados relacional. Ele é usado para exe
 consultas SQL, processar resultados, evitar ataques de injeção de SQL, e em alguns
 casos otimizar o desempenho da consulta.
 
+
 ---> Alguns dos principais métodos incluem:
 
     - executeQuery(String sql): É usado para enviar uma instrução SQL do tipo
@@ -73,6 +74,31 @@ casos otimizar o desempenho da consulta.
     - executeBatch(): É usado para executar o lote (batch) de comandos adicionados
     ao objeto Statement. Ele retorna um array de inteiros que contém o número de
     linhas afetadas por cada comando no lote.
+
+
+---> Pontos importantes e atenções a se tomar:
+
+    1o - Injeção de SQL: O programador deve ter cuidado para evitar a injeção de
+    SQL, validando todas as entradas do usuário e usando consultas parametrizadas
+    sempre que possível.
+
+    2o - Tamanho da consulta: O tamanho da consulta SQL pode afetar o desempenho
+    do aplicativo. Consultas grandes podem levar mais tempo para serem executadas
+    e podem sobrecarregar o banco de dados. É importante otimizar as consultas
+    sempre que possível e evitar a recuperação de dados desnecessários.
+
+    3o - Uso correto dos tipos de dados: É importante usar os tipos de dados
+    corretos ao usar a interface Statement. Usar o tipo de dados errado pode
+    levar a erros ou resultados imprecisos.
+
+    4o - Fechamento do Statement: O Statement deve ser fechado quando não for
+    mais necessário. Não fechar o Statement pode levar a vazamentos de recursos
+    ou problemas de desempenho.
+
+    5o - Performance: O desempenho da interface Statement pode ser afetado por
+    vários fatores, incluindo o tamanho da consulta SQL, a complexidade da
+    consulta SQL e a velocidade do banco de dados. O programador deve estar
+    ciente desses fatores e otimizar o código sempre que possível.
 
 */
 
