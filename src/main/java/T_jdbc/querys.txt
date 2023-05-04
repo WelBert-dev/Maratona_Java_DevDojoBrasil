@@ -96,3 +96,12 @@ CREATE TABLE IF NOT EXISTS `db_anime_store`.`tbl_anime`(
 - public static List<Producer> findAll():
 
     SELECT * FROM `db_anime_store`.`tbl_producer`;
+
+-------------------------------------------------------------------------------
+[Aula262 - findByName producers com ResultSet]: Select where like
+
+---> ProducerRepository:
+- public static List<Producer> findByName(String name):
+
+    SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`
+    WHERE `name` LIKE %?%;

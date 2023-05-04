@@ -60,7 +60,7 @@ public class ProducerRepository {
     public static List<Producer> findAll() {
         log.info("Finding ALL Producers");
 
-        String query = "SELECT * FROM `db_anime_store`.`tbl_producer`;";
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`;";
 
         List<Producer> producersList = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection();
@@ -82,6 +82,36 @@ public class ProducerRepository {
 
         } catch (SQLException e) {
             log.error("Error while trying to find all producers", e);
+        }
+
+        return producersList;
+    }
+    public static List<Producer> findByName(String name) {
+        log.info("Finding ALL Producers with name like '{}'", name);
+
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`\n" +
+                       "WHERE `name` LIKE '%%%s%%';".formatted(name);
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                var producerId = rs.getInt("id");
+                var producerName = rs.getString("name");
+
+                producersList.add(Producer.builder()
+                        .id(producerId)
+                        .name(producerName)
+                        .build());
+            }
+
+            // Qualquer query com retorno de registros utiliza `executeQuery()`.
+            // Returns ResultSet rs = stmt.executeQuery(query);
+
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers with name like {}", name, e);
         }
 
         return producersList;
