@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `db_anime_store`.`tbl_anime`(
     WHERE `id` = ?;
 
 -------------------------------------------------------------------------------
-[Aula 260 - Atualizando registros/records com Statement]: Update Where
+[Aula260 - Atualizando registros/records com Statement]: Update Where
 
 ---> ProducerRepository:
 - public static void update(Producer producer):
@@ -87,3 +87,12 @@ CREATE TABLE IF NOT EXISTS `db_anime_store`.`tbl_anime`(
     UPDATE `db_anime_store`.`tbl_producer`
     SET name` = '?'
     WHERE (`id` = ?);
+
+
+-------------------------------------------------------------------------------
+[Aula261 - Buscando TODOS producers com ResultSet]: Select * from
+
+---> ProducerRepository:
+- public static List<Producer> findAll():
+
+    SELECT * FROM `db_anime_store`.`tbl_producer`;

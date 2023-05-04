@@ -7,6 +7,7 @@ import T_jdbc.repository.ProducerRepository;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class ProducerService {
     public static void save(Producer producer) {
@@ -21,6 +22,9 @@ public class ProducerService {
         requiredValidId(producer.getId());
 
         ProducerRepository.update(producer);
+    }
+    public static List<Producer> findAll() {
+        return ProducerRepository.findAll();
     }
     private static void requiredValidId(Integer id){
         if (id == null || id <= 0)

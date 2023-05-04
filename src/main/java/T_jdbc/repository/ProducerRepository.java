@@ -5,8 +5,11 @@ import T_jdbc.domain.Producer;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 public class ProducerRepository {
@@ -53,5 +56,34 @@ public class ProducerRepository {
         } catch (SQLException e) {
             log.error("Error while trying to update producer '{}'", producer.getName(), e);
         }
+    }
+    public static List<Producer> findAll() {
+        log.info("Finding ALL Producers");
+
+        String query = "SELECT * FROM `db_anime_store`.`tbl_producer`;";
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                var id = rs.getInt("id");
+                var name = rs.getString("name");
+
+                producersList.add(Producer.builder()
+                                .id(id)
+                                .name(name)
+                                .build());
+            }
+
+            // Qualquer query com retorno de registros utiliza `executeQuery()`.
+            // Returns ResultSet rs = stmt.executeQuery(query);
+
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers", e);
+        }
+
+        return producersList;
     }
 }
