@@ -161,4 +161,71 @@ public class ProducerRepository {
             log.error("Error while trying to find all producers", e);
         }
     }
+    public static void showDriverMetaData() {
+        log.info("Showing driver metadada.. ");
+
+        String query = "SELECT * FROM `db_anime_store`.`tbl_producer`;";
+
+        try (Connection conn = ConnectionFactory.getConnection()) {
+            DatabaseMetaData databaseMetaData = conn.getMetaData();
+
+            // ResultSet Types é a forma como podemos navegar nos registros
+            // Unidirecionalmente, apenas de cima para baixo (do primeiro registro
+            // até o ultimo, ou do ultimo até o primeiro..
+            // E Além disto, verificamos se pra cada tipo desse, ele suporta
+            // alterações enquanto percorre e etc...
+            // Ou seja, informações sobre o cursor do resultset
+            if(databaseMetaData.supportsResultSetType(ResultSet.TYPE_FORWARD_ONLY)) {
+                log.info("TYPE_FORWARD_ONLY: O Driver NÃO suporta navegações unidirecionais, ou seja " +
+                        "não podemos navegar do fim para o inicio e vici versa nos records");
+
+                // Verificando se além de navegar unidirecional podemos alterar os registros
+                // enquanto percorremos os registros de cima para baixo e vici versa...
+                if (databaseMetaData.supportsResultSetConcurrency(ResultSet.TYPE_FORWARD_ONLY,
+                                                                  ResultSet.CONCUR_UPDATABLE)) {
+                    log.info("& CONCUR_UPDATABLE: O Driver suporta alterações nos registros enquanto percorremos " +
+                            "unidirecionalmente os registros, ou seja UPDATABLE");
+                }
+            }
+
+            // TYPE_SCROLL_INSENSITIVE indica que podemos navegar unidirecionalmente,
+            // porém as alterações feitas nele não refletem no banco de dados..
+            // ou seja, mantém apenas em Cache essas mudanças...
+            if(databaseMetaData.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE)) {
+                log.info("TYPE_SCROLL_INSENSITIVE: O Driver suporta navegações unidirecionais, ou seja " +
+                        "podemos navegar do fim para o inicio e vici versa nos records " +
+                        "PORÉM não reflete as alterações aqui feitas no banco de dados...");
+
+                // Verificando se além de navegar unidirecional podemos alterar os registros
+                // enquanto percorremos os registros de cima para baixo e vici versa...
+                if (databaseMetaData.supportsResultSetConcurrency(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                  ResultSet.CONCUR_UPDATABLE)) {
+                    log.info("& CONCUR_UPDATABLE: O Driver suporta alterações nos registros enquanto percorremos " +
+                            "unidirecionalmente os registros, ou seja UPDATABLE");
+                }
+            }
+
+            // TYPE_SCROLL_SENSITIVE indica que podemos navegar unidirecionalmente,
+            // porém ao contrário do anterior, aqui as mudanças feitas no banco de dados
+            // são refletidas neste RESULTSET, ou seja, não será necessário realizar
+            // novas consultas, pois as mudanças lá seram refletidas aqui também!
+            // OBS: Poucos drivers suportam essa funcionalidade devido a complexidade.
+            if(databaseMetaData.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE)) {
+                log.info("TYPE_SCROLL_SENSITIVE: O Driver suporta navegações unidirecionais, ou seja " +
+                        "podemos navegar do fim para o inicio e vici versa nos records " +
+                        "E as alterações feitas no banco são refletidas aqui!!!");
+
+                // Verificando se além de navegar unidirecional podemos alterar os registros
+                // enquanto percorremos os registros de cima para baixo e vici versa...
+                if (databaseMetaData.supportsResultSetConcurrency(ResultSet.TYPE_SCROLL_SENSITIVE,
+                                                                  ResultSet.CONCUR_UPDATABLE)) {
+                    log.info("& CONCUR_UPDATABLE: O Driver suporta alterações nos registros enquanto percorremos " +
+                            "unidirecionalmente os registros, ou seja UPDATABLE");
+                }
+            }
+
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers", e);
+        }
+    }
 }
