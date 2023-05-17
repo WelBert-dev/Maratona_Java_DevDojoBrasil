@@ -140,13 +140,95 @@ do driver JDBC e do banco de dados subjacente.
 
 */
 
+/* Definições sobre ResultSet.TYPE_SCROLL_INSENSITIVE (Navegação aleatória liberada, Alterações correntes no banco NÃO são refletidas neste Resultset)
+
+É uma constante usada para definir o tipo de cursor em um objeto ResultSet.
+Essa constante é usada juntamente com outras constantes para definir o tipo
+e a concorrência do cursor ao criar um ResultSet a partir de uma consulta SQL.
+
+Ao usar ResultSet.TYPE_SCROLL_INSENSITIVE, você está indicando que o ResultSet
+permite rolagem (scroll) bidirecional pelos registros, ou seja, você pode mover
+o cursor para frente e para trás pelos registros. Além disso, o ResultSet é
+insensível a alterações externas ao banco de dados enquanto você estiver
+navegando pelos registros. (Ou seja, as mudanças realizadas no banco, enquanto
+percorre o ResultSet, ele NÃO será atualizado em tempo real com essas mudanças).
+
+A principal utilidade de ResultSet.TYPE_SCROLL_INSENSITIVE é permitir que você
+acesse registros em qualquer posição, seja para frente ou para trás, dentro do
+conjunto de resultados.
+Isso pode ser útil em cenários onde você precisa percorrer os registros em ordem
+não sequencial, saltar para uma posição específica ou navegar pelos registros de
+forma personalizada.
+
+Com um ResultSet desse tipo, você pode usar os métodos absolute(), relative(),
+first(), last(), entre outros, para mover o cursor para uma posição desejada.
+Além disso, você pode recuperar os valores das colunas para o registro atual
+usando os métodos getString(), getInt(), getDate(), entre outros.
+
+É importante observar que, embora ResultSet.TYPE_SCROLL_INSENSITIVE permita rolagem
+pelos registros, ele não reflete automaticamente as alterações feitas no banco de
+dados por outras transações. Ou seja, se outro processo ou transação alterar os
+dados enquanto você estiver percorrendo o ResultSet, essas alterações não serão
+refletidas automaticamente. Nesse caso, você precisará atualizar o ResultSet ou
+executar uma nova consulta para obter os dados mais recentes.
+
+Em resumo, ResultSet.TYPE_SCROLL_INSENSITIVE é uma constante usada para definir
+o tipo de cursor em um ResultSet, permitindo rolagem bidirecional pelos registros.
+Isso possibilita acessar registros em qualquer posição dentro do conjunto de
+resultados. No entanto, é importante observar que ele não reflete automaticamente
+as alterações externas ao banco de dados enquanto você estiver navegando pelos
+registros.
+
+*/
+
+/* Definições sobre ResultSet.TYPE_SCROLL_SENSITIVE (Navegação aleatória liberada, e as alterações corrente no banco são refletidas neste ResultSet)
+OBS: MySQL NÃO SUPORTA ESSE TIPO DE RESULTSET!
+
+É uma constante usada para definir o tipo de cursor em um objeto ResultSet.
+Essa constante é usada juntamente com outras constantes para definir o tipo e a
+concorrência do cursor ao criar um ResultSet a partir de uma consulta SQL.
+
+Ao usar ResultSet.TYPE_SCROLL_SENSITIVE, você está indicando que o ResultSet
+permite rolagem (scroll) bidirecional pelos registros e é sensível a alterações
+externas ao banco de dados.
+Isso significa que, enquanto você estiver navegando pelos registros, o ResultSet
+refletirá automaticamente quaisquer alterações feitas no banco de dados por outras
+transações.
+
+A principal utilidade de ResultSet.TYPE_SCROLL_SENSITIVE é permitir que você
+acesse registros em qualquer posição, seja para frente ou para trás, dentro do
+conjunto de resultados, e refletir em current time as alterações feitas por
+outras transações no banco de dados.
+Isso pode ser útil em cenários onde você precisa de uma visão atualizada dos
+dados à medida que percorre o ResultSet.
+
+Com um ResultSet desse tipo, você pode usar os métodos absolute(), relative(),
+first(), last(), entre outros, para mover o cursor para uma posição desejada.
+Além disso, você pode recuperar os valores das colunas para o registro atual
+usando os métodos getString(), getInt(), getDate(), entre outros.
+
+É importante observar que nem todos os bancos de dados e drivers JDBC suportam
+ResultSet.TYPE_SCROLL_SENSITIVE. Portanto, é necessário verificar a documentação
+do driver JDBC específico e as capacidades do banco de dados para confirmar se
+esse tipo de cursor é suportado.
+
+Em resumo, ResultSet.TYPE_SCROLL_SENSITIVE é uma constante usada para definir o
+tipo de cursor em um ResultSet, permitindo rolagem bidirecional pelos registros
+e refletindo automaticamente as alterações externas ao banco de dados.
+Isso possibilita acessar registros em qualquer posição dentro do conjunto de
+resultados e ver as alterações feitas por outras transações em current time.
+No entanto, é importante verificar a compatibilidade com o banco de dados e o
+driver JDBC utilizado.
+
+*/
+
 import T_jdbc.service.ProducerService;
 
 public class Aula264DatabaseMetaData_metadadosDoDriver_analisandoComportamentoDoDriverComoUmTodo {
     public static void main(String[] args) {
         ProducerService.showDriverMetaData();
         // Showing driver metadada..
-        // TYPE_FORWARD_ONLY: O Driver suporta navegações unidirecionais, ou seja podemos navegar do fim para o inicio e vici versa nos records
+        // TYPE_FORWARD_ONLY: O Driver NÃO suporta navegações unidirecionais, ou seja podemos navegar do fim para o inicio e vici versa nos records
         // & CONCUR_UPDATABLE: O Driver suporta alterações nos registros enquanto percorremos unidirecionalmente os registros, ou seja UPDATABLE
 
         // TYPE_SCROLL_INSENSITIVE: O Driver suporta navegações unidirecionais, ou seja podemos navegar do fim para o inicio e vici versa nos records PORÉM não reflete as alterações aqui feitas no banco de dados...
