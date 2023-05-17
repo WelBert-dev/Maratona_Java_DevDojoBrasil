@@ -228,4 +228,61 @@ public class ProducerRepository {
             log.error("Error while trying to find all producers", e);
         }
     }
+    public static void showTypeScrollWorking() {
+        log.info("Showing how type scroll working.. ");
+
+        String query = "SELECT * FROM `db_anime_store`.`tbl_producer`;";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            // Movendo o cursor a vontade, pois TYPE_SCROLL_INSENSITIVE.. (porém as transações corrente no DB não é refletido aqui..)
+            log.info("Movendo o cursor a vontade, pois TYPE_SCROLL_INSENSITIVE.. (porém as transações corrente no DB não é refletido aqui..)");
+            log.info("Last row? '{}'", rs.last());
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("Producer Java Entity: '{}'", Producer.builder().id(rs.getInt("id")).name(rs.getString("name")).build());
+            log.info("------------------------------------------------------------");
+
+            log.info("Row Absolute? '{}'", rs.absolute(2)); // aponta diretamente para o registro 2
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("Producer Java Entity: '{}'", Producer.builder().id(rs.getInt("id")).name(rs.getString("name")).build());
+            log.info("------------------------------------------------------------");
+
+            log.info("Row Relative? '{}'", rs.relative(-1)); // aponta o cursor -1 apartir da linha corrente (2)
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("Producer Java Entity: '{}'", Producer.builder().id(rs.getInt("id")).name(rs.getString("name")).build());
+            log.info("------------------------------------------------------------");
+
+            // Verificando em qual posição estamos, sem alterar o ponteiro do Cursor:
+            log.info("Verificando em qual posição estamos, sem alterar o ponteiro do Cursor:");
+            log.info("is Last? '{}'", rs.isLast());
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("------------------------------------------------------------");
+
+            log.info("is First? '{}'", rs.isFirst());
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("------------------------------------------------------------");
+
+            // Aqui precisamos ultrapassar o ultimo elemento, fazendo o cursor apontar para null -1:
+            log.info("Aqui precisamos ultrapassar o ultimo elemento, fazendo o cursor apontar para null -1:");
+            rs.last();
+            rs.next();
+            log.info("is After Last Row? '{}'", rs.isAfterLast());
+            log.info("Row number: '{}'", rs.getRow());
+            log.info("------------------------------------------------------------");
+
+            // Aqui estamos depois do ultimo elemento (null), então voltamos tudo:
+            // Obs: Se estivessemos no ultimo elemento (rs.last()), o previous iria
+            // começar pulando esse ultimo elemento, porisso é necessário apontar
+            // o cursor para o AfterLast e depois utiliza-lo...
+            log.info("Aqui estamos depois do ultimo elemento (null), então voltamos tudo com previous:");
+            while(rs.previous()) {
+                log.info("Producer Java Entity: '{}'", Producer.builder().id(rs.getInt("id")).name(rs.getString("name")).build());
+            }
+
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers", e);
+        }
+    }
 }
