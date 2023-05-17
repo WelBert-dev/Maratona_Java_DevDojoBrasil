@@ -4,10 +4,7 @@ import T_jdbc.conn.ConnectionFactory;
 import T_jdbc.domain.Producer;
 import lombok.extern.log4j.Log4j2;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,5 +112,53 @@ public class ProducerRepository {
         }
 
         return producersList;
+    }
+    public static void showProducerMetaData() {
+        log.info("Showing tbl_producer metadada.. ");
+
+        String query = "SELECT * FROM `db_anime_store`.`tbl_producer`;";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            ResultSetMetaData metaData = rs.getMetaData();
+            rs.next();
+            int columnCount = metaData.getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                log.info("------------------------------------------------------------");
+                log.info("Table Name: '{}'", metaData.getTableName(i));
+                log.info("Column Name: '{}'", metaData.getColumnName(i));
+                log.info("Column Name Type: '{}'", metaData.getColumnTypeName(i));
+                log.info("Column Label: '{}'", metaData.getColumnLabel(i));
+                log.info("Column Catalog name: '{}'", metaData.getCatalogName(i));
+                log.info("Column Class Name: '{}'", metaData.getColumnClassName(i));
+                log.info("Column Display Size: '{}'", metaData.getColumnDisplaySize(i));
+                log.info("Precision: '{}'", metaData.getPrecision(i));
+                log.info("Scale: '{}'", metaData.getScale(i));
+                log.info("Schema Name: '{}'", metaData.getSchemaName(i));
+                log.info("Column '{}' isAutoIncrement? : '{}'",metaData.getColumnName(i),
+                                                                       metaData.isAutoIncrement(i));
+                log.info("Column '{}' isCurrency? : '{}'",metaData.getColumnName(i),
+                                                                  metaData.isCurrency(i));
+                log.info("Column '{}' isNullable? : '{}'",metaData.getColumnName(i),
+                                                                  metaData.isNullable(i));
+                log.info("Column '{}' isCaseSensitive? : '{}'",metaData.getColumnName(i),
+                                                                       metaData.isCaseSensitive(i));
+                log.info("Column '{}' isSearchable? : '{}'",metaData.getColumnName(i),
+                                                                    metaData.isSearchable(i));
+                log.info("Column '{}' isReadOnly? : '{}'",metaData.getColumnName(i),
+                                                                  metaData.isReadOnly(i));
+                log.info("Column '{}' isWritable? : '{}'",metaData.getColumnName(i),
+                                                                  metaData.isWritable(i));
+                log.info("Column '{}' isSigned? : '{}'",metaData.getColumnName(i),
+                                                                metaData.isSigned(i));
+                log.info("Column '{}' isDefinitelyWritable? : '{}'",metaData.getColumnName(i),
+                                                                            metaData.isDefinitelyWritable(i));
+                log.info("------------------------------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers", e);
+        }
     }
 }
