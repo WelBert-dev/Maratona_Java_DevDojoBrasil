@@ -313,4 +313,42 @@ public class ProducerRepository {
 
         return producersList;
     }
+    public static List<Producer> findByNameAndInsertWhenNotFound(String name) {
+        log.info("Finding ALL Producers with name like '{}' and Insert when notfound in DB...", name);
+
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`\n" +
+                "WHERE `name` LIKE '%%%s%%';".formatted(name);
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (!rs.next()) {
+                System.out.println("ENTROOOU NO IF NOT NEXT");
+                rs.moveToInsertRow();
+                rs.updateString("name", name);
+                rs.insertRow();
+
+                // Volta e vai dnv para pegar o id que foi gerado no Insert.
+                rs.beforeFirst();
+                rs.next();
+                return List.of(Producer.builder().id(rs.getInt("id")).name(name).build());
+            }
+
+            // Volta pois existem ocorrências, ou seja, não insere nada.
+            rs.beforeFirst();
+            while(rs.next()){
+                System.out.println("ENTROOOU NO WHILE EXISTS");
+                producersList.add(Producer.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .build());
+            }
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers with name like {}", name, e);
+        }
+
+        return producersList;
+    }
 }
