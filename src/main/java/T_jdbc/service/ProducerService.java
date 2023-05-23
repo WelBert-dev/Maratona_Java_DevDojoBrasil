@@ -55,6 +55,12 @@ public class ProducerService {
 
         return ProducerRepository.findByNameAndInsertWhenNotFound(name);
     }
+    public static List<Producer> findByNameAndDeleteWhenFound(String name) {
+        if (name == null || name.equals(""))
+            throw new IllegalArgumentException("Invalid value for name!");
+
+        return ProducerRepository.findByNameAndDeleteWhenFound(name);
+    }
     private static void requiredValidId(Integer id){
         if (id == null || id <= 0)
             throw new IllegalArgumentException("Invalid value for id!");

@@ -351,4 +351,34 @@ public class ProducerRepository {
 
         return producersList;
     }
+    public static List<Producer> findByNameAndDeleteWhenFound(String name) {
+        log.info("Finding ALL Producers with name like '{}' and DELETE when found in DB...", name);
+
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`\n" +
+                "WHERE `name` LIKE '%%%s%%';".formatted(name);
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (!rs.next()) return producersList;
+
+            // Volta pois existem ocorrências, ou seja, DELETA todas ocorrências do DB.
+            rs.beforeFirst();
+            while(rs.next()){
+                System.out.println("ENTROOOU NO WHILE EXISTS");
+                producersList.add(Producer.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .build());
+
+                rs.deleteRow();
+            }
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers with name like {}", name, e);
+        }
+
+        return producersList;
+    }
 }
