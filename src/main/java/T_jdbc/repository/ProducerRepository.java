@@ -285,4 +285,32 @@ public class ProducerRepository {
             log.error("Error while trying to find all producers", e);
         }
     }
+    public static List<Producer> findByNameAndUpdateToUpperCaseInDatabase(String name) {
+        log.info("Finding ALL Producers with name like '{}' and Updated to UPPERCASE in DB...", name);
+
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`\n" +
+                "WHERE `name` LIKE '%%%s%%';".formatted(name);
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                rs.updateString("name", rs.getString("name").toUpperCase());
+                // rs.cancelRowUpdates(); -> Caso queira cancelar, tem que ser antes de updateRow();
+                // Uma vez executado o trigger updateRow() não podemos retornar atrás!!
+                rs.updateRow();
+
+                producersList.add(Producer.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .build());
+            }
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers with name like {}", name, e);
+        }
+
+        return producersList;
+    }
 }
