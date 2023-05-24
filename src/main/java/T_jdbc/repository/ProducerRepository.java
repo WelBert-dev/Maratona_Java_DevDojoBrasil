@@ -414,4 +414,25 @@ public class ProducerRepository {
         ps.setString(1, String.format("%%%s%%", name));
         return ps;
     }
+    public static void updatePreparedStatement(Producer producer) {
+        String query = ("UPDATE `db_anime_store`.`tbl_producer` " +
+                "SET `name` = ? " +
+                "WHERE (`id` = ?);");
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = createPreparedStatementForUpdate(conn, query, producer)) {
+
+            int rowsAffected = ps.executeUpdate();
+            log.info("Updated producer '{}' from the database, rows affected '{}'", producer.getName(), rowsAffected);
+            // Qualquer alteração nos records/registros que a query for gerar utiliza `executeUpdate()`.
+        } catch (SQLException e) {
+            log.error("Error while trying to update producer '{}'", producer.getName(), e);
+        }
+    }
+    private static PreparedStatement createPreparedStatementForUpdate(Connection conn, String query, Producer producer) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ps.setString(1, producer.getName());
+        ps.setInt(2, producer.getId());
+        return ps;
+    }
 }
