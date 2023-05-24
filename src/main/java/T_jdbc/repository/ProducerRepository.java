@@ -381,4 +381,37 @@ public class ProducerRepository {
 
         return producersList;
     }
+    public static List<Producer> findByNamePreparedStatement(String name) {
+        log.info("Finding ALL Producers with name like '{}' using PreparedStatement for SQLInjection Handdler...", name);
+
+        String query = "SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`\n" +
+                "WHERE `name` LIKE ?;";
+
+        List<Producer> producersList = new ArrayList<>();
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = createPreparedStatement(conn, query, name);
+             ResultSet rs = preparedStatement.executeQuery()) {
+
+            if (!rs.next()) return producersList;
+
+            // Volta pois existem ocorrências, ou seja, returns all
+            rs.beforeFirst();
+            while(rs.next()){
+                System.out.println("ENTROOOU NO WHILE EXISTS");
+                producersList.add(Producer.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .build());
+            }
+        } catch (SQLException e) {
+            log.error("Error while trying to find all producers with name like {}", name, e);
+        }
+
+        return producersList;
+    }
+    private static PreparedStatement createPreparedStatement(Connection conn, String query, String name) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ps.setString(1, String.format("%%%s%%", name));
+        return ps;
+    }
 }
