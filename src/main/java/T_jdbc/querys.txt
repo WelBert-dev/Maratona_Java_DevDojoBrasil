@@ -105,3 +105,27 @@ CREATE TABLE IF NOT EXISTS `db_anime_store`.`tbl_anime`(
 
     SELECT `id`, `name` FROM `db_anime_store`.`tbl_producer`
     WHERE `name` LIKE %?%;
+
+-------------------------------------------------------------------------------
+[Aula270 - CallableStatement utilizado quando queremos executar Procedures e Functions]: Select where like
+
+CallableStatement: Utilizada quando queremos executar Storage Procedures e Functions no DB
+
+	- Functions obrigatóriamente possuem retorno;
+	- Storage Procedures podem ter ou não ter;
+    USE db_anime_store;
+    DELIMITER $$
+    CREATE PROCEDURE sp_get_producer_by_name_usingLike(param_name varchar(100))
+    BEGIN
+    SELECT * FROM `db_anime_store`.`tbl_producer` AS p WHERE p.name LIKE '%param_name%';
+    END$$
+    DELIMITER ;
+
+    CALL `db_anime_store`.`sp_get_producer_by_name_usingLike`("STUDIO"); // -> esse cara que a gente chama no Java,
+    // Ou seja, precisamos primeiro criar a procedure no DB pra depois chamar no Java!
+
+
+---> ProducerRepository:
+- public static List<Producer> findByNameCallableStatement(String name):
+    ...
+    String query = "CALL sp_get_producer_by_name_usingLike("?");"
